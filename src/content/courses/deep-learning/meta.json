@@ -1,0 +1,369 @@
+{
+  "id": "deep-learning",
+  "slug": "deep-learning",
+  "title": "딥러닝",
+  "description": "신경망과 딥러닝 모델을 깊이 있게 학습하는 과정입니다.",
+  "icon": "🔥",
+  "orderNum": 3,
+  "isPublished": true,
+  "estimatedHours": 16,
+  "difficulty": "advanced",
+  "chapters": [
+    {
+      "id": "deep-learning-ch1",
+      "courseId": "deep-learning",
+      "slug": "ch1-neural-networks",
+      "title": "신경망의 기초",
+      "description": "인공 신경망의 기본 구조와 학습 원리를 이해합니다.",
+      "orderNum": 1,
+      "sections": [
+        {
+          "id": "deep-learning-ch1-s1",
+          "chapterId": "deep-learning-ch1",
+          "slug": "perceptron-and-neural-networks",
+          "title": "퍼셉트론과 인공 신경망",
+          "content": "## 퍼셉트론: 신경망의 시작점\n\n**퍼셉트론(Perceptron)**은 1957년 프랭크 로젠블랫(Frank Rosenblatt)이 제안한 가장 기초적인 인공 신경망 모델입니다. 생물학적 뉴런의 동작 원리에서 영감을 받아 설계되었으며, 현대 딥러닝의 기반이 되는 개념입니다.\n\n### 생물학적 뉴런과의 비교\n\n우리 뇌의 뉴런은 다음과 같은 방식으로 동작합니다:\n\n- **수상돌기(Dendrites)**: 다른 뉴런으로부터 신호를 받아들임\n- **세포체(Cell Body)**: 받은 신호를 통합하여 처리\n- **축삭(Axon)**: 처리된 신호를 다른 뉴런으로 전달\n\n퍼셉트론은 이 구조를 수학적으로 모델링합니다. 입력(x)은 수상돌기에, 가중치(w)는 시냅스의 강도에, 활성화 함수는 세포체의 발화 결정에 대응됩니다.\n\n### 퍼셉트론의 수학적 구조\n\n퍼셉트론의 출력은 다음과 같이 계산됩니다:\n\n**y = f(w₁x₁ + w₂x₂ + ... + wₙxₙ + b)**\n\n여기서:\n- **x₁, x₂, ..., xₙ**: 입력 값들\n- **w₁, w₂, ..., wₙ**: 각 입력에 대한 가중치\n- **b**: 편향(bias)\n- **f**: 활성화 함수 (초기에는 계단 함수 사용)\n\n### 단일 퍼셉트론의 한계: XOR 문제\n\n퍼셉트론은 **선형 분리 가능(linearly separable)**한 문제만 해결할 수 있습니다. AND, OR 게이트는 해결 가능하지만, **XOR 게이트는 단일 퍼셉트론으로 해결할 수 없습니다**.\n\n이 한계는 1969년 마빈 민스키와 시모어 페퍼트가 지적했으며, 이로 인해 AI 연구의 첫 번째 침체기(AI Winter)가 시작되었습니다.\n\n### 다층 퍼셉트론(MLP)의 등장\n\n**다층 퍼셉트론(Multi-Layer Perceptron)**은 퍼셉트론을 여러 층으로 쌓아 XOR 문제를 비롯한 비선형 문제를 해결합니다.\n\n- **입력층(Input Layer)**: 데이터를 받아들이는 층\n- **은닉층(Hidden Layers)**: 중간 계산을 수행하는 층 (여러 개 가능)\n- **출력층(Output Layer)**: 최종 결과를 출력하는 층\n\n은닉층이 많아질수록 더 복잡한 패턴을 학습할 수 있으며, 이것이 바로 **딥러닝(Deep Learning)**의 '딥(Deep)'이 의미하는 바입니다.\n\n### 신경망 학습의 핵심 아이디어\n\n신경망은 **데이터로부터 스스로 가중치를 학습**합니다. 정답과의 오차를 줄이는 방향으로 가중치를 조금씩 조정하는 과정을 반복합니다. 이는 마치 시행착오를 통해 점점 더 나은 답을 찾아가는 것과 같습니다.\n\n학습 과정에서 사용되는 핵심 개념들:\n\n- **손실 함수(Loss Function)**: 예측과 정답 사이의 오차를 측정\n- **경사 하강법(Gradient Descent)**: 오차를 줄이는 방향으로 가중치 업데이트\n- **역전파(Backpropagation)**: 각 가중치가 오차에 기여한 정도를 계산",
+          "contentType": "text",
+          "orderNum": 1,
+          "estimatedMinutes": 25,
+          "quizzes": [
+            {
+              "id": "deep-learning-ch1-s1-q1",
+              "sectionId": "deep-learning-ch1-s1",
+              "type": "multiple_choice",
+              "question": "퍼셉트론에서 생물학적 뉴런의 시냅스 강도에 해당하는 요소는 무엇인가요?",
+              "options": ["입력 값(x)", "가중치(w)", "편향(b)", "활성화 함수(f)"],
+              "correctAnswer": "가중치(w)",
+              "explanation": "시냅스는 뉴런 사이의 연결 강도를 조절합니다. 퍼셉트론에서 가중치(w)는 각 입력의 중요도를 조절하는 역할을 하므로, 시냅스의 강도에 대응됩니다.",
+              "orderNum": 1
+            },
+            {
+              "id": "deep-learning-ch1-s1-q2",
+              "sectionId": "deep-learning-ch1-s1",
+              "type": "true_false",
+              "question": "단일 퍼셉트론은 XOR 문제를 해결할 수 있다.",
+              "correctAnswer": "false",
+              "explanation": "단일 퍼셉트론은 선형 분리 가능한 문제만 해결할 수 있습니다. XOR 문제는 비선형이므로 다층 퍼셉트론(MLP)이 필요합니다. 이 한계는 1969년 민스키와 페퍼트에 의해 지적되었습니다.",
+              "orderNum": 2
+            },
+            {
+              "id": "deep-learning-ch1-s1-q3",
+              "sectionId": "deep-learning-ch1-s1",
+              "type": "multiple_choice",
+              "question": "딥러닝에서 'Deep'이 의미하는 것은 무엇인가요?",
+              "options": ["데이터의 깊이", "은닉층의 개수가 많음", "학습 시간이 길다", "정확도가 높다"],
+              "correctAnswer": "은닉층의 개수가 많음",
+              "explanation": "'Deep' Learning의 'Deep'은 신경망의 은닉층(Hidden Layers)이 여러 개라는 것을 의미합니다. 층이 깊어질수록 더 복잡하고 추상적인 특징을 학습할 수 있습니다.",
+              "orderNum": 3
+            }
+          ]
+        },
+        {
+          "id": "deep-learning-ch1-s2",
+          "chapterId": "deep-learning-ch1",
+          "slug": "activation-functions-and-backpropagation",
+          "title": "활성화 함수와 역전파",
+          "content": "## 활성화 함수: 비선형성의 핵심\n\n**활성화 함수(Activation Function)**는 신경망에 비선형성을 부여하는 핵심 요소입니다. 활성화 함수가 없다면, 아무리 많은 층을 쌓아도 결국 하나의 선형 변환과 동일해집니다.\n\n### 주요 활성화 함수\n\n#### 1. 시그모이드(Sigmoid)\n\n**σ(x) = 1 / (1 + e⁻ˣ)**\n\n- 출력 범위: 0 ~ 1\n- 확률을 나타내기 적합\n- **문제점**: 기울기 소실(Vanishing Gradient) - 입력이 크거나 작으면 기울기가 거의 0에 가까워짐\n\n#### 2. 하이퍼볼릭 탄젠트(tanh)\n\n**tanh(x) = (eˣ - e⁻ˣ) / (eˣ + e⁻ˣ)**\n\n- 출력 범위: -1 ~ 1\n- 시그모이드보다 중심이 0이라 학습에 유리\n- 여전히 기울기 소실 문제 존재\n\n#### 3. ReLU (Rectified Linear Unit)\n\n**ReLU(x) = max(0, x)**\n\n- 가장 널리 사용되는 활성화 함수\n- 계산이 단순하고 빠름\n- 기울기 소실 문제를 크게 완화\n- **문제점**: Dying ReLU - 음수 입력에서 뉴런이 죽을 수 있음\n\n#### 4. Leaky ReLU와 변형들\n\n**Leaky ReLU(x) = max(αx, x)** (보통 α = 0.01)\n\n- Dying ReLU 문제 해결\n- ELU, SELU, GELU 등 다양한 변형 존재\n\n### 역전파(Backpropagation) 알고리즘\n\n**역전파**는 신경망 학습의 핵심 알고리즘으로, 1986년 루멜하트, 힌튼, 윌리엄스에 의해 대중화되었습니다.\n\n#### 핵심 아이디어: 연쇄 법칙(Chain Rule)\n\n신경망은 여러 함수가 합성된 구조입니다. 각 가중치가 최종 오차에 얼마나 기여했는지 알려면, **연쇄 법칙(Chain Rule)**을 사용해 기울기를 거꾸로 전파합니다.\n\n예를 들어, f(g(x))의 미분은:\n**df/dx = df/dg × dg/dx**\n\n#### 역전파의 단계\n\n1. **순전파(Forward Pass)**: 입력에서 출력까지 계산\n2. **손실 계산**: 예측과 정답의 차이 측정\n3. **역전파(Backward Pass)**: 출력에서 입력 방향으로 기울기 계산\n4. **가중치 업데이트**: 기울기에 따라 가중치 조정\n\n### 기울기 소실과 폭발 문제\n\n#### 기울기 소실(Vanishing Gradient)\n\n깊은 신경망에서 시그모이드나 tanh를 사용하면, 역전파 시 기울기가 점점 작아져서 앞쪽 층의 가중치가 거의 업데이트되지 않습니다.\n\n**해결책**:\n- ReLU 계열 활성화 함수 사용\n- 배치 정규화(Batch Normalization)\n- 잔차 연결(Residual Connection)\n- 적절한 가중치 초기화\n\n#### 기울기 폭발(Exploding Gradient)\n\n반대로 기울기가 지수적으로 커지는 문제도 있습니다.\n\n**해결책**:\n- 기울기 클리핑(Gradient Clipping)\n- 가중치 정규화\n- LSTM/GRU 구조 (RNN의 경우)\n\n### 최적화 알고리즘\n\n기본 경사 하강법 외에도 다양한 최적화 기법이 있습니다:\n\n- **SGD(Stochastic Gradient Descent)**: 미니배치 사용\n- **Momentum**: 이전 기울기의 방향성 유지\n- **Adam**: Momentum + 적응적 학습률 (가장 널리 사용)\n- **AdaGrad, RMSprop**: 적응적 학습률 기법들\n\n### 실전 팁\n\n1. **활성화 함수 선택**: 은닉층에는 ReLU, 출력층에는 문제에 따라 선택 (분류: Softmax/Sigmoid, 회귀: Linear)\n2. **학습률(Learning Rate)**: 너무 크면 발산, 너무 작으면 느림. 보통 0.001에서 시작\n3. **배치 크기**: 메모리와 일반화 성능 사이의 균형 고려",
+          "contentType": "text",
+          "orderNum": 2,
+          "estimatedMinutes": 30,
+          "quizzes": [
+            {
+              "id": "deep-learning-ch1-s2-q1",
+              "sectionId": "deep-learning-ch1-s2",
+              "type": "multiple_choice",
+              "question": "ReLU 활성화 함수의 주요 장점은 무엇인가요?",
+              "options": ["출력이 항상 0과 1 사이이다", "기울기 소실 문제를 크게 완화한다", "모든 입력에서 기울기가 일정하다", "확률 값을 직접 출력한다"],
+              "correctAnswer": "기울기 소실 문제를 크게 완화한다",
+              "explanation": "ReLU는 양수 입력에서 기울기가 1로 일정하여 기울기 소실 문제를 크게 완화합니다. 또한 계산이 단순하여 학습 속도도 빠릅니다.",
+              "orderNum": 1
+            },
+            {
+              "id": "deep-learning-ch1-s2-q2",
+              "sectionId": "deep-learning-ch1-s2",
+              "type": "fill_blank",
+              "question": "역전파 알고리즘에서 각 가중치의 기울기를 계산하기 위해 사용하는 미적분 원리는 ______이다.",
+              "correctAnswer": "연쇄 법칙",
+              "explanation": "연쇄 법칙(Chain Rule)은 합성 함수의 미분을 계산하는 방법입니다. 신경망은 여러 함수가 합성된 구조이므로, 역전파에서 연쇄 법칙을 사용해 각 가중치에 대한 기울기를 계산합니다.",
+              "orderNum": 2
+            },
+            {
+              "id": "deep-learning-ch1-s2-q3",
+              "sectionId": "deep-learning-ch1-s2",
+              "type": "multiple_choice",
+              "question": "현재 가장 널리 사용되는 최적화 알고리즘은 무엇인가요?",
+              "options": ["SGD", "Momentum", "Adam", "AdaGrad"],
+              "correctAnswer": "Adam",
+              "explanation": "Adam은 Momentum과 적응적 학습률의 장점을 결합한 최적화 알고리즘입니다. 대부분의 경우 좋은 성능을 보여 기본 선택으로 많이 사용됩니다.",
+              "orderNum": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deep-learning-ch2",
+      "courseId": "deep-learning",
+      "slug": "ch2-cnn",
+      "title": "합성곱 신경망 (CNN)",
+      "description": "이미지 처리의 혁명을 이끈 CNN의 구조와 응용을 학습합니다.",
+      "orderNum": 2,
+      "sections": [
+        {
+          "id": "deep-learning-ch2-s1",
+          "chapterId": "deep-learning-ch2",
+          "slug": "cnn-structure-and-principles",
+          "title": "CNN의 구조와 원리",
+          "content": "## 합성곱 신경망(CNN)이란?\n\n**합성곱 신경망(Convolutional Neural Network, CNN)**은 이미지와 같은 격자 구조 데이터를 처리하기 위해 설계된 신경망입니다. 1989년 얀 르쿤(Yann LeCun)이 제안한 LeNet이 시초이며, 2012년 AlexNet의 ImageNet 우승으로 딥러닝 혁명이 시작되었습니다.\n\n### 왜 이미지에 일반 신경망이 적합하지 않은가?\n\n일반 **완전연결층(Fully Connected Layer)**으로 이미지를 처리하면:\n\n- **파라미터 폭발**: 1000×1000 RGB 이미지 → 3백만 개 입력. 은닉층 1000개만 해도 30억 개의 가중치!\n- **공간 정보 손실**: 이미지를 1차원으로 펼치면 픽셀 간 공간 관계가 사라짐\n- **이동 불변성 부재**: 같은 물체가 위치만 달라도 전혀 다른 입력으로 인식\n\n### CNN의 핵심 아이디어\n\nCNN은 세 가지 핵심 아이디어로 이 문제를 해결합니다:\n\n#### 1. 지역 연결(Local Connectivity)\n\n각 뉴런이 전체 입력이 아닌 **작은 영역(Receptive Field)**에만 연결됩니다. 예를 들어, 3×3 필터는 한 번에 9개 픽셀만 봅니다. 이를 통해 파라미터 수를 획기적으로 줄입니다.\n\n#### 2. 가중치 공유(Weight Sharing)\n\n같은 필터가 이미지의 모든 위치에서 동일하게 적용됩니다. 이로써:\n- 파라미터 수 대폭 감소\n- 이동 불변성(Translation Invariance) 획득\n- 어디에 있든 같은 패턴을 인식 가능\n\n#### 3. 계층적 특징 추출\n\n층이 깊어질수록 더 추상적인 특징을 학습합니다:\n- **초기 층**: 엣지, 색상, 텍스처\n- **중간 층**: 눈, 코, 바퀴 등 부분\n- **후기 층**: 얼굴, 자동차 등 객체 전체\n\n### CNN의 구성 요소\n\n#### 합성곱 층(Convolutional Layer)\n\n**필터(커널)**가 이미지 위를 슬라이딩하며 합성곱 연산을 수행합니다.\n\n- **필터 크기**: 보통 3×3, 5×5 사용\n- **스트라이드(Stride)**: 필터의 이동 간격\n- **패딩(Padding)**: 출력 크기 조절을 위해 가장자리에 0 추가\n- **특성 맵(Feature Map)**: 합성곱의 출력\n\n출력 크기 계산: **(입력 크기 - 필터 크기 + 2×패딩) / 스트라이드 + 1**\n\n#### 풀링 층(Pooling Layer)\n\n특성 맵의 크기를 줄여 계산량을 감소시키고 위치 변화에 강건해집니다.\n\n- **최대 풀링(Max Pooling)**: 영역 내 최대값 선택 (가장 널리 사용)\n- **평균 풀링(Average Pooling)**: 영역 내 평균값 계산\n- **전역 평균 풀링(Global Average Pooling)**: 전체 특성 맵의 평균\n\n#### 완전연결 층(Fully Connected Layer)\n\nCNN의 마지막 부분에서 추출된 특징을 바탕으로 최종 분류를 수행합니다. 최근에는 전역 평균 풀링 + Softmax로 대체되는 추세입니다.\n\n### 수용 영역(Receptive Field)\n\n신경망의 한 뉴런이 '볼 수 있는' 입력 영역의 크기입니다. 층이 깊어질수록 수용 영역이 커져 더 넓은 맥락을 파악할 수 있습니다.\n\n3×3 필터 2개를 쌓으면 5×5 수용 영역, 3개를 쌓으면 7×7 수용 영역을 얻습니다. 이것이 작은 필터를 여러 개 쌓는 것이 큰 필터 하나보다 효율적인 이유입니다.",
+          "contentType": "text",
+          "orderNum": 1,
+          "estimatedMinutes": 25,
+          "quizzes": [
+            {
+              "id": "deep-learning-ch2-s1-q1",
+              "sectionId": "deep-learning-ch2-s1",
+              "type": "multiple_choice",
+              "question": "CNN에서 이동 불변성(Translation Invariance)을 얻을 수 있는 핵심 메커니즘은?",
+              "options": ["풀링 층", "가중치 공유", "배치 정규화", "드롭아웃"],
+              "correctAnswer": "가중치 공유",
+              "explanation": "가중치 공유(Weight Sharing)는 같은 필터가 이미지의 모든 위치에서 동일하게 적용되도록 합니다. 이로 인해 물체가 이미지 내 어디에 있든 동일한 패턴으로 인식할 수 있습니다.",
+              "orderNum": 1
+            },
+            {
+              "id": "deep-learning-ch2-s1-q2",
+              "sectionId": "deep-learning-ch2-s1",
+              "type": "true_false",
+              "question": "CNN의 초기 층은 얼굴이나 자동차 같은 고수준 개념을 학습한다.",
+              "correctAnswer": "false",
+              "explanation": "CNN의 초기 층은 엣지, 색상, 텍스처 같은 저수준 특징을 학습합니다. 얼굴이나 자동차 같은 고수준 개념은 후기 층에서 학습됩니다. 이것이 CNN의 계층적 특징 추출 특성입니다.",
+              "orderNum": 2
+            },
+            {
+              "id": "deep-learning-ch2-s1-q3",
+              "sectionId": "deep-learning-ch2-s1",
+              "type": "multiple_choice",
+              "question": "입력 크기 32×32, 필터 크기 3×3, 스트라이드 1, 패딩 0일 때 출력 크기는?",
+              "options": ["30×30", "32×32", "34×34", "28×28"],
+              "correctAnswer": "30×30",
+              "explanation": "출력 크기 = (32 - 3 + 2×0) / 1 + 1 = 30. 패딩 없이 3×3 필터를 사용하면 출력 크기가 각 차원에서 2씩 줄어듭니다.",
+              "orderNum": 3
+            }
+          ]
+        },
+        {
+          "id": "deep-learning-ch2-s2",
+          "chapterId": "deep-learning-ch2",
+          "slug": "image-recognition-evolution",
+          "title": "이미지 인식의 발전",
+          "content": "## 이미지 인식의 역사적 발전\n\nImageNet Large Scale Visual Recognition Challenge(ILSVRC)는 딥러닝 발전의 이정표가 되었습니다. 이 대회를 통해 CNN 아키텍처가 급격히 발전했습니다.\n\n### LeNet-5 (1998)\n\n**얀 르쿤의 LeNet-5**는 우편번호의 손글씨 숫자 인식을 위해 개발되었습니다.\n\n- **구조**: 2개의 합성곱 층 + 3개의 완전연결 층\n- **활성화 함수**: Sigmoid, Tanh\n- **입력**: 32×32 흑백 이미지\n- **의의**: 현대 CNN의 원형\n\n### AlexNet (2012)\n\n**AlexNet**은 ImageNet 2012에서 오류율 16.4%로 우승하며 딥러닝 혁명의 시작을 알렸습니다. 2위(26.2%)와의 압도적 차이가 충격을 주었습니다.\n\n- **구조**: 5개 합성곱 층 + 3개 완전연결 층\n- **혁신 요소**:\n  - ReLU 활성화 함수 도입\n  - GPU 병렬 학습\n  - 드롭아웃으로 과적합 방지\n  - 데이터 증강(Data Augmentation)\n  - Local Response Normalization\n\n### VGGNet (2014)\n\n**VGGNet**은 '깊이가 중요하다'는 것을 증명했습니다.\n\n- **핵심 아이디어**: 3×3 작은 필터를 깊게 쌓음\n- **VGG-16**: 16개 가중치 층 (13 conv + 3 FC)\n- **VGG-19**: 19개 가중치 층\n- **장점**: 단순하고 일관된 구조, 전이 학습에 널리 사용\n- **단점**: 파라미터 수가 많음 (1.38억 개)\n\n### GoogLeNet/Inception (2014)\n\n**GoogLeNet**은 효율성을 추구하며 'Inception 모듈'을 도입했습니다.\n\n- **Inception 모듈**: 1×1, 3×3, 5×5 합성곱과 풀링을 병렬로 수행 후 합침\n- **1×1 합성곱**: 채널 수를 줄여 연산량 감소 (bottleneck)\n- **전역 평균 풀링**: 완전연결 층 대체로 파라미터 대폭 감소\n- **파라미터 수**: VGG의 1/12 수준으로 효율적\n\n### ResNet (2015)\n\n**ResNet**은 '깊을수록 좋다'는 것을 극단까지 밀어붙였습니다.\n\n- **문제**: 네트워크가 깊어지면 학습이 어려워지는 degradation 문제\n- **해결책**: 잔차 연결(Skip Connection)\n\n**잔차 연결의 아이디어**: \n출력 = F(x) + x (입력을 출력에 더함)\n\n- 기울기가 직접 흐를 수 있는 고속도로 역할\n- 1000층 이상의 네트워크도 학습 가능\n- ResNet-152: 152층으로 3.57% 오류율 달성 (인간 수준 5%)\n\n### 이후의 발전\n\n#### DenseNet (2017)\n모든 층을 서로 연결. 특징 재사용 극대화.\n\n#### SENet (2017)\n채널별 중요도를 학습하는 Squeeze-and-Excitation 블록.\n\n#### EfficientNet (2019)\n깊이, 너비, 해상도를 균형 있게 확장하는 compound scaling.\n\n#### Vision Transformer (ViT) (2020)\nCNN 대신 Transformer를 이미지에 적용. 대규모 데이터에서 SOTA 달성.\n\n### 핵심 교훈\n\n1. **깊이의 힘**: 층이 깊을수록 더 추상적인 특징 학습\n2. **잔차 연결**: 아주 깊은 네트워크의 학습을 가능하게 함\n3. **효율성**: 무조건 크다고 좋은 것이 아님\n4. **전이 학습**: 사전 학습된 모델의 힘",
+          "contentType": "text",
+          "orderNum": 2,
+          "estimatedMinutes": 25,
+          "quizzes": [
+            {
+              "id": "deep-learning-ch2-s2-q1",
+              "sectionId": "deep-learning-ch2-s2",
+              "type": "multiple_choice",
+              "question": "2012년 ImageNet 대회에서 딥러닝 혁명의 시작을 알린 모델은?",
+              "options": ["LeNet", "VGGNet", "AlexNet", "ResNet"],
+              "correctAnswer": "AlexNet",
+              "explanation": "AlexNet은 2012년 ImageNet 대회에서 오류율 16.4%로 우승하며 2위(26.2%)와의 압도적 차이를 보여주었습니다. 이 결과는 딥러닝 혁명의 시작점이 되었습니다.",
+              "orderNum": 1
+            },
+            {
+              "id": "deep-learning-ch2-s2-q2",
+              "sectionId": "deep-learning-ch2-s2",
+              "type": "fill_blank",
+              "question": "ResNet의 핵심 아이디어인 ______을 통해 1000층 이상의 매우 깊은 네트워크도 학습할 수 있게 되었다.",
+              "correctAnswer": "잔차 연결",
+              "explanation": "잔차 연결(Skip Connection 또는 Residual Connection)은 입력을 출력에 직접 더하는 구조입니다. 이를 통해 기울기가 직접 흐를 수 있어 매우 깊은 네트워크의 학습이 가능해졌습니다.",
+              "orderNum": 2
+            },
+            {
+              "id": "deep-learning-ch2-s2-q3",
+              "sectionId": "deep-learning-ch2-s2",
+              "type": "true_false",
+              "question": "GoogLeNet은 VGGNet보다 파라미터 수가 훨씬 많다.",
+              "correctAnswer": "false",
+              "explanation": "GoogLeNet은 1×1 합성곱(bottleneck)과 전역 평균 풀링을 사용하여 파라미터 수를 VGGNet의 약 1/12 수준으로 줄였습니다. 효율성을 추구한 설계 덕분입니다.",
+              "orderNum": 3
+            }
+          ]
+        },
+        {
+          "id": "deep-learning-ch2-s3",
+          "chapterId": "deep-learning-ch2",
+          "slug": "cnn-practical-applications",
+          "title": "CNN 실전 활용",
+          "content": "## CNN의 실전 응용 분야\n\nCNN은 이미지 분류를 넘어 다양한 컴퓨터 비전 태스크에 활용됩니다.\n\n### 1. 객체 탐지(Object Detection)\n\n이미지 내 **여러 객체의 위치와 종류**를 동시에 파악합니다.\n\n#### R-CNN 계열\n- **R-CNN (2014)**: 영역 제안(Region Proposal) + CNN 분류\n- **Fast R-CNN (2015)**: 전체 이미지를 한 번에 처리\n- **Faster R-CNN (2015)**: Region Proposal Network로 영역 제안도 학습\n\n#### YOLO (You Only Look Once)\n- 이미지를 한 번에 처리하여 실시간 탐지 가능\n- 속도와 정확도의 균형\n- 자율주행, 보안 카메라 등에 활용\n\n#### SSD (Single Shot Detector)\n- 다양한 크기의 특성 맵에서 객체 탐지\n- 속도와 정확도 모두 우수\n\n### 2. 시맨틱 세그멘테이션(Semantic Segmentation)\n\n**픽셀 단위로 분류**를 수행합니다. 의료 영상 분석, 자율주행에서 도로/차량/보행자 구분 등에 사용됩니다.\n\n#### FCN (Fully Convolutional Networks)\n- 완전연결 층을 합성곱으로 대체\n- 업샘플링으로 원본 해상도 복원\n\n#### U-Net\n- 인코더-디코더 구조\n- Skip Connection으로 세밀한 경계 복원\n- 의료 영상 세그멘테이션의 표준\n\n#### DeepLab\n- Atrous(Dilated) Convolution으로 넓은 수용 영역\n- CRF로 후처리하여 정교한 경계\n\n### 3. 인스턴스 세그멘테이션(Instance Segmentation)\n\n시맨틱 세그멘테이션 + 개별 객체 구분. 같은 클래스의 여러 객체를 각각 분리합니다.\n\n#### Mask R-CNN\n- Faster R-CNN + 세그멘테이션 마스크\n- 객체 탐지와 세그멘테이션을 동시에 수행\n\n### 4. 전이 학습(Transfer Learning)\n\n**ImageNet으로 사전 학습된 모델**을 새로운 태스크에 활용합니다.\n\n#### 전이 학습의 전략\n\n1. **특징 추출기로 사용**: CNN의 합성곱 층은 고정하고 분류층만 학습\n2. **Fine-tuning**: 전체 또는 일부 층을 작은 학습률로 재학습\n3. **데이터 양에 따른 선택**:\n   - 데이터 적음 + 원본과 유사 → 특징 추출\n   - 데이터 많음 + 원본과 다름 → Fine-tuning\n\n#### 전이 학습이 효과적인 이유\n\n- 초기 층의 특징(엣지, 텍스처)은 범용적\n- 대규모 데이터로 학습된 좋은 초기값\n- 적은 데이터로도 높은 성능 달성 가능\n\n### 5. 데이터 증강(Data Augmentation)\n\n학습 데이터를 인위적으로 늘려 **과적합을 방지**합니다.\n\n#### 기본 증강 기법\n- **기하학적 변환**: 회전, 이동, 확대/축소, 좌우 반전\n- **색상 변환**: 밝기, 대비, 채도 조절\n- **노이즈 추가**: 가우시안 노이즈\n- **Cutout/Random Erasing**: 이미지 일부 가림\n\n#### 고급 증강 기법\n- **Mixup**: 두 이미지와 라벨을 혼합\n- **CutMix**: 이미지 일부를 다른 이미지로 교체\n- **AutoAugment**: 최적의 증강 정책을 자동 탐색\n\n### 실전 체크리스트\n\n1. **사전 학습 모델로 시작**: 처음부터 학습하지 않기\n2. **적절한 데이터 증강 적용**: 도메인에 맞게 선택\n3. **학습률 스케줄링**: 학습 후반에 학습률 감소\n4. **조기 종료(Early Stopping)**: 검증 성능이 떨어지기 시작하면 중단\n5. **앙상블**: 여러 모델의 예측을 결합하여 성능 향상",
+          "contentType": "text",
+          "orderNum": 3,
+          "estimatedMinutes": 30,
+          "quizzes": [
+            {
+              "id": "deep-learning-ch2-s3-q1",
+              "sectionId": "deep-learning-ch2-s3",
+              "type": "multiple_choice",
+              "question": "실시간 객체 탐지에 가장 적합한 모델은?",
+              "options": ["R-CNN", "Fast R-CNN", "YOLO", "Mask R-CNN"],
+              "correctAnswer": "YOLO",
+              "explanation": "YOLO(You Only Look Once)는 이미지를 한 번에 처리하여 실시간 객체 탐지가 가능합니다. R-CNN 계열은 영역 제안 단계가 있어 상대적으로 느립니다.",
+              "orderNum": 1
+            },
+            {
+              "id": "deep-learning-ch2-s3-q2",
+              "sectionId": "deep-learning-ch2-s3",
+              "type": "multiple_choice",
+              "question": "의료 영상 세그멘테이션에서 표준으로 사용되는 아키텍처는?",
+              "options": ["VGGNet", "ResNet", "U-Net", "YOLO"],
+              "correctAnswer": "U-Net",
+              "explanation": "U-Net은 인코더-디코더 구조와 Skip Connection을 통해 세밀한 경계를 복원할 수 있어 의료 영상 세그멘테이션의 표준으로 자리 잡았습니다.",
+              "orderNum": 2
+            },
+            {
+              "id": "deep-learning-ch2-s3-q3",
+              "sectionId": "deep-learning-ch2-s3",
+              "type": "true_false",
+              "question": "전이 학습에서 데이터가 적고 원본 도메인과 유사하면 Fine-tuning이 적합하다.",
+              "correctAnswer": "false",
+              "explanation": "데이터가 적고 원본 도메인과 유사한 경우, CNN을 특징 추출기로 사용하고 분류층만 학습하는 것이 좋습니다. Fine-tuning은 데이터가 많거나 원본과 다른 경우에 적합합니다.",
+              "orderNum": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deep-learning-ch3",
+      "courseId": "deep-learning",
+      "slug": "ch3-rnn",
+      "title": "순환 신경망 (RNN)",
+      "description": "시퀀스 데이터를 다루는 RNN과 그 발전형 모델을 학습합니다.",
+      "orderNum": 3,
+      "sections": [
+        {
+          "id": "deep-learning-ch3-s1",
+          "chapterId": "deep-learning-ch3",
+          "slug": "sequence-data-and-rnn",
+          "title": "시퀀스 데이터와 RNN",
+          "content": "## 시퀀스 데이터란?\n\n**시퀀스 데이터**는 순서가 중요한 데이터입니다. 단어의 순서를 바꾸면 문장의 의미가 달라지고, 주가의 시간적 순서가 미래 예측에 중요합니다.\n\n### 시퀀스 데이터의 예시\n\n- **자연어**: 문장, 문서, 대화\n- **시계열**: 주가, 날씨, 센서 데이터\n- **음성**: 오디오 신호\n- **비디오**: 프레임의 시퀀스\n- **유전자 서열**: DNA, 단백질 서열\n\n### 왜 기존 신경망으로는 부족한가?\n\n일반 신경망(MLP)이나 CNN은 **고정된 크기의 입력**을 가정합니다.\n\n- 문장 길이가 다양함 → 입력 크기가 가변적\n- 과거 정보가 현재에 영향 → 시간적 의존성\n- 같은 단어도 위치에 따라 의미가 다름 → 맥락 중요\n\n### 순환 신경망(RNN)의 아이디어\n\n**RNN(Recurrent Neural Network)**은 **메모리**를 가진 신경망입니다. 이전 시점의 정보를 **은닉 상태(Hidden State)**에 저장하고 다음 시점에 전달합니다.\n\n#### RNN의 수식\n\n**hₜ = tanh(Wₓₕ·xₜ + Wₕₕ·hₜ₋₁ + b)**\n\n**yₜ = Wₕᵧ·hₜ**\n\n여기서:\n- **xₜ**: 현재 시점의 입력\n- **hₜ**: 현재 시점의 은닉 상태\n- **hₜ₋₁**: 이전 시점의 은닉 상태\n- **Wₓₕ, Wₕₕ, Wₕᵧ**: 학습 가능한 가중치 (모든 시점에서 공유!)\n\n#### RNN의 핵심: 가중치 공유\n\nCNN에서 필터가 공간적으로 공유되듯, RNN에서는 가중치가 **시간적으로 공유**됩니다. 이를 통해:\n- 가변 길이 시퀀스 처리 가능\n- 파라미터 수 감소\n- 시간적 패턴의 일반화\n\n### RNN의 펼쳐진 표현(Unrolled)\n\nRNN을 시간 축으로 펼치면, 같은 가중치를 공유하는 여러 층으로 볼 수 있습니다. 이 표현이 역전파 이해에 중요합니다.\n\n### RNN의 태스크 유형\n\n#### 1. Many-to-One\n- 입력: 시퀀스 → 출력: 하나\n- 예: 감성 분석 (문장 → 긍정/부정)\n\n#### 2. One-to-Many\n- 입력: 하나 → 출력: 시퀀스\n- 예: 이미지 캡셔닝 (이미지 → 설명 문장)\n\n#### 3. Many-to-Many (동기)\n- 입력: 시퀀스 → 출력: 같은 길이의 시퀀스\n- 예: 품사 태깅, 개체명 인식\n\n#### 4. Many-to-Many (비동기)\n- 입력: 시퀀스 → 출력: 다른 길이의 시퀀스\n- 예: 기계 번역 (Encoder-Decoder 구조)\n\n### 양방향 RNN (Bidirectional RNN)\n\n미래 정보도 현재 예측에 유용할 수 있습니다. **양방향 RNN**은 순방향과 역방향 RNN을 결합합니다.\n\n- 순방향: 과거 → 현재 → 미래\n- 역방향: 미래 → 현재 → 과거\n- 출력: 두 방향의 은닉 상태를 결합\n\n빈칸 채우기나 개체명 인식 등에서 효과적입니다.\n\n### RNN의 한계\n\n1. **장기 의존성 문제**: 긴 시퀀스에서 먼 과거 정보가 사라짐\n2. **기울기 소실/폭발**: 역전파 시 기울기가 지수적으로 감소/증가\n3. **병렬화 어려움**: 순차적 계산으로 인해 학습 속도 느림\n\n이 문제들을 해결하기 위해 LSTM과 GRU가 등장했습니다.",
+          "contentType": "text",
+          "orderNum": 1,
+          "estimatedMinutes": 25,
+          "quizzes": [
+            {
+              "id": "deep-learning-ch3-s1-q1",
+              "sectionId": "deep-learning-ch3-s1",
+              "type": "multiple_choice",
+              "question": "RNN에서 이전 시점의 정보를 저장하고 전달하는 것은?",
+              "options": ["입력 벡터", "출력 벡터", "은닉 상태", "활성화 함수"],
+              "correctAnswer": "은닉 상태",
+              "explanation": "은닉 상태(Hidden State)는 RNN의 '메모리' 역할을 합니다. 이전 시점의 정보를 저장하고 다음 시점으로 전달하여 시퀀스의 맥락을 유지합니다.",
+              "orderNum": 1
+            },
+            {
+              "id": "deep-learning-ch3-s1-q2",
+              "sectionId": "deep-learning-ch3-s1",
+              "type": "multiple_choice",
+              "question": "문장을 입력받아 긍정/부정을 분류하는 감성 분석은 어떤 유형인가요?",
+              "options": ["One-to-Many", "Many-to-One", "Many-to-Many (동기)", "Many-to-Many (비동기)"],
+              "correctAnswer": "Many-to-One",
+              "explanation": "감성 분석은 시퀀스(문장)를 입력받아 하나의 출력(긍정/부정)을 생성하므로 Many-to-One 유형입니다.",
+              "orderNum": 2
+            },
+            {
+              "id": "deep-learning-ch3-s1-q3",
+              "sectionId": "deep-learning-ch3-s1",
+              "type": "true_false",
+              "question": "RNN은 CNN처럼 가중치를 공유하지만, 시간 축에서 공유한다.",
+              "correctAnswer": "true",
+              "explanation": "CNN은 공간적으로(이미지의 모든 위치에서) 가중치를 공유하고, RNN은 시간적으로(모든 시점에서) 가중치를 공유합니다. 이를 통해 가변 길이 시퀀스를 처리할 수 있습니다.",
+              "orderNum": 3
+            }
+          ]
+        },
+        {
+          "id": "deep-learning-ch3-s2",
+          "chapterId": "deep-learning-ch3",
+          "slug": "lstm-and-gru",
+          "title": "LSTM과 GRU",
+          "content": "## 장기 의존성 문제\n\n기본 RNN은 **장기 의존성(Long-term Dependencies)**을 학습하기 어렵습니다.\n\n예를 들어, \"한국에서 태어나서... (100단어)... 그래서 나는 **한국어**를 잘한다\"에서 \"한국\"과 \"한국어\"의 연결을 학습해야 하지만, 중간의 많은 단어들을 거치면서 정보가 희석됩니다.\n\n### 기울기 소실의 수학적 이해\n\nRNN의 역전파 시, 기울기는 Wₕₕ가 반복 곱해집니다:\n\n**∂L/∂h₀ = ∂L/∂hₜ × (Wₕₕ)ᵗ**\n\n- Wₕₕ의 고유값 < 1: 기울기가 지수적으로 감소 (소실)\n- Wₕₕ의 고유값 > 1: 기울기가 지수적으로 증가 (폭발)\n\n## LSTM: Long Short-Term Memory\n\n**LSTM**은 1997년 호크라이터와 슈미트후버가 제안한 RNN의 변형으로, 게이트 메커니즘을 통해 장기 의존성 문제를 해결합니다.\n\n### LSTM의 핵심: 셀 상태(Cell State)\n\n셀 상태는 컨베이어 벨트처럼 정보를 거의 그대로 전달합니다. 게이트가 이 벨트에서 정보를 **추가하거나 제거**합니다.\n\n### LSTM의 세 가지 게이트\n\n#### 1. 망각 게이트(Forget Gate)\n**fₜ = σ(Wf·[hₜ₋₁, xₜ] + bf)**\n\n- 셀 상태에서 **어떤 정보를 버릴지** 결정\n- 0에 가까우면 정보 삭제, 1에 가까우면 정보 유지\n- 예: 새 주어가 나오면 이전 주어 정보 삭제\n\n#### 2. 입력 게이트(Input Gate)\n**iₜ = σ(Wi·[hₜ₋₁, xₜ] + bi)**\n\n**C̃ₜ = tanh(Wc·[hₜ₋₁, xₜ] + bc)**\n\n- **어떤 새로운 정보를 저장할지** 결정\n- iₜ: 어떤 값을 업데이트할지\n- C̃ₜ: 새로운 후보 값\n\n#### 3. 출력 게이트(Output Gate)\n**oₜ = σ(Wo·[hₜ₋₁, xₜ] + bo)**\n\n**hₜ = oₜ × tanh(Cₜ)**\n\n- 셀 상태 중 **어떤 부분을 출력할지** 결정\n\n### 셀 상태 업데이트\n\n**Cₜ = fₜ × Cₜ₋₁ + iₜ × C̃ₜ**\n\n이 식에서 Cₜ₋₁에 대한 기울기는 fₜ만 곱해지므로, 기울기가 훨씬 안정적으로 흐릅니다.\n\n## GRU: Gated Recurrent Unit\n\n**GRU**는 2014년 조경현 교수팀이 제안한 LSTM의 간소화 버전입니다.\n\n### GRU의 특징\n\n- 셀 상태를 은닉 상태와 **통합** (파라미터 감소)\n- 망각 게이트와 입력 게이트를 **업데이트 게이트로 통합**\n- 2개의 게이트만 사용: 리셋 게이트, 업데이트 게이트\n\n### GRU의 수식\n\n**리셋 게이트**: rₜ = σ(Wr·[hₜ₋₁, xₜ])\n\n**업데이트 게이트**: zₜ = σ(Wz·[hₜ₋₁, xₜ])\n\n**후보 은닉 상태**: h̃ₜ = tanh(W·[rₜ × hₜ₋₁, xₜ])\n\n**최종 은닉 상태**: hₜ = (1 - zₜ) × hₜ₋₁ + zₜ × h̃ₜ\n\n### LSTM vs GRU\n\n| 특성 | LSTM | GRU |\n|------|------|-----|\n| 게이트 수 | 3개 | 2개 |\n| 파라미터 | 많음 | 적음 (약 3/4) |\n| 학습 속도 | 느림 | 빠름 |\n| 긴 시퀀스 | 우수 | 좋음 |\n| 데이터 적을 때 | GRU가 유리 | GRU가 유리 |\n\n일반적으로 태스크와 데이터에 따라 둘 다 시도해보는 것이 좋습니다.\n\n### 실전 팁\n\n1. **기본 선택**: 시작은 GRU로 (빠른 실험)\n2. **긴 시퀀스**: LSTM 고려\n3. **적층**: 여러 층 쌓기 가능 (Stacked LSTM/GRU)\n4. **양방향**: 대부분의 NLP 태스크에서 성능 향상\n5. **드롭아웃**: 과적합 방지를 위해 적용",
+          "contentType": "text",
+          "orderNum": 2,
+          "estimatedMinutes": 30,
+          "quizzes": [
+            {
+              "id": "deep-learning-ch3-s2-q1",
+              "sectionId": "deep-learning-ch3-s2",
+              "type": "multiple_choice",
+              "question": "LSTM에서 이전 셀 상태의 정보를 버릴지 결정하는 게이트는?",
+              "options": ["입력 게이트", "출력 게이트", "망각 게이트", "업데이트 게이트"],
+              "correctAnswer": "망각 게이트",
+              "explanation": "망각 게이트(Forget Gate)는 셀 상태에서 어떤 정보를 버릴지 결정합니다. 시그모이드 출력이 0에 가까우면 정보를 삭제하고, 1에 가까우면 정보를 유지합니다.",
+              "orderNum": 1
+            },
+            {
+              "id": "deep-learning-ch3-s2-q2",
+              "sectionId": "deep-learning-ch3-s2",
+              "type": "fill_blank",
+              "question": "GRU는 LSTM의 망각 게이트와 입력 게이트를 하나의 ______ 게이트로 통합했다.",
+              "correctAnswer": "업데이트",
+              "explanation": "GRU는 LSTM의 구조를 간소화하여 망각 게이트와 입력 게이트를 업데이트 게이트로 통합했습니다. 이를 통해 파라미터 수를 줄이고 학습 속도를 높였습니다.",
+              "orderNum": 2
+            },
+            {
+              "id": "deep-learning-ch3-s2-q3",
+              "sectionId": "deep-learning-ch3-s2",
+              "type": "true_false",
+              "question": "GRU는 LSTM보다 파라미터 수가 많다.",
+              "correctAnswer": "false",
+              "explanation": "GRU는 LSTM보다 게이트 수가 적고(3개 → 2개), 셀 상태를 은닉 상태와 통합하여 파라미터 수가 약 3/4 정도입니다. 따라서 학습 속도가 더 빠릅니다.",
+              "orderNum": 3
+            }
+          ]
+        },
+        {
+          "id": "deep-learning-ch3-s3",
+          "chapterId": "deep-learning-ch3",
+          "slug": "nlp-applications",
+          "title": "자연어 처리 응용",
+          "content": "## 자연어 처리(NLP)와 딥러닝\n\n**자연어 처리(Natural Language Processing, NLP)**는 컴퓨터가 인간의 언어를 이해하고 생성하도록 하는 분야입니다. RNN 계열 모델이 NLP에 혁명을 일으켰습니다.\n\n### 단어 임베딩(Word Embedding)\n\n단어를 **밀집 벡터(Dense Vector)**로 표현하는 기법입니다. 원-핫 인코딩의 한계를 극복합니다.\n\n#### 원-핫 인코딩의 문제\n- 차원이 너무 큼 (어휘 크기)\n- 단어 간 유사도 측정 불가\n- 모든 단어가 동등하게 다름\n\n#### Word2Vec (2013)\n구글의 토마스 미콜로프가 제안한 대표적 임베딩 기법입니다.\n\n- **CBOW**: 주변 단어로 중심 단어 예측\n- **Skip-gram**: 중심 단어로 주변 단어 예측\n- 의미적 유사성 학습: king - man + woman ≈ queen\n\n#### GloVe (2014)\n전역 동시 출현 통계를 활용한 임베딩입니다.\n\n#### FastText (2016)\n서브워드(subword) 정보를 활용해 미등록 단어(OOV) 처리에 강합니다.\n\n### 시퀀스 투 시퀀스(Seq2Seq)\n\n**인코더-디코더 구조**로 가변 길이 입력을 가변 길이 출력으로 변환합니다.\n\n#### 구조\n1. **인코더**: 입력 시퀀스를 고정 길이 벡터(Context Vector)로 압축\n2. **디코더**: Context Vector를 받아 출력 시퀀스 생성\n\n#### 응용 분야\n- **기계 번역**: 영어 → 한국어\n- **요약**: 긴 문서 → 짧은 요약\n- **대화 시스템**: 질문 → 답변\n- **질의 응답**: 문맥 + 질문 → 답\n\n### 어텐션 메커니즘(Attention)\n\nSeq2Seq의 **병목 현상**(모든 정보를 하나의 벡터에 압축)을 해결합니다.\n\n#### 핵심 아이디어\n디코더가 출력을 생성할 때, 인코더의 **모든 은닉 상태를 참조**하되, **관련된 부분에 더 집중**합니다.\n\n#### 어텐션 계산\n1. **Score**: 디코더 상태와 인코더 상태들의 유사도 계산\n2. **Attention Weight**: 스코어를 Softmax로 정규화\n3. **Context**: 가중 평균으로 컨텍스트 벡터 생성\n\n#### 어텐션의 장점\n- 긴 시퀀스 처리 능력 향상\n- 해석 가능성: 어디에 집중하는지 시각화 가능\n- 성능 대폭 향상\n\n### Transformer와 BERT\n\n#### Transformer (2017)\n\"Attention is All You Need\" 논문에서 제안되었습니다.\n\n- RNN 없이 **셀프 어텐션**만으로 시퀀스 처리\n- **병렬 처리 가능**: 학습 속도 대폭 향상\n- 위치 정보: Positional Encoding 사용\n\n#### BERT (2018)\n양방향 Transformer 인코더를 사용한 사전 학습 모델입니다.\n\n- **Masked Language Model**: 일부 단어를 마스킹하고 예측\n- **Next Sentence Prediction**: 두 문장의 연결 관계 예측\n- 다운스트림 태스크에 Fine-tuning하여 SOTA 달성\n\n#### GPT 시리즈\nTransformer 디코더 기반의 **생성 모델**입니다.\n\n- **자기회귀(Autoregressive)**: 이전 토큰들로 다음 토큰 예측\n- GPT-2, GPT-3, GPT-4로 발전\n- 초대형 언어 모델(LLM)의 시대를 열음\n\n### NLP의 현재와 미래\n\n1. **사전 학습 + Fine-tuning 패러다임**: BERT, GPT 등\n2. **Few-shot / Zero-shot Learning**: 적은 데이터로 태스크 수행\n3. **프롬프트 엔지니어링**: 적절한 지시문으로 성능 극대화\n4. **멀티모달**: 텍스트 + 이미지 + 음성의 통합 이해\n5. **효율적인 모델**: 지식 증류, 양자화로 모델 경량화",
+          "contentType": "text",
+          "orderNum": 3,
+          "estimatedMinutes": 30,
+          "quizzes": [
+            {
+              "id": "deep-learning-ch3-s3-q1",
+              "sectionId": "deep-learning-ch3-s3",
+              "type": "multiple_choice",
+              "question": "Word2Vec에서 'king - man + woman'의 결과에 가장 가까운 단어는?",
+              "options": ["prince", "queen", "king", "woman"],
+              "correctAnswer": "queen",
+              "explanation": "Word2Vec은 단어 간 의미적 관계를 벡터 공간에서 학습합니다. 'king'에서 'man'의 의미를 빼고 'woman'의 의미를 더하면 'queen'에 가까운 벡터가 됩니다.",
+              "orderNum": 1
+            },
+            {
+              "id": "deep-learning-ch3-s3-q2",
+              "sectionId": "deep-learning-ch3-s3",
+              "type": "fill_blank",
+              "question": "Transformer 아키텍처를 제안한 논문의 제목은 'Attention is All You ______'이다.",
+              "correctAnswer": "Need",
+              "explanation": "'Attention is All You Need'는 2017년 구글이 발표한 논문으로, RNN 없이 어텐션 메커니즘만으로 시퀀스를 처리하는 Transformer 아키텍처를 제안했습니다.",
+              "orderNum": 2
+            },
+            {
+              "id": "deep-learning-ch3-s3-q3",
+              "sectionId": "deep-learning-ch3-s3",
+              "type": "multiple_choice",
+              "question": "어텐션 메커니즘이 해결하는 Seq2Seq의 문제는?",
+              "options": ["과적합 문제", "기울기 폭발 문제", "병목 현상 (정보 압축)", "병렬화 불가 문제"],
+              "correctAnswer": "병목 현상 (정보 압축)",
+              "explanation": "기본 Seq2Seq는 인코더의 모든 정보를 하나의 고정 길이 벡터에 압축해야 합니다. 어텐션은 디코더가 인코더의 모든 상태를 참조할 수 있게 하여 이 병목 현상을 해결합니다.",
+              "orderNum": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

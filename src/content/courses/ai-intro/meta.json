@@ -1,0 +1,12 @@
+{
+  "id": "ai-intro",
+  "slug": "ai-intro",
+  "title": "AI 입문",
+  "description": "인공지능의 기초부터 사회적 영향까지 체계적으로 배우는 종합 입문 과정입니다.",
+  "icon": "🤖",
+  "orderNum": 1,
+  "isPublished": true,
+  "estimatedHours": 30,
+  "difficulty": "beginner",
+  "chapters": []
+}

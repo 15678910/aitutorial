@@ -1,0 +1,96 @@
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
+interface SectionContentProps {
+  content: string
+}
+
+export default function SectionContent({ content }: SectionContentProps) {
+  return (
+    <article className="max-w-none">
+      <Markdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          h2: ({ children }) => (
+            <h2 className="text-[2rem] font-extrabold text-primary mt-20 mb-8 pb-4 border-b-3 border-accent/20">
+              {children}
+            </h2>
+          ),
+          h3: ({ children }) => (
+            <h3 className="text-[1.4rem] font-extrabold text-gray-900 mt-14 mb-5 flex items-center gap-3">
+              <span className="w-1.5 h-7 bg-accent rounded-full inline-block flex-shrink-0" />
+              {children}
+            </h3>
+          ),
+          h4: ({ children }) => (
+            <h4 className="text-[1.2rem] font-bold text-gray-800 mt-10 mb-4">{children}</h4>
+          ),
+          p: ({ children }) => (
+            <p className="text-[1.15rem] text-gray-700 leading-[2.1] mb-7 tracking-wide">{children}</p>
+          ),
+          ul: ({ children }) => (
+            <ul className="my-8 space-y-4 pl-2">{children}</ul>
+          ),
+          ol: ({ children }) => (
+            <ol className="my-8 space-y-4 pl-2 list-none [counter-reset:item]">{children}</ol>
+          ),
+          li: ({ children }) => (
+            <li className="text-[1.1rem] text-gray-700 leading-[2] flex items-start gap-3 tracking-wide">
+              <span className="mt-[0.7rem] flex-shrink-0 w-2 h-2 rounded-full bg-accent" />
+              <span className="flex-1">{children}</span>
+            </li>
+          ),
+          strong: ({ children }) => (
+            <strong className="font-extrabold text-primary bg-accent/5 px-1 rounded">{children}</strong>
+          ),
+          blockquote: ({ children }) => (
+            <blockquote className="my-10 pl-7 border-l-4 border-accent bg-gradient-to-r from-accent/8 to-transparent py-6 pr-7 rounded-r-2xl">
+              <div className="text-gray-600 text-[1.1rem] italic leading-relaxed">{children}</div>
+            </blockquote>
+          ),
+          code: ({ className, children }) => {
+            const isBlock = className?.includes('language-')
+            if (isBlock) {
+              return <code className={`${className} block`}>{children}</code>
+            }
+            return (
+              <code className="bg-accent/10 text-primary px-2.5 py-1 rounded-lg text-[1rem] font-mono font-bold">
+                {children}
+              </code>
+            )
+          },
+          pre: ({ children }) => (
+            <pre className="my-10 bg-primary rounded-2xl p-7 overflow-x-auto text-[0.95rem] leading-relaxed text-gray-200 shadow-xl">
+              {children}
+            </pre>
+          ),
+          table: ({ children }) => (
+            <div className="my-10 overflow-x-auto rounded-2xl border border-gray-200 shadow-sm">
+              <table className="w-full text-[1rem]">{children}</table>
+            </div>
+          ),
+          thead: ({ children }) => (
+            <thead className="bg-primary text-white">{children}</thead>
+          ),
+          th: ({ children }) => (
+            <th className="px-6 py-4 text-left font-bold text-sm tracking-wide">{children}</th>
+          ),
+          td: ({ children }) => (
+            <td className="px-6 py-4 border-t border-gray-100 text-gray-700">{children}</td>
+          ),
+          tr: ({ children }) => (
+            <tr className="even:bg-surface hover:bg-accent/5 transition-colors">{children}</tr>
+          ),
+          a: ({ href, children }) => (
+            <a href={href} className="text-accent font-bold underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-colors" target="_blank" rel="noopener noreferrer">
+              {children}
+            </a>
+          ),
+          hr: () => <hr className="my-14 border-t-2 border-gray-100" />,
+        }}
+      >
+        {content}
+      </Markdown>
+    </article>
+  )
+}
