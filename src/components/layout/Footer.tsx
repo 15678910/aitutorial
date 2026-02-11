@@ -22,6 +22,8 @@ export default function Footer() {
               <li><Link to="/courses/ml-basics" className="hover:text-white transition-colors">머신러닝 기초</Link></li>
               <li><Link to="/courses/deep-learning" className="hover:text-white transition-colors">딥러닝과 신경망</Link></li>
               <li><Link to="/courses/generative-ai" className="hover:text-white transition-colors">생성형 AI와 LLM</Link></li>
+              <li><Link to="/courses/making-ai" className="hover:text-white transition-colors">AI 만들기</Link></li>
+              <li><Link to="/courses/claude-code" className="hover:text-white transition-colors">Claude Code 마스터하기</Link></li>
             </ul>
           </div>
           <div>

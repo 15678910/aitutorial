@@ -78,6 +78,19 @@ export const courseThemes: Record<string, CourseTheme> = {
     hex: '#E8A838',
     hexLight: '#FFF6E0',
   },
+  'claude-code': {
+    slug: 'claude-code',
+    bg: 'bg-[#D97757]',
+    bgLight: 'bg-[#FFF3EE]',
+    bgGradient: 'bg-gradient-to-br from-[#D97757] to-[#E89A80]',
+    text: 'text-white',
+    accent: 'text-[#D97757]',
+    border: 'border-[#D97757]/20',
+    cardBg: 'bg-white',
+    iconBg: 'bg-[#D97757]/10',
+    hex: '#D97757',
+    hexLight: '#FFF3EE',
+  },
 }
 
 export function getCourseTheme(slug: string): CourseTheme {
@@ -91,4 +104,5 @@ export const chapterColors: Record<string, string[]> = {
   'deep-learning': ['#FFB830', '#FFC94D', '#FFD966'],
   'generative-ai': ['#7C5CFC', '#9B82FD', '#B8A3FE'],
   'making-ai': ['#E8A838', '#D09520', '#F0C060', '#C48A18', '#FFD566'],
+  'claude-code': ['#D97757', '#C46644', '#E89A80', '#B85A3A', '#F0B8A0'],
 }

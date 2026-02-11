@@ -1,0 +1,172 @@
+{
+  "id": "claude-code-ch5",
+  "courseId": "claude-code",
+  "slug": "ch5-advanced-workflows",
+  "title": "고급 워크플로우와 실전 프로젝트",
+  "description": "Git 워크플로우 자동화, CLAUDE.md 활용, 그리고 나만의 AI 워크플로우를 설계합니다.",
+  "orderNum": 5,
+  "sections": [
+    {
+      "id": "claude-code-ch5-s1",
+      "chapterId": "claude-code-ch5",
+      "slug": "git-workflow",
+      "title": "Git 워크플로우 자동화",
+      "content": "## Git 워크플로우 자동화\n\n지은이는 이제 Claude Code의 기본 기능을 완벽하게 익혔습니다. 오늘은 개발자의 일상에서 빠질 수 없는 Git 작업을 Claude Code로 자동화하는 방법을 배워봅니다.\n\n### 지은이의 새로운 도전\n\n\"매번 커밋 메시지 쓰는 게 은근 시간이 걸리더라고요. 좋은 메시지를 쓰려면 변경 사항을 다시 확인해야 하고...\" 지은이가 말했습니다.\n\n멘토가 웃으며 답했습니다. \"Claude Code가 Git 작업을 얼마나 편하게 해주는지 보면 깜짝 놀랄 거야.\"\n\n<!-- QUIZ:claude-code-ch5-s1-q1 -->\n\n### 커밋 메시지 자동 생성\n\nClaude Code는 코드 변경 사항을 분석해서 의미 있는 커밋 메시지를 제안합니다.\n\n```\n지은: \"이 변경사항으로 커밋해줘\"\n\nClaude Code:\n변경 사항을 분석합니다...\n\n수정된 파일:\n- src/api/users.ts: 사용자 검증 로직 추가\n- src/utils/validator.ts: 이메일 형식 검증 함수 추가\n- tests/users.test.ts: 검증 테스트 케이스 추가\n\n제안 커밋 메시지:\n\"feat: 사용자 입력 검증 기능 추가\n\n- 이메일 형식 검증 함수 구현\n- 사용자 등록 시 입력값 검증 적용\n- 관련 단위 테스트 추가\"\n\n이 메시지로 커밋할까요?\n```\n\n지은이는 Claude Code가 Conventional Commits 형식을 자동으로 따르는 것을 발견했습니다.\n\n### Pull Request 생성하기\n\nClaude Code는 PR 생성도 도와줍니다.\n\n```\n지은: \"feature/user-validation 브랜치로 PR 만들어줘\"\n\nClaude Code:\n브랜치 비교를 분석합니다...\n\nmain 대비 변경 사항:\n- 3개 파일 수정\n- 127줄 추가, 12줄 삭제\n\nPR 제목: \"feat: 사용자 입력 검증 기능\"\n\nPR 설명 초안:\n## 변경 사항\n- 이메일 형식 검증 함수 추가\n- 사용자 등록 API에 검증 로직 적용\n\n## 테스트\n- 단위 테스트 추가 완료\n- 수동 테스트: 유효/무효 이메일로 등록 시도 확인\n\nPR을 생성할까요?\n```\n\n<!-- QUIZ:claude-code-ch5-s1-q2 -->\n\n### 코드 리뷰 지원\n\n지은이는 동료의 PR을 리뷰할 때도 Claude Code를 활용합니다.\n\n```\n지은: \"PR #42의 변경사항 분석해줘\"\n\nClaude Code:\nPR #42 분석 결과:\n\n[긍정적 측면]\n- 함수가 단일 책임 원칙을 잘 따름\n- 에러 처리가 적절함\n- 테스트 커버리지 양호\n\n[개선 제안]\n- line 45: 중복 코드 발견, 헬퍼 함수로 추출 권장\n- line 78: 타입 정의가 any로 되어 있음, 구체적 타입 권장\n- line 92: 비동기 에러 처리 누락 가능성\n\n리뷰 코멘트를 작성해드릴까요?\n```\n\n### 브랜치 관리\n\n복잡한 브랜치 상황도 Claude Code가 정리해줍니다.\n\n```\n지은: \"현재 브랜치 상황 정리해줘\"\n\nClaude Code:\n브랜치 현황:\n\n[활성 브랜치]\n- main: 최신 (2시간 전 업데이트)\n- feature/user-validation: main보다 3커밋 앞섬\n- feature/dashboard: main보다 1커밋 뒤처짐 (리베이스 필요)\n\n[병합 가능]\n- feature/user-validation -> main: 충돌 없음\n\n[주의 필요]\n- feature/dashboard: src/api/users.ts에서 충돌 예상\n\n어떤 작업을 도와드릴까요?\n```\n\n### 충돌 해결 도우미\n\n머지 충돌이 발생했을 때 Claude Code가 상황을 분석하고 해결책을 제시합니다.\n\n```\n지은: \"머지 충돌 해결해줘\"\n\nClaude Code:\n충돌 분석 중...\n\nsrc/api/users.ts에서 충돌 발견:\n\n현재 브랜치 (HEAD):\n  validateEmail(email) 호출\n\n병합 대상 브랜치:\n  validateUserInput(email, name) 호출\n\n제안: 두 기능을 모두 유지하는 것이 좋겠습니다.\n병합 대상의 validateUserInput이 더 포괄적이므로\n이를 사용하고, 기존 validateEmail 호출부를 업데이트하는 것을 권장합니다.\n\n이렇게 해결할까요?\n```\n\n<!-- QUIZ:claude-code-ch5-s1-q3 -->\n\n### 지은이의 Git 워크플로우\n\n이제 지은이의 Git 작업은 이렇게 바뀌었습니다:\n\n| 이전 | Claude Code 활용 후 |\n|------|--------------------|\n| 커밋 메시지 고민 5분 | 자동 생성 후 확인 30초 |\n| PR 설명 작성 15분 | 자동 초안 후 수정 3분 |\n| 코드 리뷰 30분 | AI 사전 분석으로 15분 |\n| 충돌 해결 시행착오 | 분석 기반 정확한 해결 |\n\n### 정리해볼까요?\n\nClaude Code의 Git 워크플로우 자동화:\n\n- **커밋 메시지**: 변경 사항 분석 후 Conventional Commits 형식으로 자동 생성\n- **PR 생성**: 브랜치 비교 분석, 제목과 설명 자동 작성\n- **코드 리뷰**: 변경 사항 분석, 개선점 제안, 리뷰 코멘트 작성 지원\n- **브랜치 관리**: 현황 파악, 충돌 예측, 리베이스 필요 여부 확인\n- **충돌 해결**: 충돌 원인 분석, 해결 방안 제시",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "claude-code-ch5-s1-q1",
+          "sectionId": "claude-code-ch5-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "Claude Code가 커밋 메시지를 생성할 때 분석하는 것은?",
+          "options": [
+            "사용자의 이전 커밋 히스토리만",
+            "코드 변경 사항 (추가, 수정, 삭제된 내용)",
+            "Git 설정 파일만",
+            "브랜치 이름만"
+          ],
+          "correctAnswer": "코드 변경 사항 (추가, 수정, 삭제된 내용)",
+          "explanation": "Claude Code는 실제 코드 변경 사항을 분석합니다. 어떤 파일이 수정되었고, 무슨 기능이 추가되거나 변경되었는지 이해한 후 의미 있는 커밋 메시지를 생성합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-code-ch5-s1-q2",
+          "sectionId": "claude-code-ch5-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "Claude Code는 PR 생성 시 변경된 파일 수와 코드 라인 변경량도 자동으로 분석한다.",
+          "correctAnswer": "true",
+          "explanation": "맞습니다. Claude Code는 PR 생성 시 브랜치 간 차이를 분석하여 변경된 파일 수, 추가된 라인, 삭제된 라인 등을 자동으로 파악하고 PR 설명에 포함시킵니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-code-ch5-s1-q3",
+          "sectionId": "claude-code-ch5-s1",
+          "type": "multiple_choice",
+          "difficulty": "advanced",
+          "question": "Claude Code의 머지 충돌 해결 지원에서 가장 중요한 기능은?",
+          "options": [
+            "자동으로 모든 충돌을 해결해주는 것",
+            "충돌 원인을 분석하고 해결 방안을 제시하는 것",
+            "충돌이 발생한 파일을 자동 삭제하는 것",
+            "충돌을 무시하고 강제 병합하는 것"
+          ],
+          "correctAnswer": "충돌 원인을 분석하고 해결 방안을 제시하는 것",
+          "explanation": "Claude Code는 충돌을 자동으로 해결하기보다 충돌의 원인을 분석하고, 양쪽 변경 사항의 의도를 파악한 후 적절한 해결 방안을 제시합니다. 최종 결정은 개발자가 내립니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-code-ch5-s2",
+      "chapterId": "claude-code-ch5",
+      "slug": "advanced-techniques",
+      "title": "고급 기법과 CLAUDE.md",
+      "content": "## 고급 기법과 CLAUDE.md\n\n지은이는 이제 Claude Code의 진정한 파워 유저가 되기 위한 고급 기법들을 배웁니다. 특히 CLAUDE.md 파일을 활용하면 프로젝트별로 맞춤화된 AI 어시스턴트를 만들 수 있습니다.\n\n### CLAUDE.md란?\n\nCLAUDE.md는 프로젝트 루트에 위치하는 특별한 파일입니다. Claude Code가 대화를 시작할 때 이 파일을 자동으로 읽어서 프로젝트의 컨텍스트를 이해합니다.\n\n```markdown\n# CLAUDE.md 예시\n\n## 프로젝트 개요\n이 프로젝트는 React + TypeScript 기반의 이커머스 플랫폼입니다.\n\n## 코딩 컨벤션\n- 함수형 컴포넌트 사용\n- styled-components로 스타일링\n- 모든 컴포넌트에 TypeScript 타입 정의 필수\n\n## 금지 사항\n- any 타입 사용 금지\n- console.log 커밋 금지\n- 인라인 스타일 금지\n```\n\n<!-- QUIZ:claude-code-ch5-s2-q1 -->\n\n### 지은이의 CLAUDE.md 작성\n\n지은이는 자신의 웹 프로젝트를 위한 CLAUDE.md를 작성했습니다.\n\n```markdown\n# 지은이의 포트폴리오 프로젝트\n\n## 기술 스택\n- Frontend: Next.js 14, TypeScript, Tailwind CSS\n- Backend: Supabase\n- 배포: Vercel\n\n## 디렉토리 구조\n- /app: Next.js App Router 페이지\n- /components: 재사용 가능한 컴포넌트\n- /lib: 유틸리티 함수와 타입 정의\n- /hooks: 커스텀 React 훅\n\n## 코딩 규칙\n1. 컴포넌트는 Pascal Case (예: UserCard.tsx)\n2. 훅은 use 접두사 (예: useAuth.ts)\n3. 타입은 .types.ts 파일에 분리\n4. 한국어 주석 사용\n\n## 자주 발생하는 실수\n- Supabase 클라이언트는 /lib/supabase.ts에서 가져올 것\n- 이미지는 반드시 next/image 사용\n- 환경변수는 NEXT_PUBLIC_ 접두사 확인\n```\n\n### 멀티 파일 작업\n\nClaude Code는 여러 파일에 걸친 리팩토링도 수행할 수 있습니다.\n\n```\n지은: \"모든 컴포넌트에서 사용하는 Button을 공통 컴포넌트로 추출하고\n      기존 사용처를 모두 업데이트해줘\"\n\nClaude Code:\n분석 결과: 8개 파일에서 유사한 버튼 패턴 발견\n\n작업 계획:\n1. /components/common/Button.tsx 생성\n2. 타입 정의: /components/common/Button.types.ts\n3. 8개 파일의 import 업데이트\n4. 기존 인라인 버튼 코드 제거\n\n진행할까요?\n```\n\n<!-- QUIZ:claude-code-ch5-s2-q2 -->\n\n### MCP 서버 활용\n\nMCP(Model Context Protocol) 서버를 연결하면 Claude Code의 기능을 확장할 수 있습니다.\n\n```json\n// .claude/config.json\n{\n  \"mcpServers\": {\n    \"filesystem\": {\n      \"command\": \"npx\",\n      \"args\": [\"@anthropic/mcp-filesystem\", \"/path/to/allowed/dir\"]\n    },\n    \"github\": {\n      \"command\": \"npx\",\n      \"args\": [\"@anthropic/mcp-github\"],\n      \"env\": {\n        \"GITHUB_TOKEN\": \"your-token\"\n      }\n    }\n  }\n}\n```\n\nMCP 서버를 통해 Claude Code는:\n- 파일 시스템 접근 확장\n- GitHub API 직접 호출\n- 데이터베이스 쿼리 실행\n- 외부 API 연동\n\n### 컨텍스트 관리 전략\n\n긴 대화에서 컨텍스트를 효율적으로 관리하는 것이 중요합니다.\n\n```\n지은: \"/compact\"\n\nClaude Code:\n대화 내용을 요약합니다...\n\n요약된 컨텍스트:\n- 현재 작업: 사용자 인증 기능 구현\n- 완료된 작업: 로그인 API, 토큰 저장\n- 진행 중: 자동 로그인 유지 기능\n- 주의사항: 토큰 만료 시간 24시간으로 설정됨\n\n컨텍스트가 압축되었습니다.\n계속해서 어떤 작업을 도와드릴까요?\n```\n\n### 슬래시 명령어 활용\n\nClaude Code의 내장 슬래시 명령어들을 활용하면 작업 효율이 높아집니다.\n\n| 명령어 | 기능 |\n|--------|------|\n| `/init` | 프로젝트 분석 후 CLAUDE.md 자동 생성 |\n| `/compact` | 대화 컨텍스트 압축 |\n| `/clear` | 대화 히스토리 초기화 |\n| `/cost` | 현재 세션 토큰 사용량 확인 |\n| `/doctor` | Claude Code 설정 진단 |\n\n<!-- QUIZ:claude-code-ch5-s2-q3 -->\n\n### 훅과 자동화\n\nClaude Code는 특정 이벤트에 자동으로 반응하도록 설정할 수 있습니다.\n\n```json\n// .claude/hooks.json\n{\n  \"onSave\": [\n    {\n      \"pattern\": \"*.ts\",\n      \"action\": \"lint-fix\"\n    }\n  ],\n  \"onCommit\": [\n    {\n      \"action\": \"run-tests\"\n    }\n  ]\n}\n```\n\n### 메모리 기능 활용\n\nClaude Code는 프로젝트별로 중요한 정보를 기억할 수 있습니다.\n\n```\n지은: \"이 프로젝트의 배포 URL은 https://jieun-portfolio.vercel.app이야.\n      기억해둬.\"\n\nClaude Code:\n프로젝트 메모리에 저장했습니다:\n- 배포 URL: https://jieun-portfolio.vercel.app\n\n앞으로 배포 관련 질문 시 이 정보를 참조하겠습니다.\n```\n\n### 지은이의 최적화된 설정\n\n지은이는 자신만의 최적화된 Claude Code 환경을 구축했습니다:\n\n1. **CLAUDE.md**: 프로젝트 컨텍스트와 규칙 정의\n2. **MCP 서버**: GitHub 연동으로 이슈/PR 자동화\n3. **훅 설정**: 저장 시 자동 린트, 커밋 전 테스트\n4. **컨텍스트 전략**: 큰 기능은 `/compact` 후 시작\n\n### 정리해볼까요?\n\nClaude Code 고급 기법:\n\n- **CLAUDE.md**: 프로젝트별 컨텍스트, 코딩 규칙, 금지 사항 정의\n- **멀티 파일 작업**: 여러 파일에 걸친 리팩토링 자동화\n- **MCP 서버**: 외부 서비스 연동으로 기능 확장\n- **컨텍스트 관리**: /compact로 긴 대화 효율적 관리\n- **슬래시 명령어**: /init, /clear, /cost 등 내장 도구 활용\n- **훅**: 저장, 커밋 시 자동 작업 실행",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "claude-code-ch5-s2-q1",
+          "sectionId": "claude-code-ch5-s2",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "CLAUDE.md 파일의 주요 목적은?",
+          "options": [
+            "Claude Code의 설치 방법을 설명하기 위해",
+            "프로젝트 컨텍스트와 규칙을 Claude Code에게 전달하기 위해",
+            "코드를 백업하기 위해",
+            "사용자 인증 정보를 저장하기 위해"
+          ],
+          "correctAnswer": "프로젝트 컨텍스트와 규칙을 Claude Code에게 전달하기 위해",
+          "explanation": "CLAUDE.md는 프로젝트의 기술 스택, 코딩 컨벤션, 디렉토리 구조 등을 정의하여 Claude Code가 프로젝트를 더 잘 이해하고 일관된 코드를 생성하도록 돕습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-code-ch5-s2-q2",
+          "sectionId": "claude-code-ch5-s2",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "Claude Code는 한 번에 하나의 파일만 수정할 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "틀립니다. Claude Code는 멀티 파일 작업이 가능합니다. 공통 컴포넌트 추출, 대규모 리팩토링 등 여러 파일에 걸친 변경 사항을 한 번에 처리할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-code-ch5-s2-q3",
+          "sectionId": "claude-code-ch5-s2",
+          "type": "multiple_choice",
+          "difficulty": "advanced",
+          "question": "/compact 명령어의 기능은?",
+          "options": [
+            "코드를 압축하여 파일 크기를 줄인다",
+            "대화 컨텍스트를 요약하여 토큰을 절약한다",
+            "프로젝트 파일을 ZIP으로 압축한다",
+            "Git 히스토리를 압축한다"
+          ],
+          "correctAnswer": "대화 컨텍스트를 요약하여 토큰을 절약한다",
+          "explanation": "/compact 명령어는 긴 대화에서 중요한 내용만 요약하여 컨텍스트를 압축합니다. 이를 통해 토큰 사용량을 절약하면서도 핵심 정보를 유지할 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-code-ch5-s3",
+      "chapterId": "claude-code-ch5",
+      "slug": "capstone-project",
+      "title": "캡스톤 프로젝트: 나만의 AI 워크플로우 설계",
+      "content": "## 캡스톤 프로젝트: 나만의 AI 워크플로우 설계\n\n축하합니다! 지은이와 함께 Claude Code의 모든 핵심 기능을 배웠습니다. 이제 여러분만의 AI 개발 워크플로우를 설계할 차례입니다.\n\n### 지은이의 여정을 돌아보며\n\n지은이는 처음 \"AI 코딩 도구? 그게 뭐예요?\"라고 물었던 초보자에서, 이제는 Claude Code를 자유자재로 활용하는 개발자로 성장했습니다.\n\n```\n[지은이의 성장 여정]\n\nChapter 1: \"Claude Code가 뭐예요?\" → AI 코딩 어시스턴트 이해\nChapter 2: \"어떻게 설치해요?\" → 환경 구축 완료\nChapter 3: \"코드 작성을 도와준다고요?\" → 기본 기능 마스터\nChapter 4: \"디버깅도 해줘요?\" → 문제 해결 능력 습득\nChapter 5: \"나만의 워크플로우를 만들 수 있어요!\" → 고급 사용자\n```\n\n<!-- QUIZ:claude-code-ch5-s3-q1 -->\n\n### 캡스톤: 나만의 워크플로우 설계\n\n이 캡스톤 프로젝트에서는 여러분의 실제 프로젝트에 적용할 Claude Code 워크플로우를 설계합니다.\n\n#### 단계 1: 프로젝트 분석\n\n먼저 여러분의 프로젝트를 분석해봅니다.\n\n```markdown\n## 내 프로젝트 분석 템플릿\n\n### 프로젝트 정보\n- 프로젝트 이름:\n- 기술 스택:\n- 팀 규모: (개인/팀)\n- 개발 단계: (초기/중기/유지보수)\n\n### 반복적인 작업\n- [ ] 보일러플레이트 코드 작성\n- [ ] 테스트 코드 작성\n- [ ] 문서화\n- [ ] 코드 리뷰\n- [ ] 디버깅\n- [ ] 기타:\n\n### 가장 시간이 많이 걸리는 작업\n1.\n2.\n3.\n```\n\n#### 단계 2: CLAUDE.md 설계\n\n프로젝트에 맞는 CLAUDE.md를 설계합니다.\n\n```markdown\n## CLAUDE.md 설계 가이드\n\n### 필수 섹션\n1. 프로젝트 개요: 무엇을 만드는 프로젝트인가?\n2. 기술 스택: 사용하는 언어, 프레임워크, 라이브러리\n3. 디렉토리 구조: 주요 폴더와 그 역할\n4. 코딩 컨벤션: 네이밍 규칙, 스타일 가이드\n\n### 선택 섹션\n5. 자주 발생하는 실수: 팀에서 자주 하는 실수와 해결법\n6. 금지 사항: 절대 하면 안 되는 것들\n7. 배포 정보: 배포 환경, URL, 주의사항\n8. 외부 서비스: API 키 위치, 연동 서비스 정보\n```\n\n<!-- QUIZ:claude-code-ch5-s3-q2 -->\n\n#### 단계 3: 워크플로우 계획\n\n일상적인 개발 흐름에 Claude Code를 통합합니다.\n\n```\n[일일 개발 워크플로우 예시]\n\n09:00 - 업무 시작\n  └─ Claude Code에게 \"오늘 할 일 정리해줘\"\n     (이슈 트래커 연동 시 자동 파악)\n\n09:30 - 기능 개발\n  └─ \"이 기능 구현해줘\" → 초안 생성\n  └─ 리뷰 후 수정 요청\n  └─ 테스트 코드 자동 생성\n\n12:00 - 코드 리뷰\n  └─ \"이 PR 분석해줘\" → 피드백 정리\n\n15:00 - 버그 수정\n  └─ \"이 에러 원인 찾아줘\" → 디버깅\n  └─ 수정 사항 자동 생성\n\n17:00 - 커밋 & 정리\n  └─ 커밋 메시지 자동 생성\n  └─ PR 생성 및 설명 작성\n```\n\n#### 단계 4: 최적화\n\n워크플로우를 지속적으로 개선합니다.\n\n```markdown\n## 최적화 체크리스트\n\n### 효율성\n- [ ] 반복 작업이 자동화되었는가?\n- [ ] 컨텍스트 전환이 최소화되었는가?\n- [ ] 불필요한 대화가 줄었는가?\n\n### 품질\n- [ ] 생성된 코드가 프로젝트 컨벤션을 따르는가?\n- [ ] 테스트 커버리지가 유지되는가?\n- [ ] 일관된 코드 스타일이 유지되는가?\n\n### 학습\n- [ ] CLAUDE.md가 최신 상태인가?\n- [ ] 자주 발생하는 실수가 문서화되었는가?\n- [ ] 팀원들과 베스트 프랙티스를 공유하는가?\n```\n\n### 베스트 프랙티스 요약\n\n지금까지 배운 Claude Code 활용의 핵심을 정리합니다.\n\n| 영역 | 베스트 프랙티스 |\n|------|----------------|\n| 질문 | 구체적으로, 컨텍스트와 함께 |\n| CLAUDE.md | 프로젝트 시작 시 작성, 지속 업데이트 |\n| 코드 생성 | 항상 리뷰 후 수정, 테스트 필수 |\n| 디버깅 | 에러 메시지 전체 제공, 재현 조건 설명 |\n| Git | 커밋 메시지 검토, PR 설명 보완 |\n| 컨텍스트 | 긴 작업은 /compact 활용 |\n\n<!-- QUIZ:claude-code-ch5-s3-q3 -->\n\n### AI 개발의 미래\n\nClaude Code와 같은 AI 코딩 어시스턴트는 계속 발전하고 있습니다.\n\n**현재 할 수 있는 것:**\n- 코드 생성 및 수정\n- 버그 분석 및 수정 제안\n- 문서화 및 테스트 작성\n- Git 워크플로우 자동화\n\n**앞으로 발전할 영역:**\n- 더 정확한 컨텍스트 이해\n- 복잡한 아키텍처 설계 지원\n- 실시간 협업 기능\n- 자동 성능 최적화\n\n### 지은이의 마지막 메시지\n\n\"처음에는 AI가 코딩을 도와준다는 게 믿기지 않았어요. 그런데 이제는 Claude Code 없이 개발하는 게 상상이 안 돼요. 중요한 건 AI를 맹신하지 않고, 좋은 파트너로 활용하는 거예요. 여러분도 자신만의 워크플로우를 만들어보세요!\"\n\n### 정리해볼까요?\n\n캡스톤 프로젝트 설계 단계:\n\n1. **프로젝트 분석**: 기술 스택, 반복 작업, 병목 지점 파악\n2. **CLAUDE.md 설계**: 프로젝트 컨텍스트와 규칙 문서화\n3. **워크플로우 계획**: 일상 개발 흐름에 Claude Code 통합\n4. **지속적 최적화**: 효율성, 품질, 학습 관점에서 개선\n\n**핵심 마인드셋:**\n- AI는 도구이자 파트너\n- 항상 검토하고 학습하기\n- 나만의 워크플로우 만들기\n- 지속적으로 개선하기\n\n축하합니다! Claude Code 마스터하기 코스를 완료했습니다!",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 30,
+      "quizzes": [
+        {
+          "id": "claude-code-ch5-s3-q1",
+          "sectionId": "claude-code-ch5-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "나만의 Claude Code 워크플로우 설계에서 가장 먼저 해야 할 단계는?",
+          "options": [
+            "CLAUDE.md 작성",
+            "프로젝트 분석 (기술 스택, 반복 작업 파악)",
+            "MCP 서버 설정",
+            "Git 훅 설정"
+          ],
+          "correctAnswer": "프로젝트 분석 (기술 스택, 반복 작업 파악)",
+          "explanation": "효과적인 워크플로우 설계는 현재 프로젝트의 상황을 정확히 파악하는 것에서 시작합니다. 기술 스택, 반복적인 작업, 가장 시간이 많이 걸리는 작업을 먼저 분석해야 합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-code-ch5-s3-q2",
+          "sectionId": "claude-code-ch5-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "CLAUDE.md는 프로젝트 시작 시 한 번 작성하면 더 이상 수정할 필요가 없다.",
+          "correctAnswer": "false",
+          "explanation": "틀립니다. CLAUDE.md는 프로젝트가 발전하고 새로운 패턴이나 규칙이 생길 때마다 지속적으로 업데이트해야 합니다. 자주 발생하는 실수나 새로운 컨벤션이 생기면 문서에 반영해야 Claude Code가 더 정확하게 도와줄 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-code-ch5-s3-q3",
+          "sectionId": "claude-code-ch5-s3",
+          "type": "multiple_choice",
+          "difficulty": "advanced",
+          "question": "Claude Code를 활용할 때 가장 중요한 마인드셋은?",
+          "options": [
+            "AI가 생성한 코드는 항상 완벽하므로 그대로 사용한다",
+            "AI는 대체재이므로 개발자의 역할은 줄어든다",
+            "AI는 도구이자 파트너이며, 항상 검토하고 학습해야 한다",
+            "AI에게 모든 결정을 맡기는 것이 효율적이다"
+          ],
+          "correctAnswer": "AI는 도구이자 파트너이며, 항상 검토하고 학습해야 한다",
+          "explanation": "Claude Code는 강력한 도구이지만 완벽하지 않습니다. 생성된 코드를 항상 검토하고, 왜 그렇게 생성했는지 학습하며, 지속적으로 워크플로우를 개선하는 자세가 중요합니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

@@ -8,6 +8,9 @@ import { useProgressStore } from '../store/progressStore'
 import { useCourseList } from '../hooks/useCourse'
 import { calculateProgress } from '../lib/utils'
 import { getCourseTheme } from '../lib/courseThemes'
+import LevelProgress from '../components/gamification/LevelProgress'
+import AchievementBadge, { getBadgesForProgress, BADGES } from '../components/gamification/AchievementBadge'
+import StreakTracker from '../components/gamification/StreakTracker'
 
 export default function Dashboard() {
   const { user } = useAuthStore()
@@ -42,12 +45,18 @@ export default function Dashboard() {
   // Study streak (simplified: days with activity)
   // const studyDays = completedSections.size > 0 ? Math.min(completedSections.size, 30) : 0
 
+  // Gamification data
+  const earnedBadges = getBadgesForProgress(completedSections, quizScores)
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">안녕하세요, {user.name || '학습자'}님!</h1>
         <p className="text-gray-500">학습 현황을 한눈에 확인하세요.</p>
+        <div className="mt-4">
+          <StreakTracker />
+        </div>
       </div>
 
       {/* Overall Stats Cards */}
@@ -78,6 +87,35 @@ export default function Dashboard() {
           )}
         </Card>
       </div>
+
+      {/* Level Progress */}
+      <div className="mb-10">
+        <LevelProgress totalCompleted={totalCompleted} />
+      </div>
+
+      {/* Achievement Badges */}
+      <section className="mb-10">
+        <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <span>🏅</span> 획득한 배지
+        </h2>
+        <Card className="p-6">
+          <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4">
+            {BADGES.map(badge => (
+              <AchievementBadge
+                key={badge.id}
+                badgeId={badge.id}
+                earned={earnedBadges.includes(badge.id)}
+                size="md"
+              />
+            ))}
+          </div>
+          <div className="mt-6 pt-4 border-t border-gray-200 text-center">
+            <p className="text-sm text-gray-500">
+              <span className="font-bold text-primary">{earnedBadges.length}</span> / {BADGES.length} 배지 획득
+            </p>
+          </div>
+        </Card>
+      </section>
 
       {/* Completed Courses */}
       {completedCourses.length > 0 && (

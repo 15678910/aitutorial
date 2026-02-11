@@ -576,6 +576,114 @@ function ProjectIdea({ color }: { color: string }) {
   )
 }
 
+// Terminal with Claude logo for getting started
+function TerminalClaude({ color }: { color: string }) {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <rect x="25" y="35" width="150" height="110" rx="12" fill="#1e1e2e" stroke={color} strokeWidth="2.5" />
+      <rect x="25" y="35" width="150" height="24" rx="12" fill={color} opacity="0.9" />
+      <circle cx="42" cy="47" r="4" fill="#ff5f56" />
+      <circle cx="56" cy="47" r="4" fill="#ffbd2e" />
+      <circle cx="70" cy="47" r="4" fill="#27c93f" />
+      <text x="40" y="80" fontSize="11" fill={color} fontFamily="monospace" opacity="0.8">$ claude</text>
+      <text x="40" y="95" fontSize="10" fill="#8b8b8b" fontFamily="monospace">╭──────────────╮</text>
+      <text x="40" y="108" fontSize="10" fill={color} fontFamily="monospace" fontWeight="bold"> Claude Code ✨</text>
+      <text x="40" y="121" fontSize="10" fill="#8b8b8b" fontFamily="monospace">╰──────────────╯</text>
+      <rect x="55" y="155" width="90" height="25" rx="6" fill={color} opacity="0.15" />
+      <text x="70" y="172" fontSize="11" fill={color} fontWeight="bold">시작하기 →</text>
+    </svg>
+  )
+}
+
+// Command palette for basic commands
+function CommandPalette({ color }: { color: string }) {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <rect x="30" y="30" width="140" height="140" rx="14" fill="white" stroke={color} strokeWidth="2" opacity="0.95" />
+      <rect x="40" y="42" width="120" height="22" rx="8" fill={color} opacity="0.1" stroke={color} strokeWidth="1" />
+      <text x="50" y="57" fontSize="10" fill={color} opacity="0.5">명령어를 입력하세요...</text>
+      <rect x="40" y="72" width="120" height="20" rx="6" fill={color} opacity="0.15" />
+      <text x="48" y="86" fontSize="9" fill={color} fontWeight="bold">/edit 파일 수정하기</text>
+      <rect x="40" y="97" width="120" height="20" rx="6" fill={color} opacity="0.08" />
+      <text x="48" y="111" fontSize="9" fill={color}>/test 테스트 실행</text>
+      <rect x="40" y="122" width="120" height="20" rx="6" fill={color} opacity="0.08" />
+      <text x="48" y="136" fontSize="9" fill={color}>/commit 변경 커밋</text>
+      <rect x="40" y="147" width="120" height="20" rx="6" fill={color} opacity="0.08" />
+      <text x="48" y="161" fontSize="9" fill={color}>/review 코드 리뷰</text>
+    </svg>
+  )
+}
+
+// Code editor with AI suggestions
+function CodeWithAI({ color }: { color: string }) {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <rect x="20" y="25" width="160" height="150" rx="10" fill="#1e1e2e" stroke={color} strokeWidth="2" />
+      <rect x="20" y="25" width="35" height="150" rx="10" fill="#161622" />
+      <text x="30" y="52" fontSize="8" fill="#555" fontFamily="monospace">1</text>
+      <text x="30" y="66" fontSize="8" fill="#555" fontFamily="monospace">2</text>
+      <text x="30" y="80" fontSize="8" fill="#555" fontFamily="monospace">3</text>
+      <text x="30" y="94" fontSize="8" fill="#555" fontFamily="monospace">4</text>
+      <text x="30" y="108" fontSize="8" fill="#555" fontFamily="monospace">5</text>
+      <text x="60" y="52" fontSize="8" fill="#c792ea" fontFamily="monospace">function</text>
+      <text x="102" y="52" fontSize="8" fill="#82aaff" fontFamily="monospace">hello()</text>
+      <text x="60" y="66" fontSize="8" fill="#c3e88d" fontFamily="monospace">  return "Hi"</text>
+      <text x="60" y="80" fontSize="8" fill="#c792ea" fontFamily="monospace">{'}'}</text>
+      <rect x="58" y="88" width="110" height="30" rx="6" fill={color} opacity="0.2" stroke={color} strokeWidth="1" strokeDasharray="3 2" />
+      <text x="65" y="100" fontSize="7" fill={color} opacity="0.7">✨ AI 제안:</text>
+      <text x="65" y="112" fontSize="7" fill={color} fontFamily="monospace">+ 에러 처리 추가</text>
+      <text x="150" y="158" fontSize="16">🤖</text>
+    </svg>
+  )
+}
+
+// Bug with magnifying glass for debugging
+function DebuggerView({ color }: { color: string }) {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <rect x="25" y="40" width="100" height="80" rx="8" fill="#1e1e2e" stroke={color} strokeWidth="1.5" />
+      <text x="32" y="58" fontSize="7" fill="#ff5370" fontFamily="monospace">Error:</text>
+      <text x="32" y="70" fontSize="7" fill="#ff5370" fontFamily="monospace">undefined is</text>
+      <text x="32" y="82" fontSize="7" fill="#ff5370" fontFamily="monospace">not a function</text>
+      <line x1="32" y1="92" x2="115" y2="92" stroke={color} strokeWidth="0.5" opacity="0.3" />
+      <text x="32" y="105" fontSize="7" fill={color} fontFamily="monospace">→ line 42</text>
+      <circle cx="155" cy="75" r="28" fill="none" stroke={color} strokeWidth="3" />
+      <line x1="175" y1="95" x2="190" y2="110" stroke={color} strokeWidth="3" strokeLinecap="round" />
+      <text x="145" y="80" fontSize="20">🐛</text>
+      <path d="M135 130 Q150 125 165 130" fill="none" stroke={color} strokeWidth="2" />
+      <text x="140" y="145" fontSize="8" fill={color} fontWeight="bold">버그 발견!</text>
+      <rect x="50" y="155" width="100" height="25" rx="6" fill={color} opacity="0.15" />
+      <text x="60" y="172" fontSize="9" fill={color}>✅ claude "fix this"</text>
+    </svg>
+  )
+}
+
+// Workflow automation with connected nodes
+function WorkflowAuto({ color }: { color: string }) {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <circle cx="50" cy="50" r="20" fill={color} opacity="0.2" stroke={color} strokeWidth="2" />
+      <text x="40" y="55" fontSize="12">📝</text>
+      <circle cx="150" cy="50" r="20" fill={color} opacity="0.2" stroke={color} strokeWidth="2" />
+      <text x="140" y="55" fontSize="12">🔍</text>
+      <circle cx="50" cy="150" r="20" fill={color} opacity="0.2" stroke={color} strokeWidth="2" />
+      <text x="40" y="155" fontSize="12">🧪</text>
+      <circle cx="150" cy="150" r="20" fill={color} opacity="0.2" stroke={color} strokeWidth="2" />
+      <text x="140" y="155" fontSize="12">🚀</text>
+      <circle cx="100" cy="100" r="24" fill={color} opacity="0.8" />
+      <text x="88" y="105" fontSize="14" fill="white" fontWeight="bold">CC</text>
+      <line x1="68" y1="58" x2="80" y2="82" stroke={color} strokeWidth="2" opacity="0.4" />
+      <line x1="132" y1="58" x2="120" y2="82" stroke={color} strokeWidth="2" opacity="0.4" />
+      <line x1="68" y1="142" x2="80" y2="118" stroke={color} strokeWidth="2" opacity="0.4" />
+      <line x1="132" y1="142" x2="120" y2="118" stroke={color} strokeWidth="2" opacity="0.4" />
+      <path d="M70 50 L130 50" stroke={color} strokeWidth="1.5" strokeDasharray="4 3" opacity="0.3" />
+      <path d="M150 70 L150 130" stroke={color} strokeWidth="1.5" strokeDasharray="4 3" opacity="0.3" />
+      <path d="M130 150 L70 150" stroke={color} strokeWidth="1.5" strokeDasharray="4 3" opacity="0.3" />
+      <path d="M50 130 L50 70" stroke={color} strokeWidth="1.5" strokeDasharray="4 3" opacity="0.3" />
+    </svg>
+  )
+}
+
 // Map course+chapter to illustration
 const illustrationMap: Record<string, React.FC<{ color: string }>[]> = {
   'ai-intro': [RobotCharacter, SearchMaze, LearningCurve, NeuralNetworkFriendly, GlobalNetwork, FutureVision],
@@ -583,6 +691,7 @@ const illustrationMap: Record<string, React.FC<{ color: string }>[]> = {
   'deep-learning': [NeuralNetworkFriendly, ImageGrid, SpeechBubbles],
   'generative-ai': [MagicWand, ChatInterface, CreativePalette],
   'making-ai': [PineappleRoutes, CoinFlips, RegressionLine, NeuralBuilder, ProjectIdea],
+  'claude-code': [TerminalClaude, CommandPalette, CodeWithAI, DebuggerView, WorkflowAuto],
 }
 
 export default function ChapterIllustration({ courseSlug, chapterIndex, className = '' }: ChapterIllustrationProps) {
@@ -597,4 +706,4 @@ export default function ChapterIllustration({ courseSlug, chapterIndex, classNam
   )
 }
 
-export { RobotCharacter, BrainWithGears, GlobalNetwork, DataFunnel, DecisionTree, ChartGraph, NeuralNetworkFriendly, ImageGrid, SpeechBubbles, MagicWand, ChatInterface, CreativePalette, SearchMaze, LearningCurve, FutureVision, PineappleRoutes, CoinFlips, RegressionLine, NeuralBuilder, ProjectIdea }
+export { RobotCharacter, BrainWithGears, GlobalNetwork, DataFunnel, DecisionTree, ChartGraph, NeuralNetworkFriendly, ImageGrid, SpeechBubbles, MagicWand, ChatInterface, CreativePalette, SearchMaze, LearningCurve, FutureVision, PineappleRoutes, CoinFlips, RegressionLine, NeuralBuilder, ProjectIdea, TerminalClaude, CommandPalette, CodeWithAI, DebuggerView, WorkflowAuto }

@@ -11,6 +11,8 @@ import { useAuthStore } from '../store/authStore'
 import { getCourseTheme } from '../lib/courseThemes'
 import ChapterIllustration from '../components/illustrations/ChapterIllustrations'
 import { cn } from '../lib/utils'
+import CelebrationOverlay from '../components/gamification/CelebrationOverlay'
+import StreakTracker from '../components/gamification/StreakTracker'
 
 export default function Learn() {
   const { courseSlug, chapterSlug, sectionSlug } = useParams()
@@ -19,6 +21,8 @@ export default function Learn() {
   const course = useCourseBySlug(courseSlug || '')
   const { completedSections, markComplete, saveQuizScore } = useProgress()
   const [showNav, setShowNav] = useState(false)
+  const [showCelebration, setShowCelebration] = useState(false)
+  const [celebrationMsg, setCelebrationMsg] = useState('')
 
   const { currentSection, currentChapter, currentChapterIndex, prevSection, nextSection } = useMemo(() => {
     if (!course) return { currentSection: null, currentChapter: null, currentChapterIndex: 0, prevSection: null, nextSection: null }
@@ -44,8 +48,22 @@ export default function Learn() {
 
   const theme = getCourseTheme(course.slug)
   const isCompleted = completedSections.has(currentSection.id)
-  const handleComplete = () => { markComplete(currentSection.id) }
-  const handleQuizComplete = (score: number) => { saveQuizScore(currentSection.id, score); if (score >= 60) markComplete(currentSection.id) }
+  const handleComplete = () => {
+    markComplete(currentSection.id)
+    setCelebrationMsg('섹션 완료! 🎉')
+    setShowCelebration(true)
+  }
+  const handleQuizComplete = (score: number) => {
+    saveQuizScore(currentSection.id, score)
+    if (score >= 60) markComplete(currentSection.id)
+    if (score === 100) {
+      setCelebrationMsg('만점! 완벽합니다! 💎')
+      setShowCelebration(true)
+    } else if (score >= 80) {
+      setCelebrationMsg('훌륭해요! 🌟')
+      setShowCelebration(true)
+    }
+  }
   const navigateTo = (item: { section: { slug: string }; chapter: { slug: string } } | null) => {
     if (item) navigate(`/learn/${courseSlug}/${item.chapter.slug}/${item.section.slug}`)
   }
@@ -55,6 +73,7 @@ export default function Learn() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#faf8f5]">
+      <CelebrationOverlay show={showCelebration} message={celebrationMsg} onDone={() => setShowCelebration(false)} />
       {/* Top Navigation Bar - Elements of AI style */}
       <header className={`${theme.bg} sticky top-0 z-40`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -153,6 +172,10 @@ export default function Learn() {
             <span className="opacity-60 mr-3">{String.fromCharCode(8544 + sectionInChapter - 1)}.</span>
             {currentSection.title}
           </h1>
+          {/* Streak Tracker */}
+          <div className="mt-6">
+            <StreakTracker />
+          </div>
         </div>
       </div>
 

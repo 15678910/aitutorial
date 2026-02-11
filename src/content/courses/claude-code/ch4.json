@@ -1,0 +1,172 @@
+{
+"id": "claude-code-ch4",
+"courseId": "claude-code",
+"slug": "ch4-debugging",
+"title": "디버깅과 문제 해결",
+"description": "Claude Code를 활용하여 에러를 진단하고, 버그를 추적하며, 빌드 문제를 해결하는 방법을 배웁니다.",
+"orderNum": 4,
+"sections": [
+{
+"id": "claude-code-ch4-s1",
+"chapterId": "claude-code-ch4",
+"slug": "error-diagnosis",
+"title": "에러 진단하기",
+"content": "## 시나리오: 지은이의 프로덕션 크래시\n\n지은이 열심히 개발한 Todo 앱이 드디어 프로덕션에 배포되었습니다. 그런데 다음 날 아침, 사용자로부터 연락이 왔습니다.\n\n> \"앱이 갑자기 멈춰요! 로그인하면 화면이 하얘져요.\"\n\n지은은 당황했지만, Claude Code가 있다는 것을 기억했습니다. 서버 로그를 복사해서 Claude Code에 붙여넣기 했죠.\n\n```\nTypeError: Cannot read properties of undefined (reading 'map')\n    at TodoList.render (TodoList.tsx:45)\n    at processChild (react-dom.production.min.js:137)\n    at renderWithHooks (react-dom.production.min.js:276)\n```\n\n---\n\n## 에러 메시지 공유의 기술\n\n에러를 효과적으로 공유하는 것이 빠른 해결의 첫걸음입니다.\n\n### 좋은 에러 공유 vs 나쁜 에러 공유\n\n| 나쁜 예시 | 좋은 예시 |\n|-----------|----------|\n| \"앱이 안 돼요\" | 에러 메시지 전체 + 스택 트레이스 |\n| \"뭔가 깨졌어요\" | 에러 발생 상황 + 재현 단계 |\n| 스크린샷만 | 텍스트로 복사한 에러 로그 |\n\n지은은 Claude Code에게 이렇게 요청했습니다:\n\n```\n프로덕션에서 이 에러가 발생해요. 원인을 찾아주세요:\n[에러 로그 붙여넣기]\n\n재현 조건: 새로 가입한 사용자가 로그인했을 때\n```\n\n<!-- QUIZ:claude-code-ch4-s1-q1 -->\n\n## Claude Code의 진단 접근법\n\nClaude Code는 체계적인 방법으로 에러를 진단합니다:\n\n### 1단계: 에러 메시지 분석\n\n```\nTypeError: Cannot read properties of undefined (reading 'map')\n```\n\nClaude Code의 분석:\n> \"undefined에서 map을 호출하려 했네요. 이는 배열이어야 할 변수가 undefined인 상황입니다.\"\n\n### 2단계: 스택 트레이스 추적\n\n```\nat TodoList.render (TodoList.tsx:45)\n```\n\nClaude Code는 해당 파일의 45번 줄을 확인합니다:\n\n```typescript\n// TodoList.tsx:45\n{todos.map(todo => <TodoItem key={todo.id} {...todo} />)}\n```\n\n> \"todos가 undefined일 때 이 에러가 발생합니다. 새 사용자는 아직 할일 데이터가 없어서 API가 빈 배열 대신 undefined를 반환하는 것 같네요.\"\n\n<!-- QUIZ:claude-code-ch4-s1-q2 -->\n\n## 흔한 에러 패턴과 해결법\n\nClaude Code가 자주 마주하는 에러 패턴들입니다:\n\n### TypeError: Cannot read properties of undefined\n\n**원인**: null/undefined 체크 누락\n**해결**: 옵셔널 체이닝(?.) 또는 기본값 설정\n\n```typescript\n// 수정 전\ntodos.map(todo => ...)\n\n// 수정 후  \n(todos ?? []).map(todo => ...)\n```\n\n### ReferenceError: X is not defined\n\n**원인**: 변수가 선언되지 않았거나 스코프 문제\n**해결**: import 확인, 변수 선언 확인\n\n### SyntaxError: Unexpected token\n\n**원인**: JSON 파싱 실패, 잘못된 문법\n**해결**: JSON 유효성 검사, 문법 오류 수정\n\nClaude Code가 지은에게 제안한 수정사항:\n\n```typescript\n// API 응답에 기본값 추가\nconst [todos, setTodos] = useState<Todo[]>([]);\n\n// 또는 렌더링 시 방어적 코드\n{(todos ?? []).map(todo => <TodoItem key={todo.id} {...todo} />)}\n```\n\n<!-- QUIZ:claude-code-ch4-s1-q3 -->\n\n## 정리: 에러 진단 체크리스트\n\n1. **에러 메시지 전체**를 Claude Code에 공유하세요\n2. **스택 트레이스**는 문제의 위치를 알려줍니다\n3. **재현 조건**을 함께 설명하면 진단이 빨라집니다\n4. Claude Code는 에러 타입에 따라 **체계적으로 원인을 추적**합니다",
+"contentType": "text",
+"orderNum": 1,
+"estimatedMinutes": 20,
+"quizzes": [
+{
+"id": "claude-code-ch4-s1-q1",
+"sectionId": "claude-code-ch4-s1",
+"type": "multiple_choice",
+"difficulty": "beginner",
+"question": "Claude Code에게 에러를 공유할 때 가장 효과적인 방법은?",
+"options": [
+"에러 스크린샷만 보내기",
+"앱이 안 된다고만 설명하기",
+"에러 메시지 전체와 재현 조건을 텍스트로 공유하기",
+"에러가 발생한 파일 이름만 알려주기"
+],
+"correctAnswer": "에러 메시지 전체와 재현 조건을 텍스트로 공유하기",
+"explanation": "텍스트로 된 에러 메시지 전체와 재현 조건을 함께 공유하면 Claude Code가 정확히 분석하고 빠르게 해결책을 제시할 수 있습니다.",
+"orderNum": 1
+},
+{
+"id": "claude-code-ch4-s1-q2",
+"sectionId": "claude-code-ch4-s1",
+"type": "true_false",
+"difficulty": "intermediate",
+"question": "스택 트레이스(Stack Trace)는 에러가 발생한 코드의 위치를 알려준다.",
+"correctAnswer": "true",
+"explanation": "스택 트레이스는 에러가 발생한 파일명과 줄 번호, 그리고 함수 호출 순서를 보여주어 문제의 정확한 위치를 파악할 수 있게 해줍니다.",
+"orderNum": 2
+},
+{
+"id": "claude-code-ch4-s1-q3",
+"sectionId": "claude-code-ch4-s1",
+"type": "multiple_choice",
+"difficulty": "advanced",
+"question": "'Cannot read properties of undefined (reading map)'에러의 올바른 해결 방법은?",
+"options": [
+"map 함수를 forEach로 바꾼다",
+"옵셔널 체이닝(?.)이나 기본값 설정으로 undefined를 처리한다",
+"try-catch로 에러를 무시한다",
+"에러가 발생한 줄을 삭제한다"
+],
+"correctAnswer": "옵셔널 체이닝(?.)이나 기본값 설정으로 undefined를 처리한다",
+"explanation": "배열이 undefined일 수 있는 경우 (todos ?? []).map() 처럼 기본값을 설정하거나 옵셔널 체이닝을 사용하여 안전하게 처리해야 합니다.",
+"orderNum": 3
+}
+]
+},
+{
+"id": "claude-code-ch4-s2",
+"chapterId": "claude-code-ch4",
+"slug": "debugging-strategies",
+"title": "디버깅 전략",
+"content": "## 시나리오: 사라지는 데이터 미스터리\n\n지은의 Todo 앱에서 이상한 문제가 발생했습니다. 사용자들이 할일을 추가하면 가끔 데이터가 사라진다는 것이었죠.\n\n> \"분명히 저장했는데 새로고침하면 없어져요. 근데 항상 그런 건 아니고 가끔씩만요...\"\n\n\"가끔씩만\" - 이 말이 디버깅을 어렵게 만듭니다. 지은은 Claude Code에게 도움을 요청했습니다.\n\n---\n\n## 체계적인 디버깅 접근법\n\n간헐적으로 발생하는 버그는 가장 어려운 종류입니다. Claude Code와 함께 체계적으로 접근해봅시다.\n\n### 1단계: 현상 정리하기\n\n지은이 Claude Code에게 설명한 내용:\n\n```\n문제: 할일 추가 후 가끔 데이터가 사라짐\n빈도: 10번 중 2-3번\n재현: 빠르게 여러 개 추가할 때 자주 발생\n환경: 프로덕션에서만 (로컬에서는 재현 안됨)\n```\n\nClaude Code의 첫 번째 질문:\n> \"빠르게 여러 개 추가할 때 발생한다면 **레이스 컨디션(Race Condition)**일 가능성이 높습니다. 관련 코드를 볼 수 있을까요?\"\n\n<!-- QUIZ:claude-code-ch4-s2-q1 -->\n\n## 로깅과 트레이싱 추가\n\nClaude Code가 제안한 디버깅 전략은 로깅 추가였습니다.\n\n### 디버깅용 로그 추가하기\n\n```typescript\n// 수정 전\nconst addTodo = async (text: string) => {\n  const newTodo = await api.createTodo(text);\n  setTodos([...todos, newTodo]);\n};\n\n// 수정 후 (디버깅 로그 추가)\nconst addTodo = async (text: string) => {\n  console.log('[DEBUG] addTodo 시작:', text);\n  console.log('[DEBUG] 현재 todos 개수:', todos.length);\n  \n  const newTodo = await api.createTodo(text);\n  console.log('[DEBUG] API 응답:', newTodo);\n  \n  setTodos(prev => {\n    console.log('[DEBUG] 이전 상태:', prev.length);\n    const next = [...prev, newTodo];\n    console.log('[DEBUG] 다음 상태:', next.length);\n    return next;\n  });\n};\n```\n\n로그를 추가하고 문제를 재현하자, 원인이 드러났습니다:\n\n```\n[DEBUG] addTodo 시작: 할일1\n[DEBUG] 현재 todos 개수: 0\n[DEBUG] addTodo 시작: 할일2  // 첫 번째가 완료되기 전에 두 번째 시작!\n[DEBUG] 현재 todos 개수: 0   // 같은 상태에서 시작\n[DEBUG] API 응답: {id: 1, text: '할일1'}\n[DEBUG] API 응답: {id: 2, text: '할일2'}\n[DEBUG] 이전 상태: 0\n[DEBUG] 다음 상태: 1  // 할일2만 남음!\n```\n\n<!-- QUIZ:claude-code-ch4-s2-q2 -->\n\n## 이진 탐색 디버깅\n\n버그의 원인을 모를 때 사용하는 강력한 전략입니다.\n\n### 원리\n\n1. 코드의 중간 지점에 로그 추가\n2. 버그가 그 전에 발생하는지 후에 발생하는지 확인\n3. 범위를 절반으로 줄여가며 반복\n\nClaude Code에게 요청:\n> \"이 함수에서 문제가 발생하는 것 같은데, 어느 부분인지 찾아줘\"\n\nClaude Code는 함수의 중간중간에 체크포인트 로그를 추가하여 문제 지점을 빠르게 좁혀갑니다.\n\n## 레이스 컨디션 해결\n\nClaude Code가 찾은 원인과 해결책:\n\n**원인**: 비동기 호출이 완료되기 전에 다음 호출이 시작되어 오래된 상태를 참조\n\n**해결책**: 함수형 업데이트 사용\n\n```typescript\n// 수정 후: 항상 최신 상태를 참조\nconst addTodo = async (text: string) => {\n  const newTodo = await api.createTodo(text);\n  setTodos(prev => [...prev, newTodo]);  // prev는 항상 최신 상태\n};\n```\n\n<!-- QUIZ:claude-code-ch4-s2-q3 -->\n\n## 정리: 디버깅 전략 체크리스트\n\n1. **현상을 정확히 정리**하세요 (빈도, 재현 조건, 환경)\n2. **로깅을 추가**하여 실제 동작을 관찰하세요\n3. **이진 탐색**으로 문제 범위를 좁혀가세요\n4. **레이스 컨디션**은 간헐적 버그의 흔한 원인입니다",
+"contentType": "text",
+"orderNum": 2,
+"estimatedMinutes": 25,
+"quizzes": [
+{
+"id": "claude-code-ch4-s2-q1",
+"sectionId": "claude-code-ch4-s2",
+"type": "multiple_choice",
+"difficulty": "beginner",
+"question": "간헐적으로 발생하는 버그를 디버깅할 때 가장 먼저 해야 할 일은?",
+"options": [
+"코드를 처음부터 다시 작성한다",
+"문제 현상을 정확히 정리한다 (빈도, 재현 조건 등)",
+"랜덤하게 코드를 수정해본다",
+"버그를 무시하고 넘어간다"
+],
+"correctAnswer": "문제 현상을 정확히 정리한다 (빈도, 재현 조건 등)",
+"explanation": "체계적인 디버깅의 첫 단계는 문제를 정확히 이해하는 것입니다. 발생 빈도, 재현 조건, 환경 등을 정리하면 원인을 추론하는 데 큰 도움이 됩니다.",
+"orderNum": 1
+},
+{
+"id": "claude-code-ch4-s2-q2",
+"sectionId": "claude-code-ch4-s2",
+"type": "true_false",
+"difficulty": "intermediate",
+"question": "레이스 컨디션(Race Condition)은 여러 비동기 작업이 동시에 실행될 때 발생할 수 있는 문제이다.",
+"correctAnswer": "true",
+"explanation": "레이스 컨디션은 여러 비동기 작업이 공유 자원(상태)에 동시에 접근할 때 실행 순서에 따라 결과가 달라지는 문제입니다. 이는 간헐적 버그의 흔한 원인입니다.",
+"orderNum": 2
+},
+{
+"id": "claude-code-ch4-s2-q3",
+"sectionId": "claude-code-ch4-s2",
+"type": "multiple_choice",
+"difficulty": "advanced",
+"question": "이진 탐색 디버깅의 핵심 원리는?",
+"options": [
+"모든 코드에 로그를 추가한다",
+"코드의 중간 지점을 확인하며 문제 범위를 절반씩 줄여간다",
+"가장 마지막에 수정한 코드만 확인한다",
+"에러 메시지만 분석한다"
+],
+"correctAnswer": "코드의 중간 지점을 확인하며 문제 범위를 절반씩 줄여간다",
+"explanation": "이진 탐색 디버깅은 코드의 중간에 체크포인트를 두고, 문제가 그 전인지 후인지 확인하여 범위를 절반씩 줄여가는 효율적인 디버깅 방법입니다.",
+"orderNum": 3
+}
+]
+},
+{
+"id": "claude-code-ch4-s3",
+"chapterId": "claude-code-ch4",
+"slug": "build-errors",
+"title": "빌드 에러와 타입 에러 해결",
+"content": "## 시나리오: 의존성 업그레이드 재앙\n\n지은은 보안 취약점 경고를 해결하기 위해 프로젝트의 의존성을 업그레이드했습니다.\n\n```bash\nnpm update\n```\n\n그리고 빌드를 실행했더니...\n\n```\nError: 47 errors found.\nsrc/components/TodoList.tsx(12,5): error TS2322: Type 'string' is not assignable to type 'number'.\nsrc/hooks/useTodos.ts(34,10): error TS2345: Argument of type '{}' is not assignable...\n...(45개 더)\n```\n\n47개의 에러! 지은은 Claude Code에게 도움을 요청했습니다.\n\n---\n\n## TypeScript 타입 에러 해결\n\nClaude Code는 타입 에러를 체계적으로 분류하고 해결합니다.\n\n### 에러 우선순위 정하기\n\nClaude Code의 분석:\n> \"47개의 에러 중 많은 것이 연쇄적으로 발생한 것입니다. 핵심 에러를 먼저 수정하면 다른 에러들도 사라질 거예요.\"\n\n```typescript\n// 핵심 에러 (다른 에러의 원인)\nerror TS2322: Type 'string' is not assignable to type 'number'.\n  at TodoList.tsx:12\n\n// 연쇄 에러 (위 에러로 인해 발생)\nerror TS2345: Argument of type... (이후 에러들)\n```\n\n<!-- QUIZ:claude-code-ch4-s3-q1 -->\n\n### 흔한 타입 에러 패턴\n\n| 에러 코드 | 의미 | 해결 방법 |\n|-----------|------|----------|\n| TS2322 | 타입 불일치 | 올바른 타입으로 변환 또는 타입 정의 수정 |\n| TS2345 | 인자 타입 불일치 | 함수 호출 시 올바른 타입의 값 전달 |\n| TS2339 | 존재하지 않는 속성 | 타입에 속성 추가 또는 타입 단언 |\n| TS7006 | 암시적 any | 타입 명시 또는 tsconfig 설정 |\n\nClaude Code가 수정한 예시:\n\n```typescript\n// 수정 전: 라이브러리 업데이트로 id가 number에서 string으로 변경됨\ninterface Todo {\n  id: number;  // 이전 버전\n  text: string;\n}\n\n// 수정 후: 새 버전에 맞게 타입 수정\ninterface Todo {\n  id: string;  // 새 버전\n  text: string;\n}\n```\n\n## 빌드 설정 문제 해결\n\n의존성 업그레이드 후 빌드 설정도 문제가 될 수 있습니다.\n\n### tsconfig.json 충돌\n\n```json\n// 에러: 새 TypeScript 버전과 호환되지 않는 옵션\n{\n  \"compilerOptions\": {\n    \"target\": \"ES5\",\n    \"lib\": [\"DOM\", \"ES2015\"],\n    \"moduleResolution\": \"node\"  // 새 버전에서는 다른 값 권장\n  }\n}\n```\n\nClaude Code의 수정:\n```json\n{\n  \"compilerOptions\": {\n    \"target\": \"ES2020\",\n    \"lib\": [\"DOM\", \"DOM.Iterable\", \"ES2020\"],\n    \"moduleResolution\": \"bundler\"  // 최신 번들러와 호환\n  }\n}\n```\n\n<!-- QUIZ:claude-code-ch4-s3-q2 -->\n\n## 의존성 충돌 해결\n\n여러 패키지가 서로 다른 버전을 요구할 때 발생합니다.\n\n```\nnpm ERR! peer dep missing: react@^17.0.0, required by some-library@1.0.0\nnpm ERR! peer dep missing: react@^18.0.0, required by another-library@2.0.0\n```\n\nClaude Code의 해결 전략:\n\n1. **호환 버전 찾기**: 두 라이브러리 모두 지원하는 React 버전 확인\n2. **대안 패키지 검토**: 문제 패키지의 최신 버전 또는 대안 확인\n3. **강제 해결**: `--legacy-peer-deps` 또는 `overrides` 사용 (최후의 수단)\n\n```json\n// package.json에 overrides 추가\n{\n  \"overrides\": {\n    \"some-library\": {\n      \"react\": \"^18.0.0\"\n    }\n  }\n}\n```\n\n## ESLint/Prettier 문제\n\n코드 품질 도구도 업그레이드 후 문제가 생길 수 있습니다.\n\n```\nerror  Parsing error: Cannot find module 'eslint-config-react-app'\n```\n\nClaude Code의 접근:\n> \"ESLint 설정 파일이 이전 버전 형식입니다. 새로운 flat config 형식으로 마이그레이션해드릴까요?\"\n\n```javascript\n// 이전: .eslintrc.js\nmodule.exports = {\n  extends: ['react-app']\n};\n\n// 새로운: eslint.config.js\nimport reactConfig from 'eslint-config-react-app';\nexport default [...reactConfig];\n```\n\n<!-- QUIZ:claude-code-ch4-s3-q3 -->\n\n## 정리: 빌드 에러 해결 체크리스트\n\n1. **핵심 에러부터** 해결하세요 - 연쇄 에러가 함께 해결됩니다\n2. **타입 에러**는 타입 정의 파일과 실제 코드의 불일치를 확인하세요\n3. **빌드 설정**은 업그레이드된 도구 버전과 호환되는지 확인하세요\n4. **의존성 충돌**은 호환 버전을 찾거나 overrides를 사용하세요",
+"contentType": "text",
+"orderNum": 3,
+"estimatedMinutes": 25,
+"quizzes": [
+{
+"id": "claude-code-ch4-s3-q1",
+"sectionId": "claude-code-ch4-s3",
+"type": "multiple_choice",
+"difficulty": "beginner",
+"question": "많은 TypeScript 에러가 발생했을 때 가장 효율적인 해결 방법은?",
+"options": [
+"모든 에러를 순서대로 하나씩 수정한다",
+"에러가 가장 많은 파일을 삭제한다",
+"핵심 에러를 먼저 수정하여 연쇄 에러를 함께 해결한다",
+"TypeScript를 JavaScript로 변환한다"
+],
+"correctAnswer": "핵심 에러를 먼저 수정하여 연쇄 에러를 함께 해결한다",
+"explanation": "TypeScript 에러는 종종 연쇄적으로 발생합니다. 핵심 에러(root cause)를 먼저 수정하면 그로 인해 발생한 다른 에러들도 함께 사라지므로 효율적입니다.",
+"orderNum": 1
+},
+{
+"id": "claude-code-ch4-s3-q2",
+"sectionId": "claude-code-ch4-s3",
+"type": "true_false",
+"difficulty": "intermediate",
+"question": "의존성 충돌 시 package.json의 overrides를 사용하면 특정 패키지의 의존성 버전을 강제로 지정할 수 있다.",
+"correctAnswer": "true",
+"explanation": "overrides(npm) 또는 resolutions(yarn)를 사용하면 중첩된 의존성의 버전을 강제로 지정하여 충돌을 해결할 수 있습니다. 다만 이는 호환성 문제를 야기할 수 있어 주의가 필요합니다.",
+"orderNum": 2
+},
+{
+"id": "claude-code-ch4-s3-q3",
+"sectionId": "claude-code-ch4-s3",
+"type": "multiple_choice",
+"difficulty": "advanced",
+"question": "TypeScript 에러 코드 TS2339가 의미하는 것은?",
+"options": [
+"타입이 일치하지 않음",
+"존재하지 않는 속성에 접근함",
+"암시적 any 타입 사용",
+"모듈을 찾을 수 없음"
+],
+"correctAnswer": "존재하지 않는 속성에 접근함",
+"explanation": "TS2339는 'Property X does not exist on type Y' 에러로, 타입 정의에 없는 속성에 접근하려 할 때 발생합니다. 타입에 속성을 추가하거나 타입 단언을 사용하여 해결할 수 있습니다.",
+"orderNum": 3
+}
+]
+}
+]
+}
