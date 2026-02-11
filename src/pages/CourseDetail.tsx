@@ -12,7 +12,7 @@ export default function CourseDetail() {
   const navigate = useNavigate()
   const course = useCourseBySlug(slug || '')
   const { user } = useAuthStore()
-  const { completedSections } = useProgressStore()
+  const { completedSections, quizScores } = useProgressStore()
 
   if (!course) {
     return (
@@ -26,7 +26,17 @@ export default function CourseDetail() {
   const theme = getCourseTheme(course.slug)
   const totalSections = course.chapters.reduce((s, ch) => s + ch.sections.length, 0)
   const completedCount = course.chapters.reduce((s, ch) => s + ch.sections.filter(sec => completedSections.has(sec.id)).length, 0)
-  const isCompleted = totalSections > 0 && completedCount === totalSections
+
+  // Calculate completion criteria
+  const completionRate = totalSections > 0 ? (completedCount / totalSections) * 100 : 0
+  const allQuizScores = course.chapters.flatMap(ch =>
+    ch.sections.map(sec => quizScores.get(sec.id)).filter((s): s is number => s !== undefined)
+  )
+  const avgQuizScore = allQuizScores.length > 0
+    ? Math.round(allQuizScores.reduce((a, b) => a + b, 0) / allQuizScores.length)
+    : 0
+  const meetsCompletionCriteria = completionRate >= 90 && avgQuizScore >= 50
+
   const firstSection = course.chapters[0]?.sections[0]
   const startUrl = firstSection ? `/learn/${course.slug}/${course.chapters[0].slug}/${firstSection.slug}` : '#'
 
@@ -55,18 +65,23 @@ export default function CourseDetail() {
               {user && completedCount > 0 && (
                 <div className="mb-6">
                   <div className={`${theme.text} text-sm font-medium mb-2 opacity-80`}>
-                    진행률: {completedCount}/{totalSections} 섹션 완료
+                    진행률: {completedCount}/{totalSections} 섹션 완료 ({Math.round(completionRate)}%)
                   </div>
                   <div className="w-full max-w-sm bg-white/20 rounded-full h-3">
                     <div
                       className="bg-white rounded-full h-3 transition-all duration-500"
-                      style={{ width: `${(completedCount / totalSections) * 100}%` }}
+                      style={{ width: `${completionRate}%` }}
                     />
                   </div>
+                  {allQuizScores.length > 0 && (
+                    <div className={`${theme.text} text-sm font-medium mt-3 opacity-80`}>
+                      평균 퀴즈 점수: {avgQuizScore}%
+                    </div>
+                  )}
                 </div>
               )}
 
-              {user && isCompleted && (
+              {user && meetsCompletionCriteria && (
                 <div className="bg-white/15 backdrop-blur-sm border border-white/25 rounded-2xl px-5 py-4 mb-6 flex items-center justify-between max-w-md">
                   <span className={`${theme.text} font-bold text-lg`}>🎉 코스 완료!</span>
                   <button
@@ -75,6 +90,22 @@ export default function CourseDetail() {
                   >
                     수료증 받기
                   </button>
+                </div>
+              )}
+
+              {user && completedCount > 0 && !meetsCompletionCriteria && (
+                <div className="bg-white/15 backdrop-blur-sm border border-white/25 rounded-2xl px-5 py-4 mb-6 max-w-md">
+                  <div className={`${theme.text} font-bold text-sm mb-3`}>수료 조건</div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <span>{completionRate >= 90 ? '✅' : '❌'}</span>
+                      <span className={theme.text}>섹션 진행률 90% 이상 (현재: {Math.round(completionRate)}%)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span>{avgQuizScore >= 50 ? '✅' : '❌'}</span>
+                      <span className={theme.text}>평균 퀴즈 점수 50% 이상 (현재: {avgQuizScore}%)</span>
+                    </div>
+                  </div>
                 </div>
               )}
 

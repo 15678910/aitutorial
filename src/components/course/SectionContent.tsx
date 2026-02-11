@@ -1,13 +1,40 @@
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import InlineQuiz from '../quiz/InlineQuiz'
+import type { Quiz } from '../../types'
 
 interface SectionContentProps {
   content: string
+  quizzes?: Quiz[]
 }
 
-export default function SectionContent({ content }: SectionContentProps) {
-  return (
-    <article className="max-w-none">
+export default function SectionContent({ content, quizzes = [] }: SectionContentProps) {
+  // Split content by quiz markers <!-- QUIZ:quiz_id -->
+  const quizPattern = /<!-- QUIZ:(\S+) -->/g
+  const parts: Array<{ type: 'text'; content: string } | { type: 'quiz'; quizId: string }> = []
+  let lastIndex = 0
+  let match
+
+  while ((match = quizPattern.exec(content)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({ type: 'text', content: content.slice(lastIndex, match.index) })
+    }
+    parts.push({ type: 'quiz', quizId: match[1] })
+    lastIndex = match.index + match[0].length
+  }
+  if (lastIndex < content.length) {
+    parts.push({ type: 'text', content: content.slice(lastIndex) })
+  }
+
+  // If no markers found, render as before (single text block)
+  if (parts.length === 0) {
+    parts.push({ type: 'text', content })
+  }
+
+  const quizMap = new Map(quizzes.map(q => [q.id, q]))
+
+  const renderMarkdown = (text: string, key: number) => (
+    <article key={key} className="max-w-none">
       <Markdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -89,8 +116,21 @@ export default function SectionContent({ content }: SectionContentProps) {
           hr: () => <hr className="my-14 border-t-2 border-gray-100" />,
         }}
       >
-        {content}
+        {text}
       </Markdown>
     </article>
+  )
+
+  return (
+    <div>
+      {parts.map((part, i) => {
+        if (part.type === 'text') {
+          return renderMarkdown(part.content, i)
+        }
+        const quiz = quizMap.get(part.quizId)
+        if (!quiz) return null
+        return <InlineQuiz key={i} quiz={quiz} />
+      })}
+    </div>
   )
 }

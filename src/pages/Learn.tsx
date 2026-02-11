@@ -166,7 +166,7 @@ export default function Learn() {
             </p>
           )}
 
-          <SectionContent content={currentSection.content} />
+          <SectionContent content={currentSection.content} quizzes={currentSection.quizzes} />
           <InteractiveSection sectionId={currentSection.id} />
 
           {currentSection.quizzes && currentSection.quizzes.length > 0 && (
