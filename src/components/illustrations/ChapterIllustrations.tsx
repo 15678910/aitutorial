@@ -582,7 +582,7 @@ const illustrationMap: Record<string, React.FC<{ color: string }>[]> = {
   'ml-basics': [DataFunnel, DecisionTree, ChartGraph],
   'deep-learning': [NeuralNetworkFriendly, ImageGrid, SpeechBubbles],
   'generative-ai': [MagicWand, ChatInterface, CreativePalette],
-  'building-ai': [PineappleRoutes, CoinFlips, RegressionLine, NeuralBuilder, ProjectIdea],
+  'making-ai': [PineappleRoutes, CoinFlips, RegressionLine, NeuralBuilder, ProjectIdea],
 }
 
 export default function ChapterIllustration({ courseSlug, chapterIndex, className = '' }: ChapterIllustrationProps) {

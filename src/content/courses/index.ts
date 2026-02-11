@@ -8,12 +8,12 @@ import aiIntroCh6 from './ai-intro/ch6.json'
 import mlBasics from './ml-basics/meta.json'
 import deepLearning from './deep-learning/meta.json'
 import generativeAi from './generative-ai/meta.json'
-import buildingAiMeta from './building-ai/meta.json'
-import buildingAiCh1 from './building-ai/ch1.json'
-import buildingAiCh2 from './building-ai/ch2.json'
-import buildingAiCh3 from './building-ai/ch3.json'
-import buildingAiCh4 from './building-ai/ch4.json'
-import buildingAiCh5 from './building-ai/ch5.json'
+import makingAiMeta from './making-ai/meta.json'
+import makingAiCh1 from './making-ai/ch1.json'
+import makingAiCh2 from './making-ai/ch2.json'
+import makingAiCh3 from './making-ai/ch3.json'
+import makingAiCh4 from './making-ai/ch4.json'
+import makingAiCh5 from './making-ai/ch5.json'
 import type { Course } from '../../types'
 
 interface CourseWithIcon extends Course {
@@ -25,9 +25,9 @@ const aiIntro = {
   chapters: [aiIntroCh1, aiIntroCh2, aiIntroCh3, aiIntroCh4, aiIntroCh5, aiIntroCh6]
 }
 
-const buildingAi = {
-  ...buildingAiMeta,
-  chapters: [buildingAiCh1, buildingAiCh2, buildingAiCh3, buildingAiCh4, buildingAiCh5]
+const makingAi = {
+  ...makingAiMeta,
+  chapters: [makingAiCh1, makingAiCh2, makingAiCh3, makingAiCh4, makingAiCh5]
 }
 
-export const coursesData: CourseWithIcon[] = [aiIntro, mlBasics, deepLearning, generativeAi, buildingAi] as CourseWithIcon[]
+export const coursesData: CourseWithIcon[] = [aiIntro, mlBasics, deepLearning, generativeAi, makingAi] as CourseWithIcon[]

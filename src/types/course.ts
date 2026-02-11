@@ -37,6 +37,7 @@ export interface Quiz {
   id: string
   sectionId: string
   type: 'multiple_choice' | 'true_false' | 'fill_blank'
+  difficulty?: 'beginner' | 'intermediate' | 'advanced'
   question: string
   options?: string[]
   correctAnswer: string

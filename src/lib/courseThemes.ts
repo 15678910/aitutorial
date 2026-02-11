@@ -65,8 +65,8 @@ export const courseThemes: Record<string, CourseTheme> = {
     hex: '#7C5CFC',
     hexLight: '#F0EDFF',
   },
-  'building-ai': {
-    slug: 'building-ai',
+  'making-ai': {
+    slug: 'making-ai',
     bg: 'bg-[#E8A838]',
     bgLight: 'bg-[#FFF6E0]',
     bgGradient: 'bg-gradient-to-br from-[#E8A838] to-[#F0C060]',
@@ -90,5 +90,5 @@ export const chapterColors: Record<string, string[]> = {
   'ml-basics': ['#2EC4B6', '#48D1CC', '#5FE0D0'],
   'deep-learning': ['#FFB830', '#FFC94D', '#FFD966'],
   'generative-ai': ['#7C5CFC', '#9B82FD', '#B8A3FE'],
-  'building-ai': ['#E8A838', '#D09520', '#F0C060', '#C48A18', '#FFD566'],
+  'making-ai': ['#E8A838', '#D09520', '#F0C060', '#C48A18', '#FFD566'],
 }
