@@ -27,48 +27,72 @@ export default function CodePlayground({
     setOutput([])
     setIsCorrect(null)
 
+    // Create sandboxed iframe for safe code execution
+    const iframe = document.createElement('iframe')
+    iframe.sandbox.add('allow-scripts')
+    iframe.style.display = 'none'
+    document.body.appendChild(iframe)
+
     const logs: string[] = []
-    const originalConsole = {
-      log: console.log,
-      error: console.error,
-      warn: console.warn,
-    }
+    const timeoutMs = 3000
 
-    // Override console methods to capture output
-    const capture = (...args: unknown[]) => {
-      logs.push(args.map(a => {
-        if (typeof a === 'object') return JSON.stringify(a, null, 2)
-        return String(a)
-      }).join(' '))
-    }
-
-    console.log = capture
-    console.error = capture
-    console.warn = capture
-
-    setTimeout(() => {
-      try {
-        // Create a sandboxed function
-        const fn = new Function(code)
-        fn()
+    // Listen for messages from iframe
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data?.type === 'console') {
+        logs.push(event.data.value)
+      } else if (event.data?.type === 'error') {
+        logs.push(`오류: ${event.data.value}`)
+      } else if (event.data?.type === 'done') {
+        cleanup()
         setOutput(logs.length > 0 ? logs : ['(출력 없음)'])
-
-        // Check if output matches expected
         if (expectedOutput) {
-          const actualOutput = logs.join('\n').trim()
+          const actualOutput = logs.filter(l => !l.startsWith('오류:')).join('\n').trim()
           setIsCorrect(actualOutput === expectedOutput.trim())
         }
-      } catch (err) {
-        setOutput([`오류: ${err instanceof Error ? err.message : String(err)}`])
-        setIsCorrect(false)
-      } finally {
-        // Restore console
-        console.log = originalConsole.log
-        console.error = originalConsole.error
-        console.warn = originalConsole.warn
         setIsRunning(false)
       }
-    }, 100)
+    }
+
+    const cleanup = () => {
+      window.removeEventListener('message', handleMessage)
+      clearTimeout(timer)
+      if (iframe.parentNode) {
+        iframe.parentNode.removeChild(iframe)
+      }
+    }
+
+    // Timeout protection
+    const timer = setTimeout(() => {
+      cleanup()
+      setOutput(['오류: 실행 시간 초과 (3초). 무한 루프가 없는지 확인하세요.'])
+      setIsCorrect(false)
+      setIsRunning(false)
+    }, timeoutMs)
+
+    window.addEventListener('message', handleMessage)
+
+    // Inject code into iframe
+    const html = `<!DOCTYPE html><html><body><script>
+      const _logs = [];
+      const _origLog = console.log;
+      const _capture = (...args) => {
+        const val = args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' ');
+        parent.postMessage({ type: 'console', value: val }, '*');
+      };
+      console.log = _capture;
+      console.error = _capture;
+      console.warn = _capture;
+      try {
+        ${code}
+        parent.postMessage({ type: 'done' }, '*');
+      } catch(e) {
+        parent.postMessage({ type: 'error', value: e.message }, '*');
+        parent.postMessage({ type: 'done' }, '*');
+      }
+    <\/script></body></html>`
+
+    const blob = new Blob([html], { type: 'text/html' })
+    iframe.src = URL.createObjectURL(blob)
   }, [code, expectedOutput])
 
   const resetCode = () => {

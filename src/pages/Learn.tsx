@@ -43,7 +43,26 @@ export default function Learn() {
 
   if (!user) return <Navigate to="/login" replace />
   if (!course || !currentSection || !currentChapter) {
-    return <div className="max-w-4xl mx-auto px-4 py-20 text-center"><h1 className="text-2xl font-bold text-gray-900 mb-4">콘텐츠를 찾을 수 없습니다</h1><Link to="/courses"><Button>코스 목록으로</Button></Link></div>
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#faf8f5] px-4">
+        <div className="max-w-md w-full text-center">
+          <div className="mb-6 text-6xl">📚</div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">콘텐츠를 찾을 수 없습니다</h1>
+          <p className="text-gray-500 mb-8">
+            요청하신 학습 자료를 찾을 수 없습니다.<br />
+            코스 목록에서 원하시는 강의를 선택해 주세요.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button onClick={() => navigate(-1)} variant="outline">
+              뒤로 가기
+            </Button>
+            <Link to="/courses">
+              <Button>코스 목록으로</Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   const theme = getCourseTheme(course.slug)
@@ -87,13 +106,13 @@ export default function Learn() {
               </Link>
             </div>
             {/* Breadcrumb */}
-            <nav className={`hidden md:flex items-center gap-2 text-sm ${theme.text}`}>
+            <nav className={`hidden md:flex items-center gap-2 text-sm ${theme.text}`} aria-label="현재 위치">
               <Link to={`/courses/${courseSlug}`} className="opacity-70 hover:opacity-100 hover:underline transition-opacity">
                 Course overview
               </Link>
-              <span className="opacity-50">{'>'}</span>
+              <span className="opacity-50" aria-hidden="true">{'>'}</span>
               <span className="opacity-70">{currentChapter.title}</span>
-              <span className="opacity-50">{'>'}</span>
+              <span className="opacity-50" aria-hidden="true">{'>'}</span>
               <span className="font-bold">{currentSection.title}</span>
             </nav>
             {/* Menu button */}
@@ -114,11 +133,11 @@ export default function Learn() {
       {showNav && (
         <div className="fixed inset-0 z-50" onClick={() => setShowNav(false)}>
           <div className="absolute inset-0 bg-black/30" />
-          <div className="absolute right-0 top-0 h-full w-80 bg-white shadow-2xl overflow-y-auto" onClick={e => e.stopPropagation()}>
+          <nav className="absolute right-0 top-0 h-full w-full sm:w-80 bg-white shadow-2xl overflow-y-auto" onClick={e => e.stopPropagation()} role="navigation" aria-label="코스 네비게이션">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-lg font-bold text-gray-900">{course.title}</h2>
-                <button onClick={() => setShowNav(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setShowNav(false)} className="text-gray-400 hover:text-gray-600" aria-label="메뉴 닫기">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -143,9 +162,10 @@ export default function Learn() {
                               isDone ? 'text-gray-400' : 'text-gray-700 hover:bg-gray-50'
                             )}
                             style={isActive ? { backgroundColor: theme.hex + '15', color: theme.hex } : {}}
+                            aria-current={isActive ? 'page' : undefined}
                           >
                             <span className="flex items-center gap-2">
-                              {isDone && <span className="text-accent">✓</span>}
+                              {isDone && <span className="text-accent" aria-hidden="true">✓</span>}
                               {sec.title}
                             </span>
                           </Link>
@@ -156,7 +176,7 @@ export default function Learn() {
                 </div>
               ))}
             </div>
-          </div>
+          </nav>
         </div>
       )}
 
@@ -181,7 +201,7 @@ export default function Learn() {
 
       {/* Content Area */}
       <div className="flex-1 bg-[#faf8f5]">
-        <div className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+        <div className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16" role="main" aria-live="polite">
           {/* Section intro text if available */}
           {currentChapter.description && (
             <p className="text-lg text-gray-500 italic mb-10 leading-relaxed border-l-4 pl-5" style={{ borderColor: theme.hex + '40' }}>
@@ -232,8 +252,8 @@ export default function Learn() {
           {/* Navigation - prev/next */}
           <div className="mt-20 pt-10 border-t-2 border-gray-200 flex items-stretch justify-between gap-6">
             {prevSection ? (
-              <button onClick={() => navigateTo(prevSection)} className="group flex items-center gap-4 text-left px-6 py-5 rounded-2xl hover:bg-white hover:shadow-md transition-all flex-1 max-w-[45%]">
-                <span className="text-2xl text-gray-300 group-hover:text-gray-500 transition-colors">←</span>
+              <button onClick={() => navigateTo(prevSection)} className="group flex items-center gap-4 text-left px-6 py-5 rounded-2xl hover:bg-white hover:shadow-md transition-all flex-1 max-w-[45%]" aria-label={`이전 섹션: ${prevSection.section.title}`}>
+                <span className="text-2xl text-gray-300 group-hover:text-gray-500 transition-colors" aria-hidden="true">←</span>
                 <div>
                   <div className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">이전</div>
                   <div className="text-sm font-bold text-gray-700 group-hover:text-primary transition-colors leading-snug">{prevSection.section.title}</div>
@@ -245,12 +265,13 @@ export default function Learn() {
                 onClick={() => navigateTo(nextSection)}
                 className="group flex items-center gap-4 text-right px-6 py-5 rounded-2xl transition-all flex-1 max-w-[45%] ml-auto justify-end hover:shadow-md"
                 style={{ backgroundColor: theme.hex + '08' }}
+                aria-label={`다음 섹션: ${nextSection.section.title}`}
               >
                 <div>
                   <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: theme.hex }}>다음</div>
                   <div className="text-sm font-bold text-gray-700 group-hover:text-primary transition-colors leading-snug">{nextSection.section.title}</div>
                 </div>
-                <span className="text-2xl transition-colors" style={{ color: theme.hex + '60' }}>→</span>
+                <span className="text-2xl transition-colors" style={{ color: theme.hex + '60' }} aria-hidden="true">→</span>
               </button>
             ) : (
               <Link to={`/courses/${courseSlug}`} className="ml-auto">

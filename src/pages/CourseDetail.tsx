@@ -41,7 +41,7 @@ export default function CourseDetail() {
   const startUrl = firstSection ? `/learn/${course.slug}/${course.chapters[0].slug}/${firstSection.slug}` : '#'
 
   return (
-    <div>
+    <div role="main">
       {/* Hero Banner with course theme color */}
       <div className={`${theme.bg} py-16 md:py-20`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,14 +67,14 @@ export default function CourseDetail() {
                   <div className={`${theme.text} text-sm font-medium mb-2 opacity-80`}>
                     진행률: {completedCount}/{totalSections} 섹션 완료 ({Math.round(completionRate)}%)
                   </div>
-                  <div className="w-full max-w-sm bg-white/20 rounded-full h-3">
+                  <div className="w-full max-w-sm bg-white/20 rounded-full h-3" role="progressbar" aria-valuenow={Math.round(completionRate)} aria-valuemin={0} aria-valuemax={100} aria-label={`코스 진행률 ${Math.round(completionRate)}%`}>
                     <div
                       className="bg-white rounded-full h-3 transition-all duration-500"
                       style={{ width: `${completionRate}%` }}
                     />
                   </div>
                   {allQuizScores.length > 0 && (
-                    <div className={`${theme.text} text-sm font-medium mt-3 opacity-80`}>
+                    <div className={`${theme.text} text-sm font-medium mt-3 opacity-80`} aria-label={`평균 퀴즈 점수 ${avgQuizScore}%`}>
                       평균 퀴즈 점수: {avgQuizScore}%
                     </div>
                   )}

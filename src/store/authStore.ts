@@ -6,6 +6,7 @@ interface AuthState {
   user: UserProfile | null
   loading: boolean
   initialized: boolean
+  connectionError: boolean
   initialize: () => Promise<void>
   signIn: (email: string, password: string) => Promise<{ error: string | null }>
   signUp: (email: string, password: string, name: string) => Promise<{ error: string | null }>
@@ -16,6 +17,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   loading: false,
   initialized: false,
+  connectionError: false,
 
   initialize: async () => {
     try {
@@ -30,8 +32,9 @@ export const useAuthStore = create<AuthState>((set) => ({
           set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at } })
         }
       }
-    } catch {
-      // Supabase not configured yet
+    } catch (error) {
+      console.warn('Failed to connect to authentication service. Running in offline mode.', error)
+      set({ connectionError: true })
     } finally {
       set({ initialized: true })
     }
@@ -47,8 +50,9 @@ export const useAuthStore = create<AuthState>((set) => ({
           if (profile) {
             set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at } })
           }
-        } catch {
-          set({ user: null })
+        } catch (error) {
+          console.warn('Failed to fetch user profile', error)
+          set({ user: null, connectionError: true })
         }
       } else {
         set({ user: null })

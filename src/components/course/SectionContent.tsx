@@ -34,7 +34,7 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
   const quizMap = new Map(quizzes.map(q => [q.id, q]))
 
   const renderMarkdown = (text: string, key: number) => (
-    <article key={key} className="max-w-none">
+    <article key={key} className="max-w-none" role="article">
       <Markdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -75,10 +75,13 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
               <div className="text-gray-600 text-[1.1rem] italic leading-relaxed">{children}</div>
             </blockquote>
           ),
-          code: ({ className, children }) => {
-            const isBlock = className?.includes('language-')
+          code: ({ className, children, ...props }) => {
+            // Check if this code is inside a pre (block code) by checking node's parent
+            const node = (props as any).node
+            const isInsidePre = node?.parent?.tagName === 'pre' || node?.parentNode?.tagName === 'pre'
+            const isBlock = className?.includes('language-') || isInsidePre
             if (isBlock) {
-              return <code className={`${className} block`}>{children}</code>
+              return <code className={`${className || ''} block text-[#cdd6f4]`}>{children}</code>
             }
             return (
               <code className="bg-accent/10 text-primary px-2.5 py-1 rounded-lg text-[1rem] font-mono font-bold">
@@ -87,7 +90,7 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
             )
           },
           pre: ({ children }) => (
-            <pre className="my-10 bg-primary rounded-2xl p-7 overflow-x-auto text-[0.95rem] leading-relaxed text-gray-200 shadow-xl">
+            <pre className="my-10 bg-[#1e1e2e] rounded-2xl p-7 overflow-x-auto text-[0.95rem] leading-relaxed text-[#cdd6f4] shadow-xl border border-gray-700/50 [&_code]:!text-[#cdd6f4] [&_code]:!bg-transparent [&_code]:!p-0 [&_code]:!rounded-none">
               {children}
             </pre>
           ),
@@ -97,13 +100,13 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
             </div>
           ),
           thead: ({ children }) => (
-            <thead className="bg-primary text-white">{children}</thead>
+            <thead className="bg-[#1e1e2e] text-white">{children}</thead>
           ),
           th: ({ children }) => (
-            <th className="px-6 py-4 text-left font-bold text-sm tracking-wide">{children}</th>
+            <th className="px-6 py-4 text-left font-bold text-sm tracking-wide text-white">{children}</th>
           ),
           td: ({ children }) => (
-            <td className="px-6 py-4 border-t border-gray-100 text-gray-700">{children}</td>
+            <td className="px-6 py-4 border-t border-gray-200 text-gray-800 bg-white">{children}</td>
           ),
           tr: ({ children }) => (
             <tr className="even:bg-surface hover:bg-accent/5 transition-colors">{children}</tr>

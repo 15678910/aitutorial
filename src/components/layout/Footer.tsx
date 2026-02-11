@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white">
+    <footer className="bg-primary text-white" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -14,7 +14,7 @@ export default function Footer() {
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">누구나 무료로 배울 수 있는<br />인공지능 학습 플랫폼</p>
           </div>
-          <div>
+          <nav aria-label="학습 네비게이션">
             <h3 className="font-semibold mb-4">학습</h3>
             <ul className="space-y-2 text-sm text-gray-300">
               <li><Link to="/courses" className="hover:text-white transition-colors">전체 코스</Link></li>
@@ -25,15 +25,15 @@ export default function Footer() {
               <li><Link to="/courses/making-ai" className="hover:text-white transition-colors">AI 만들기</Link></li>
               <li><Link to="/courses/claude-code" className="hover:text-white transition-colors">Claude Code 마스터하기</Link></li>
             </ul>
-          </div>
-          <div>
+          </nav>
+          <nav aria-label="사이트 정보">
             <h3 className="font-semibold mb-4">정보</h3>
             <ul className="space-y-2 text-sm text-gray-300">
               <li><a href="#" className="hover:text-white transition-colors">소개</a></li>
               <li><a href="#" className="hover:text-white transition-colors">이용약관</a></li>
               <li><a href="#" className="hover:text-white transition-colors">개인정보처리방침</a></li>
             </ul>
-          </div>
+          </nav>
         </div>
         <div className="border-t border-white/10 mt-8 pt-8 text-center text-sm text-gray-400">
           &copy; {new Date().getFullYear()} AI 학습 플랫폼. 모든 콘텐츠는 무료로 제공됩니다.

@@ -14,12 +14,40 @@ import StreakTracker from '../components/gamification/StreakTracker'
 
 export default function Dashboard() {
   const { user } = useAuthStore()
-  const { completedSections, quizScores, fetchProgress } = useProgressStore()
+  const { completedSections, quizScores, fetchProgress, loading } = useProgressStore()
   const courses = useCourseList()
 
   useEffect(() => { if (user) fetchProgress(user.id) }, [user, fetchProgress])
 
   if (!user) return <Navigate to="/login" replace />
+
+  if (loading) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-10 animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-64 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-48"></div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="bg-white rounded-xl p-5 border border-gray-200 animate-pulse">
+              <div className="h-10 bg-gray-200 rounded mb-2"></div>
+              <div className="h-3 bg-gray-200 rounded w-20 mx-auto"></div>
+            </div>
+          ))}
+        </div>
+        <div className="space-y-4">
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 animate-pulse">
+              <div className="h-6 bg-gray-200 rounded w-48 mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   const courseStats = courses.map(course => {
     const totalSections = course.chapters.reduce((s, ch) => s + ch.sections.length, 0)
@@ -49,7 +77,7 @@ export default function Dashboard() {
   const earnedBadges = getBadgesForProgress(completedSections, quizScores)
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12" role="main">
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">안녕하세요, {user.name || '학습자'}님!</h1>
@@ -60,11 +88,11 @@ export default function Dashboard() {
       </div>
 
       {/* Overall Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         <Card className="p-5 text-center border-2 border-transparent hover:border-primary/20 transition-colors">
           <div className="text-4xl font-extrabold text-primary">{overallProgress}%</div>
           <div className="text-xs text-gray-500 mt-1 font-medium">전체 진행률</div>
-          <div className="mt-3 w-full bg-gray-100 rounded-full h-2">
+          <div className="mt-3 w-full bg-gray-100 rounded-full h-2" role="progressbar" aria-valuenow={overallProgress} aria-valuemin={0} aria-valuemax={100} aria-label="전체 진행률">
             <div className="bg-primary rounded-full h-2 transition-all duration-700" style={{ width: `${overallProgress}%` }} />
           </div>
         </Card>

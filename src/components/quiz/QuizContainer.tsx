@@ -66,6 +66,21 @@ export default function QuizContainer({ quizzes, onComplete }: QuizContainerProp
     setShowResults(false)
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent, d: typeof difficulty) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleDifficultyChange(d)
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault()
+      const keys = Object.keys(difficultyConfig) as Array<keyof typeof difficultyConfig>
+      const currentIdx = keys.indexOf(difficulty)
+      const nextIdx = e.key === 'ArrowRight'
+        ? (currentIdx + 1) % keys.length
+        : (currentIdx - 1 + keys.length) % keys.length
+      handleDifficultyChange(keys[nextIdx])
+    }
+  }
+
   if (filteredQuizzes.length === 0) {
     return (
       <div className="bg-surface border border-gray-200 rounded-xl p-6 text-center">
@@ -98,11 +113,15 @@ export default function QuizContainer({ quizzes, onComplete }: QuizContainerProp
     <div className="bg-surface border border-gray-200 rounded-xl p-6">
       {/* Difficulty Filter Tabs */}
       {hasDifficulties && (
-        <div className="flex flex-wrap gap-2 mb-6 pb-4 border-b border-gray-100">
+        <div className="flex flex-wrap gap-2 mb-6 pb-4 border-b border-gray-100" role="tablist" aria-label="퀴즈 난이도 선택">
           {(Object.keys(difficultyConfig) as Array<keyof typeof difficultyConfig>).map(d => (
             <button
               key={d}
               onClick={() => handleDifficultyChange(d)}
+              onKeyDown={(e) => handleKeyDown(e, d)}
+              role="tab"
+              aria-selected={difficulty === d}
+              tabIndex={difficulty === d ? 0 : -1}
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                 difficulty === d ? difficultyConfig[d].activeColor : difficultyConfig[d].color
               }`}

@@ -56,8 +56,10 @@ export default function AchievementBadge({ badgeId, earned, size = 'md' }: Achie
         }`}
         style={earned ? { backgroundColor: badge.color + '20', border: `2px solid ${badge.color}` } : { backgroundColor: '#f3f4f6', border: '2px solid #e5e7eb' }}
         title={badge.description}
+        role="img"
+        aria-label={`${badge.title}: ${badge.description}${earned ? ' (획득함)' : ' (미획득)'}`}
       >
-        <span>{badge.icon}</span>
+        <span aria-hidden="true">{badge.icon}</span>
       </div>
       <span className={`text-xs font-bold text-center leading-tight ${earned ? 'text-gray-700' : 'text-gray-300'}`}>
         {badge.title}
