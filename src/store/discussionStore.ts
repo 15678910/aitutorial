@@ -1,15 +1,33 @@
 import { create } from 'zustand'
+import { supabase } from '../lib/supabase'
 import type { Discussion, Reply } from '../types/discussion'
 
 interface DiscussionState {
   discussions: Map<string, Discussion[]>
-  addDiscussion: (sectionId: string, userId: string, userName: string, content: string) => void
-  addReply: (discussionId: string, userId: string, userName: string, content: string) => void
-  toggleLike: (discussionId: string, userId: string) => void
+  loading: boolean
+  fetchDiscussions: (sectionId: string) => Promise<void>
+  addDiscussion: (sectionId: string, userId: string, userName: string, content: string) => Promise<void>
+  addReply: (discussionId: string, userId: string, userName: string, content: string) => Promise<void>
+  toggleLike: (discussionId: string, userId: string) => Promise<void>
   getDiscussions: (sectionId: string) => Discussion[]
 }
 
 const STORAGE_KEY = 'ai-platform-discussions'
+
+// localStorage helpers
+function loadFromStorage<T>(key: string, defaultVal: T): T {
+  try {
+    const data = localStorage.getItem(key)
+    if (data) return JSON.parse(data)
+  } catch { /* ignore */ }
+  return defaultVal
+}
+
+function saveToStorage(key: string, value: unknown): void {
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+  } catch { /* quota exceeded, ignore */ }
+}
 
 // Sample discussions in Korean
 const getSampleDiscussions = (): Map<string, Discussion[]> => {
@@ -80,32 +98,90 @@ const getSampleDiscussions = (): Map<string, Discussion[]> => {
   return map
 }
 
-const loadFromStorage = (): Map<string, Discussion[]> => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) {
-      const parsed = JSON.parse(stored)
-      return new Map(Object.entries(parsed))
-    }
-  } catch (error) {
-    console.error('Failed to load discussions from localStorage:', error)
+const loadInitialDiscussions = (): Map<string, Discussion[]> => {
+  const stored = loadFromStorage<Record<string, Discussion[]>>(STORAGE_KEY, {})
+  if (Object.keys(stored).length > 0) {
+    return new Map(Object.entries(stored))
   }
+  // Return sample data if localStorage is empty
   return getSampleDiscussions()
 }
 
-const saveToStorage = (discussions: Map<string, Discussion[]>) => {
-  try {
-    const obj = Object.fromEntries(discussions.entries())
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(obj))
-  } catch (error) {
-    console.error('Failed to save discussions to localStorage:', error)
-  }
+const saveDiscussionsToStorage = (discussions: Map<string, Discussion[]>) => {
+  const obj = Object.fromEntries(discussions.entries())
+  saveToStorage(STORAGE_KEY, obj)
 }
 
 export const useDiscussionStore = create<DiscussionState>((set, get) => ({
-  discussions: loadFromStorage(),
+  discussions: loadInitialDiscussions(),
+  loading: false,
 
-  addDiscussion: (sectionId, userId, userName, content) => {
+  fetchDiscussions: async (sectionId: string) => {
+    set({ loading: true })
+    try {
+      // Try to fetch from Supabase first
+      const { data: discussionsData } = await supabase
+        .from('discussions')
+        .select('*')
+        .eq('section_id', sectionId)
+        .order('created_at', { ascending: false })
+
+      if (discussionsData && discussionsData.length > 0) {
+        // Fetch replies for all discussions
+        const discussionIds = discussionsData.map(d => d.id)
+        const { data: repliesData } = await supabase
+          .from('replies')
+          .select('*')
+          .in('discussion_id', discussionIds)
+          .order('created_at', { ascending: true })
+
+        // Map replies to discussions
+        const repliesByDiscussionId = new Map<string, Reply[]>()
+        if (repliesData) {
+          repliesData.forEach(reply => {
+            const replies = repliesByDiscussionId.get(reply.discussion_id) || []
+            replies.push({
+              id: reply.id,
+              discussionId: reply.discussion_id,
+              userId: reply.user_id,
+              userName: reply.user_name,
+              content: reply.content,
+              createdAt: reply.created_at,
+            })
+            repliesByDiscussionId.set(reply.discussion_id, replies)
+          })
+        }
+
+        // Combine discussions with their replies
+        const discussions: Discussion[] = discussionsData.map(d => ({
+          id: d.id,
+          sectionId: d.section_id,
+          userId: d.user_id,
+          userName: d.user_name,
+          content: d.content,
+          createdAt: d.created_at,
+          likes: d.likes || 0,
+          likedBy: d.liked_by || [],
+          replies: repliesByDiscussionId.get(d.id) || [],
+        }))
+
+        // Update store and localStorage
+        set((state) => {
+          const newDiscussions = new Map(state.discussions)
+          newDiscussions.set(sectionId, discussions)
+          saveDiscussionsToStorage(newDiscussions)
+          return { discussions: newDiscussions }
+        })
+      }
+    } catch (error) {
+      console.error('Failed to fetch discussions from Supabase:', error)
+      // Fallback to localStorage (already loaded in initial state)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  addDiscussion: async (sectionId, userId, userName, content) => {
     const newDiscussion: Discussion = {
       id: `discussion-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       sectionId,
@@ -118,16 +194,34 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
       replies: [],
     }
 
+    // Update localStorage immediately
     set((state) => {
       const newDiscussions = new Map(state.discussions)
       const sectionDiscussions = newDiscussions.get(sectionId) || []
       newDiscussions.set(sectionId, [newDiscussion, ...sectionDiscussions])
-      saveToStorage(newDiscussions)
+      saveDiscussionsToStorage(newDiscussions)
       return { discussions: newDiscussions }
     })
+
+    // Try to sync with Supabase
+    try {
+      await supabase.from('discussions').insert({
+        id: newDiscussion.id,
+        section_id: sectionId,
+        user_id: userId,
+        user_name: userName,
+        content: content,
+        likes: 0,
+        liked_by: [],
+        created_at: newDiscussion.createdAt,
+      })
+    } catch (error) {
+      console.error('Failed to sync discussion to Supabase:', error)
+      // localStorage already has the data
+    }
   },
 
-  addReply: (discussionId, userId, userName, content) => {
+  addReply: async (discussionId, userId, userName, content) => {
     const newReply: Reply = {
       id: `reply-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       discussionId,
@@ -137,6 +231,7 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
       createdAt: new Date().toISOString(),
     }
 
+    // Update localStorage immediately
     set((state) => {
       const newDiscussions = new Map(state.discussions)
 
@@ -153,25 +248,48 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
         newDiscussions.set(sectionId, updatedDiscussions)
       }
 
-      saveToStorage(newDiscussions)
+      saveDiscussionsToStorage(newDiscussions)
       return { discussions: newDiscussions }
     })
+
+    // Try to sync with Supabase
+    try {
+      await supabase.from('replies').insert({
+        id: newReply.id,
+        discussion_id: discussionId,
+        user_id: userId,
+        user_name: userName,
+        content: content,
+        created_at: newReply.createdAt,
+      })
+    } catch (error) {
+      console.error('Failed to sync reply to Supabase:', error)
+      // localStorage already has the data
+    }
   },
 
-  toggleLike: (discussionId, userId) => {
+  toggleLike: async (discussionId, userId) => {
+    let hasLiked = false
+    let newLikes = 0
+    let newLikedBy: string[] = []
+
+    // Update localStorage immediately
     set((state) => {
       const newDiscussions = new Map(state.discussions)
 
       for (const [sectionId, discussions] of newDiscussions.entries()) {
         const updatedDiscussions = discussions.map((discussion) => {
           if (discussion.id === discussionId) {
-            const hasLiked = discussion.likedBy.includes(userId)
+            hasLiked = discussion.likedBy.includes(userId)
+            newLikes = hasLiked ? discussion.likes - 1 : discussion.likes + 1
+            newLikedBy = hasLiked
+              ? discussion.likedBy.filter((id) => id !== userId)
+              : [...discussion.likedBy, userId]
+
             return {
               ...discussion,
-              likes: hasLiked ? discussion.likes - 1 : discussion.likes + 1,
-              likedBy: hasLiked
-                ? discussion.likedBy.filter((id) => id !== userId)
-                : [...discussion.likedBy, userId],
+              likes: newLikes,
+              likedBy: newLikedBy,
             }
           }
           return discussion
@@ -179,9 +297,24 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
         newDiscussions.set(sectionId, updatedDiscussions)
       }
 
-      saveToStorage(newDiscussions)
+      saveDiscussionsToStorage(newDiscussions)
       return { discussions: newDiscussions }
     })
+
+    // Try to sync with Supabase
+    try {
+      await supabase
+        .from('discussions')
+        .update({
+          likes: newLikes,
+          liked_by: newLikedBy,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', discussionId)
+    } catch (error) {
+      console.error('Failed to sync like toggle to Supabase:', error)
+      // localStorage already has the data
+    }
   },
 
   getDiscussions: (sectionId) => {

@@ -5,7 +5,7 @@
 CREATE TABLE IF NOT EXISTS profiles (
   id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
   email TEXT,
-  full_name TEXT,
+  name TEXT,
   avatar_url TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -63,11 +63,11 @@ CREATE POLICY "Users can update own progress"
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (id, email, full_name)
+  INSERT INTO public.profiles (id, email, name)
   VALUES (
     NEW.id,
     NEW.email,
-    COALESCE(NEW.raw_user_meta_data->>'full_name', '')
+    COALESCE(NEW.raw_user_meta_data->>'name', '')
   );
   RETURN NEW;
 END;
@@ -94,4 +94,71 @@ CREATE TRIGGER update_profiles_updated_at
 
 CREATE TRIGGER update_progress_updated_at
   BEFORE UPDATE ON progress
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+-- 10. 토론 테이블
+CREATE TABLE IF NOT EXISTS discussions (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  section_id TEXT NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  user_name TEXT NOT NULL,
+  content TEXT NOT NULL,
+  likes INTEGER DEFAULT 0,
+  liked_by UUID[] DEFAULT '{}',
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 11. 답글 테이블
+CREATE TABLE IF NOT EXISTS replies (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  discussion_id UUID REFERENCES discussions(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  user_name TEXT NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 12. 인덱스
+CREATE INDEX IF NOT EXISTS idx_discussions_section_id ON discussions(section_id);
+CREATE INDEX IF NOT EXISTS idx_discussions_user_id ON discussions(user_id);
+CREATE INDEX IF NOT EXISTS idx_replies_discussion_id ON replies(discussion_id);
+
+-- 13. RLS for discussions
+ALTER TABLE discussions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE replies ENABLE ROW LEVEL SECURITY;
+
+-- Everyone can view discussions (public reading)
+CREATE POLICY "Anyone can view discussions"
+  ON discussions FOR SELECT
+  USING (true);
+
+CREATE POLICY "Authenticated users can create discussions"
+  ON discussions FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own discussions"
+  ON discussions FOR UPDATE
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own discussions"
+  ON discussions FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Replies
+CREATE POLICY "Anyone can view replies"
+  ON replies FOR SELECT
+  USING (true);
+
+CREATE POLICY "Authenticated users can create replies"
+  ON replies FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own replies"
+  ON replies FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- 14. Auto-update timestamps for discussions
+CREATE TRIGGER update_discussions_updated_at
+  BEFORE UPDATE ON discussions
   FOR EACH ROW EXECUTE FUNCTION update_updated_at();
