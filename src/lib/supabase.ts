@@ -5,6 +5,41 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
 
 export const isSupabaseConfigured = !!(supabaseUrl && supabaseAnonKey)
 
+// Creates a chainable response proxy that mimics Supabase query builder behavior
+function createChainableResponse(): any {
+  const proxy = new Proxy(
+    {
+      data: null,
+      error: null,
+    },
+    {
+      get: (target, prop) => {
+        // Return actual data/error properties
+        if (prop === 'data') return null
+        if (prop === 'error') return null
+
+        // Make the proxy thenable so it can be awaited directly
+        if (prop === 'then') {
+          return (resolve: (value: any) => void) => {
+            resolve({ data: [], error: null })
+          }
+        }
+
+        // Terminal methods that return promises with { data, error }
+        const terminalMethods = ['single', 'maybeSingle']
+        if (terminalMethods.includes(prop as string)) {
+          return async () => ({ data: null, error: null })
+        }
+
+        // All other methods (eq, order, in, select, insert, update, delete, etc.)
+        // return a function that returns the chainable proxy itself
+        return (..._args: any[]) => createChainableResponse()
+      },
+    }
+  )
+  return proxy
+}
+
 export const supabase: SupabaseClient = isSupabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey)
   : new Proxy({} as SupabaseClient, {
@@ -19,10 +54,7 @@ export const supabase: SupabaseClient = isSupabaseConfigured
           }
         }
         if (prop === 'from') {
-          return () => ({
-            select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }), data: null, error: null }), data: null, error: null }),
-            upsert: async () => ({ data: null, error: null }),
-          })
+          return () => createChainableResponse()
         }
         return () => {}
       },
