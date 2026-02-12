@@ -1,0 +1,12 @@
+{
+  "id": "claude-cowork",
+  "slug": "claude-cowork",
+  "title": "Claude Cowork 활용하기",
+  "description": "코딩 없이 AI 에이전트를 활용하는 방법을 배웁니다. 파일 관리, 문서 작업, MCP 연동, 자동화 워크플로우까지, Claude Cowork로 업무 생산성을 극대화하세요.",
+  "icon": "🤝",
+  "orderNum": 10,
+  "isPublished": true,
+  "estimatedHours": 20,
+  "difficulty": "beginner",
+  "chapters": []
+}

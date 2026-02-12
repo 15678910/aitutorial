@@ -1,0 +1,172 @@
+{
+  "id": "claude-cowork-ch2",
+  "courseId": "claude-cowork",
+  "slug": "ch2-file-document",
+  "title": "파일 관리와 문서 작업",
+  "description": "Cowork로 파일을 체계적으로 관리하고, 전문적인 문서를 자동으로 작성하는 방법을 배웁니다.",
+  "orderNum": 2,
+  "sections": [
+    {
+      "id": "claude-cowork-ch2-s1",
+      "chapterId": "claude-cowork-ch2",
+      "slug": "file-management",
+      "title": "스마트 파일 관리",
+      "content": "## Cowork로 파일 관리하기\n\n### 기본 파일 작업\n\nCowork는 단순한 파일 읽기/쓰기를 넘어 **지능형 파일 관리**를 제공합니다.\n\n### 파일 정리 자동화\n\n수백 개의 파일이 뒤섞인 폴더를 정리할 때:\n\n**기존 방식:**\n- 파일을 하나씩 확인\n- 수동으로 폴더 분류\n- 이름 변경 반복\n- 수 시간 소요\n\n**Cowork 방식:**\n```\n\"이 폴더의 파일들을 날짜별, 유형별로 정리해줘.\n문서는 docs/, 이미지는 images/, 기타는 misc/로 분류해줘.\"\n```\n\nCowork가 자동으로:\n1. 모든 파일의 메타데이터 분석\n2. 분류 기준 수립 및 사용자 확인\n3. 폴더 생성 및 파일 이동\n4. 결과 보고서 생성\n\n### 파일 검색과 분석\n\n**내용 기반 검색:**\n```\n\"이 폴더에서 '분기별 매출'이 언급된 모든 파일을 찾아줘\"\n```\n\n**파일 비교:**\n```\n\"report_v1.docx와 report_v2.docx의 주요 변경점을 알려줘\"\n```\n\n**중복 파일 찾기:**\n```\n\"이 폴더에서 내용이 비슷한 중복 파일들을 찾아서 정리 제안해줘\"\n```\n\n### 대량 이름 변경\n\n```\n\"photos 폴더의 모든 이미지 파일 이름을\n'여행_제주_2026_001.jpg' 형식으로 변경해줘\"\n```\n\nCowork는 변경 전 미리보기를 보여주고, 확인 후 일괄 처리합니다.\n\n### 파일 관리 모범 사례\n\n1. **명확한 지시**: 원하는 결과를 구체적으로 설명\n2. **단계적 확인**: 대량 작업 시 미리보기 요청\n3. **백업 먼저**: 중요한 파일은 백업 후 작업\n4. **결과 검증**: 작업 완료 후 결과 확인\n\n<!-- QUIZ:claude-cowork-ch2-s1-q1 -->\n\n<!-- QUIZ:claude-cowork-ch2-s1-q2 -->\n\n<!-- QUIZ:claude-cowork-ch2-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 15,
+      "quizzes": [
+        {
+          "id": "claude-cowork-ch2-s1-q1",
+          "sectionId": "claude-cowork-ch2-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "Cowork에게 파일 정리를 요청할 때 가장 좋은 방법은?",
+          "options": [
+            "\"파일 정리해\"라고만 말한다",
+            "분류 기준과 원하는 폴더 구조를 구체적으로 설명한다",
+            "파일을 하나씩 지정하여 이동 명령을 내린다",
+            "Cowork가 알아서 판단하도록 아무 지시도 하지 않는다"
+          ],
+          "correctAnswer": "분류 기준과 원하는 폴더 구조를 구체적으로 설명한다",
+          "explanation": "Cowork에게는 분류 기준(날짜별, 유형별 등)과 원하는 폴더 구조를 구체적으로 설명하는 것이 가장 좋은 결과를 얻습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-cowork-ch2-s1-q2",
+          "sectionId": "claude-cowork-ch2-s1",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "Cowork는 파일 이름만으로 파일을 분류하며, 파일 내용은 읽지 못한다.",
+          "correctAnswer": "false",
+          "explanation": "Cowork는 파일 이름뿐만 아니라 파일 내용도 읽고 분석할 수 있습니다. 내용 기반 검색, 중복 파일 찾기 등이 가능합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-cowork-ch2-s1-q3",
+          "sectionId": "claude-cowork-ch2-s1",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "대량 파일 작업 시 권장되는 절차는?",
+          "options": [
+            "바로 실행하여 시간을 절약한다",
+            "백업 → 작업 요청 → 미리보기 확인 → 실행 → 결과 검증",
+            "Cowork에게 전적으로 맡기고 다른 일을 한다",
+            "파일을 하나씩 수동으로 처리한다"
+          ],
+          "correctAnswer": "백업 → 작업 요청 → 미리보기 확인 → 실행 → 결과 검증",
+          "explanation": "대량 파일 작업 시에는 중요한 파일을 먼저 백업하고, 작업 요청 후 미리보기를 확인한 뒤 실행하고, 마지막으로 결과를 검증하는 것이 안전합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-cowork-ch2-s2",
+      "chapterId": "claude-cowork-ch2",
+      "slug": "document-creation",
+      "title": "문서 자동 생성",
+      "content": "## 전문 문서 자동 생성\n\n### Cowork의 문서 작성 능력\n\nCowork는 다양한 형식의 문서를 자동으로 생성할 수 있습니다:\n\n| 문서 유형 | 활용 예시 |\n|-----------|----------|\n| **보고서** | 주간 보고, 분석 보고서 |\n| **프레젠테이션** | 발표 자료 초안 |\n| **이메일** | 비즈니스 이메일 템플릿 |\n| **매뉴얼** | 사용 설명서, 가이드 |\n| **회의록** | 회의 내용 정리 |\n\n### 보고서 작성 예시\n\n**원시 데이터에서 보고서까지:**\n\n```\n\"sales_data.csv 파일을 분석해서\n1분기 매출 보고서를 작성해줘.\n주요 트렌드, 전월 대비 성장률, 개선 제안을 포함해줘.\"\n```\n\nCowork가 수행하는 작업:\n1. CSV 파일 읽기 및 데이터 분석\n2. 통계 계산 (합계, 평균, 성장률)\n3. 트렌드 파악\n4. 구조화된 보고서 작성\n5. Markdown 또는 원하는 형식으로 저장\n\n### 템플릿 활용\n\n반복적인 문서 작업에는 템플릿이 효과적입니다:\n\n```\n\"templates/ 폴더에 있는 weekly_report_template.md를 기반으로\n이번 주 보고서를 작성해줘.\ndata/ 폴더의 이번 주 데이터를 사용해.\"\n```\n\n### 다국어 문서\n\n```\n\"이 한국어 보고서를 영어로 번역하고,\n원본과 번역본을 나란히 비교할 수 있는 문서로 만들어줘.\"\n```\n\n### 문서 품질 향상 팁\n\n1. **맥락 제공**: 문서의 목적과 독자를 알려주세요\n2. **톤 지정**: 공식적/비공식적, 기술적/일반적\n3. **구조 제안**: 원하는 섹션이나 형식이 있으면 알려주세요\n4. **반복 개선**: 초안을 받은 후 수정 요청으로 품질 향상\n\n<!-- QUIZ:claude-cowork-ch2-s2-q1 -->\n\n<!-- QUIZ:claude-cowork-ch2-s2-q2 -->\n\n<!-- QUIZ:claude-cowork-ch2-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 15,
+      "quizzes": [
+        {
+          "id": "claude-cowork-ch2-s2-q1",
+          "sectionId": "claude-cowork-ch2-s2",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "Cowork로 보고서를 작성할 때 가장 효과적인 요청 방식은?",
+          "options": [
+            "\"보고서 써줘\"라고만 말한다",
+            "데이터 소스, 포함할 내용, 형식을 구체적으로 지정한다",
+            "모든 내용을 직접 작성하고 교정만 요청한다",
+            "템플릿 없이 매번 새로 작성한다"
+          ],
+          "correctAnswer": "데이터 소스, 포함할 내용, 형식을 구체적으로 지정한다",
+          "explanation": "Cowork에게는 어떤 데이터를 사용하고, 어떤 내용을 포함하며, 어떤 형식으로 작성할지 구체적으로 지정하면 더 좋은 결과를 얻을 수 있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-cowork-ch2-s2-q2",
+          "sectionId": "claude-cowork-ch2-s2",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "Cowork는 CSV 파일의 데이터를 분석하여 통계를 계산할 수 있다.",
+          "correctAnswer": "true",
+          "explanation": "Cowork는 CSV 파일을 읽고, 합계, 평균, 성장률 등의 통계를 계산하며, 이를 바탕으로 보고서를 작성할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-cowork-ch2-s2-q3",
+          "sectionId": "claude-cowork-ch2-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "문서 품질을 높이기 위해 Cowork에게 제공해야 할 정보가 아닌 것은?",
+          "options": [
+            "문서의 목적과 독자",
+            "원하는 톤과 스타일",
+            "Claude의 API 키",
+            "원하는 구조와 형식"
+          ],
+          "correctAnswer": "Claude의 API 키",
+          "explanation": "문서 품질을 높이려면 목적, 독자, 톤, 구조 등의 맥락 정보를 제공하면 됩니다. API 키와 같은 기술적 정보는 필요하지 않습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-cowork-ch2-s3",
+      "chapterId": "claude-cowork-ch2",
+      "slug": "data-analysis",
+      "title": "데이터 분석과 시각화",
+      "content": "## Cowork로 데이터 분석하기\n\n### 지원하는 데이터 형식\n\nCowork는 다양한 데이터 형식을 처리할 수 있습니다:\n\n- **CSV / TSV**: 표 형식 데이터\n- **JSON**: 구조화된 데이터\n- **Excel (.xlsx)**: 스프레드시트\n- **텍스트 파일**: 비구조화 데이터\n- **Markdown**: 표 형식 포함 문서\n\n### 기본 데이터 분석\n\n**요약 통계:**\n```\n\"survey_results.csv의 기본 통계를 알려줘.\n평균, 중앙값, 표준편차, 그리고 주요 인사이트를 정리해줘.\"\n```\n\n**트렌드 분석:**\n```\n\"monthly_revenue.csv에서 지난 12개월 매출 트렌드를 분석해줘.\n성장/하락 패턴과 계절성이 있는지 확인해줘.\"\n```\n\n### 데이터 정제\n\n실제 데이터는 지저분한 경우가 많습니다:\n\n```\n\"customer_data.csv를 정리해줘:\n- 중복 행 제거\n- 빈 이메일 필드 찾기\n- 전화번호 형식 통일\n- 정리된 결과를 customer_data_clean.csv로 저장\"\n```\n\n### 여러 파일 통합\n\n```\n\"reports/ 폴더의 모든 CSV 파일을 하나로 합쳐줘.\n각 파일의 출처를 구분할 수 있도록 'source' 열을 추가해.\"\n```\n\n### 분석 결과 활용\n\nCowork의 데이터 분석 결과는:\n- **Markdown 보고서**로 저장 가능\n- **CSV/JSON**으로 정제된 데이터 내보내기\n- **인사이트 요약**으로 의사결정 지원\n\n### 주의사항\n\n- 매우 큰 파일(수 GB)은 처리 시간이 오래 걸릴 수 있음\n- 민감한 개인정보가 포함된 데이터는 주의\n- 복잡한 통계 모델링은 전문 도구 병행 권장\n\n<!-- QUIZ:claude-cowork-ch2-s3-q1 -->\n\n<!-- QUIZ:claude-cowork-ch2-s3-q2 -->\n\n<!-- QUIZ:claude-cowork-ch2-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 15,
+      "quizzes": [
+        {
+          "id": "claude-cowork-ch2-s3-q1",
+          "sectionId": "claude-cowork-ch2-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "Cowork가 분석할 수 있는 데이터 형식이 아닌 것은?",
+          "options": [
+            "CSV 파일",
+            "JSON 파일",
+            "실시간 데이터베이스 스트림",
+            "Excel 파일"
+          ],
+          "correctAnswer": "실시간 데이터베이스 스트림",
+          "explanation": "Cowork는 CSV, JSON, Excel, 텍스트 등 파일 기반 데이터를 분석할 수 있지만, 실시간 데이터베이스 스트림에 직접 연결하는 것은 기본 기능이 아닙니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-cowork-ch2-s3-q2",
+          "sectionId": "claude-cowork-ch2-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "Cowork는 여러 CSV 파일을 자동으로 하나로 합칠 수 있다.",
+          "correctAnswer": "true",
+          "explanation": "Cowork는 여러 파일의 데이터를 통합하고, 출처를 구분할 수 있는 열을 추가하는 등 고급 데이터 통합 작업이 가능합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-cowork-ch2-s3-q3",
+          "sectionId": "claude-cowork-ch2-s3",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "데이터 정제 시 Cowork에게 요청할 수 있는 작업이 아닌 것은?",
+          "options": [
+            "중복 행 제거",
+            "빈 필드 찾기",
+            "데이터베이스 서버에 직접 업로드",
+            "전화번호 형식 통일"
+          ],
+          "correctAnswer": "데이터베이스 서버에 직접 업로드",
+          "explanation": "Cowork는 파일 기반으로 작동하므로 중복 제거, 빈 필드 찾기, 형식 통일 등의 정제 작업은 가능하지만, 외부 데이터베이스 서버에 직접 업로드하는 것은 기본 기능이 아닙니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

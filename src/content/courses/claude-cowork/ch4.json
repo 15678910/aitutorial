@@ -1,0 +1,172 @@
+{
+  "id": "claude-cowork-ch4",
+  "courseId": "claude-cowork",
+  "slug": "ch4-agent-workflows",
+  "title": "에이전트 워크플로우와 자동화",
+  "description": "Cowork의 에이전트 기능을 깊이 이해하고, 반복 업무 자동화와 복잡한 워크플로우를 구축하는 방법을 배웁니다.",
+  "orderNum": 4,
+  "sections": [
+    {
+      "id": "claude-cowork-ch4-s1",
+      "chapterId": "claude-cowork-ch4",
+      "slug": "agent-planning",
+      "title": "에이전트의 계획 수립 과정",
+      "content": "## Cowork는 어떻게 계획을 세우는가?\n\n### 에이전트 사고 과정\n\nCowork에게 복잡한 작업을 요청하면, 내부적으로 다음 과정을 거칩니다:\n\n**1단계: 요청 분석**\n- 사용자의 의도 파악\n- 필요한 정보와 리소스 식별\n- 작업 범위 확정\n\n**2단계: 작업 분해**\n- 큰 작업을 작은 하위 작업으로 분해\n- 작업 간 의존성 파악\n- 병렬 처리 가능 여부 판단\n\n**3단계: 실행 계획 수립**\n- 작업 순서 결정\n- 필요한 도구/커넥터 선택\n- 예상 소요 시간 계산\n\n**4단계: 실행 및 모니터링**\n- 계획에 따라 단계별 실행\n- 중간 결과 확인\n- 오류 발생 시 자동 대응\n\n### 계획을 볼 수 있다\n\nCowork의 특별한 점은 이 모든 과정이 **투명하게 공개**된다는 것입니다.\n\n사용자는:\n- 수립된 계획을 미리 확인\n- 불필요한 단계 제거 요청\n- 추가 단계 삽입 요청\n- 전체 계획 변경 가능\n\n### 효과적인 지시 방법\n\n**나쁜 예:**\n```\n\"이거 처리해줘\"\n```\n\n**좋은 예:**\n```\n\"reports/ 폴더의 3월 판매 데이터를 분석해서:\n1. 제품별 매출 순위 정리\n2. 전월 대비 변화율 계산\n3. 상위 5개 제품 인사이트 작성\n4. 결과를 analysis/march_report.md로 저장\"\n```\n\n좋은 지시의 요소:\n- **구체적인 입력**: 어떤 데이터를 사용하는지\n- **명확한 작업**: 무엇을 해야 하는지\n- **기대 출력**: 어떤 형식으로 결과를 원하는지\n- **저장 위치**: 결과를 어디에 저장하는지\n\n### 점진적 복잡도 증가\n\nCowork와 처음 작업할 때는 간단한 작업부터 시작하세요:\n\n```\n간단: \"이 파일 요약해줘\"\n  ↓\n중간: \"이 폴더의 파일들을 분석해서 보고서 만들어줘\"\n  ↓\n복잡: \"3개 서비스에서 데이터를 모아 주간 보고서를 자동 생성해줘\"\n```\n\n<!-- QUIZ:claude-cowork-ch4-s1-q1 -->\n\n<!-- QUIZ:claude-cowork-ch4-s1-q2 -->\n\n<!-- QUIZ:claude-cowork-ch4-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 15,
+      "quizzes": [
+        {
+          "id": "claude-cowork-ch4-s1-q1",
+          "sectionId": "claude-cowork-ch4-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "Cowork의 에이전트가 복잡한 작업을 처리하는 첫 번째 단계는?",
+          "options": [
+            "바로 파일을 수정한다",
+            "사용자의 요청을 분석하고 의도를 파악한다",
+            "외부 서비스에 연결한다",
+            "백업을 생성한다"
+          ],
+          "correctAnswer": "사용자의 요청을 분석하고 의도를 파악한다",
+          "explanation": "에이전트는 먼저 사용자의 요청을 분석하여 의도를 파악하고, 필요한 정보와 리소스를 식별한 후에 작업 계획을 수립합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-cowork-ch4-s1-q2",
+          "sectionId": "claude-cowork-ch4-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "Cowork의 작업 계획은 사용자에게 공개되지 않고 내부적으로만 처리된다.",
+          "correctAnswer": "false",
+          "explanation": "Cowork의 특별한 점은 작업 계획이 투명하게 공개된다는 것입니다. 사용자는 계획을 미리 확인하고, 수정하거나, 변경을 요청할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-cowork-ch4-s1-q3",
+          "sectionId": "claude-cowork-ch4-s1",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "효과적인 작업 지시에 포함해야 할 요소가 아닌 것은?",
+          "options": [
+            "어떤 데이터를 사용하는지 (입력)",
+            "무엇을 해야 하는지 (작업)",
+            "Cowork의 내부 알고리즘 지정",
+            "결과를 어디에 저장하는지 (출력)"
+          ],
+          "correctAnswer": "Cowork의 내부 알고리즘 지정",
+          "explanation": "효과적인 지시에는 입력 데이터, 작업 내용, 기대 출력, 저장 위치를 포함하면 됩니다. 내부 알고리즘은 Cowork가 자동으로 결정하므로 지정할 필요가 없습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-cowork-ch4-s2",
+      "chapterId": "claude-cowork-ch4",
+      "slug": "automation-patterns",
+      "title": "반복 업무 자동화 패턴",
+      "content": "## 일상 업무를 자동화하기\n\n### 자동화의 3가지 수준\n\n| 수준 | 설명 | 예시 |\n|------|------|------|\n| **단순** | 단일 작업 반복 | 매일 보고서 형식 맞추기 |\n| **조건부** | 상황에 따라 다른 처리 | 매출이 감소하면 알림 보고서 |\n| **복합** | 여러 서비스 연동 워크플로우 | 데이터 수집→분석→보고→공유 |\n\n### 패턴 1: 일일 정리 루틴\n\n```\n\"매일 아침 할 일:\n1. downloads/ 폴더의 새 파일들을 유형별로 정리\n2. 어제 날짜의 회의록이 있으면 요약 생성\n3. todo.md에 오늘 할 일 목록 업데이트\"\n```\n\n### 패턴 2: 이메일 초안 배치 생성\n\n```\n\"contacts.csv의 각 고객에 대해:\n- 이름과 회사명을 사용한 맞춤형 이메일 초안 작성\n- templates/follow_up.md를 기본 템플릿으로 사용\n- 결과를 drafts/ 폴더에 개별 파일로 저장\"\n```\n\n### 패턴 3: 데이터 모니터링\n\n```\n\"sales_daily.csv를 확인해서:\n- 전일 대비 20% 이상 변동한 항목이 있으면\n- alerts/alert_[날짜].md로 알림 보고서 생성\n- 없으면 '정상'이라고 기록\"\n```\n\n### 패턴 4: 콘텐츠 생성 파이프라인\n\n```\n\"research_notes/ 폴더의 메모들을 기반으로:\n1. 주제별로 분류\n2. 각 주제에 대한 블로그 포스트 초안 작성\n3. 초안을 blog_drafts/ 폴더에 저장\n4. 목차와 진행 상태를 content_plan.md에 기록\"\n```\n\n### 자동화 설계 팁\n\n1. **작게 시작**: 하나의 단순 작업부터 자동화\n2. **결과 검증**: 자동화 결과를 반드시 확인\n3. **점진적 확장**: 잘 되면 단계를 추가\n4. **예외 처리**: 예상치 못한 상황 대비\n5. **문서화**: 워크플로우를 메모해두기\n\n<!-- QUIZ:claude-cowork-ch4-s2-q1 -->\n\n<!-- QUIZ:claude-cowork-ch4-s2-q2 -->\n\n<!-- QUIZ:claude-cowork-ch4-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 15,
+      "quizzes": [
+        {
+          "id": "claude-cowork-ch4-s2-q1",
+          "sectionId": "claude-cowork-ch4-s2",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "자동화를 시작할 때 권장되는 방법은?",
+          "options": [
+            "가장 복잡한 워크플로우부터 시작한다",
+            "모든 업무를 한꺼번에 자동화한다",
+            "하나의 단순한 작업부터 자동화하고 점진적으로 확장한다",
+            "자동화가 필요 없는 작업부터 시작한다"
+          ],
+          "correctAnswer": "하나의 단순한 작업부터 자동화하고 점진적으로 확장한다",
+          "explanation": "자동화는 작게 시작하여 결과를 확인하고, 잘 되면 점진적으로 단계와 복잡도를 늘려가는 것이 안전하고 효과적입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-cowork-ch4-s2-q2",
+          "sectionId": "claude-cowork-ch4-s2",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "Cowork는 조건에 따라 다른 작업을 수행하는 조건부 자동화가 가능하다.",
+          "correctAnswer": "true",
+          "explanation": "Cowork는 단순 반복뿐만 아니라 '매출이 감소하면 알림 보고서 생성' 같은 조건부 자동화도 지원합니다. 상황에 따라 다른 처리를 할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-cowork-ch4-s2-q3",
+          "sectionId": "claude-cowork-ch4-s2",
+          "type": "multiple_choice",
+          "difficulty": "advanced",
+          "question": "콘텐츠 생성 파이프라인에서 마지막 단계로 적절한 것은?",
+          "options": [
+            "메모 수집",
+            "주제별 분류",
+            "블로그 포스트 초안 작성",
+            "목차와 진행 상태 기록"
+          ],
+          "correctAnswer": "목차와 진행 상태 기록",
+          "explanation": "콘텐츠 생성 파이프라인의 마지막 단계는 생성된 결과물의 목차와 진행 상태를 기록하는 것입니다. 이를 통해 작업 상태를 추적하고 다음 작업을 계획할 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-cowork-ch4-s3",
+      "chapterId": "claude-cowork-ch4",
+      "slug": "prompt-engineering",
+      "title": "Cowork를 위한 프롬프트 엔지니어링",
+      "content": "## 효과적인 프롬프트 작성법\n\n### 왜 프롬프트가 중요한가?\n\nCowork에게 주는 지시(프롬프트)의 품질이 결과의 품질을 결정합니다.\n\n### CIRO 프레임워크\n\n효과적인 프롬프트를 위한 4가지 요소:\n\n| 요소 | 의미 | 예시 |\n|------|------|------|\n| **C**ontext | 배경 정보 | \"나는 마케팅 매니저이고...\" |\n| **I**nstruction | 구체적 지시 | \"이 데이터를 분석해서...\" |\n| **R**eference | 참고 자료 | \"templates/ 폴더의 양식을 따라...\" |\n| **O**utput | 출력 형식 | \"Markdown 표 형식으로, report.md에 저장\" |\n\n### 기본 vs 고급 프롬프트\n\n**기본:**\n```\n\"보고서 만들어줘\"\n```\n→ 결과: 일반적이고 모호한 보고서\n\n**고급:**\n```\n\"Context: 나는 스타트업 CEO이고, 투자자 미팅이 다음 주에 있어.\n\nInstruction: metrics/ 폴더의 데이터를 분석해서\n투자자 발표용 요약 보고서를 작성해줘.\n\nReference: templates/investor_deck.md의 구조를 따라줘.\n\nOutput: reports/investor_summary_202603.md로 저장.\n톤은 전문적이고 간결하게, 핵심 수치 중심으로.\"\n```\n→ 결과: 목적에 맞는 전문적인 보고서\n\n### 흔한 실수와 해결법\n\n**실수 1: 너무 모호한 지시**\n- 나쁜 예: \"이거 좋게 만들어줘\"\n- 좋은 예: \"문장을 더 간결하게 다듬고, 핵심 데이터를 표로 정리해줘\"\n\n**실수 2: 한꺼번에 너무 많은 요청**\n- 나쁜 예: 10가지 작업을 한 문장에\n- 좋은 예: 단계별 번호 매기기, 또는 여러 번 나누어 요청\n\n**실수 3: 기대 결과를 명시하지 않음**\n- 나쁜 예: \"분석해줘\"\n- 좋은 예: \"상위 5개 항목을 순위별 표로 정리하고, 각 항목에 대한 1줄 코멘트 추가해줘\"\n\n### 반복 개선 (Iterative Refinement)\n\n첫 결과가 완벽하지 않아도 괜찮습니다:\n\n```\n1차: \"보고서 만들어줘\" → 기본 보고서\n2차: \"차트를 추가하고, 결론을 더 강조해줘\" → 개선된 보고서\n3차: \"투자자 관점에서 ROI 분석도 넣어줘\" → 최종 보고서\n```\n\nCowork는 이전 대화를 기억하므로, 점진적으로 원하는 결과를 만들어갈 수 있습니다.\n\n<!-- QUIZ:claude-cowork-ch4-s3-q1 -->\n\n<!-- QUIZ:claude-cowork-ch4-s3-q2 -->\n\n<!-- QUIZ:claude-cowork-ch4-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 15,
+      "quizzes": [
+        {
+          "id": "claude-cowork-ch4-s3-q1",
+          "sectionId": "claude-cowork-ch4-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "CIRO 프레임워크에서 'R'은 무엇을 의미하나요?",
+          "options": [
+            "Result (결과)",
+            "Reference (참고 자료)",
+            "Review (검토)",
+            "Report (보고서)"
+          ],
+          "correctAnswer": "Reference (참고 자료)",
+          "explanation": "CIRO 프레임워크에서 R은 Reference(참고 자료)를 의미합니다. 템플릿이나 기존 문서 등 참고할 자료를 지정하면 더 정확한 결과를 얻을 수 있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-cowork-ch4-s3-q2",
+          "sectionId": "claude-cowork-ch4-s3",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "Cowork에게는 첫 번째 요청에서 완벽한 결과를 얻어야 하며, 수정 요청은 불가능하다.",
+          "correctAnswer": "false",
+          "explanation": "Cowork는 이전 대화를 기억하므로 반복 개선(Iterative Refinement)이 가능합니다. 첫 결과를 받은 후 추가 수정을 요청하여 점진적으로 원하는 결과를 만들 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-cowork-ch4-s3-q3",
+          "sectionId": "claude-cowork-ch4-s3",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "프롬프트 작성 시 흔한 실수가 아닌 것은?",
+          "options": [
+            "너무 모호한 지시 제공",
+            "한꺼번에 너무 많은 요청",
+            "단계별 번호를 매겨 명확하게 지시",
+            "기대 결과를 명시하지 않음"
+          ],
+          "correctAnswer": "단계별 번호를 매겨 명확하게 지시",
+          "explanation": "단계별 번호를 매기는 것은 실수가 아니라 권장되는 방법입니다. 흔한 실수는 모호한 지시, 너무 많은 요청을 한번에 하는 것, 기대 결과를 명시하지 않는 것입니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

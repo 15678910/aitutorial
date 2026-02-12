@@ -27,6 +27,7 @@ export default function Footer() {
               <li><Link to="/courses/claude-code-intermediate" className="hover:text-white transition-colors">Claude Code 실전</Link></li>
               <li><Link to="/courses/claude-code-advanced" className="hover:text-white transition-colors">Claude Code 고급</Link></li>
               <li><Link to="/courses/claude-constitution" className="hover:text-white transition-colors">Claude AI 헌법</Link></li>
+              <li><Link to="/courses/claude-cowork" className="hover:text-white transition-colors">Claude Cowork</Link></li>
             </ul>
           </nav>
           <nav aria-label="사이트 정보">

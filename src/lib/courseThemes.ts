@@ -130,6 +130,19 @@ export const courseThemes: Record<string, CourseTheme> = {
     hex: '#8B5CF6',
     hexLight: '#F5F3FF',
   },
+  'claude-cowork': {
+    slug: 'claude-cowork',
+    bg: 'bg-[#10B981]',
+    bgLight: 'bg-[#ECFDF5]',
+    bgGradient: 'bg-gradient-to-br from-[#10B981] to-[#34D399]',
+    text: 'text-white',
+    accent: 'text-[#10B981]',
+    border: 'border-[#10B981]/20',
+    cardBg: 'bg-white',
+    iconBg: 'bg-[#10B981]/10',
+    hex: '#10B981',
+    hexLight: '#ECFDF5',
+  },
 }
 
 export function getCourseTheme(slug: string): CourseTheme {
@@ -147,4 +160,5 @@ export const chapterColors: Record<string, string[]> = {
   'claude-code-intermediate': ['#3B82F6', '#2563EB', '#60A5FA', '#1D4ED8', '#93C5FD'],
   'claude-code-advanced': ['#EF4444', '#DC2626', '#F87171', '#B91C1C', '#FCA5A5'],
   'claude-constitution': ['#8B5CF6', '#7C3AED', '#A78BFA', '#6D28D9', '#C4B5FD'],
+  'claude-cowork': ['#10B981', '#059669', '#34D399', '#047857', '#6EE7B7'],
 }
