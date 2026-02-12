@@ -71,64 +71,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Inspiration */}
-      <section className="mb-16">
-        <div className="bg-gray-50 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">영감</h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            이 플랫폼은 핀란드 헬싱키 대학교의{' '}
-            <a href="https://www.elementsofai.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">
-              Elements of AI
-            </a>
-            {' '}프로젝트에서 영감을 받아 만들어졌습니다.
-            Elements of AI는 AI 교육의 민주화를 선도하며 전 세계 100만 명 이상이 수강한 온라인 코스입니다.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            우리는 한국어 사용자를 위해 더 넓은 범위의 AI 주제를 다루며,
-            최신 생성형 AI와 실습 중심의 콘텐츠를 추가하여 보다 깊이 있는 학습 경험을 제공합니다.
-          </p>
-        </div>
-      </section>
-
-      {/* Tech Stack */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">기술 스택</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { name: 'React 19', desc: 'UI 프레임워크' },
-            { name: 'TypeScript', desc: '타입 안전성' },
-            { name: 'Tailwind CSS', desc: '스타일링' },
-            { name: 'Supabase', desc: '백엔드 & DB' },
-            { name: 'Vite 7', desc: '빌드 도구' },
-            { name: 'Zustand', desc: '상태 관리' },
-            { name: 'Vercel', desc: '호스팅 & CDN' },
-            { name: 'Claude Code', desc: 'AI 개발 도구' },
-          ].map((tech, i) => (
-            <div key={i} className="text-center p-4 bg-surface border border-gray-200 rounded-xl">
-              <p className="font-semibold text-gray-900 text-sm">{tech.name}</p>
-              <p className="text-xs text-gray-500 mt-1">{tech.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section>
-        <div className="text-center bg-surface border border-gray-200 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">문의 및 피드백</h2>
-          <p className="text-gray-600 mb-6">
-            플랫폼에 대한 의견이나 제안이 있으시면 언제든지 알려주세요.
-          </p>
-          <a
-            href="https://github.com/15678910/aitutorial/issues"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium"
-          >
-            GitHub에서 의견 남기기
-          </a>
-        </div>
-      </section>
     </div>
   )
 }
