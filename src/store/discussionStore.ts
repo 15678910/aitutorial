@@ -5,11 +5,14 @@ import type { Discussion, Reply } from '../types/discussion'
 interface DiscussionState {
   discussions: Map<string, Discussion[]>
   loading: boolean
+  currentPage: Map<string, number>
   fetchDiscussions: (sectionId: string) => Promise<void>
   addDiscussion: (sectionId: string, userId: string, userName: string, content: string) => Promise<void>
   addReply: (discussionId: string, userId: string, userName: string, content: string) => Promise<void>
   toggleLike: (discussionId: string, userId: string) => Promise<void>
   getDiscussions: (sectionId: string) => Discussion[]
+  getPagedDiscussions: (sectionId: string, page: number, pageSize?: number) => { discussions: Discussion[], totalPages: number, totalCount: number }
+  setCurrentPage: (sectionId: string, page: number) => void
 }
 
 const STORAGE_KEY = 'ai-platform-discussions'
@@ -115,6 +118,7 @@ const saveDiscussionsToStorage = (discussions: Map<string, Discussion[]>) => {
 export const useDiscussionStore = create<DiscussionState>((set, get) => ({
   discussions: loadInitialDiscussions(),
   loading: false,
+  currentPage: new Map(),
 
   fetchDiscussions: async (sectionId: string) => {
     set({ loading: true })
@@ -152,18 +156,36 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
           })
         }
 
-        // Combine discussions with their replies
-        const discussions: Discussion[] = discussionsData.map(d => ({
-          id: d.id,
-          sectionId: d.section_id,
-          userId: d.user_id,
-          userName: d.user_name,
-          content: d.content,
-          createdAt: d.created_at,
-          likes: d.likes || 0,
-          likedBy: d.liked_by || [],
-          replies: repliesByDiscussionId.get(d.id) || [],
-        }))
+        // Fetch likes from junction table
+        const { data: likesData } = await supabase
+          .from('discussion_likes')
+          .select('discussion_id, user_id')
+          .in('discussion_id', discussionIds)
+
+        const likesByDiscussionId = new Map<string, string[]>()
+        if (likesData) {
+          likesData.forEach(like => {
+            const likes = likesByDiscussionId.get(like.discussion_id) || []
+            likes.push(like.user_id)
+            likesByDiscussionId.set(like.discussion_id, likes)
+          })
+        }
+
+        // Combine discussions with their replies and likes
+        const discussions: Discussion[] = discussionsData.map(d => {
+          const likedBy = likesByDiscussionId.get(d.id) || d.liked_by || []
+          return {
+            id: d.id,
+            sectionId: d.section_id,
+            userId: d.user_id,
+            userName: d.user_name,
+            content: d.content,
+            createdAt: d.created_at,
+            likes: likedBy.length,
+            likedBy: likedBy,
+            replies: repliesByDiscussionId.get(d.id) || [],
+          }
+        })
 
         // Update store and localStorage
         set((state) => {
@@ -182,12 +204,16 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
   },
 
   addDiscussion: async (sectionId, userId, userName, content) => {
+    // Validate content length
+    const trimmedContent = content.trim()
+    if (trimmedContent.length === 0 || trimmedContent.length > 5000) return
+
     const newDiscussion: Discussion = {
       id: `discussion-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       sectionId,
       userId,
       userName,
-      content,
+      content: trimmedContent,
       createdAt: new Date().toISOString(),
       likes: 0,
       likedBy: [],
@@ -222,12 +248,16 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
   },
 
   addReply: async (discussionId, userId, userName, content) => {
+    // Validate content length
+    const trimmedContent = content.trim()
+    if (trimmedContent.length === 0 || trimmedContent.length > 2000) return
+
     const newReply: Reply = {
       id: `reply-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       discussionId,
       userId,
       userName,
-      content,
+      content: trimmedContent,
       createdAt: new Date().toISOString(),
     }
 
@@ -270,10 +300,8 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
 
   toggleLike: async (discussionId, userId) => {
     let hasLiked = false
-    let newLikes = 0
-    let newLikedBy: string[] = []
 
-    // Update localStorage immediately
+    // Update localStorage immediately (optimistic)
     set((state) => {
       const newDiscussions = new Map(state.discussions)
 
@@ -281,14 +309,13 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
         const updatedDiscussions = discussions.map((discussion) => {
           if (discussion.id === discussionId) {
             hasLiked = discussion.likedBy.includes(userId)
-            newLikes = hasLiked ? discussion.likes - 1 : discussion.likes + 1
-            newLikedBy = hasLiked
+            const newLikedBy = hasLiked
               ? discussion.likedBy.filter((id) => id !== userId)
               : [...discussion.likedBy, userId]
 
             return {
               ...discussion,
-              likes: newLikes,
+              likes: newLikedBy.length,
               likedBy: newLikedBy,
             }
           }
@@ -301,13 +328,35 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
       return { discussions: newDiscussions }
     })
 
-    // Try to sync with Supabase
+    // Sync with Supabase using junction table
     try {
+      if (hasLiked) {
+        // Remove like
+        await supabase
+          .from('discussion_likes')
+          .delete()
+          .eq('discussion_id', discussionId)
+          .eq('user_id', userId)
+      } else {
+        // Add like
+        await supabase
+          .from('discussion_likes')
+          .insert({
+            discussion_id: discussionId,
+            user_id: userId,
+          })
+      }
+
+      // Update the likes count on the discussions table
+      const { count } = await supabase
+        .from('discussion_likes')
+        .select('*', { count: 'exact', head: true })
+        .eq('discussion_id', discussionId)
+
       await supabase
         .from('discussions')
         .update({
-          likes: newLikes,
-          liked_by: newLikedBy,
+          likes: count || 0,
           updated_at: new Date().toISOString(),
         })
         .eq('id', discussionId)
@@ -320,5 +369,27 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
   getDiscussions: (sectionId) => {
     const discussions = get().discussions.get(sectionId) || []
     return discussions.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+  },
+
+  getPagedDiscussions: (sectionId: string, page: number = 1, pageSize: number = 20) => {
+    const discussions = get().discussions.get(sectionId) || []
+    const sorted = [...discussions].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    const totalCount = sorted.length
+    const totalPages = Math.max(1, Math.ceil(totalCount / pageSize))
+    const start = (page - 1) * pageSize
+    const end = start + pageSize
+    return {
+      discussions: sorted.slice(start, end),
+      totalPages,
+      totalCount,
+    }
+  },
+
+  setCurrentPage: (sectionId: string, page: number) => {
+    set((state) => {
+      const newPages = new Map(state.currentPage)
+      newPages.set(sectionId, page)
+      return { currentPage: newPages }
+    })
   },
 }))

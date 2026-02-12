@@ -104,10 +104,15 @@ export const useEssayStore = create<EssayState>((set, get) => {
           content,
           status: 'submitted',
         })
-        return !error
-      } catch {
-        // DB sync failed, but localStorage has the data
+        if (error) {
+          console.error('Essay sync failed:', error)
+          return false
+        }
         return true
+      } catch {
+        // DB sync failed - return false so UI shows error
+        console.error('Essay submission failed: DB not available')
+        return false
       }
     },
 
@@ -228,10 +233,15 @@ export const useEssayStore = create<EssayState>((set, get) => {
           depth_score: depth,
           feedback,
         })
-        return !error
-      } catch {
-        // DB sync failed, but localStorage has the data
+        if (error) {
+          console.error('Review sync failed:', error)
+          return false
+        }
         return true
+      } catch {
+        // DB sync failed - return false so UI shows error
+        console.error('Review submission failed: DB not available')
+        return false
       }
     },
 

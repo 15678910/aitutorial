@@ -13,6 +13,7 @@ interface EssaySubmitProps {
 export default function EssaySubmit({ courseId, chapterId, prompt, onSubmit }: EssaySubmitProps) {
   const [content, setContent] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
   const { user } = useAuthStore()
   const { essays, submitEssay } = useEssayStore()
 
@@ -20,7 +21,8 @@ export default function EssaySubmit({ courseId, chapterId, prompt, onSubmit }: E
   const existingEssay = essays.get(key)
 
   const minLength = 200
-  const isValidLength = content.length >= minLength
+  const maxLength = 50000
+  const isValidLength = content.length >= minLength && content.length <= maxLength
   const charCount = content.length
 
   useEffect(() => {
@@ -31,13 +33,17 @@ export default function EssaySubmit({ courseId, chapterId, prompt, onSubmit }: E
 
   const handleSubmit = async () => {
     if (!user || !isValidLength) return
-
+    setError('')
     setIsSubmitting(true)
     try {
       const success = await submitEssay(user.id, courseId, chapterId, prompt, content)
       if (success) {
         onSubmit()
+      } else {
+        setError('에세이 제출에 실패했습니다. 네트워크 연결을 확인하고 다시 시도해주세요.')
       }
+    } catch {
+      setError('에세이 제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.')
     } finally {
       setIsSubmitting(false)
     }
@@ -88,20 +94,30 @@ export default function EssaySubmit({ courseId, chapterId, prompt, onSubmit }: E
           placeholder="에세이를 작성해주세요. (최소 200자)"
           className="w-full min-h-[300px] p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-y"
           disabled={isSubmitting}
+          maxLength={maxLength}
         />
       </div>
 
       <div className="flex items-center justify-between mb-4">
-        <span className={`text-sm ${isValidLength ? 'text-green-600' : 'text-gray-500'}`}>
-          {charCount} / {minLength}자
+        <span className={`text-sm ${isValidLength ? 'text-green-600' : content.length > maxLength ? 'text-red-600' : 'text-gray-500'}`}>
+          {charCount.toLocaleString()} / {minLength.toLocaleString()}~{maxLength.toLocaleString()}자
           {isValidLength && ' ✓'}
+          {content.length > maxLength && ' (초과)'}
         </span>
-        {!isValidLength && (
+        {!isValidLength && content.length < minLength && (
           <span className="text-xs text-gray-500">
             {minLength - charCount}자 더 입력해주세요
           </span>
         )}
       </div>
+
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-sm text-red-700 flex items-center gap-2">
+            <span>⚠️</span> {error}
+          </p>
+        </div>
+      )}
 
       <div className="flex justify-end">
         <Button

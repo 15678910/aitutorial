@@ -13,11 +13,15 @@ export default function PeerReview({ essay, onSubmit }: PeerReviewProps) {
   const [depthScore, setDepthScore] = useState(3)
   const [feedback, setFeedback] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async () => {
+    setError('')
     setIsSubmitting(true)
     try {
       await onSubmit(clarityScore, accuracyScore, depthScore, feedback)
+    } catch {
+      setError('평가 제출에 실패했습니다. 네트워크 연결을 확인하고 다시 시도해주세요.')
     } finally {
       setIsSubmitting(false)
     }
@@ -117,8 +121,17 @@ export default function PeerReview({ essay, onSubmit }: PeerReviewProps) {
           placeholder="개선 사항이나 좋았던 점을 자유롭게 작성해주세요."
           className="w-full min-h-[120px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-y text-sm"
           disabled={isSubmitting}
+          maxLength={5000}
         />
       </div>
+
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-sm text-red-700 flex items-center gap-2">
+            <span>⚠️</span> {error}
+          </p>
+        </div>
+      )}
 
       <div className="flex justify-between items-center pt-4 border-t border-gray-100">
         <div className="text-sm text-gray-600">
