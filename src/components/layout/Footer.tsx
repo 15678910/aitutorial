@@ -29,9 +29,9 @@ export default function Footer() {
           <nav aria-label="사이트 정보">
             <h3 className="font-semibold mb-4">정보</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li><a href="#" className="hover:text-white transition-colors">소개</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">이용약관</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">개인정보처리방침</a></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">소개</Link></li>
+              <li><Link to="/terms" className="hover:text-white transition-colors">이용약관</Link></li>
+              <li><Link to="/privacy" className="hover:text-white transition-colors">개인정보처리방침</Link></li>
             </ul>
           </nav>
         </div>

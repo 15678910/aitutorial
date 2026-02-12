@@ -18,6 +18,9 @@ const Transcript = lazy(() => import('./pages/Transcript'))
 const Essay = lazy(() => import('./pages/Essay'))
 const Review = lazy(() => import('./pages/Review'))
 const NotFound = lazy(() => import('./pages/NotFound'))
+const About = lazy(() => import('./pages/About'))
+const Terms = lazy(() => import('./pages/Terms'))
+const Privacy = lazy(() => import('./pages/Privacy'))
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 1 } },
@@ -55,6 +58,9 @@ export default function App() {
                   <Route path="/review/:courseSlug" element={<Review />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/privacy" element={<Privacy />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
                 <Route path="/learn/:courseSlug/:chapterSlug/:sectionSlug" element={<Learn />} />
