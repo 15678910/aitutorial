@@ -1,6 +1,7 @@
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import InlineQuiz from '../quiz/InlineQuiz'
+import GlossaryHighlighter from '../glossary/GlossaryHighlighter'
 import type { Quiz } from '../../types'
 
 interface SectionContentProps {
@@ -53,7 +54,9 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
             <h4 className="text-[1.2rem] font-bold text-gray-800 mt-10 mb-4">{children}</h4>
           ),
           p: ({ children }) => (
-            <p className="text-[1.15rem] text-gray-700 leading-[2.1] mb-7 tracking-wide">{children}</p>
+            <p className="text-[1.15rem] text-gray-700 leading-[2.1] mb-7 tracking-wide">
+              <GlossaryHighlighter>{children}</GlossaryHighlighter>
+            </p>
           ),
           ul: ({ children }) => (
             <ul className="my-8 space-y-4 pl-2">{children}</ul>
@@ -64,7 +67,9 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
           li: ({ children }) => (
             <li className="text-[1.1rem] text-gray-700 leading-[2] flex items-start gap-3 tracking-wide">
               <span className="mt-[0.7rem] flex-shrink-0 w-2 h-2 rounded-full bg-accent" />
-              <span className="flex-1">{children}</span>
+              <span className="flex-1">
+                <GlossaryHighlighter>{children}</GlossaryHighlighter>
+              </span>
             </li>
           ),
           strong: ({ children }) => (
@@ -106,7 +111,9 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
             <th className="px-6 py-4 text-left font-bold text-sm tracking-wide text-white">{children}</th>
           ),
           td: ({ children }) => (
-            <td className="px-6 py-4 border-t border-gray-200 text-gray-800 bg-white">{children}</td>
+            <td className="px-6 py-4 border-t border-gray-200 text-gray-800 bg-white">
+              <GlossaryHighlighter>{children}</GlossaryHighlighter>
+            </td>
           ),
           tr: ({ children }) => (
             <tr className="even:bg-surface hover:bg-accent/5 transition-colors">{children}</tr>
