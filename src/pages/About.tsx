@@ -27,7 +27,7 @@ export default function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
             { icon: '🎓', title: '완전 무료', desc: '모든 코스와 콘텐츠를 무료로 제공합니다. 숨겨진 비용이 없습니다.' },
-            { icon: '📚', title: '체계적 커리큘럼', desc: 'AI 입문부터 딥러닝, 생성형 AI까지 7개 코스의 단계별 학습 경로를 제공합니다.' },
+            { icon: '📚', title: '체계적 커리큘럼', desc: 'AI 입문부터 딥러닝, 생성형 AI까지 9개 코스의 단계별 학습 경로를 제공합니다.' },
             { icon: '✍️', title: '퀴즈 & 에세이 평가', desc: '각 섹션마다 퀴즈로 이해도를 점검하고, 에세이와 피어리뷰로 심화 학습합니다.' },
             { icon: '🏆', title: '수료증 발급', desc: '코스 완료 시 성적이 포함된 수료증을 발급받을 수 있습니다.' },
             { icon: '💬', title: '토론 시스템', desc: '각 학습 섹션에서 다른 학습자들과 토론하며 함께 성장합니다.' },
@@ -52,7 +52,9 @@ export default function About() {
             { name: '딥러닝과 신경망', desc: '인공신경망, CNN, RNN 등 딥러닝의 구조와 원리를 배웁니다.', level: '중급' },
             { name: '생성형 AI와 LLM', desc: 'GPT, 프롬프트 엔지니어링, AI 윤리를 다룹니다.', level: '중급' },
             { name: 'AI 만들기', desc: '파이썬으로 실제 AI 모델을 구현하는 실습 과정입니다.', level: '중급' },
-            { name: 'Claude Code 마스터하기', desc: 'AI 코딩 도구의 활용법과 프롬프트 작성법을 배웁니다.', level: '입문' },
+            { name: 'Claude Code 입문', desc: 'AI 코딩 도구의 설치, 기본 사용법, 프롬프트 작성법을 배웁니다.', level: '입문' },
+            { name: 'Claude Code 실전 활용', desc: '팀 협업, 풀스택 개발, CI/CD 자동화, 대규모 프로젝트 관리를 마스터합니다.', level: '중급' },
+            { name: 'Claude Code 고급 마스터', desc: '멀티 에이전트, 커스텀 MCP 서버, 레거시 현대화, 프로덕션 자동화를 다룹니다.', level: '고급' },
             { name: 'Claude AI 헌법', desc: 'Constitutional AI와 AI 안전성, 민주적 AI 거버넌스를 학습합니다.', level: '중급' },
           ].map((course, i) => (
             <div key={i} className="flex items-center gap-4 bg-surface border border-gray-200 rounded-xl p-4 hover:shadow-sm transition-shadow">
@@ -63,7 +65,7 @@ export default function About() {
                 <h3 className="font-semibold text-gray-900">{course.name}</h3>
                 <p className="text-sm text-gray-600">{course.desc}</p>
               </div>
-              <span className={`text-xs px-2 py-1 rounded-full shrink-0 ${course.level === '입문' ? 'bg-green-50 text-green-700' : 'bg-blue-50 text-blue-700'}`}>
+              <span className={`text-xs px-2 py-1 rounded-full shrink-0 ${course.level === '입문' ? 'bg-green-50 text-green-700' : course.level === '고급' ? 'bg-red-50 text-red-700' : 'bg-blue-50 text-blue-700'}`}>
                 {course.level}
               </span>
             </div>

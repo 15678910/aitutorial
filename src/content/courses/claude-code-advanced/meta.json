@@ -1,0 +1,38 @@
+{
+  "id": "claude-code-advanced",
+  "slug": "claude-code-advanced",
+  "title": "Claude Code 고급 마스터",
+  "description": "멀티 에이전트 오케스트레이션, 커스텀 MCP 서버 개발, 레거시 시스템 현대화, 프로덕션 자동화 등 전문가 수준의 AI 개발 워크플로우를 다룹니다.",
+  "icon": "🔥",
+  "orderNum": 9,
+  "isPublished": true,
+  "estimatedHours": 30,
+  "difficulty": "advanced",
+  "chapters": [
+    {
+      "id": "ch1-multi-agent",
+      "title": "멀티 에이전트 오케스트레이션",
+      "orderNum": 1
+    },
+    {
+      "id": "ch2-custom-mcp",
+      "title": "커스텀 MCP 서버 개발",
+      "orderNum": 2
+    },
+    {
+      "id": "ch3-legacy-modernization",
+      "title": "레거시 시스템 현대화",
+      "orderNum": 3
+    },
+    {
+      "id": "ch4-production-security",
+      "title": "프로덕션 자동화와 보안",
+      "orderNum": 4
+    },
+    {
+      "id": "ch5-future-ai-dev",
+      "title": "AI 개발의 미래",
+      "orderNum": 5
+    }
+  ]
+}

@@ -23,7 +23,9 @@ export default function Footer() {
               <li><Link to="/courses/deep-learning" className="hover:text-white transition-colors">딥러닝과 신경망</Link></li>
               <li><Link to="/courses/generative-ai" className="hover:text-white transition-colors">생성형 AI와 LLM</Link></li>
               <li><Link to="/courses/making-ai" className="hover:text-white transition-colors">AI 만들기</Link></li>
-              <li><Link to="/courses/claude-code" className="hover:text-white transition-colors">Claude Code 마스터하기</Link></li>
+              <li><Link to="/courses/claude-code" className="hover:text-white transition-colors">Claude Code 입문</Link></li>
+              <li><Link to="/courses/claude-code-intermediate" className="hover:text-white transition-colors">Claude Code 실전</Link></li>
+              <li><Link to="/courses/claude-code-advanced" className="hover:text-white transition-colors">Claude Code 고급</Link></li>
               <li><Link to="/courses/claude-constitution" className="hover:text-white transition-colors">Claude AI 헌법</Link></li>
             </ul>
           </nav>
