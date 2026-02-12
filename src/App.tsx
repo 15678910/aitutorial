@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect, lazy, Suspense } from 'react'
 import Layout from './components/layout/Layout'
@@ -22,6 +22,12 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 1 } },
 })
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
+
 function AuthInitializer({ children }: { children: React.ReactNode }) {
   const { initialize, initialized } = useAuthStore()
   useEffect(() => { if (!initialized) initialize() }, [initialize, initialized])
@@ -33,6 +39,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <AuthInitializer>
         <BrowserRouter>
+          <ScrollToTop />
           <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>}>
             <Routes>
               <Route element={<Layout />}>
