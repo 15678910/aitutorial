@@ -7,6 +7,7 @@ import deepLearningMeta from './deep-learning/meta.json'
 import generativeAiMeta from './generative-ai/meta.json'
 import makingAiMeta from './making-ai/meta.json'
 import claudeCodeMeta from './claude-code/meta.json'
+import claudeConstitutionMeta from './claude-constitution/meta.json'
 
 type CourseWithIcon = Course & { icon: string }
 
@@ -18,6 +19,7 @@ const courseMetas: CourseWithIcon[] = [
   generativeAiMeta,
   makingAiMeta,
   claudeCodeMeta,
+  claudeConstitutionMeta,
 ] as CourseWithIcon[]
 
 // Chapter loader map - lazy imports
@@ -62,6 +64,16 @@ const chapterLoaders: Record<string, () => Promise<any[]>> = {
       import('./claude-code/ch3.json'),
       import('./claude-code/ch4.json'),
       import('./claude-code/ch5.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default]
+  },
+  'claude-constitution': async () => {
+    const [ch1, ch2, ch3, ch4, ch5] = await Promise.all([
+      import('./claude-constitution/ch1.json'),
+      import('./claude-constitution/ch2.json'),
+      import('./claude-constitution/ch3.json'),
+      import('./claude-constitution/ch4.json'),
+      import('./claude-constitution/ch5.json'),
     ])
     return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default]
   },

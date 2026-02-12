@@ -1,0 +1,12 @@
+{
+  "id": "claude-constitution",
+  "slug": "claude-constitution",
+  "title": "Claude AI 헌법",
+  "description": "Anthropic의 Constitutional AI와 Claude의 가치 체계를 깊이 이해하는 과정입니다.",
+  "icon": "⚖️",
+  "orderNum": 7,
+  "isPublished": true,
+  "estimatedHours": 15,
+  "difficulty": "intermediate",
+  "chapters": []
+}
