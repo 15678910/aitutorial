@@ -6,6 +6,8 @@ interface CertificateProps {
   userName: string
   completionDate: string
   courseId: string
+  grade?: string
+  difficulty?: 'beginner' | 'intermediate' | 'advanced'
 }
 
 function generateCertificateNumber(courseId: string, date: string): string {
@@ -15,7 +17,19 @@ function generateCertificateNumber(courseId: string, date: string): string {
   return `CERT-${Math.abs(hash).toString(16).toUpperCase().slice(0, 8)}`
 }
 
-export default function Certificate({ courseName, userName, completionDate, courseId }: CertificateProps) {
+const DIFFICULTY_LABELS: Record<string, string> = {
+  beginner: '입문',
+  intermediate: '중급',
+  advanced: '고급',
+}
+
+const DIFFICULTY_COLORS: Record<string, string> = {
+  beginner: '#10b981',
+  intermediate: '#f59e0b',
+  advanced: '#ef4444',
+}
+
+export default function Certificate({ courseName, userName, completionDate, courseId, grade, difficulty }: CertificateProps) {
   const certificateRef = useRef<HTMLDivElement>(null)
   const certNumber = generateCertificateNumber(courseId, completionDate)
 
@@ -71,6 +85,17 @@ export default function Certificate({ courseName, userName, completionDate, cour
             <div className="certificate-course">
               <div className="course-label">다음 과정을 성공적으로 이수하였음을 증명합니다</div>
               <div className="course-name">{courseName}</div>
+              {difficulty && (
+                <div className="course-difficulty" style={{ color: DIFFICULTY_COLORS[difficulty] }}>
+                  {DIFFICULTY_LABELS[difficulty]} 과정
+                </div>
+              )}
+              {grade && (
+                <div className="course-grade">
+                  <span className="grade-label">취득 등급:</span>
+                  <span className="grade-value">{grade}</span>
+                </div>
+              )}
             </div>
 
             {/* Date and organization */}
@@ -86,9 +111,14 @@ export default function Certificate({ courseName, userName, completionDate, cour
               </div>
             </div>
 
-            {/* Certificate number */}
-            <div className="certificate-number">
-              증서 번호: {certNumber}
+            {/* Verification section */}
+            <div className="certificate-verification">
+              <div className="verification-text">
+                본 수료증은 AI 학습 플랫폼에서 발급되었으며, 아래 인증번호로 검증 가능합니다.
+              </div>
+              <div className="certificate-number">
+                인증번호: {certNumber}
+              </div>
             </div>
           </div>
         </div>
@@ -127,6 +157,8 @@ export default function Certificate({ courseName, userName, completionDate, cour
         .certificate-border {
           position: relative;
           padding: 3rem;
+          border: 4px double #29264c;
+          border-radius: 8px;
         }
 
         .border-decoration {
@@ -135,6 +167,18 @@ export default function Certificate({ courseName, userName, completionDate, cour
           left: 0;
           width: 100%;
           height: 100%;
+          pointer-events: none;
+        }
+
+        .certificate-border::before {
+          content: '';
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          right: 8px;
+          bottom: 8px;
+          border: 2px solid #32c2a2;
+          border-radius: 4px;
           pointer-events: none;
         }
 
@@ -200,7 +244,36 @@ export default function Certificate({ courseName, userName, completionDate, cour
           color: #29264c;
           line-height: 1.4;
           max-width: 600px;
-          margin: 0 auto;
+          margin: 0 auto 1rem;
+        }
+
+        .course-difficulty {
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+        }
+
+        .course-grade {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.75rem 2rem;
+          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+          border-radius: 50px;
+          border: 2px solid #32c2a2;
+        }
+
+        .grade-label {
+          font-size: 0.95rem;
+          color: #6c757d;
+          font-weight: 500;
+        }
+
+        .grade-value {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #29264c;
+          font-family: serif;
         }
 
         .certificate-footer {
@@ -225,6 +298,7 @@ export default function Certificate({ courseName, userName, completionDate, cour
           font-size: 1.125rem;
           color: #29264c;
           font-weight: 600;
+          white-space: nowrap;
         }
 
         .organization {
@@ -244,12 +318,27 @@ export default function Certificate({ courseName, userName, completionDate, cour
           font-style: italic;
         }
 
+        .certificate-verification {
+          margin-top: 2.5rem;
+          padding-top: 2rem;
+          border-top: 1px dashed #dee2e6;
+        }
+
+        .verification-text {
+          font-size: 0.8rem;
+          color: #6c757d;
+          text-align: center;
+          margin-bottom: 0.75rem;
+          line-height: 1.5;
+        }
+
         .certificate-number {
-          margin-top: 2rem;
-          font-size: 0.75rem;
-          color: #adb5bd;
+          font-size: 0.875rem;
+          color: #495057;
           text-align: center;
           font-family: monospace;
+          font-weight: 600;
+          letter-spacing: 0.5px;
         }
 
         .certificate-actions {

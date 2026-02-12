@@ -217,7 +217,7 @@ export default function Learn() {
               <h2 className="text-2xl font-extrabold text-gray-900 mb-8 pb-4 border-b-2 border-gray-200 flex items-center gap-3">
                 <span className="text-3xl">📝</span> 확인 퀴즈
               </h2>
-              <QuizContainer quizzes={currentSection.quizzes} onComplete={handleQuizComplete} />
+              <QuizContainer quizzes={currentSection.quizzes} sectionId={currentSection.id} onComplete={handleQuizComplete} />
             </div>
           )}
 

@@ -4,10 +4,12 @@ import TrueFalse from './TrueFalse'
 import FillBlank from './FillBlank'
 import QuizResult from './QuizResult'
 import Button from '../ui/Button'
+import { useProgressStore } from '../../store/progressStore'
 import type { Quiz } from '../../types'
 
 interface QuizContainerProps {
   quizzes: Quiz[]
+  sectionId: string
   onComplete: (score: number) => void
 }
 
@@ -18,12 +20,17 @@ const difficultyConfig = {
   advanced: { label: '고급', color: 'bg-red-50 text-red-700', activeColor: 'bg-red-600 text-white' },
 }
 
-export default function QuizContainer({ quizzes, onComplete }: QuizContainerProps) {
+export default function QuizContainer({ quizzes, sectionId, onComplete }: QuizContainerProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Map<number, string>>(new Map())
   const [showResults, setShowResults] = useState(false)
   const [submitted, setSubmitted] = useState<Set<number>>(new Set())
   const [difficulty, setDifficulty] = useState<'all' | 'beginner' | 'intermediate' | 'advanced'>('all')
+
+  const { getQuizAttempts, quizScores } = useProgressStore()
+  const attemptCount = getQuizAttempts(sectionId)
+  const currentScore = quizScores.get(sectionId) || 0
+  const maxAttemptsReached = attemptCount >= 3
 
   const hasDifficulties = quizzes.some(q => q.difficulty)
 
@@ -92,7 +99,26 @@ export default function QuizContainer({ quizzes, onComplete }: QuizContainerProp
 
   if (showResults) {
     const correctCount = filteredQuizzes.reduce((count, quiz, idx) => count + (answers.get(idx) === quiz.correctAnswer ? 1 : 0), 0)
-    return <QuizResult correct={correctCount} total={filteredQuizzes.length} />
+    return <QuizResult correct={correctCount} total={filteredQuizzes.length} sectionId={sectionId} />
+  }
+
+  // If max attempts reached, show disabled state
+  if (maxAttemptsReached) {
+    return (
+      <div className="bg-surface border border-gray-200 rounded-xl p-8 text-center">
+        <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 bg-gray-100">
+          <span className="text-3xl">🔒</span>
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">최대 응시 횟수 도달</h3>
+        <p className="text-gray-600 mb-2">최대 응시 횟수(3회)에 도달했습니다.</p>
+        <div className="text-3xl font-bold mb-2" style={{ color: currentScore >= 60 ? '#32c2a2' : '#ef4444' }}>
+          최고 점수: {currentScore}점
+        </div>
+        <p className="text-sm text-gray-500 mt-4">
+          {currentScore >= 60 ? '합격하셨습니다!' : '다음에 더 좋은 결과를 기대합니다.'}
+        </p>
+      </div>
+    )
   }
 
   const isSubmitted = submitted.has(currentIndex)
@@ -138,7 +164,10 @@ export default function QuizContainer({ quizzes, onComplete }: QuizContainerProp
       )}
 
       <div className="flex items-center justify-between mb-4">
-        <span className="text-sm font-medium text-gray-500">퀴즈 {currentIndex + 1} / {filteredQuizzes.length}</span>
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-gray-500">퀴즈 {currentIndex + 1} / {filteredQuizzes.length}</span>
+          <span className="text-xs text-gray-400">시도 {attemptCount}/3회</span>
+        </div>
         {diffLabel && (
           <span className={`px-3 py-1 rounded-full text-xs font-bold ${difficultyConfig[currentQuiz.difficulty!].color}`}>
             {diffLabel.label}

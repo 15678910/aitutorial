@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase'
 
 const STORAGE_KEY = 'ai-learning-progress'
 const QUIZ_STORAGE_KEY = 'ai-learning-quiz-scores'
+const QUIZ_ATTEMPTS_KEY = 'ai-learning-quiz-attempts'
 
 // localStorage helpers
 function loadFromStorage<T>(key: string, defaultVal: T): T {
@@ -22,24 +23,29 @@ function saveToStorage(key: string, value: unknown): void {
 interface ProgressState {
   completedSections: Set<string>
   quizScores: Map<string, number>
+  quizAttempts: Map<string, number>
   loading: boolean
   fetchProgress: (userId: string) => Promise<void>
   markComplete: (userId: string, sectionId: string) => Promise<void>
-  saveQuizScore: (userId: string, sectionId: string, score: number) => Promise<void>
+  saveQuizScore: (userId: string, sectionId: string, score: number) => Promise<boolean>
+  getQuizAttempts: (sectionId: string) => number
   loadLocalProgress: () => void
 }
 
 export const useProgressStore = create<ProgressState>((set, get) => ({
   completedSections: new Set(loadFromStorage<string[]>(STORAGE_KEY, [])),
   quizScores: new Map(Object.entries(loadFromStorage<Record<string, number>>(QUIZ_STORAGE_KEY, {}))),
+  quizAttempts: new Map(Object.entries(loadFromStorage<Record<string, number>>(QUIZ_ATTEMPTS_KEY, {}))),
   loading: false,
 
   loadLocalProgress: () => {
     const sections = loadFromStorage<string[]>(STORAGE_KEY, [])
     const scores = loadFromStorage<Record<string, number>>(QUIZ_STORAGE_KEY, {})
+    const attempts = loadFromStorage<Record<string, number>>(QUIZ_ATTEMPTS_KEY, {})
     set({
       completedSections: new Set(sections),
       quizScores: new Map(Object.entries(scores)),
+      quizAttempts: new Map(Object.entries(attempts)),
     })
   },
 
@@ -101,23 +107,49 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
   },
 
   saveQuizScore: async (userId: string, sectionId: string, score: number) => {
-    const updated = new Map(get().quizScores)
-    updated.set(sectionId, score)
-    set({ quizScores: updated })
+    const currentAttempts = get().quizAttempts.get(sectionId) || 0
+    const currentScore = get().quizScores.get(sectionId) || 0
+
+    // Check max attempts (3)
+    if (currentAttempts >= 3) {
+      return false
+    }
+
+    // Increment attempt count
+    const updatedAttempts = new Map(get().quizAttempts)
+    updatedAttempts.set(sectionId, currentAttempts + 1)
+
+    // Only update score if new score is higher
+    const updatedScores = new Map(get().quizScores)
+    if (score > currentScore) {
+      updatedScores.set(sectionId, score)
+    }
+
+    set({
+      quizScores: updatedScores,
+      quizAttempts: updatedAttempts
+    })
 
     // Always save to localStorage
-    saveToStorage(QUIZ_STORAGE_KEY, Object.fromEntries(updated))
+    saveToStorage(QUIZ_STORAGE_KEY, Object.fromEntries(updatedScores))
+    saveToStorage(QUIZ_ATTEMPTS_KEY, Object.fromEntries(updatedAttempts))
 
     // Try to sync with Supabase
     try {
       await supabase.from('progress').upsert({
         user_id: userId,
         section_id: sectionId,
-        quiz_score: score,
-        quiz_attempts: 1,
+        quiz_score: score > currentScore ? score : currentScore,
+        quiz_attempts: currentAttempts + 1,
       }, { onConflict: 'user_id,section_id' })
     } catch {
       // DB sync failed, but localStorage has the data
     }
+
+    return true
+  },
+
+  getQuizAttempts: (sectionId: string) => {
+    return get().quizAttempts.get(sectionId) || 0
   },
 }))

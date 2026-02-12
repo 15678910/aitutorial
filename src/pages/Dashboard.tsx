@@ -80,8 +80,15 @@ export default function Dashboard() {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12" role="main">
       {/* Header */}
       <div className="mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">안녕하세요, {user.name || '학습자'}님!</h1>
-        <p className="text-gray-500">학습 현황을 한눈에 확인하세요.</p>
+        <div className="flex items-start justify-between mb-2">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">안녕하세요, {user.name || '학습자'}님!</h1>
+            <p className="text-gray-500">학습 현황을 한눈에 확인하세요.</p>
+          </div>
+          <Link to="/transcript">
+            <Button variant="outline">성적표 보기</Button>
+          </Link>
+        </div>
         <div className="mt-4">
           <StreakTracker />
         </div>
@@ -167,9 +174,12 @@ export default function Dashboard() {
                       {c.avgScore !== null && <span>평균 {c.avgScore}점</span>}
                     </div>
                     <Progress value={c.completed} max={c.totalSections} size="md" showLabel className="mb-4" />
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                       <Link to={`/courses/${c.slug}`}><Button size="sm" variant="outline">다시 보기</Button></Link>
                       <Link to={`/certificate/${c.slug}`}><Button size="sm">수료증 보기</Button></Link>
+                      {c.chapters.length > 0 && (
+                        <Link to={`/essay/${c.slug}/${c.chapters[0].id}`}><Button size="sm" variant="outline">에세이 작성</Button></Link>
+                      )}
                     </div>
                   </div>
                 </Card>
@@ -214,7 +224,12 @@ export default function Dashboard() {
                         )
                       })}
                     </div>
-                    <Link to={`/courses/${c.slug}`}><Button size="sm">이어서 학습하기</Button></Link>
+                    <div className="flex gap-2 flex-wrap">
+                      <Link to={`/courses/${c.slug}`}><Button size="sm">이어서 학습하기</Button></Link>
+                      {c.chapters.length > 0 && (
+                        <Link to={`/essay/${c.slug}/${c.chapters[0].id}`}><Button size="sm" variant="outline">에세이 작성</Button></Link>
+                      )}
+                    </div>
                   </div>
                 </Card>
               )
