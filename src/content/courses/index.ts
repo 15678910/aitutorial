@@ -8,7 +8,7 @@ import generativeAiMeta from './generative-ai/meta.json'
 import makingAiMeta from './making-ai/meta.json'
 import claudeCodeMeta from './claude-code/meta.json'
 
-type CourseWithIcon = Course & { icon?: string }
+type CourseWithIcon = Course & { icon: string }
 
 // Course metadata for listing (no chapters loaded)
 const courseMetas: CourseWithIcon[] = [

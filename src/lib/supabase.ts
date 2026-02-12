@@ -13,7 +13,7 @@ function createChainableResponse(): any {
       error: null,
     },
     {
-      get: (target, prop) => {
+      get: (_target, prop) => {
         // Return actual data/error properties
         if (prop === 'data') return null
         if (prop === 'error') return null
