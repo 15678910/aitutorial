@@ -28,6 +28,9 @@ export default function Admin() {
   const [search, setSearch] = useState('')
   const [contentStats, setContentStats] = useState<CourseContentStats[]>([])
   const [contentLoading, setContentLoading] = useState(false)
+  const [adminAuthed, setAdminAuthed] = useState(() => sessionStorage.getItem('admin_authed') === 'true')
+  const [adminPw, setAdminPw] = useState('')
+  const [adminPwError, setAdminPwError] = useState('')
 
   // 콘텐츠 탭 선택 시 코스 데이터 로드
   useEffect(() => {
@@ -69,6 +72,46 @@ export default function Admin() {
 
   if (!user) return <Navigate to="/login" replace />
   if (user.role !== 'admin') return <Navigate to="/" replace />
+
+  // 2차 비밀번호 인증
+  if (!adminAuthed) {
+    const handleAdminPw = (e: React.FormEvent) => {
+      e.preventDefault()
+      const secret = import.meta.env.VITE_ADMIN_SECRET || ''
+      if (adminPw === secret) {
+        sessionStorage.setItem('admin_authed', 'true')
+        setAdminAuthed(true)
+        setAdminPwError('')
+      } else {
+        setAdminPwError('비밀번호가 틀렸습니다.')
+      }
+    }
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
+          <div className="text-center mb-6">
+            <div className="text-4xl mb-3">🔐</div>
+            <h2 className="text-xl font-bold text-gray-900">관리자 인증</h2>
+            <p className="text-sm text-gray-500 mt-1">관리자 비밀번호를 입력하세요</p>
+          </div>
+          <form onSubmit={handleAdminPw}>
+            <input
+              type="text"
+              value={adminPw}
+              onChange={e => { setAdminPw(e.target.value); setAdminPwError('') }}
+              placeholder="관리자 비밀번호"
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary mb-3"
+              autoFocus
+            />
+            {adminPwError && <p className="text-red-500 text-sm mb-3">{adminPwError}</p>}
+            <button type="submit" className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors">
+              확인
+            </button>
+          </form>
+        </div>
+      </div>
+    )
+  }
 
   if (loading) {
     return (
