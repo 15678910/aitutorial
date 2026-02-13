@@ -22,7 +22,7 @@ interface CourseContentStats {
 }
 
 export default function Admin() {
-  const { user } = useAuthStore()
+  const { user, initialized } = useAuthStore()
   const { stats, loading, refetch } = useAdminStats()
   const [tab, setTab] = useState<Tab>('overview')
   const [search, setSearch] = useState('')
@@ -70,6 +70,11 @@ export default function Admin() {
     }
   }
 
+  if (!initialized) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    </div>
+  )
   if (!user) return <Navigate to="/login" replace />
   if (user.role !== 'admin') return <Navigate to="/" replace />
 
