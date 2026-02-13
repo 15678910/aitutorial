@@ -29,7 +29,7 @@ export const useAuthStore = create<AuthState>((set) => ({
           .eq('id', session.user.id)
           .single()
         if (profile) {
-          set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at } })
+          set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at, role: profile.role || 'user' } })
         }
       }
     } catch (error) {
@@ -48,7 +48,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             .eq('id', session.user.id)
             .single()
           if (profile) {
-            set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at } })
+            set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at, role: profile.role || 'user' } })
           }
         } catch (error) {
           console.warn('Failed to fetch user profile', error)

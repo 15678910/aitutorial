@@ -31,6 +31,9 @@ export default function Header() {
               <>
                 <Link to="/dashboard" className="text-gray-600 hover:text-primary font-medium transition-colors">내 학습</Link>
                 <Link to="/transcript" className="text-gray-600 hover:text-primary font-medium transition-colors">성적표</Link>
+                {user.role === 'admin' && (
+                  <Link to="/admin" className="text-red-600 hover:text-red-700 font-medium transition-colors">관리자</Link>
+                )}
                 <button onClick={handleSignOut} className="text-gray-500 hover:text-gray-700 text-sm font-medium">로그아웃</button>
               </>
             ) : (

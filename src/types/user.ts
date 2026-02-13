@@ -4,6 +4,7 @@ export interface UserProfile {
   name: string | null
   avatarUrl: string | null
   createdAt: string
+  role: 'admin' | 'user'
 }
 
 export interface Progress {
