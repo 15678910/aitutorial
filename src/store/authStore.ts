@@ -79,7 +79,13 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   signOut: async () => {
-    await supabase.auth.signOut()
-    set({ user: null })
+    try {
+      await supabase.auth.signOut()
+    } catch (error) {
+      console.warn('Sign out error:', error)
+    } finally {
+      sessionStorage.removeItem('admin_authed')
+      set({ user: null })
+    }
   },
 }))
