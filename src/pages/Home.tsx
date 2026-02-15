@@ -21,7 +21,8 @@ export default function Home() {
               <p className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-lg">
                 AI의 기초부터 최신 생성형 AI까지,<br />
                 무료로 제공되는 체계적인 온라인 학습 과정을 통해<br />
-                인공지능의 세계를 탐험하세요.
+                인공지능의 세계를 탐험하고,<br />
+                AI 집단지성의 공간을 만들어 보세요.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link to="/courses">
