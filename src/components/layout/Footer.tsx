@@ -56,8 +56,9 @@ export default function Footer() {
             </ul>
           </nav>
         </div>
-        <div className="border-t border-white/10 mt-8 pt-8 text-center text-sm text-gray-400">
-          &copy; {new Date().getFullYear()} AI 학습 플랫폼. 모든 콘텐츠는 무료로 제공됩니다.
+        <div className="border-t border-white/10 mt-8 pt-8 text-center text-sm text-gray-400 space-y-2">
+          <p>문의: <a href="mailto:aitutorial202602@gmail.com" className="text-accent hover:text-white transition-colors">aitutorial202602@gmail.com</a></p>
+          <p>&copy; {new Date().getFullYear()} AI 학습 플랫폼. 모든 콘텐츠는 무료로 제공됩니다.</p>
         </div>
       </div>
     </footer>

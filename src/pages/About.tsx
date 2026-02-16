@@ -14,9 +14,8 @@ export default function About() {
         <div className="bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-2xl font-bold mb-4">우리의 미션</h2>
           <p className="text-lg leading-relaxed opacity-90">
-            인공지능 기술이 빠르게 발전하는 시대, AI 리터러시는 모든 사람에게 필수적인 역량이 되었습니다.
-            우리는 <strong>무료</strong>로, <strong>체계적</strong>으로, <strong>누구나 이해할 수 있는</strong>
-            AI 교육을 제공하여 기술 격차를 줄이고자 합니다.
+            AI의 기초부터 최신 생성형 AI까지, <strong>무료</strong>로 제공되는 체계적인 온라인 학습 과정을 통해
+            인공지능의 세계를 탐험하고, <strong>인간의 집단지성과 AI의 협업</strong>으로 인류 문명에 이바지하는 것입니다.
           </p>
         </div>
       </section>
