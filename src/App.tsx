@@ -30,6 +30,8 @@ const QADetail = lazy(() => import('./pages/QADetail'))
 const Wiki = lazy(() => import('./pages/Wiki'))
 const WikiArticlePage = lazy(() => import('./pages/WikiArticle'))
 const MyProfile = lazy(() => import('./pages/MyProfile'))
+const Enterprise = lazy(() => import('./pages/Enterprise'))
+const Research = lazy(() => import('./pages/Research'))
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 1 } },
@@ -78,6 +80,8 @@ export default function App() {
                   <Route path="/community/qa/:id" element={<QADetail />} />
                   <Route path="/community/wiki" element={<Wiki />} />
                   <Route path="/community/wiki/:slug" element={<WikiArticlePage />} />
+                  <Route path="/community/enterprise" element={<Enterprise />} />
+                  <Route path="/community/research" element={<Research />} />
                   <Route path="/community/profile" element={<MyProfile />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>

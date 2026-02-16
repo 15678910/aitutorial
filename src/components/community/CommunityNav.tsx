@@ -9,6 +9,8 @@ const tabs = [
   { key: 'projects', label: '프로젝트', path: '/community/projects' },
   { key: 'qa', label: 'Q&A', path: '/community/qa' },
   { key: 'wiki', label: '위키', path: '/community/wiki' },
+  { key: 'enterprise', label: '기업연계', path: '/community/enterprise' },
+  { key: 'research', label: '연구협업', path: '/community/research' },
   { key: 'profile', label: '프로필', path: '/community/profile' },
 ]
 

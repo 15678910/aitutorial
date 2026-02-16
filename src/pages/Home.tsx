@@ -130,12 +130,14 @@ export default function Home() {
           <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-12">
             학습을 넘어 함께 만들고 성장하는 공간
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {[
               { icon: '🚀', title: '프로젝트 허브', desc: '팀을 구성하고 AI 프로젝트를 함께 만들어보세요', color: '#6366f1' },
               { icon: '💬', title: 'Q&A 포럼', desc: 'AI 학습 중 궁금한 점을 질문하고 답변하세요', color: '#3b82f6' },
               { icon: '📖', title: '지식 위키', desc: 'AI 지식을 함께 정리하고 공유하세요', color: '#f59e0b' },
               { icon: '🏆', title: 'AI 챌린지', desc: 'AI 챌린지에 참여하고 실력을 겨뤄보세요', color: '#ef4444' },
+              { icon: '🏢', title: '기업 연계', desc: '커뮤니티 기여로 기업에 추천받으세요', color: '#06b6d4' },
+              { icon: '🔬', title: '연구 협업', desc: '대학·연구소와 공동 연구를 진행하세요', color: '#e11d48' },
             ].map((f) => (
               <div
                 key={f.title}

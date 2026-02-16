@@ -42,6 +42,8 @@ export default function Footer() {
               <li><Link to="/community/projects" className="hover:text-white transition-colors">프로젝트</Link></li>
               <li><Link to="/community/qa" className="hover:text-white transition-colors">Q&A 포럼</Link></li>
               <li><Link to="/community/wiki" className="hover:text-white transition-colors">지식 위키</Link></li>
+              <li><Link to="/community/enterprise" className="hover:text-white transition-colors">기업 연계</Link></li>
+              <li><Link to="/community/research" className="hover:text-white transition-colors">연구 협업</Link></li>
               <li><Link to="/community/profile" className="hover:text-white transition-colors">내 프로필</Link></li>
             </ul>
           </nav>

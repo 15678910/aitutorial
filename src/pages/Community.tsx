@@ -7,6 +7,8 @@ const STATS = [
   { label: '프로젝트', value: '128', icon: '🚀' },
   { label: '질문', value: '1,024', icon: '💬' },
   { label: '위키 문서', value: '256', icon: '📚' },
+  { label: '파트너 기업', value: '5', icon: '🏢' },
+  { label: '연구 과제', value: '12', icon: '🔬' },
   { label: '멤버', value: '3,847', icon: '👥' },
 ]
 
@@ -34,6 +36,22 @@ const SECTIONS = [
     link: '/community/wiki',
     color: 'from-amber-500 to-orange-600',
     bgLight: 'bg-amber-50',
+  },
+  {
+    icon: '🏢',
+    title: '기업 연계',
+    description: '활발한 기여자를 기업에 추천합니다',
+    link: '/community/enterprise',
+    color: 'from-cyan-500 to-blue-600',
+    bgLight: 'bg-cyan-50',
+  },
+  {
+    icon: '🔬',
+    title: '연구 협업',
+    description: '대학·연구소와 공동 연구를 진행하세요',
+    link: '/community/research',
+    color: 'from-rose-500 to-red-600',
+    bgLight: 'bg-rose-50',
   },
   {
     icon: '🏆',
@@ -115,7 +133,7 @@ export default function Community() {
       {/* Stats Bar */}
       <section className="bg-white border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {STATS.map((stat) => (
               <Card key={stat.label} className="p-5 text-center">
                 <span className="text-2xl mb-2 block">{stat.icon}</span>
@@ -132,7 +150,7 @@ export default function Community() {
         <CommunityNav activeTab="home" />
 
         {/* Section Cards - 2x2 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {SECTIONS.map((section) => {
             const content = (
               <Card hoverable className="p-6 h-full">
