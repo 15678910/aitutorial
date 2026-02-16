@@ -33,6 +33,7 @@ export default function Enterprise() {
   const [typeFilter, setTypeFilter] = useState('all')
   const [search, setSearch] = useState('')
   const [expandedPartnerId, setExpandedPartnerId] = useState<string | null>(null)
+  const [showPartnerForm, setShowPartnerForm] = useState(false)
 
   const { getPartners, getRecommendedTalents, applyToPosition } = useEnterpriseStore()
   const { user } = useAuthStore()
@@ -207,14 +208,149 @@ export default function Enterprise() {
               <p className="text-sm text-gray-600 mb-4">
                 AI 인재를 찾고 계신가요? 파트너 기업으로 등록하고 검증된 인재를 추천받으세요.
               </p>
-              <button className="w-full bg-cyan-600 text-white py-2.5 rounded-lg font-semibold hover:bg-cyan-700 transition-colors text-sm">
-                파트너 등록 문의
+              <button
+                onClick={() => setShowPartnerForm(!showPartnerForm)}
+                className="w-full bg-cyan-600 text-white py-2.5 rounded-lg font-semibold hover:bg-cyan-700 transition-colors text-sm"
+              >
+                {showPartnerForm ? '닫기' : '파트너 등록 문의'}
               </button>
+              {showPartnerForm && <PartnerInquiryForm onClose={() => setShowPartnerForm(false)} />}
             </Card>
           </div>
         </div>
       </div>
     </div>
+  )
+}
+
+// ----- Partner Inquiry Form Component -----
+interface PartnerInquiryFormProps {
+  onClose: () => void
+}
+
+function PartnerInquiryForm({ onClose }: PartnerInquiryFormProps) {
+  const [formData, setFormData] = useState({
+    companyName: '',
+    companyType: '' as EnterpriseType | '',
+    contactEmail: '',
+    interestedFields: '',
+    message: '',
+  })
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!formData.companyName || !formData.contactEmail) {
+      alert('기업명과 연락처 이메일은 필수 입력 항목입니다.')
+      return
+    }
+
+    alert('파트너 등록 문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.')
+
+    // Reset form
+    setFormData({
+      companyName: '',
+      companyType: '',
+      contactEmail: '',
+      interestedFields: '',
+      message: '',
+    })
+
+    onClose()
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-4 pt-4 border-t border-cyan-200 space-y-4">
+      {/* Company Name */}
+      <div>
+        <label htmlFor="companyName" className="block text-sm font-semibold text-gray-700 mb-1">
+          기업명 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="companyName"
+          required
+          value={formData.companyName}
+          onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+          placeholder="회사명을 입력하세요"
+        />
+      </div>
+
+      {/* Company Type */}
+      <div>
+        <label htmlFor="companyType" className="block text-sm font-semibold text-gray-700 mb-1">
+          기업 유형
+        </label>
+        <select
+          id="companyType"
+          value={formData.companyType}
+          onChange={(e) => setFormData({ ...formData, companyType: e.target.value as EnterpriseType })}
+          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+        >
+          <option value="">선택하세요</option>
+          <option value="startup">{ENTERPRISE_TYPE_LABELS.startup}</option>
+          <option value="sme">{ENTERPRISE_TYPE_LABELS.sme}</option>
+          <option value="enterprise">{ENTERPRISE_TYPE_LABELS.enterprise}</option>
+          <option value="lab">{ENTERPRISE_TYPE_LABELS.lab}</option>
+          <option value="university">{ENTERPRISE_TYPE_LABELS.university}</option>
+        </select>
+      </div>
+
+      {/* Contact Email */}
+      <div>
+        <label htmlFor="contactEmail" className="block text-sm font-semibold text-gray-700 mb-1">
+          연락처 이메일 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="email"
+          id="contactEmail"
+          required
+          value={formData.contactEmail}
+          onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+          placeholder="contact@company.com"
+        />
+      </div>
+
+      {/* Interested Fields */}
+      <div>
+        <label htmlFor="interestedFields" className="block text-sm font-semibold text-gray-700 mb-1">
+          관심 분야
+        </label>
+        <input
+          type="text"
+          id="interestedFields"
+          value={formData.interestedFields}
+          onChange={(e) => setFormData({ ...formData, interestedFields: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+          placeholder="예: 컴퓨터비전, NLP, 강화학습"
+        />
+      </div>
+
+      {/* Message */}
+      <div>
+        <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-1">
+          문의 내용
+        </label>
+        <textarea
+          id="message"
+          rows={4}
+          value={formData.message}
+          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all resize-none"
+          placeholder="문의 내용을 자유롭게 작성해주세요"
+        />
+      </div>
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className="w-full bg-cyan-600 text-white py-2.5 rounded-lg font-semibold hover:bg-cyan-700 transition-colors text-sm"
+      >
+        문의 제출
+      </button>
+    </form>
   )
 }
 
