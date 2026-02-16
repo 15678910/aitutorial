@@ -1,0 +1,12 @@
+{
+  "id": "ai-business",
+  "slug": "ai-business",
+  "title": "AI 비즈니스 활용 사례",
+  "description": "코딩 없이 이해하는 AI 비즈니스 활용법. 산업별 AI 도입 사례, ROI 분석, AI 전략 수립까지, 비개발자도 AI를 비즈니스에 적용할 수 있습니다.",
+  "icon": "📊",
+  "orderNum": 15,
+  "isPublished": true,
+  "estimatedHours": 15,
+  "difficulty": "beginner",
+  "chapters": []
+}

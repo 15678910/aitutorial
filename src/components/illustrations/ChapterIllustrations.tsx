@@ -693,6 +693,10 @@ const illustrationMap: Record<string, React.FC<{ color: string }>[]> = {
   'making-ai': [PineappleRoutes, CoinFlips, RegressionLine, NeuralBuilder, ProjectIdea],
   'claude-code': [TerminalClaude, CommandPalette, CodeWithAI, DebuggerView, WorkflowAuto],
   'agent-skills': [RobotCharacter, BrainWithGears, GlobalNetwork, CommandPalette, CodeWithAI, WorkflowAuto, MagicWand, FutureVision],
+  'python-ml-practice': [DataFunnel, ChartGraph, DecisionTree, NeuralNetworkFriendly, LearningCurve, RegressionLine],
+  'ai-portfolio': [ProjectIdea, CodeWithAI, WorkflowAuto, GlobalNetwork, FutureVision],
+  'rag-vector-db': [SearchMaze, DataFunnel, NeuralNetworkFriendly, GlobalNetwork, BrainWithGears, FutureVision],
+  'ai-business': [ChartGraph, GlobalNetwork, CreativePalette, MagicWand, FutureVision],
 }
 
 export default function ChapterIllustration({ courseSlug, chapterIndex, className = '' }: ChapterIllustrationProps) {

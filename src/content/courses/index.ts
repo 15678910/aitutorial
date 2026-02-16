@@ -12,6 +12,10 @@ import claudeCodeAdvancedMeta from './claude-code-advanced/meta.json'
 import claudeConstitutionMeta from './claude-constitution/meta.json'
 import claudeCoworkMeta from './claude-cowork/meta.json'
 import agentSkillsMeta from './agent-skills/meta.json'
+import pythonMlMeta from './python-ml-practice/meta.json'
+import aiPortfolioMeta from './ai-portfolio/meta.json'
+import ragVectorDbMeta from './rag-vector-db/meta.json'
+import aiBusinessMeta from './ai-business/meta.json'
 
 type CourseWithIcon = Course & { icon: string }
 
@@ -28,6 +32,10 @@ const courseMetas: CourseWithIcon[] = [
   claudeConstitutionMeta,
   claudeCoworkMeta,
   agentSkillsMeta,
+  pythonMlMeta,
+  aiPortfolioMeta,
+  ragVectorDbMeta,
+  aiBusinessMeta,
 ] as CourseWithIcon[]
 
 // Chapter loader map - lazy imports
@@ -127,6 +135,48 @@ const chapterLoaders: Record<string, () => Promise<any[]>> = {
       import('./agent-skills/ch8.json'),
     ])
     return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default, ch6.default, ch7.default, ch8.default]
+  },
+  'python-ml-practice': async () => {
+    const [ch1, ch2, ch3, ch4, ch5, ch6] = await Promise.all([
+      import('./python-ml-practice/ch1.json'),
+      import('./python-ml-practice/ch2.json'),
+      import('./python-ml-practice/ch3.json'),
+      import('./python-ml-practice/ch4.json'),
+      import('./python-ml-practice/ch5.json'),
+      import('./python-ml-practice/ch6.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default, ch6.default]
+  },
+  'ai-portfolio': async () => {
+    const [ch1, ch2, ch3, ch4, ch5] = await Promise.all([
+      import('./ai-portfolio/ch1.json'),
+      import('./ai-portfolio/ch2.json'),
+      import('./ai-portfolio/ch3.json'),
+      import('./ai-portfolio/ch4.json'),
+      import('./ai-portfolio/ch5.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default]
+  },
+  'rag-vector-db': async () => {
+    const [ch1, ch2, ch3, ch4, ch5, ch6] = await Promise.all([
+      import('./rag-vector-db/ch1.json'),
+      import('./rag-vector-db/ch2.json'),
+      import('./rag-vector-db/ch3.json'),
+      import('./rag-vector-db/ch4.json'),
+      import('./rag-vector-db/ch5.json'),
+      import('./rag-vector-db/ch6.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default, ch6.default]
+  },
+  'ai-business': async () => {
+    const [ch1, ch2, ch3, ch4, ch5] = await Promise.all([
+      import('./ai-business/ch1.json'),
+      import('./ai-business/ch2.json'),
+      import('./ai-business/ch3.json'),
+      import('./ai-business/ch4.json'),
+      import('./ai-business/ch5.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default]
   },
 }
 

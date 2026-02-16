@@ -29,6 +29,10 @@ export default function Footer() {
               <li><Link to="/courses/claude-constitution" className="hover:text-white transition-colors">Claude AI 헌법</Link></li>
               <li><Link to="/courses/claude-cowork" className="hover:text-white transition-colors">Claude Cowork</Link></li>
               <li><Link to="/courses/agent-skills" className="hover:text-white transition-colors">AI 에이전트 스킬</Link></li>
+              <li><Link to="/courses/python-ml-practice" className="hover:text-white transition-colors">Python ML 실습</Link></li>
+              <li><Link to="/courses/ai-portfolio" className="hover:text-white transition-colors">AI 포트폴리오</Link></li>
+              <li><Link to="/courses/rag-vector-db" className="hover:text-white transition-colors">RAG & 벡터DB</Link></li>
+              <li><Link to="/courses/ai-business" className="hover:text-white transition-colors">AI 비즈니스</Link></li>
             </ul>
           </nav>
           <nav aria-label="사이트 정보">

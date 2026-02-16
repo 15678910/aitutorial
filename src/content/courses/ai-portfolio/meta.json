@@ -1,0 +1,12 @@
+{
+  "id": "ai-portfolio",
+  "slug": "ai-portfolio",
+  "title": "AI 프로젝트 포트폴리오",
+  "description": "취업과 창업에 바로 활용할 수 있는 AI 프로젝트 포트폴리오를 만듭니다. 기획부터 구현, 배포, 발표까지 실전 프로젝트 경험을 쌓으세요.",
+  "icon": "💼",
+  "orderNum": 13,
+  "isPublished": true,
+  "estimatedHours": 20,
+  "difficulty": "intermediate",
+  "chapters": []
+}

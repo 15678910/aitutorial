@@ -1,0 +1,12 @@
+{
+  "id": "python-ml-practice",
+  "slug": "python-ml-practice",
+  "title": "Python으로 배우는 ML 실습",
+  "description": "Python과 주요 라이브러리(NumPy, Pandas, Scikit-learn)를 활용하여 머신러닝을 직접 실습합니다. 데이터 전처리부터 모델 학습, 평가까지 단계별로 배웁니다.",
+  "icon": "🐍",
+  "orderNum": 12,
+  "isPublished": true,
+  "estimatedHours": 25,
+  "difficulty": "intermediate",
+  "chapters": []
+}
