@@ -11,6 +11,7 @@ import claudeCodeIntermediateMeta from './claude-code-intermediate/meta.json'
 import claudeCodeAdvancedMeta from './claude-code-advanced/meta.json'
 import claudeConstitutionMeta from './claude-constitution/meta.json'
 import claudeCoworkMeta from './claude-cowork/meta.json'
+import agentSkillsMeta from './agent-skills/meta.json'
 
 type CourseWithIcon = Course & { icon: string }
 
@@ -26,6 +27,7 @@ const courseMetas: CourseWithIcon[] = [
   claudeCodeAdvancedMeta,
   claudeConstitutionMeta,
   claudeCoworkMeta,
+  agentSkillsMeta,
 ] as CourseWithIcon[]
 
 // Chapter loader map - lazy imports
@@ -112,6 +114,19 @@ const chapterLoaders: Record<string, () => Promise<any[]>> = {
       import('./claude-cowork/ch5.json'),
     ])
     return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default]
+  },
+  'agent-skills': async () => {
+    const [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8] = await Promise.all([
+      import('./agent-skills/ch1.json'),
+      import('./agent-skills/ch2.json'),
+      import('./agent-skills/ch3.json'),
+      import('./agent-skills/ch4.json'),
+      import('./agent-skills/ch5.json'),
+      import('./agent-skills/ch6.json'),
+      import('./agent-skills/ch7.json'),
+      import('./agent-skills/ch8.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default, ch6.default, ch7.default, ch8.default]
   },
 }
 

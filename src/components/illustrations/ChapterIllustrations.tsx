@@ -692,6 +692,7 @@ const illustrationMap: Record<string, React.FC<{ color: string }>[]> = {
   'generative-ai': [MagicWand, ChatInterface, CreativePalette],
   'making-ai': [PineappleRoutes, CoinFlips, RegressionLine, NeuralBuilder, ProjectIdea],
   'claude-code': [TerminalClaude, CommandPalette, CodeWithAI, DebuggerView, WorkflowAuto],
+  'agent-skills': [RobotCharacter, BrainWithGears, GlobalNetwork, CommandPalette, CodeWithAI, WorkflowAuto, MagicWand, FutureVision],
 }
 
 export default function ChapterIllustration({ courseSlug, chapterIndex, className = '' }: ChapterIllustrationProps) {

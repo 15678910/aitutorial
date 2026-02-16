@@ -1,0 +1,12 @@
+{
+  "id": "agent-skills",
+  "slug": "agent-skills",
+  "title": "AI 에이전트 스킬 마스터하기",
+  "description": "AI 에이전트의 기초 개념부터 실전 활용, 스킬 작성과 배포까지. 초보자도 이해할 수 있는 체계적인 과정을 통해 AI 에이전트 전문가로 성장하세요.",
+  "icon": "🧩",
+  "orderNum": 11,
+  "isPublished": true,
+  "estimatedHours": 30,
+  "difficulty": "beginner",
+  "chapters": []
+}

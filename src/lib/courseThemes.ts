@@ -143,6 +143,19 @@ export const courseThemes: Record<string, CourseTheme> = {
     hex: '#10B981',
     hexLight: '#ECFDF5',
   },
+  'agent-skills': {
+    slug: 'agent-skills',
+    bg: 'bg-[#F59E0B]',
+    bgLight: 'bg-[#FFFBEB]',
+    bgGradient: 'bg-gradient-to-br from-[#F59E0B] to-[#FBBF24]',
+    text: 'text-[#29264c]',
+    accent: 'text-[#D97706]',
+    border: 'border-[#F59E0B]/20',
+    cardBg: 'bg-white',
+    iconBg: 'bg-[#F59E0B]/10',
+    hex: '#F59E0B',
+    hexLight: '#FFFBEB',
+  },
 }
 
 export function getCourseTheme(slug: string): CourseTheme {
@@ -161,4 +174,5 @@ export const chapterColors: Record<string, string[]> = {
   'claude-code-advanced': ['#EF4444', '#DC2626', '#F87171', '#B91C1C', '#FCA5A5'],
   'claude-constitution': ['#8B5CF6', '#7C3AED', '#A78BFA', '#6D28D9', '#C4B5FD'],
   'claude-cowork': ['#10B981', '#059669', '#34D399', '#047857', '#6EE7B7'],
+  'agent-skills': ['#F59E0B', '#D97706', '#FBBF24', '#B45309', '#FCD34D', '#92400E', '#FDE68A', '#78350F'],
 }

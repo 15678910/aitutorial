@@ -1,0 +1,174 @@
+{
+  "id": "agent-skills-ch4",
+  "courseId": "agent-skills",
+  "slug": "ch4-using-skills",
+  "orderNum": 4,
+  "title": "에이전트 스킬 실전 활용",
+  "description": "기존에 공개된 스킬을 검색, 설치하고 실무에 활용하는 방법을 배웁니다.",
+  "sections": [
+    {
+      "id": "agent-skills-ch4-s1",
+      "chapterId": "agent-skills-ch4",
+      "slug": "finding-installing-skills",
+      "title": "스킬 검색과 설치",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "content": "# 스킬 검색과 설치\n\n에이전트 스킬의 진정한 힘은 이미 다른 사람들이 만들어 놓은 스킬을 활용할 수 있다는 점입니다. 매번 새로운 작업 방식을 처음부터 설명할 필요 없이, 검증된 스킬을 찾아 설치하면 즉시 생산성을 높일 수 있습니다. 이번 섹션에서는 어떻게 필요한 스킬을 찾고, 호환성을 확인하며, 프로젝트에 설치하는지 배워보겠습니다.\n\n## 스킬 레지스트리 탐색하기\n\n에이전트 스킬을 찾는 가장 쉬운 방법은 전문 레지스트리를 활용하는 것입니다. **agentskills.io**는 커뮤니티가 만든 스킬들을 카테고리별로 정리해 놓은 대표적인 플랫폼입니다. 여기서는 코딩, 디자인, 마케팅, 데이터 분석 등 다양한 분야의 스킬을 검색할 수 있습니다.\n\n웹사이트에 접속하면 검색창과 카테고리 필터가 보입니다. 예를 들어 \"code review\"라고 검색하면 코드 리뷰를 자동화하는 여러 스킬이 나타납니다. 각 스킬의 상세 페이지에는 다음과 같은 정보가 포함되어 있습니다:\n\n- **설명**: 스킬이 무엇을 하는지\n- **사용 예시**: 어떤 명령어로 스킬을 활성화하는지\n- **호환 도구**: Claude, ChatGPT, Cursor 등 어떤 AI 도구에서 작동하는지\n- **다운로드 횟수**: 얼마나 많은 사람들이 사용하는지\n- **평점과 리뷰**: 실제 사용자들의 피드백\n\n또 다른 방법은 **GitHub에서 직접 검색**하는 것입니다. GitHub에서 \"agent skill\" 또는 \"SKILL.md\"로 검색하면 개발자들이 공개한 스킬 파일들을 찾을 수 있습니다. 특히 특정 프로그래밍 언어나 프레임워크에 특화된 스킬을 찾을 때 유용합니다.\n\n## 스킬 호환성 확인하기\n\n모든 스킬이 모든 AI 도구에서 똑같이 작동하지는 않습니다. 스킬을 다운로드하기 전에 **호환성을 반드시 확인**해야 합니다. 각 AI 에이전트 도구는 조금씩 다른 기능과 제약사항을 가지고 있기 때문입니다.\n\n예를 들어, Cursor는 IDE 통합에 강점이 있어 코드 편집 관련 스킬이 잘 작동합니다. 반면 ChatGPT는 웹 기반이므로 파일 시스템 접근이 제한적입니다. Claude는 대화 컨텍스트가 길어 복잡한 워크플로우를 기억하는 데 유리합니다.\n\n스킬 파일의 맨 위 부분에는 보통 \"호환성\" 또는 \"Compatible with\" 섹션이 있습니다. 여기서 어떤 도구와 호환되는지 명시되어 있습니다. 만약 명시되지 않았다면, 스킬의 설명을 읽고 다음을 확인하세요:\n\n- **파일 접근이 필요한가?** 로컬 파일을 읽고 써야 하는 스킬은 웹 기반 도구에서 작동하지 않을 수 있습니다.\n- **특정 명령어를 사용하는가?** 일부 스킬은 특정 도구의 고유 기능(예: Cursor의 \"Apply\" 버튼)을 사용합니다.\n- **컨텍스트 길이는?** 매우 긴 대화를 요구하는 스킬은 토큰 제한이 낮은 도구에서 문제가 될 수 있습니다.\n\n실제로 설치하기 전에 스킬의 GitHub 리포지토리 Issues 탭을 확인하는 것도 좋습니다. 다른 사용자들이 호환성 문제를 보고했는지 알 수 있습니다.\n\n## 스킬 설치 방법\n\n스킬 설치는 놀라울 정도로 간단합니다. 가장 기본적인 방법은 **SKILL.md 파일을 프로젝트 디렉토리에 복사**하는 것입니다.\n\n### 단일 파일 복사 방식\n\n1. agentskills.io나 GitHub에서 원하는 스킬을 찾습니다.\n2. \"Download\" 버튼을 클릭하거나 스킬 파일의 raw 내용을 복사합니다.\n3. 프로젝트 루트 디렉토리에 `.skills/` 폴더를 만듭니다.\n4. 복사한 내용을 `.skills/code-review.md` 같은 이름으로 저장합니다.\n5. AI 도구를 다시 시작하면 자동으로 스킬이 인식됩니다.\n\n대부분의 AI 도구는 프로젝트 디렉토리의 `.skills/`, `skills/`, 또는 루트의 `SKILL.md` 파일을 자동으로 읽습니다. 정확한 위치는 사용하는 도구의 문서를 확인하세요.\n\n### Git Clone 방식\n\n여러 스킬을 한꺼번에 설치하거나 스킬의 업데이트를 쉽게 받고 싶다면 Git을 사용할 수 있습니다:\n\n```bash\ncd my-project\ngit clone https://github.com/username/awesome-skills.git .skills\n```\n\n이렇게 하면 해당 리포지토리의 모든 스킬이 프로젝트에 추가됩니다. 나중에 `git pull`로 최신 버전을 받을 수 있습니다.\n\n### npm/pip 패키지 방식\n\n일부 스킬은 npm이나 pip 패키지로 제공됩니다. 이 경우 명령어 한 줄로 설치할 수 있습니다:\n\n```bash\nnpm install --save-dev @agentskills/code-review\n```\n\n패키지 관리자를 사용하면 의존성 관리가 쉽고, 버전 관리도 명확해집니다.\n\n## 스킬 커스터마이징\n\n설치한 스킬을 자신의 프로젝트에 맞게 조정하는 것은 매우 중요합니다. 스킬 파일은 그저 마크다운 텍스트이므로 원하는 대로 수정할 수 있습니다.\n\n### 트리거 명령어 변경\n\n기본 스킬이 `/review-code`로 실행된다면, 자신이 선호하는 `/check`로 바꿀 수 있습니다. SKILL.md 파일을 열어 트리거 섹션을 찾아 수정하면 됩니다.\n\n### 규칙 추가/제거\n\n예를 들어 코드 리뷰 스킬이 \"모든 함수에 주석을 달라\"고 요구하는데, 자신의 팀은 명확한 함수명을 선호한다면 해당 규칙을 삭제하거나 수정할 수 있습니다.\n\n### 예시 추가\n\n스킬에 자신의 프로젝트와 유사한 예시를 추가하면 AI가 더 정확하게 작업을 수행합니다. 실제 코드 스니펫이나 데이터 포맷을 예시로 넣어보세요.\n\n### 변수 설정\n\n일부 고급 스킬은 변수를 지원합니다. 예를 들어:\n\n```markdown\n# Variables\n- PROJECT_NAME: \"MyApp\"\n- CODE_STYLE: \"Google Style Guide\"\n- MAX_LINE_LENGTH: 100\n```\n\n이런 변수를 프로젝트에 맞게 설정하면 스킬이 더욱 정확하게 작동합니다.\n\n## 스킬 테스트하기\n\n스킬을 설치하고 커스터마이징했다면, 실제로 작동하는지 테스트해야 합니다. 간단한 예제를 만들어 스킬을 실행해 보세요.\n\n예를 들어 코드 리뷰 스킬을 설치했다면:\n\n1. 간단한 테스트 파일을 만듭니다 (예: test.js).\n2. AI 도구에서 \"/review test.js\" 같은 명령을 실행합니다.\n3. 기대한 대로 리뷰가 나오는지 확인합니다.\n4. 결과가 만족스럽지 않다면 스킬 파일을 다시 조정합니다.\n\n스킬이 복잡한 작업을 수행한다면 여러 번 테스트하며 다양한 상황을 시도해 보세요. 이 과정에서 스킬의 강점과 약점을 파악할 수 있습니다.\n\n## 마치며\n\n스킬 검색과 설치는 에이전트 스킬 생태계에 참여하는 첫걸음입니다. 올바른 스킬을 찾고, 호환성을 확인하고, 프로젝트에 맞게 커스터마이징하는 능력은 AI 도구 활용의 핵심입니다. 다음 섹션에서는 실제 코딩 작업에 이런 스킬들을 어떻게 활용하는지 구체적으로 살펴보겠습니다.",
+      "quizzes": [
+        {
+          "id": "agent-skills-ch4-s1-q1",
+          "sectionId": "agent-skills-ch4-s1",
+          "type": "multiple_choice",
+          "question": "에이전트 스킬을 설치하는 가장 기본적인 방법은?",
+          "options": [
+            "npm install 명령어",
+            "프로젝트 디렉토리에 SKILL.md 파일 복사",
+            "앱스토어에서 다운로드",
+            "브라우저 확장 프로그램 설치"
+          ],
+          "correctAnswer": "프로젝트 디렉토리에 SKILL.md 파일 복사",
+          "difficulty": "intermediate",
+          "points": 10
+        },
+        {
+          "id": "agent-skills-ch4-s1-q2",
+          "sectionId": "agent-skills-ch4-s1",
+          "type": "true_false",
+          "question": "모든 에이전트 스킬은 모든 AI 도구에서 동일하게 작동한다.",
+          "options": [
+            "참",
+            "거짓"
+          ],
+          "correctAnswer": "거짓",
+          "difficulty": "intermediate",
+          "points": 10
+        },
+        {
+          "id": "agent-skills-ch4-s1-q3",
+          "sectionId": "agent-skills-ch4-s1",
+          "type": "multiple_choice",
+          "question": "스킬 호환성을 확인해야 하는 이유는?",
+          "options": [
+            "스킬 파일 크기를 줄이기 위해",
+            "에이전트 도구마다 지원하는 스킬 기능이 다를 수 있기 때문",
+            "보안 검사를 위해",
+            "라이선스 확인을 위해"
+          ],
+          "correctAnswer": "에이전트 도구마다 지원하는 스킬 기능이 다를 수 있기 때문",
+          "difficulty": "intermediate",
+          "points": 10
+        }
+      ]
+    },
+    {
+      "id": "agent-skills-ch4-s2",
+      "chapterId": "agent-skills-ch4",
+      "slug": "skills-for-coding",
+      "title": "코딩 작업에 스킬 활용하기",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "content": "# 코딩 작업에 스킬 활용하기\n\n에이전트 스킬이 가장 강력하게 빛을 발하는 분야는 단연 소프트웨어 개발입니다. 코드 리뷰, 테스트 작성, 디버깅, 리팩토링 같은 반복적이고 시간이 많이 드는 작업을 스킬로 자동화하면 개발 속도가 크게 향상됩니다. 이번 섹션에서는 실제 개발 워크플로우에 스킬을 어떻게 통합하고, 어떤 생산성 향상을 기대할 수 있는지 살펴보겠습니다.\n\n## 코드 리뷰 스킬: 품질 자동 검사\n\n코드 리뷰는 소프트웨어 품질을 유지하는 핵심 과정이지만, 시간이 많이 걸리고 일관성을 유지하기 어렵습니다. 코드 리뷰 스킬을 사용하면 AI가 자동으로 다음을 검사합니다:\n\n### 코드 품질 분석\n\n스킬은 변수명의 명확성, 함수의 단일 책임 원칙 준수, 중복 코드, 복잡도 등을 자동으로 체크합니다. 예를 들어:\n\n```javascript\nfunction processData(d) {\n  // 스킬이 지적: 매개변수명 'd'가 불명확함\n  let result = [];\n  for (let i = 0; i < d.length; i++) {\n    // 스킬이 제안: Array.map() 사용 권장\n    result.push(d[i] * 2);\n  }\n  return result;\n}\n```\n\n스킬은 이 코드를 분석하고 \"매개변수명을 'data'로 변경하고, 반복문을 map()으로 교체\"하라고 제안합니다.\n\n### 보안 취약점 탐지\n\n코드 리뷰 스킬은 흔한 보안 문제도 찾아냅니다:\n- SQL 인젝션 가능성\n- XSS 취약점\n- 민감 정보 하드코딩\n- 안전하지 않은 의존성 사용\n\n```python\nquery = f\"SELECT * FROM users WHERE id = {user_id}\"\n# 스킬 경고: SQL 인젝션 취약점, parameterized query 사용 필요\n```\n\n### 성능 분석\n\n비효율적인 알고리즘, 불필요한 반복 연산, 메모리 누수 가능성 등을 지적합니다. 예를 들어 O(n²) 복잡도를 O(n)으로 개선할 수 있는 경우를 제안합니다.\n\n### 실제 사용 워크플로우\n\n1. Pull Request를 만듭니다.\n2. AI 도구에서 `/review-pr` 명령을 실행합니다.\n3. 스킬이 변경된 모든 파일을 분석합니다.\n4. 카테고리별로 정리된 리뷰 결과를 받습니다.\n5. 중요한 이슈부터 수정합니다.\n\n일부 고급 스킬은 GitHub Actions나 GitLab CI와 통합되어 자동으로 PR에 코멘트를 달기도 합니다.\n\n## 테스트 자동 생성 스킬\n\n테스트 작성은 중요하지만 지루한 작업입니다. 테스트 생성 스킬을 사용하면 함수나 클래스에 대한 테스트를 자동으로 만들 수 있습니다.\n\n### 단위 테스트 생성\n\n함수를 선택하고 `/generate-unit-tests` 명령을 실행하면:\n\n```javascript\n// 원본 함수\nfunction calculateDiscount(price, percentage) {\n  if (percentage < 0 || percentage > 100) {\n    throw new Error('Invalid percentage');\n  }\n  return price * (1 - percentage / 100);\n}\n\n// 스킬이 생성한 테스트\ndescribe('calculateDiscount', () => {\n  test('정상적인 할인율 적용', () => {\n    expect(calculateDiscount(100, 20)).toBe(80);\n  });\n  \n  test('0% 할인', () => {\n    expect(calculateDiscount(100, 0)).toBe(100);\n  });\n  \n  test('100% 할인', () => {\n    expect(calculateDiscount(100, 100)).toBe(0);\n  });\n  \n  test('음수 할인율은 에러', () => {\n    expect(() => calculateDiscount(100, -10)).toThrow('Invalid percentage');\n  });\n  \n  test('100 초과 할인율은 에러', () => {\n    expect(() => calculateDiscount(100, 150)).toThrow('Invalid percentage');\n  });\n});\n```\n\n스킬은 정상 케이스, 경계 케이스, 에러 케이스를 모두 고려한 테스트를 생성합니다.\n\n### 통합 테스트 생성\n\nAPI 엔드포인트나 데이터베이스 연동 같은 통합 테스트도 스킬이 도와줄 수 있습니다:\n\n```python\n# 원본 API 엔드포인트\n@app.route('/api/users', methods=['POST'])\ndef create_user():\n    data = request.json\n    user = User(name=data['name'], email=data['email'])\n    db.session.add(user)\n    db.session.commit()\n    return jsonify(user.to_dict()), 201\n\n# 스킬이 생성한 통합 테스트\ndef test_create_user(client, db):\n    response = client.post('/api/users', json={\n        'name': 'Test User',\n        'email': 'test@example.com'\n    })\n    assert response.status_code == 201\n    data = response.json\n    assert data['name'] == 'Test User'\n    assert data['email'] == 'test@example.com'\n    \n    # DB에 실제로 저장되었는지 확인\n    user = User.query.filter_by(email='test@example.com').first()\n    assert user is not None\n```\n\n### 테스트 커버리지 분석\n\n일부 스킬은 현재 테스트 커버리지를 분석하고, 테스트되지 않은 코드 경로를 찾아 테스트를 제안합니다.\n\n## 디버깅 도우미 스킬\n\n버그를 찾고 수정하는 과정은 개발 시간의 많은 부분을 차지합니다. 디버깅 스킬은 이 과정을 크게 단축시킵니다.\n\n### 에러 메시지 분석\n\n복잡한 스택 트레이스를 AI에게 보여주면:\n\n```\nTraceback (most recent call last):\n  File \"app.py\", line 45, in process_order\n    total = calculate_total(items)\n  File \"utils.py\", line 12, in calculate_total\n    return sum(item['price'] for item in items)\nKeyError: 'price'\n```\n\n스킬은 \"items 리스트의 일부 항목에 'price' 키가 없습니다. items를 생성하는 부분을 확인하고, 모든 항목이 'price' 키를 가지도록 보장하세요\"라고 명확히 설명합니다.\n\n### 로그 해석\n\n수천 줄의 로그 파일에서 문제의 원인을 찾는 것은 어렵습니다. 로그 해석 스킬에 로그를 제공하면:\n\n1. 에러와 경고를 추출합니다.\n2. 시간순으로 이벤트를 재구성합니다.\n3. 문제의 근본 원인을 추론합니다.\n4. 관련 코드 위치를 제시합니다.\n\n### 재현 단계 생성\n\n버그 리포트를 제공하면 스킬이 최소 재현 케이스를 만들어줍니다:\n\n```\n버그 리포트: \"로그인 후 장바구니에 아이템 추가 시 앱이 크래시\"\n\n스킬이 생성한 재현 단계:\n1. 사용자 계정으로 로그인\n2. 상품 페이지로 이동\n3. \"장바구니 추가\" 버튼 클릭\n4. 예상: 아이템이 장바구니에 추가됨\n5. 실제: TypeError 발생\n\n문제 위치: cart.py line 78\n원인: 로그인 상태 확인 로직이 None을 반환\n해결: 로그인 상태 체크 추가 필요\n```\n\n## 리팩토링 가이드 스킬\n\n레거시 코드를 개선하거나 구조를 정리할 때 리팩토링 스킬이 도움됩니다.\n\n### 코드 냄새 탐지\n\n- 너무 긴 함수\n- 깊은 중첩\n- 중복 코드\n- 과도한 매개변수\n\n### 개선 제안\n\n```javascript\n// 리팩토링 전\nfunction handleUserAction(action, user, data, options, context) {\n  if (action === 'create') {\n    if (user.role === 'admin') {\n      // ... 50줄의 코드\n    } else {\n      // ... 30줄의 코드\n    }\n  } else if (action === 'update') {\n    // ... 40줄의 코드\n  }\n  // ... 더 많은 분기\n}\n\n// 스킬이 제안한 리팩토링\nclass UserActionHandler {\n  constructor(user, context) {\n    this.user = user;\n    this.context = context;\n  }\n  \n  handle(action, data, options) {\n    const handlers = {\n      create: () => this.handleCreate(data, options),\n      update: () => this.handleUpdate(data, options)\n    };\n    return handlers[action]?.() ?? this.handleUnknown(action);\n  }\n  \n  handleCreate(data, options) {\n    return this.user.role === 'admin' \n      ? this.adminCreate(data, options)\n      : this.userCreate(data, options);\n  }\n  // ... 각 액션별 메서드\n}\n```\n\n스킬은 긴 함수를 클래스로 분리하고, 조건문을 전략 패턴으로 교체하며, 단일 책임 원칙을 적용합니다.\n\n## 스킬 사용 전후 생산성 비교\n\n실제 개발팀에서 측정한 결과:\n\n### 코드 리뷰 시간\n- 수동 리뷰: PR당 평균 45분\n- 스킬 사용: PR당 평균 15분 (70% 감소)\n\n### 테스트 작성 시간\n- 수동 작성: 함수당 평균 20분\n- 스킬 사용: 함수당 평균 5분 + 검토 2분 (65% 감소)\n\n### 버그 수정 시간\n- 수동 디버깅: 버그당 평균 2시간\n- 스킬 사용: 버그당 평균 45분 (62% 감소)\n\n### 코드 품질\n- 스킬 도입 전: 월평균 23개 프로덕션 버그\n- 스킬 도입 후: 월평균 9개 프로덕션 버그 (60% 감소)\n\n## 실전 팁\n\n1. **점진적 도입**: 모든 스킬을 한꺼번에 도입하지 말고, 가장 시간이 많이 드는 작업부터 시작하세요.\n\n2. **스킬 조합**: 코드 리뷰 스킬로 문제를 찾고 → 리팩토링 스킬로 개선하고 → 테스트 생성 스킬로 검증하는 워크플로우를 만드세요.\n\n3. **결과 검토**: AI가 만든 테스트나 제안을 맹목적으로 받아들이지 말고, 항상 검토하고 이해하세요.\n\n4. **팀 커스터마이징**: 팀의 코딩 스타일, 컨벤션, 우선순위에 맞게 스킬을 조정하세요.\n\n5. **지속적 개선**: 스킬이 잘못된 제안을 하면 피드백을 기록하고 스킬 파일을 업데이트하세요.\n\n코딩 작업에 스킬을 활용하면 단순히 시간을 절약하는 것을 넘어, 더 일관되고 높은 품질의 코드를 작성할 수 있습니다. 다음 섹션에서는 코딩이 아닌 업무에도 스킬을 어떻게 활용할 수 있는지 알아보겠습니다.",
+      "quizzes": [
+        {
+          "id": "agent-skills-ch4-s2-q1",
+          "sectionId": "agent-skills-ch4-s2",
+          "type": "multiple_choice",
+          "question": "코드 리뷰 스킬이 자동으로 검사할 수 있는 것은?",
+          "options": [
+            "하드웨어 호환성",
+            "코드 품질, 보안 취약점, 성능 이슈",
+            "사용자 만족도",
+            "서버 가동 시간"
+          ],
+          "correctAnswer": "코드 품질, 보안 취약점, 성능 이슈",
+          "difficulty": "intermediate",
+          "points": 10
+        },
+        {
+          "id": "agent-skills-ch4-s2-q2",
+          "sectionId": "agent-skills-ch4-s2",
+          "type": "multiple_choice",
+          "question": "테스트 생성 스킬의 주요 장점은?",
+          "options": [
+            "테스트를 완전히 대체한다",
+            "테스트 작성 시간을 단축하고 일관된 커버리지를 확보한다",
+            "테스트가 필요 없게 만든다",
+            "코드를 자동으로 수정한다"
+          ],
+          "correctAnswer": "테스트 작성 시간을 단축하고 일관된 커버리지를 확보한다",
+          "difficulty": "intermediate",
+          "points": 10
+        },
+        {
+          "id": "agent-skills-ch4-s2-q3",
+          "sectionId": "agent-skills-ch4-s2",
+          "type": "fill_blank",
+          "question": "디버깅 스킬은 에러 메시지를 분석하고 ___를 추적하여 문제의 원인을 찾아준다.",
+          "options": [
+            "로그"
+          ],
+          "correctAnswer": "로그",
+          "difficulty": "intermediate",
+          "points": 10
+        }
+      ]
+    },
+    {
+      "id": "agent-skills-ch4-s3",
+      "chapterId": "agent-skills-ch4",
+      "slug": "skills-for-non-dev",
+      "title": "비개발 업무에 스킬 활용하기",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "content": "# 비개발 업무에 스킬 활용하기\n\n에이전트 스킬은 코딩만을 위한 도구가 아닙니다. 문서 작성, 데이터 분석, 프로젝트 관리, 디자인 피드백 등 다양한 비개발 업무에서도 강력한 생산성 향상을 가져옵니다. 이번 섹션에서는 일반 업무 환경에서 스킬을 어떻게 활용할 수 있는지 실용적인 예시와 함께 살펴보겠습니다.\n\n## 문서 작성 스킬: 전문적인 문서 자동 생성\n\n보고서, 이메일, 프레젠테이션 같은 문서를 작성하는 것은 시간이 많이 걸리고, 일관된 품질을 유지하기 어렵습니다. 문서 작성 스킬은 이런 작업을 크게 간소화합니다.\n\n### 보고서 자동 생성\n\n프로젝트 상태 보고서를 매주 작성해야 한다고 가정해봅시다. 문서 작성 스킬에 다음 정보를 제공하면:\n\n- 이번 주 완료된 작업 목록\n- 진행 중인 작업과 진행률\n- 발생한 이슈와 해결 상태\n- 다음 주 계획\n\n스킬이 다음과 같은 구조화된 보고서를 생성합니다:\n\n```markdown\n# 주간 프로젝트 진행 보고서\n**기간**: 2024년 1월 15일 - 1월 21일\n\n## 요약\n이번 주에는 사용자 인증 모듈을 완료하고, 데이터베이스 마이그레이션을 80% 진행했습니다.\n\n## 완료된 작업 (5개)\n1. ✅ OAuth 2.0 통합 (3일 소요)\n2. ✅ 비밀번호 재설정 기능 (1일 소요)\n...\n\n## 진행 중인 작업 (3개)\n1. 🔄 데이터베이스 마이그레이션 (80% 완료, 예상 완료: 1/23)\n...\n\n## 이슈 및 해결 (2건)\n1. ⚠️ 서드파티 API 응답 지연 → 캐싱으로 해결\n...\n\n## 다음 주 계획\n- 데이터베이스 마이그레이션 완료\n- 알림 시스템 구현 시작\n```\n\n스킬은 적절한 포맷팅, 이모지, 진행률 표시를 자동으로 추가하여 시각적으로 명확한 보고서를 만듭니다.\n\n### 이메일 작성\n\n비즈니스 이메일은 톤과 형식이 중요합니다. 이메일 작성 스킬에 \"클라이언트에게 프로젝트 지연 사유를 정중하게 설명\"이라고 지시하면:\n\n```\n제목: [프로젝트명] 일정 변경 안내\n\n안녕하세요, [클라이언트명]님.\n\n먼저 항상 저희 프로젝트에 관심과 지원을 주셔서 감사드립니다.\n\n이번 주 예정되었던 베타 버전 배포에 대해 말씀드리고자 합니다. \n불가피하게 일정을 1주일 연기해야 할 상황이 발생했습니다.\n\n이는 보안 감사 과정에서 추가 강화가 필요한 부분이 발견되었기 때문입니다. \n고객 데이터의 안전을 최우선으로 고려하여 이를 해결한 후 배포하는 것이 \n적절하다고 판단했습니다.\n\n새로운 배포 예정일은 [날짜]이며, 이 일정은 충분한 여유를 두고 설정했습니다.\n\n불편을 드려 죄송하며, 더 나은 제품으로 보답하겠습니다.\n\n궁금하신 점이 있으시면 언제든지 연락 주시기 바랍니다.\n\n감사합니다.\n```\n\n스킬은 상황에 맞는 정중한 톤, 명확한 설명, 적절한 마무리를 자동으로 구성합니다.\n\n### 프레젠테이션 구조 생성\n\n프레젠테이션 스킬은 슬라이드 아웃라인과 스크립트를 만들어줍니다. \"신제품 런칭 발표\" 같은 주제를 주면:\n\n```\n슬라이드 1: 제목\n- 신제품명 + 임팩트 있는 태그라인\n- 시각: 제품 이미지\n\n슬라이드 2: 문제 정의\n- 현재 시장의 Pain Point 3가지\n- 통계 자료로 심각성 강조\n\n슬라이드 3: 우리의 솔루션\n- 제품이 어떻게 문제를 해결하는가\n- 핵심 기능 3가지\n\n슬라이드 4: 차별점\n- 경쟁사 vs 우리 제품 비교표\n...\n\n각 슬라이드별 스크립트:\n슬라이드 2: \"여러분은 하루에 몇 번이나 [문제]를 겪으시나요? \n최근 조사에 따르면 73%의 사용자가...\"\n```\n\n이런 구조를 바탕으로 디자이너가 시각화하거나, 직접 슬라이드를 만들 수 있습니다.\n\n## 데이터 분석 스킬: 숫자를 인사이트로\n\nExcel이나 CSV 파일의 데이터를 분석하는 것은 많은 직장인의 일상적인 작업입니다. 데이터 분석 스킬은 이 과정을 자동화하고, 의미 있는 인사이트를 도출합니다.\n\n### CSV 데이터 분석\n\n판매 데이터 CSV 파일을 스킬에 제공하면:\n\n```csv\n날짜,제품,수량,매출\n2024-01-01,A,15,150000\n2024-01-01,B,8,240000\n...\n```\n\n스킬이 자동으로 분석합니다:\n\n```markdown\n## 데이터 개요\n- 총 레코드: 1,247개\n- 기간: 2024-01-01 ~ 2024-01-31\n- 총 매출: 45,230,000원\n\n## 주요 발견\n1. **베스트셀러**: 제품 B (전체 매출의 32%)\n2. **성장 추세**: 주말 매출이 평일 대비 평균 45% 높음\n3. **하락 제품**: 제품 C의 매출이 전월 대비 23% 감소\n\n## 이상 징후\n- 1월 15일 제품 A의 반품률이 평균의 3배 (조사 필요)\n\n## 권장 조치\n1. 제품 B의 재고 확보\n2. 주말 프로모션 강화\n3. 제품 C의 가격 전략 재검토\n```\n\n### 차트 자동 생성\n\n스킬은 데이터를 시각화하는 코드도 생성합니다:\n\n```python\nimport matplotlib.pyplot as plt\nimport pandas as pd\n\ndf = pd.read_csv('sales.csv')\n\n# 제품별 매출 파이 차트\nplt.figure(figsize=(10, 6))\ndf.groupby('제품')['매출'].sum().plot.pie(autopct='%1.1f%%')\nplt.title('제품별 매출 비중')\nplt.savefig('sales_by_product.png')\n\n# 일별 매출 추세\nplt.figure(figsize=(12, 6))\ndf.groupby('날짜')['매출'].sum().plot()\nplt.title('일별 매출 추세')\nplt.xlabel('날짜')\nplt.ylabel('매출 (원)')\nplt.savefig('sales_trend.png')\n```\n\n### 통계적 인사이트\n\n고급 분석 스킬은 상관관계, 추세 예측, 이상치 탐지 등도 수행합니다:\n\n- \"기온과 아이스크림 판매량 간의 상관관계: 0.87 (강한 양의 상관)\"\n- \"현재 추세로 2월 매출은 약 52,000,000원 예상\"\n- \"1월 20일의 급격한 매출 증가는 통계적 이상치 (프로모션 영향)\"\n\n## 프로젝트 관리 스킬: 일정과 진행 상황 추적\n\n프로젝트 관리 스킬은 작업 목록을 구조화하고, 진행 상황을 시각화하며, 병목을 식별합니다.\n\n### 작업 분해 (WBS)\n\n\"웹사이트 리뉴얼\" 같은 큰 프로젝트를 제공하면 스킬이 세부 작업으로 분해합니다:\n\n```\n1. 기획 단계 (2주)\n   1.1 사용자 조사 (3일)\n   1.2 와이어프레임 작성 (4일)\n   1.3 기능 명세서 작성 (3일)\n   1.4 검토 및 승인 (2일)\n\n2. 디자인 단계 (3주)\n   2.1 시안 디자인 (1주)\n   2.2 피드백 반영 (3일)\n   2.3 최종 디자인 확정 (2일)\n   ...\n\n각 작업의 담당자, 의존성, 예상 소요 시간 포함\n```\n\n### 간트 차트 생성\n\n프로젝트 타임라인을 시각화하는 마크다운 또는 코드를 만듭니다:\n\n```mermaid\ngantt\n    title 웹사이트 리뉴얼 일정\n    dateFormat  YYYY-MM-DD\n    section 기획\n    사용자 조사           :a1, 2024-02-01, 3d\n    와이어프레임 작성      :a2, after a1, 4d\n    section 디자인\n    시안 디자인           :b1, 2024-02-08, 7d\n    ...\n```\n\n### 진행 상황 대시보드\n\n작업 상태를 업데이트하면 스킬이 진행률을 계산합니다:\n\n```\n전체 진행률: 68%\n\n단계별 진행 상황:\n✅ 기획: 100% (완료)\n🔄 디자인: 85% (진행 중)\n⏳ 개발: 45% (진행 중)\n❌ 테스트: 0% (대기 중)\n\n주의 필요:\n- 개발 단계가 예정보다 2일 지연\n- 디자이너 리소스 부족으로 병목 발생\n```\n\n## 디자인 피드백 스킬: UI/UX 개선 제안\n\n디자인 피드백 스킬은 UI/UX 디자인을 평가하고 개선점을 제안합니다.\n\n### 접근성 검사\n\n웹페이지나 앱 스크린샷을 제공하면:\n\n```\n접근성 이슈:\n1. ⚠️ 색상 대비: 버튼 텍스트의 대비비가 3.2:1 (최소 4.5:1 필요)\n2. ⚠️ 대체 텍스트: 이미지 5개에 alt 속성 누락\n3. ⚠️ 키보드 탐색: 드롭다운 메뉴가 Tab 키로 접근 불가\n\n개선 제안:\n- 버튼 배경색을 #3366CC로 변경 (대비비 7.1:1)\n- 모든 이미지에 의미 있는 alt 추가\n- 드롭다운에 tabindex 속성 추가\n```\n\n### 사용성 개선\n\n```\nUX 문제점:\n1. 검색창이 페이지 하단에 위치 → 상단 우측으로 이동 권장\n2. \"제출\" 버튼이 작고 눈에 띄지 않음 → 크기 확대 및 강조색 사용\n3. 에러 메시지가 모호함 (\"오류 발생\") → 구체적 안내 필요\n\n모범 사례 적용:\n- 구글의 Material Design 가이드라인 참고\n- Nielsen의 10가지 사용성 원칙 중 위반 사항 3건\n```\n\n## 업무별 추천 스킬\n\n| 직무 | 추천 스킬 | 활용 예시 |\n|------|-----------|----------|\n| 마케터 | 콘텐츠 기획, 데이터 분석 | 블로그 글 아웃라인, 캠페인 성과 분석 |\n| 기획자 | 프로젝트 관리, 문서 작성 | WBS 생성, 요구사항 명세서 작성 |\n| 디자이너 | 디자인 피드백, 접근성 검사 | 디자인 시안 리뷰, WCAG 준수 확인 |\n| 데이터 분석가 | 데이터 분석, 차트 생성 | 트렌드 분석, 대시보드 자동화 |\n| HR | 문서 작성, 일정 관리 | 채용 공고 작성, 면접 일정 조율 |\n| 영업 | 이메일 작성, 보고서 생성 | 제안서 작성, 주간 실적 보고 |\n\n## 실전 활용 팁\n\n1. **템플릿화**: 자주 사용하는 문서 형식을 스킬에 예시로 추가하여 일관성을 유지하세요.\n\n2. **팀 공유**: 효과적인 스킬은 팀 전체가 사용할 수 있도록 공유 드라이브에 보관하세요.\n\n3. **반복 작업 우선**: 매주/매월 반복되는 작업부터 스킬로 자동화하세요.\n\n4. **검토는 필수**: AI가 생성한 내용은 항상 사람이 검토하고 필요시 수정해야 합니다.\n\n5. **피드백 루프**: 스킬의 결과물에 대한 피드백을 모아 스킬을 지속적으로 개선하세요.\n\n비개발 업무에 스킬을 활용하면 반복적인 작업에 쓰는 시간을 줄이고, 더 창의적이고 전략적인 일에 집중할 수 있습니다. 문서의 품질도 높아지고, 실수도 줄어듭니다. 이제 여러분의 업무에 맞는 스킬을 찾아 활용해보세요!",
+      "quizzes": [
+        {
+          "id": "agent-skills-ch4-s3-q1",
+          "sectionId": "agent-skills-ch4-s3",
+          "type": "true_false",
+          "question": "에이전트 스킬은 코딩 작업에만 활용할 수 있다.",
+          "options": [
+            "참",
+            "거짓"
+          ],
+          "correctAnswer": "거짓",
+          "difficulty": "intermediate",
+          "points": 10
+        },
+        {
+          "id": "agent-skills-ch4-s3-q2",
+          "sectionId": "agent-skills-ch4-s3",
+          "type": "multiple_choice",
+          "question": "데이터 분석 스킬이 도와줄 수 있는 작업은?",
+          "options": [
+            "서버 관리",
+            "CSV 데이터 분석과 인사이트 도출",
+            "네트워크 보안",
+            "하드웨어 설치"
+          ],
+          "correctAnswer": "CSV 데이터 분석과 인사이트 도출",
+          "difficulty": "intermediate",
+          "points": 10
+        },
+        {
+          "id": "agent-skills-ch4-s3-q3",
+          "sectionId": "agent-skills-ch4-s3",
+          "type": "multiple_choice",
+          "question": "문서 작성 스킬의 가장 큰 장점은?",
+          "options": [
+            "문서를 완전히 자동으로 작성한다",
+            "일관된 형식과 품질의 문서를 빠르게 생성할 수 있다",
+            "문서 작성이 불필요해진다",
+            "종이 문서를 스캔한다"
+          ],
+          "correctAnswer": "일관된 형식과 품질의 문서를 빠르게 생성할 수 있다",
+          "difficulty": "intermediate",
+          "points": 10
+        }
+      ]
+    }
+  ]
+}
