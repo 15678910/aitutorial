@@ -132,16 +132,17 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {[
-              { icon: '🚀', title: '프로젝트 허브', desc: '팀을 구성하고 AI 프로젝트를 함께 만들어보세요', color: '#6366f1' },
-              { icon: '💬', title: 'Q&A 포럼', desc: 'AI 학습 중 궁금한 점을 질문하고 답변하세요', color: '#3b82f6' },
-              { icon: '📖', title: '지식 위키', desc: 'AI 지식을 함께 정리하고 공유하세요', color: '#f59e0b' },
-              { icon: '🏆', title: 'AI 챌린지', desc: 'AI 챌린지에 참여하고 실력을 겨뤄보세요', color: '#ef4444' },
-              { icon: '🏢', title: '기업 연계', desc: '커뮤니티 기여로 기업에 추천받으세요', color: '#06b6d4' },
-              { icon: '🔬', title: '연구 협업', desc: '대학·연구소와 공동 연구를 진행하세요', color: '#e11d48' },
+              { icon: '🚀', title: '프로젝트 허브', desc: '팀을 구성하고 AI 프로젝트를 함께 만들어보세요', color: '#6366f1', link: '/community/projects' },
+              { icon: '💬', title: 'Q&A 포럼', desc: 'AI 학습 중 궁금한 점을 질문하고 답변하세요', color: '#3b82f6', link: '/community/qa' },
+              { icon: '📖', title: '지식 위키', desc: 'AI 지식을 함께 정리하고 공유하세요', color: '#f59e0b', link: '/community/wiki' },
+              { icon: '🏆', title: 'AI 챌린지', desc: 'AI 챌린지에 참여하고 실력을 겨뤄보세요', color: '#ef4444', link: '/community' },
+              { icon: '🏢', title: '기업 연계', desc: '커뮤니티 기여로 기업에 추천받으세요', color: '#06b6d4', link: '/community/enterprise' },
+              { icon: '🔬', title: '연구 협업', desc: '대학·연구소와 공동 연구를 진행하세요', color: '#e11d48', link: '/community/research' },
             ].map((f) => (
-              <div
+              <Link
                 key={f.title}
-                className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow text-center"
+                to={f.link}
+                className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center block cursor-pointer"
               >
                 <div
                   className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4"
@@ -151,7 +152,10 @@ export default function Home() {
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{f.title}</h3>
                 <p className="text-sm text-gray-600 leading-relaxed">{f.desc}</p>
-              </div>
+                <span className="text-sm font-semibold mt-3 inline-block" style={{ color: f.color }}>
+                  바로가기 →
+                </span>
+              </Link>
             ))}
           </div>
           <Link to="/community">
