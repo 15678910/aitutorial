@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { supabase } from '../lib/supabase'
-import type { EnterprisePartner, EnterprisePosition, TalentRecommendation } from '../types/community'
+import type { EnterprisePartner, EnterprisePosition, TalentRecommendation, EnterpriseType } from '../types/community'
 
 export interface PartnerInquiry {
   id: string
@@ -39,6 +39,14 @@ interface EnterpriseState {
   submitInquiry: (data: Omit<PartnerInquiry, 'id' | 'status' | 'adminNote' | 'createdAt' | 'updatedAt'>) => Promise<boolean>
   getInquiries: (filter?: { status?: string }) => PartnerInquiry[]
   updateInquiryStatus: (id: string, status: PartnerInquiry['status'], adminNote?: string) => void
+  registerPartner: (data: {
+    name: string
+    type: EnterpriseType
+    description: string
+    website: string
+    fields: string[]
+    contactEmail: string
+  }) => string
 }
 
 const STORAGE_KEY = 'ai-platform-enterprise'
@@ -511,6 +519,87 @@ export const useEnterpriseStore = create<EnterpriseState>((set, get) => {
       } catch (error) {
         console.error('Failed to sync inquiry status to Supabase:', error)
       }
+    },
+
+    registerPartner: (data) => {
+      const newPartnerId = `partner-reg-${Date.now()}`
+
+      // Auto-assign emoji based on type
+      const emojiMap: Record<EnterpriseType, string> = {
+        startup: '🚀',
+        sme: '🏭',
+        enterprise: '🏢',
+        lab: '🔬',
+        university: '🎓',
+      }
+
+      const newPartner: EnterprisePartner = {
+        id: newPartnerId,
+        name: data.name,
+        type: data.type,
+        logo: emojiMap[data.type],
+        description: data.description,
+        website: data.website,
+        fields: data.fields,
+        positions: [],
+        createdAt: new Date().toISOString(),
+      }
+
+      set((state) => {
+        const newPartners = [...state.partners, newPartner]
+        saveDataToStorage(newPartners)
+
+        // Also record the inquiry as 'approved' for tracking purposes
+        const inquiry: PartnerInquiry = {
+          id: `inquiry-auto-${Date.now()}`,
+          companyName: data.name,
+          companyType: data.type,
+          contactEmail: data.contactEmail,
+          interestedFields: data.fields.join(', '),
+          message: 'Auto-registered via partner registration form',
+          status: 'approved',
+          adminNote: 'Auto-approved via direct registration',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        }
+
+        const newInquiries = [inquiry, ...state.inquiries]
+        saveToStorage(INQUIRY_STORAGE_KEY, newInquiries)
+
+        return { partners: newPartners, inquiries: newInquiries }
+      })
+
+      // Try Supabase sync for partner
+      try {
+        supabase.from('enterprise_partners').insert({
+          id: newPartner.id,
+          name: newPartner.name,
+          type: newPartner.type,
+          logo: newPartner.logo,
+          description: newPartner.description,
+          website: newPartner.website,
+          fields: newPartner.fields,
+          created_at: newPartner.createdAt,
+        })
+
+        // Also sync the inquiry record
+        supabase.from('partner_inquiries').insert({
+          id: `inquiry-auto-${Date.now()}`,
+          company_name: data.name,
+          company_type: data.type,
+          contact_email: data.contactEmail,
+          interested_fields: data.fields.join(', '),
+          message: 'Auto-registered via partner registration form',
+          status: 'approved',
+          admin_note: 'Auto-approved via direct registration',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+      } catch (error) {
+        console.error('Failed to sync partner registration to Supabase:', error)
+      }
+
+      return newPartnerId
     },
   }
 })

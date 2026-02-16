@@ -35,7 +35,7 @@ export default function Enterprise() {
   const [expandedPartnerId, setExpandedPartnerId] = useState<string | null>(null)
   const [showPartnerForm, setShowPartnerForm] = useState(false)
 
-  const { getPartners, getRecommendedTalents, applyToPosition, submitInquiry } = useEnterpriseStore()
+  const { getPartners, getRecommendedTalents, applyToPosition, registerPartner } = useEnterpriseStore()
   const { user } = useAuthStore()
 
   const partners = getPartners({
@@ -204,22 +204,20 @@ export default function Enterprise() {
 
             {/* CTA */}
             <Card className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 border-cyan-200">
-              <h3 className="text-lg font-bold text-gray-900 mb-2">기업 파트너 신청</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">기업 파트너 등록</h3>
               <p className="text-sm text-gray-600 mb-4">
-                AI 인재를 찾고 계신가요? 파트너 기업으로 등록하고 검증된 인재를 추천받으세요.
+                AI 인재를 찾고 계신가요? 파트너 기업으로 등록하시면 즉시 플랫폼에 표시되어 검증된 인재를 만날 수 있습니다.
               </p>
               <button
                 onClick={() => setShowPartnerForm(!showPartnerForm)}
                 className="w-full bg-cyan-600 text-white py-2.5 rounded-lg font-semibold hover:bg-cyan-700 transition-colors text-sm"
               >
-                {showPartnerForm ? '닫기' : '파트너 등록 문의'}
+                {showPartnerForm ? '닫기' : '파트너 등록하기'}
               </button>
               {showPartnerForm && (
-                <PartnerInquiryForm
+                <PartnerRegistrationForm
                   onClose={() => setShowPartnerForm(false)}
-                  onSubmit={async (data) => {
-                    await submitInquiry(data)
-                  }}
+                  onRegister={registerPartner}
                 />
               )}
             </Card>
@@ -230,46 +228,63 @@ export default function Enterprise() {
   )
 }
 
-// ----- Partner Inquiry Form Component -----
-interface PartnerInquiryFormProps {
+// ----- Partner Registration Form Component -----
+interface PartnerRegistrationFormProps {
   onClose: () => void
-  onSubmit: (data: { companyName: string; companyType: string; contactEmail: string; interestedFields: string; message: string }) => Promise<void>
+  onRegister: (data: {
+    name: string
+    type: EnterpriseType
+    description: string
+    website: string
+    fields: string[]
+    contactEmail: string
+  }) => string
 }
 
-function PartnerInquiryForm({ onClose, onSubmit }: PartnerInquiryFormProps) {
+function PartnerRegistrationForm({ onClose, onRegister }: PartnerRegistrationFormProps) {
   const [formData, setFormData] = useState({
-    companyName: '',
-    companyType: '' as EnterpriseType | '',
+    name: '',
+    type: '' as EnterpriseType | '',
+    description: '',
+    website: '',
+    fieldsText: '',
     contactEmail: '',
-    interestedFields: '',
-    message: '',
   })
   const [submitting, setSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [registered, setRegistered] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!formData.companyName || !formData.contactEmail) {
-      alert('기업명과 연락처 이메일은 필수 입력 항목입니다.')
+    if (!formData.name || !formData.type || !formData.description || !formData.fieldsText || !formData.contactEmail) {
+      alert('모든 필수 항목을 입력해주세요.')
       return
     }
 
     setSubmitting(true)
     try {
-      await onSubmit(formData)
-      setSubmitted(true)
+      const fields = formData.fieldsText.split(',').map(f => f.trim()).filter(Boolean)
+      onRegister({
+        name: formData.name,
+        type: formData.type as EnterpriseType,
+        description: formData.description,
+        website: formData.website,
+        fields,
+        contactEmail: formData.contactEmail,
+      })
+      setRegistered(true)
     } finally {
       setSubmitting(false)
     }
   }
 
-  if (submitted) {
+  if (registered) {
     return (
       <div className="mt-4 pt-4 border-t border-cyan-200 text-center py-6">
-        <div className="text-3xl mb-3">✅</div>
-        <h4 className="text-lg font-bold text-gray-900 mb-2">문의가 접수되었습니다!</h4>
-        <p className="text-sm text-gray-600 mb-4">빠른 시일 내에 입력하신 이메일로 연락드리겠습니다.</p>
+        <div className="text-3xl mb-3">🎉</div>
+        <h4 className="text-lg font-bold text-gray-900 mb-2">파트너 등록이 완료되었습니다!</h4>
+        <p className="text-sm text-gray-600 mb-2">귀사가 기업 연계 페이지에 즉시 표시됩니다.</p>
+        <p className="text-xs text-gray-400 mb-4">채용 포지션은 등록 후 추가할 수 있습니다.</p>
         <button onClick={onClose} className="text-sm text-cyan-600 font-semibold hover:text-cyan-700">닫기</button>
       </div>
     )
@@ -279,15 +294,15 @@ function PartnerInquiryForm({ onClose, onSubmit }: PartnerInquiryFormProps) {
     <form onSubmit={handleSubmit} className="mt-4 pt-4 border-t border-cyan-200 space-y-4">
       {/* Company Name */}
       <div>
-        <label htmlFor="companyName" className="block text-sm font-semibold text-gray-700 mb-1">
+        <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">
           기업명 <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
-          id="companyName"
+          id="name"
           required
-          value={formData.companyName}
-          onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
           placeholder="회사명을 입력하세요"
         />
@@ -295,13 +310,14 @@ function PartnerInquiryForm({ onClose, onSubmit }: PartnerInquiryFormProps) {
 
       {/* Company Type */}
       <div>
-        <label htmlFor="companyType" className="block text-sm font-semibold text-gray-700 mb-1">
-          기업 유형
+        <label htmlFor="type" className="block text-sm font-semibold text-gray-700 mb-1">
+          기업 유형 <span className="text-red-500">*</span>
         </label>
         <select
-          id="companyType"
-          value={formData.companyType}
-          onChange={(e) => setFormData({ ...formData, companyType: e.target.value as EnterpriseType })}
+          id="type"
+          required
+          value={formData.type}
+          onChange={(e) => setFormData({ ...formData, type: e.target.value as EnterpriseType })}
           className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
         >
           <option value="">선택하세요</option>
@@ -311,6 +327,53 @@ function PartnerInquiryForm({ onClose, onSubmit }: PartnerInquiryFormProps) {
           <option value="lab">{ENTERPRISE_TYPE_LABELS.lab}</option>
           <option value="university">{ENTERPRISE_TYPE_LABELS.university}</option>
         </select>
+      </div>
+
+      {/* Company Description */}
+      <div>
+        <label htmlFor="description" className="block text-sm font-semibold text-gray-700 mb-1">
+          기업 소개 <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          id="description"
+          required
+          rows={3}
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all resize-none"
+          placeholder="기업의 주요 사업과 AI 분야에서의 활동을 소개해주세요"
+        />
+      </div>
+
+      {/* Website */}
+      <div>
+        <label htmlFor="website" className="block text-sm font-semibold text-gray-700 mb-1">
+          웹사이트
+        </label>
+        <input
+          type="url"
+          id="website"
+          value={formData.website}
+          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+          placeholder="https://example.com"
+        />
+      </div>
+
+      {/* Interested Fields */}
+      <div>
+        <label htmlFor="fieldsText" className="block text-sm font-semibold text-gray-700 mb-1">
+          관심 분야 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="fieldsText"
+          required
+          value={formData.fieldsText}
+          onChange={(e) => setFormData({ ...formData, fieldsText: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+          placeholder="예: NLP, Computer Vision, 강화학습 (쉼표로 구분)"
+        />
       </div>
 
       {/* Contact Email */}
@@ -329,43 +392,13 @@ function PartnerInquiryForm({ onClose, onSubmit }: PartnerInquiryFormProps) {
         />
       </div>
 
-      {/* Interested Fields */}
-      <div>
-        <label htmlFor="interestedFields" className="block text-sm font-semibold text-gray-700 mb-1">
-          관심 분야
-        </label>
-        <input
-          type="text"
-          id="interestedFields"
-          value={formData.interestedFields}
-          onChange={(e) => setFormData({ ...formData, interestedFields: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
-          placeholder="예: 컴퓨터비전, NLP, 강화학습"
-        />
-      </div>
-
-      {/* Message */}
-      <div>
-        <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-1">
-          문의 내용
-        </label>
-        <textarea
-          id="message"
-          rows={4}
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all resize-none"
-          placeholder="문의 내용을 자유롭게 작성해주세요"
-        />
-      </div>
-
       {/* Submit Button */}
       <button
         type="submit"
         disabled={submitting}
         className="w-full bg-cyan-600 text-white py-2.5 rounded-lg font-semibold hover:bg-cyan-700 transition-colors text-sm disabled:opacity-50"
       >
-        {submitting ? '제출 중...' : '문의 제출'}
+        {submitting ? '등록 중...' : '파트너 등록'}
       </button>
     </form>
   )

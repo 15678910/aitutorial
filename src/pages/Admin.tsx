@@ -25,7 +25,7 @@ interface CourseContentStats {
 export default function Admin() {
   const { user, initialized } = useAuthStore()
   const { stats, loading, refetch } = useAdminStats()
-  const { getInquiries, updateInquiryStatus } = useEnterpriseStore()
+  const { getInquiries, updateInquiryStatus, getPartners } = useEnterpriseStore()
   const [tab, setTab] = useState<Tab>('overview')
   const [search, setSearch] = useState('')
   const [contentStats, setContentStats] = useState<CourseContentStats[]>([])
@@ -146,7 +146,7 @@ export default function Admin() {
     { key: 'overview', label: '통계 개요', icon: '📊' },
     { key: 'users', label: '사용자 관리', icon: '👥' },
     { key: 'content', label: '콘텐츠 현황', icon: '📚' },
-    { key: 'inquiries', label: '파트너 문의', icon: '🏢' },
+    { key: 'inquiries', label: '파트너 관리', icon: '🏢' },
   ]
 
   const filteredUsers = stats?.users.filter(u =>
@@ -382,6 +382,17 @@ export default function Admin() {
       {/* 탭 4: 파트너 문의 */}
       {tab === 'inquiries' && (
         <>
+          {/* Auto-registration notice */}
+          <Card className="p-4 mb-6 bg-blue-50 border-blue-200">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">ℹ️</span>
+              <div>
+                <p className="text-sm font-semibold text-blue-900">자동 등록 시스템</p>
+                <p className="text-xs text-blue-700">파트너 등록 신청이 접수되면 자동으로 승인되어 기업 연계 페이지에 표시됩니다. 아래에서 등록된 파트너를 모니터링할 수 있습니다.</p>
+              </div>
+            </div>
+          </Card>
+
           {/* Filter buttons */}
           <div className="flex flex-wrap gap-2 mb-6">
             {[
@@ -410,7 +421,7 @@ export default function Admin() {
             <StatCard value={getInquiries().length} label="총 문의" icon="📋" color="text-primary" />
             <StatCard value={getInquiries({ status: 'pending' }).length} label="대기 중" icon="⏳" color="text-yellow-600" />
             <StatCard value={getInquiries({ status: 'reviewing' }).length} label="검토 중" icon="🔍" color="text-blue-600" />
-            <StatCard value={getInquiries({ status: 'approved' }).length} label="승인됨" icon="✅" color="text-green-600" />
+            <StatCard value={getPartners().length} label="등록 파트너" icon="🏢" color="text-green-600" />
           </div>
 
           {/* Inquiry list */}
