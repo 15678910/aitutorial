@@ -13,6 +13,10 @@ import ChapterIllustration from '../components/illustrations/ChapterIllustration
 import { cn } from '../lib/utils'
 import CelebrationOverlay from '../components/gamification/CelebrationOverlay'
 import StreakTracker from '../components/gamification/StreakTracker'
+import WhyItMatters from '../components/learning/WhyItMatters'
+import GuideTip from '../components/learning/GuideTip'
+import MiniLab from '../components/learning/MiniLab'
+import WhyQuestionPanel from '../components/learning/WhyQuestionPanel'
 
 export default function Learn() {
   const { courseSlug, chapterSlug, sectionSlug } = useParams()
@@ -209,8 +213,31 @@ export default function Learn() {
             </p>
           )}
 
+          <WhyItMatters
+            courseSlug={course.slug}
+            sectionTitle={currentSection.title}
+            chapterTitle={currentChapter.title}
+          />
+
           <SectionContent content={currentSection.content} quizzes={currentSection.quizzes} />
+
+          <div className="mt-10">
+            <GuideTip
+              courseSlug={course.slug}
+              sectionTitle={currentSection.title}
+              chapterTitle={currentChapter.title}
+            />
+          </div>
+
           <InteractiveSection sectionId={currentSection.id} />
+
+          <div className="mt-10">
+            <MiniLab
+              courseSlug={course.slug}
+              sectionTitle={currentSection.title}
+              chapterTitle={currentChapter.title}
+            />
+          </div>
 
           {currentSection.quizzes && currentSection.quizzes.length > 0 && (
             <div className="mt-16">
@@ -246,6 +273,14 @@ export default function Learn() {
               </div>
             </div>
           )}
+
+          <div className="mt-12">
+            <WhyQuestionPanel
+              sectionId={currentSection.id}
+              userId={user?.id || 'anonymous'}
+              userName={user?.name || '익명 학생'}
+            />
+          </div>
 
           <DiscussionPanel sectionId={currentSection.id} />
 

@@ -32,6 +32,7 @@ const WikiArticlePage = lazy(() => import('./pages/WikiArticle'))
 const MyProfile = lazy(() => import('./pages/MyProfile'))
 const Enterprise = lazy(() => import('./pages/Enterprise'))
 const Research = lazy(() => import('./pages/Research'))
+const StudyGroups = lazy(() => import('./pages/StudyGroups'))
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 1 } },
@@ -82,6 +83,7 @@ export default function App() {
                   <Route path="/community/wiki/:slug" element={<WikiArticlePage />} />
                   <Route path="/community/enterprise" element={<Enterprise />} />
                   <Route path="/community/research" element={<Research />} />
+                  <Route path="/community/study-groups" element={<StudyGroups />} />
                   <Route path="/community/profile" element={<MyProfile />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
