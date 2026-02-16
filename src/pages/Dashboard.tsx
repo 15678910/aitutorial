@@ -11,11 +11,13 @@ import { getCourseTheme } from '../lib/courseThemes'
 import LevelProgress from '../components/gamification/LevelProgress'
 import AchievementBadge, { getBadgesForProgress, BADGES } from '../components/gamification/AchievementBadge'
 import StreakTracker from '../components/gamification/StreakTracker'
+import { useCommunityStore } from '../store/communityStore'
 
 export default function Dashboard() {
   const { user } = useAuthStore()
   const { completedSections, quizScores, fetchProgress, loading } = useProgressStore()
   const courses = useCourseList()
+  const { getProfile, initProfile } = useCommunityStore()
 
   useEffect(() => { if (user) fetchProgress(user.id) }, [user, fetchProgress])
 
@@ -266,6 +268,47 @@ export default function Dashboard() {
           </div>
         </section>
       )}
+
+      {/* 커뮤니티 활동 */}
+      {(() => {
+        let communityProfile = getProfile(user.id)
+        if (!communityProfile) {
+          initProfile(user.id, user.name || user.email)
+          communityProfile = getProfile(user.id)
+        }
+        return (
+          <section className="mb-10">
+            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <span>🌐</span> 커뮤니티 활동
+            </h2>
+            <Card className="p-6">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+                <div className="text-center">
+                  <div className="text-2xl font-extrabold text-indigo-600">{communityProfile?.reputation ?? 0}</div>
+                  <div className="text-xs text-gray-500 mt-1">평판 포인트</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-extrabold text-blue-600">{communityProfile?.projectCount ?? 0}</div>
+                  <div className="text-xs text-gray-500 mt-1">프로젝트</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-extrabold text-green-600">{communityProfile?.answerCount ?? 0}</div>
+                  <div className="text-xs text-gray-500 mt-1">답변</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-extrabold text-amber-600">{communityProfile?.wikiContributions ?? 0}</div>
+                  <div className="text-xs text-gray-500 mt-1">위키 기여</div>
+                </div>
+              </div>
+              <div className="text-center pt-3 border-t border-gray-100">
+                <Link to="/community/profile">
+                  <Button size="sm" variant="outline">커뮤니티 프로필 보기</Button>
+                </Link>
+              </div>
+            </Card>
+          </section>
+        )
+      })()}
     </div>
   )
 }

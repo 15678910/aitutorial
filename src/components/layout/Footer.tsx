@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-white" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
@@ -33,6 +33,16 @@ export default function Footer() {
               <li><Link to="/courses/ai-portfolio" className="hover:text-white transition-colors">AI 포트폴리오</Link></li>
               <li><Link to="/courses/rag-vector-db" className="hover:text-white transition-colors">RAG & 벡터DB</Link></li>
               <li><Link to="/courses/ai-business" className="hover:text-white transition-colors">AI 비즈니스</Link></li>
+            </ul>
+          </nav>
+          <nav aria-label="커뮤니티 네비게이션">
+            <h3 className="font-semibold mb-4">커뮤니티</h3>
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li><Link to="/community" className="hover:text-white transition-colors">커뮤니티 허브</Link></li>
+              <li><Link to="/community/projects" className="hover:text-white transition-colors">프로젝트</Link></li>
+              <li><Link to="/community/qa" className="hover:text-white transition-colors">Q&A 포럼</Link></li>
+              <li><Link to="/community/wiki" className="hover:text-white transition-colors">지식 위키</Link></li>
+              <li><Link to="/community/profile" className="hover:text-white transition-colors">내 프로필</Link></li>
             </ul>
           </nav>
           <nav aria-label="사이트 정보">

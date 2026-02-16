@@ -22,6 +22,14 @@ const About = lazy(() => import('./pages/About'))
 const Terms = lazy(() => import('./pages/Terms'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Admin = lazy(() => import('./pages/Admin'))
+const Community = lazy(() => import('./pages/Community'))
+const Projects = lazy(() => import('./pages/Projects'))
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
+const QAForum = lazy(() => import('./pages/QAForum'))
+const QADetail = lazy(() => import('./pages/QADetail'))
+const Wiki = lazy(() => import('./pages/Wiki'))
+const WikiArticlePage = lazy(() => import('./pages/WikiArticle'))
+const MyProfile = lazy(() => import('./pages/MyProfile'))
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 1 } },
@@ -63,6 +71,14 @@ export default function App() {
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/privacy" element={<Privacy />} />
                   <Route path="/admin" element={<Admin />} />
+                  <Route path="/community" element={<Community />} />
+                  <Route path="/community/projects" element={<Projects />} />
+                  <Route path="/community/projects/:id" element={<ProjectDetail />} />
+                  <Route path="/community/qa" element={<QAForum />} />
+                  <Route path="/community/qa/:id" element={<QADetail />} />
+                  <Route path="/community/wiki" element={<Wiki />} />
+                  <Route path="/community/wiki/:slug" element={<WikiArticlePage />} />
+                  <Route path="/community/profile" element={<MyProfile />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
                 <Route path="/learn/:courseSlug/:chapterSlug/:sectionSlug" element={<Learn />} />

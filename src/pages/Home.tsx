@@ -3,6 +3,7 @@ import { useCourseList } from '../hooks/useCourse'
 import { getCourseTheme } from '../lib/courseThemes'
 import ChapterIllustration from '../components/illustrations/ChapterIllustrations'
 import { HeroIllustration } from '../components/illustrations'
+import Button from '../components/ui/Button'
 
 export default function Home() {
   const courses = useCourseList()
@@ -117,6 +118,43 @@ export default function Home() {
               )
             })}
           </div>
+        </div>
+      </section>
+
+      {/* AI 집단지성 커뮤니티 Section */}
+      <section className="py-20 bg-gradient-to-br from-indigo-50 to-purple-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+            AI 집단지성 커뮤니티
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-12">
+            학습을 넘어 함께 만들고 성장하는 공간
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            {[
+              { icon: '🚀', title: '프로젝트 허브', desc: '팀을 구성하고 AI 프로젝트를 함께 만들어보세요', color: '#6366f1' },
+              { icon: '💬', title: 'Q&A 포럼', desc: 'AI 학습 중 궁금한 점을 질문하고 답변하세요', color: '#3b82f6' },
+              { icon: '📖', title: '지식 위키', desc: 'AI 지식을 함께 정리하고 공유하세요', color: '#f59e0b' },
+              { icon: '🏆', title: 'AI 챌린지', desc: 'AI 챌린지에 참여하고 실력을 겨뤄보세요', color: '#ef4444' },
+            ].map((f) => (
+              <div
+                key={f.title}
+                className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow text-center"
+              >
+                <div
+                  className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4"
+                  style={{ backgroundColor: f.color + '15' }}
+                >
+                  <span className="text-2xl">{f.icon}</span>
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{f.title}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+          <Link to="/community">
+            <Button size="lg">커뮤니티 참여하기</Button>
+          </Link>
         </div>
       </section>
 

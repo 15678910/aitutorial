@@ -24,6 +24,7 @@ export default function Header() {
             </Link>
             <nav className="hidden md:flex items-center gap-6">
               <Link to="/courses" className="text-gray-600 hover:text-primary font-medium transition-colors">코스</Link>
+              <Link to="/community" className="text-gray-600 hover:text-primary font-medium transition-colors">커뮤니티</Link>
             </nav>
           </div>
           <div className="flex items-center gap-3">
