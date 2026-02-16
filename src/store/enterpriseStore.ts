@@ -2,6 +2,19 @@ import { create } from 'zustand'
 import { supabase } from '../lib/supabase'
 import type { EnterprisePartner, EnterprisePosition, TalentRecommendation } from '../types/community'
 
+export interface PartnerInquiry {
+  id: string
+  companyName: string
+  companyType: string
+  contactEmail: string
+  interestedFields: string
+  message: string
+  status: 'pending' | 'reviewing' | 'approved' | 'rejected'
+  adminNote: string
+  createdAt: string
+  updatedAt: string
+}
+
 interface EnterpriseFilter {
   type?: string
   field?: string
@@ -22,9 +35,14 @@ interface EnterpriseState {
   getPositions: (filter?: PositionFilter) => EnterprisePosition[]
   applyToPosition: (positionId: string, userId: string) => void
   getRecommendedTalents: (skills?: string[], minReputation?: number) => TalentRecommendation[]
+  inquiries: PartnerInquiry[]
+  submitInquiry: (data: Omit<PartnerInquiry, 'id' | 'status' | 'adminNote' | 'createdAt' | 'updatedAt'>) => Promise<boolean>
+  getInquiries: (filter?: { status?: string }) => PartnerInquiry[]
+  updateInquiryStatus: (id: string, status: PartnerInquiry['status'], adminNote?: string) => void
 }
 
 const STORAGE_KEY = 'ai-platform-enterprise'
+const INQUIRY_STORAGE_KEY = 'ai-platform-partner-inquiries'
 
 function loadFromStorage<T>(key: string, defaultVal: T): T {
   try {
@@ -334,11 +352,16 @@ const saveDataToStorage = (partners: EnterprisePartner[]) => {
   saveToStorage(STORAGE_KEY, { partners })
 }
 
+const loadInquiries = (): PartnerInquiry[] => {
+  return loadFromStorage<PartnerInquiry[]>(INQUIRY_STORAGE_KEY, [])
+}
+
 export const useEnterpriseStore = create<EnterpriseState>((set, get) => {
   const initial = loadInitialData()
   return {
     partners: initial.partners,
     loading: false,
+    inquiries: loadInquiries(),
 
     getPartners: (filter?: EnterpriseFilter) => {
       let result = [...get().partners]
@@ -421,6 +444,73 @@ export const useEnterpriseStore = create<EnterpriseState>((set, get) => {
         talents = talents.filter((t) => t.reputation >= minReputation)
       }
       return talents.sort((a, b) => b.reputation - a.reputation)
+    },
+
+    submitInquiry: async (data) => {
+      const inquiry: PartnerInquiry = {
+        id: `inquiry-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        ...data,
+        status: 'pending',
+        adminNote: '',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
+
+      set((state) => {
+        const newInquiries = [inquiry, ...state.inquiries]
+        saveToStorage(INQUIRY_STORAGE_KEY, newInquiries)
+        return { inquiries: newInquiries }
+      })
+
+      // Try Supabase sync
+      try {
+        await supabase.from('partner_inquiries').insert({
+          id: inquiry.id,
+          company_name: inquiry.companyName,
+          company_type: inquiry.companyType,
+          contact_email: inquiry.contactEmail,
+          interested_fields: inquiry.interestedFields,
+          message: inquiry.message,
+          status: inquiry.status,
+          admin_note: inquiry.adminNote,
+          created_at: inquiry.createdAt,
+          updated_at: inquiry.updatedAt,
+        })
+      } catch (error) {
+        console.error('Failed to sync inquiry to Supabase:', error)
+      }
+
+      return true
+    },
+
+    getInquiries: (filter?) => {
+      let result = [...get().inquiries]
+      if (filter?.status) {
+        result = result.filter((i) => i.status === filter.status)
+      }
+      return result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    },
+
+    updateInquiryStatus: (id, status, adminNote) => {
+      set((state) => {
+        const newInquiries = state.inquiries.map((i) => {
+          if (i.id !== id) return i
+          return { ...i, status, adminNote: adminNote ?? i.adminNote, updatedAt: new Date().toISOString() }
+        })
+        saveToStorage(INQUIRY_STORAGE_KEY, newInquiries)
+        return { inquiries: newInquiries }
+      })
+
+      // Try Supabase sync
+      try {
+        supabase.from('partner_inquiries').update({
+          status,
+          admin_note: adminNote ?? '',
+          updated_at: new Date().toISOString(),
+        }).eq('id', id)
+      } catch (error) {
+        console.error('Failed to sync inquiry status to Supabase:', error)
+      }
     },
   }
 })

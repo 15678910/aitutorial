@@ -35,7 +35,7 @@ export default function Enterprise() {
   const [expandedPartnerId, setExpandedPartnerId] = useState<string | null>(null)
   const [showPartnerForm, setShowPartnerForm] = useState(false)
 
-  const { getPartners, getRecommendedTalents, applyToPosition } = useEnterpriseStore()
+  const { getPartners, getRecommendedTalents, applyToPosition, submitInquiry } = useEnterpriseStore()
   const { user } = useAuthStore()
 
   const partners = getPartners({
@@ -214,7 +214,14 @@ export default function Enterprise() {
               >
                 {showPartnerForm ? '닫기' : '파트너 등록 문의'}
               </button>
-              {showPartnerForm && <PartnerInquiryForm onClose={() => setShowPartnerForm(false)} />}
+              {showPartnerForm && (
+                <PartnerInquiryForm
+                  onClose={() => setShowPartnerForm(false)}
+                  onSubmit={async (data) => {
+                    await submitInquiry(data)
+                  }}
+                />
+              )}
             </Card>
           </div>
         </div>
@@ -226,9 +233,10 @@ export default function Enterprise() {
 // ----- Partner Inquiry Form Component -----
 interface PartnerInquiryFormProps {
   onClose: () => void
+  onSubmit: (data: { companyName: string; companyType: string; contactEmail: string; interestedFields: string; message: string }) => Promise<void>
 }
 
-function PartnerInquiryForm({ onClose }: PartnerInquiryFormProps) {
+function PartnerInquiryForm({ onClose, onSubmit }: PartnerInquiryFormProps) {
   const [formData, setFormData] = useState({
     companyName: '',
     companyType: '' as EnterpriseType | '',
@@ -236,8 +244,10 @@ function PartnerInquiryForm({ onClose }: PartnerInquiryFormProps) {
     interestedFields: '',
     message: '',
   })
+  const [submitting, setSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!formData.companyName || !formData.contactEmail) {
@@ -245,18 +255,24 @@ function PartnerInquiryForm({ onClose }: PartnerInquiryFormProps) {
       return
     }
 
-    alert('파트너 등록 문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.')
+    setSubmitting(true)
+    try {
+      await onSubmit(formData)
+      setSubmitted(true)
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
-    // Reset form
-    setFormData({
-      companyName: '',
-      companyType: '',
-      contactEmail: '',
-      interestedFields: '',
-      message: '',
-    })
-
-    onClose()
+  if (submitted) {
+    return (
+      <div className="mt-4 pt-4 border-t border-cyan-200 text-center py-6">
+        <div className="text-3xl mb-3">✅</div>
+        <h4 className="text-lg font-bold text-gray-900 mb-2">문의가 접수되었습니다!</h4>
+        <p className="text-sm text-gray-600 mb-4">빠른 시일 내에 입력하신 이메일로 연락드리겠습니다.</p>
+        <button onClick={onClose} className="text-sm text-cyan-600 font-semibold hover:text-cyan-700">닫기</button>
+      </div>
+    )
   }
 
   return (
@@ -346,9 +362,10 @@ function PartnerInquiryForm({ onClose }: PartnerInquiryFormProps) {
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-cyan-600 text-white py-2.5 rounded-lg font-semibold hover:bg-cyan-700 transition-colors text-sm"
+        disabled={submitting}
+        className="w-full bg-cyan-600 text-white py-2.5 rounded-lg font-semibold hover:bg-cyan-700 transition-colors text-sm disabled:opacity-50"
       >
-        문의 제출
+        {submitting ? '제출 중...' : '문의 제출'}
       </button>
     </form>
   )

@@ -6,8 +6,9 @@ import { useAdminStats, type AdminUser } from '../hooks/useAdmin'
 import { coursesData } from '../content/courses'
 import { loadCourse } from '../content/courses'
 import { getCourseTheme } from '../lib/courseThemes'
+import { useEnterpriseStore, type PartnerInquiry } from '../store/enterpriseStore'
 
-type Tab = 'overview' | 'users' | 'content'
+type Tab = 'overview' | 'users' | 'content' | 'inquiries'
 
 interface CourseContentStats {
   slug: string
@@ -24,6 +25,7 @@ interface CourseContentStats {
 export default function Admin() {
   const { user, initialized } = useAuthStore()
   const { stats, loading, refetch } = useAdminStats()
+  const { getInquiries, updateInquiryStatus } = useEnterpriseStore()
   const [tab, setTab] = useState<Tab>('overview')
   const [search, setSearch] = useState('')
   const [contentStats, setContentStats] = useState<CourseContentStats[]>([])
@@ -31,6 +33,9 @@ export default function Admin() {
   const [adminAuthed, setAdminAuthed] = useState(() => sessionStorage.getItem('admin_authed') === 'true')
   const [adminPw, setAdminPw] = useState('')
   const [adminPwError, setAdminPwError] = useState('')
+  const [inquiryFilter, setInquiryFilter] = useState('all')
+  const [editingInquiryId, setEditingInquiryId] = useState<string | null>(null)
+  const [adminNoteInput, setAdminNoteInput] = useState('')
 
   // 콘텐츠 탭 선택 시 코스 데이터 로드
   useEffect(() => {
@@ -141,6 +146,7 @@ export default function Admin() {
     { key: 'overview', label: '통계 개요', icon: '📊' },
     { key: 'users', label: '사용자 관리', icon: '👥' },
     { key: 'content', label: '콘텐츠 현황', icon: '📚' },
+    { key: 'inquiries', label: '파트너 문의', icon: '🏢' },
   ]
 
   const filteredUsers = stats?.users.filter(u =>
@@ -372,6 +378,84 @@ export default function Admin() {
           )}
         </>
       )}
+
+      {/* 탭 4: 파트너 문의 */}
+      {tab === 'inquiries' && (
+        <>
+          {/* Filter buttons */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {[
+              { key: 'all', label: '전체' },
+              { key: 'pending', label: '대기 중', color: 'bg-yellow-100 text-yellow-700' },
+              { key: 'reviewing', label: '검토 중', color: 'bg-blue-100 text-blue-700' },
+              { key: 'approved', label: '승인', color: 'bg-green-100 text-green-700' },
+              { key: 'rejected', label: '거절', color: 'bg-red-100 text-red-700' },
+            ].map((f) => (
+              <button
+                key={f.key}
+                onClick={() => setInquiryFilter(f.key)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  inquiryFilter === f.key
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Stats summary */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            <StatCard value={getInquiries().length} label="총 문의" icon="📋" color="text-primary" />
+            <StatCard value={getInquiries({ status: 'pending' }).length} label="대기 중" icon="⏳" color="text-yellow-600" />
+            <StatCard value={getInquiries({ status: 'reviewing' }).length} label="검토 중" icon="🔍" color="text-blue-600" />
+            <StatCard value={getInquiries({ status: 'approved' }).length} label="승인됨" icon="✅" color="text-green-600" />
+          </div>
+
+          {/* Inquiry list */}
+          <div className="space-y-4">
+            {(() => {
+              const inquiries = inquiryFilter === 'all'
+                ? getInquiries()
+                : getInquiries({ status: inquiryFilter })
+
+              if (inquiries.length === 0) {
+                return (
+                  <Card className="p-12 text-center">
+                    <span className="text-4xl mb-4 block">📭</span>
+                    <p className="text-gray-500">
+                      {inquiryFilter === 'all' ? '아직 접수된 문의가 없습니다.' : '해당 상태의 문의가 없습니다.'}
+                    </p>
+                  </Card>
+                )
+              }
+
+              return inquiries.map((inquiry) => (
+                <InquiryCard
+                  key={inquiry.id}
+                  inquiry={inquiry}
+                  isEditing={editingInquiryId === inquiry.id}
+                  adminNoteInput={adminNoteInput}
+                  onToggleEdit={() => {
+                    if (editingInquiryId === inquiry.id) {
+                      setEditingInquiryId(null)
+                    } else {
+                      setEditingInquiryId(inquiry.id)
+                      setAdminNoteInput(inquiry.adminNote)
+                    }
+                  }}
+                  onAdminNoteChange={setAdminNoteInput}
+                  onStatusChange={(status) => {
+                    updateInquiryStatus(inquiry.id, status, adminNoteInput)
+                    setEditingInquiryId(null)
+                  }}
+                />
+              ))
+            })()}
+          </div>
+        </>
+      )}
     </div>
   )
 }
@@ -423,5 +507,135 @@ function UserRow({ user, formatDate }: { user: AdminUser; formatDate: (d: string
       </td>
       <td className="text-center py-3 px-4 text-gray-500 text-xs">{formatDate(user.lastActivity)}</td>
     </tr>
+  )
+}
+
+// 문의 카드 컴포넌트
+function InquiryCard({
+  inquiry,
+  isEditing,
+  adminNoteInput,
+  onToggleEdit,
+  onAdminNoteChange,
+  onStatusChange,
+}: {
+  inquiry: PartnerInquiry
+  isEditing: boolean
+  adminNoteInput: string
+  onToggleEdit: () => void
+  onAdminNoteChange: (note: string) => void
+  onStatusChange: (status: PartnerInquiry['status']) => void
+}) {
+  const statusConfig: Record<string, { label: string; color: string }> = {
+    pending: { label: '대기 중', color: 'bg-yellow-100 text-yellow-700' },
+    reviewing: { label: '검토 중', color: 'bg-blue-100 text-blue-700' },
+    approved: { label: '승인', color: 'bg-green-100 text-green-700' },
+    rejected: { label: '거절', color: 'bg-red-100 text-red-700' },
+  }
+
+  const status = statusConfig[inquiry.status] || statusConfig.pending
+  const createdDate = new Date(inquiry.createdAt).toLocaleDateString('ko-KR', {
+    year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+  })
+
+  return (
+    <Card className="p-6">
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <h3 className="text-lg font-bold text-gray-900">{inquiry.companyName}</h3>
+            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${status.color}`}>
+              {status.label}
+            </span>
+            {inquiry.companyType && (
+              <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                {inquiry.companyType}
+              </span>
+            )}
+          </div>
+          <div className="text-sm text-gray-500">{createdDate}</div>
+        </div>
+        <button
+          onClick={onToggleEdit}
+          className="text-sm text-primary hover:text-primary/80 font-medium"
+        >
+          {isEditing ? '닫기' : '관리'}
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <div className="text-xs font-semibold text-gray-400 mb-1">연락처 이메일</div>
+          <div className="text-sm text-gray-900">{inquiry.contactEmail}</div>
+        </div>
+        {inquiry.interestedFields && (
+          <div>
+            <div className="text-xs font-semibold text-gray-400 mb-1">관심 분야</div>
+            <div className="flex flex-wrap gap-1">
+              {inquiry.interestedFields.split(',').map((field, i) => (
+                <span key={i} className="text-xs bg-cyan-50 text-cyan-700 px-2 py-0.5 rounded-full">
+                  {field.trim()}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {inquiry.message && (
+        <div className="mb-4">
+          <div className="text-xs font-semibold text-gray-400 mb-1">문의 내용</div>
+          <div className="text-sm text-gray-700 bg-gray-50 rounded-lg p-3">{inquiry.message}</div>
+        </div>
+      )}
+
+      {inquiry.adminNote && !isEditing && (
+        <div className="mb-4">
+          <div className="text-xs font-semibold text-gray-400 mb-1">관리자 메모</div>
+          <div className="text-sm text-gray-700 bg-blue-50 rounded-lg p-3">{inquiry.adminNote}</div>
+        </div>
+      )}
+
+      {isEditing && (
+        <div className="border-t border-gray-100 pt-4 mt-4">
+          <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">관리자 메모</label>
+            <textarea
+              value={adminNoteInput}
+              onChange={(e) => onAdminNoteChange(e.target.value)}
+              rows={3}
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none resize-none"
+              placeholder="내부 메모를 입력하세요..."
+            />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => onStatusChange('pending')}
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-yellow-100 text-yellow-700 hover:bg-yellow-200 transition-colors"
+            >
+              ⏳ 대기
+            </button>
+            <button
+              onClick={() => onStatusChange('reviewing')}
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors"
+            >
+              🔍 검토 중
+            </button>
+            <button
+              onClick={() => onStatusChange('approved')}
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-green-100 text-green-700 hover:bg-green-200 transition-colors"
+            >
+              ✅ 승인
+            </button>
+            <button
+              onClick={() => onStatusChange('rejected')}
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-red-100 text-red-700 hover:bg-red-200 transition-colors"
+            >
+              ❌ 거절
+            </button>
+          </div>
+        </div>
+      )}
+    </Card>
   )
 }
