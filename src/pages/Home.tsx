@@ -45,35 +45,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features - kid-friendly */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 animate-fade-in">
-            {[
-              { icon: '🔬', title: '직접 해보는 실습', desc: '슬라이더, 토글, 드래그 등 인터랙티브 미니 실험으로 개념을 체험해요', color: '#FF6B6B' },
-              { icon: '🤔', title: '스스로 질문하기', desc: '"왜?" 질문을 던지고 친구들과 함께 답을 찾아가요', color: '#2EC4B6' },
-              { icon: '🆓', title: '완전 무료', desc: '초·중·고 학생 누구나 무료로 이용할 수 있어요', color: '#7C5CFC' },
-            ].map((f) => (
-              <div key={f.title} className="text-center p-8 rounded-3xl hover:shadow-lg transition-shadow" style={{ backgroundColor: f.color + '08' }}>
-                <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
-                  style={{ backgroundColor: f.color + '18' }}
-                >
-                  <span className="text-3xl">{f.icon}</span>
-                </div>
-                <h3 className="text-xl font-extrabold text-gray-900 mb-3">{f.title}</h3>
-                <p className="text-gray-600 text-base leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* 이렇게 배워요 - Student Learning Approach */}
       <section className="py-16 bg-gradient-to-br from-amber-50 to-orange-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
               🎯 이렇게 배워요!
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
@@ -82,21 +58,15 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { step: '1', icon: '🤔', title: '왜 배울까?', desc: '실생활에서 이 기술이 어디에 쓰이는지 먼저 알아봐요', color: '#f59e0b' },
-              { step: '2', icon: '🔬', title: '직접 실험!', desc: '슬라이더, 토글, 퀴즈로 개념을 직접 체험해봐요', color: '#8b5cf6' },
-              { step: '3', icon: '❓', title: '왜? 질문하기', desc: '"왜 이런 거야?" 궁금한 것을 자유롭게 물어봐요', color: '#3b82f6' },
-              { step: '4', icon: '👥', title: '함께 배우기', desc: '스터디 그룹에서 친구들과 미션을 수행해봐요', color: '#10b981' },
+              { icon: '🤔', title: '왜 배울까?', desc: '실생활에서 이 기술이 어디에 쓰이는지 먼저 알아봐요', color: '#f59e0b' },
+              { icon: '🔬', title: '직접 실험!', desc: '슬라이더, 토글, 퀴즈로 개념을 직접 체험해봐요', color: '#8b5cf6' },
+              { icon: '❓', title: '왜? 질문하기', desc: '"왜 이런 거야?" 궁금한 것을 자유롭게 물어봐요', color: '#3b82f6' },
+              { icon: '👥', title: '함께 배우기', desc: '스터디 그룹에서 친구들과 미션을 수행해봐요', color: '#10b981' },
             ].map((item) => (
-              <div key={item.step} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all text-center">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white font-bold text-sm"
-                  style={{ backgroundColor: item.color }}
-                >
-                  {item.step}
-                </div>
-                <div className="text-3xl mb-3">{item.icon}</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+              <div key={item.title} className="bg-white rounded-3xl px-8 py-10 shadow-sm hover:shadow-lg transition-all text-center">
+                <div className="text-5xl mb-5">{item.icon}</div>
+                <h3 className="text-xl font-extrabold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-base text-gray-600 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
