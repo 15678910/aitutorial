@@ -15,14 +15,14 @@ export default function MiniLab({ courseSlug, sectionTitle, chapterTitle }: Mini
   }
 
   return (
-    <div className="my-8 rounded-xl border-2 border-transparent bg-gradient-to-r from-purple-500/10 to-indigo-500/10 p-6">
+    <div className="my-8 rounded-xl border-2 border-purple-200 bg-white p-6 shadow-sm">
       <div className="mb-4">
-        <h3 className="text-xl font-bold text-purple-700 dark:text-purple-300 flex items-center gap-2">
+        <h3 className="text-xl font-bold text-purple-800 flex items-center gap-2">
           <span>🔬</span>
           <span>직접 실험해 보세요!</span>
         </h3>
-        <p className="mt-2 text-lg font-semibold text-gray-800 dark:text-gray-200">{lab.title}</p>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{lab.description}</p>
+        <p className="mt-2 text-lg font-bold text-gray-900">{lab.title}</p>
+        <p className="mt-1 text-sm font-medium text-gray-700">{lab.description}</p>
       </div>
 
       <div className="my-6">
@@ -85,7 +85,7 @@ function SliderWidget({ config, feedbackMessage }: { config: SliderConfig; feedb
     <div className="space-y-6">
       {config.sliders.map((slider, index) => (
         <div key={index} className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="block text-sm font-bold text-gray-900">
             {slider.label}
           </label>
           <div className="flex items-center gap-4">
@@ -96,9 +96,9 @@ function SliderWidget({ config, feedbackMessage }: { config: SliderConfig; feedb
               step={slider.step}
               value={values[index]}
               onChange={(e) => handleSliderChange(index, Number(e.target.value))}
-              className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+              className="flex-1 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
             />
-            <span className="min-w-[80px] text-right text-sm font-semibold text-purple-600 dark:text-purple-400">
+            <span className="min-w-[80px] text-right text-sm font-bold text-purple-800">
               {values[index]}{slider.unit}
             </span>
           </div>
@@ -106,15 +106,15 @@ function SliderWidget({ config, feedbackMessage }: { config: SliderConfig; feedb
       ))}
 
       {config.resultLabel && (
-        <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <div className="mt-6 p-4 bg-purple-100 rounded-lg border border-purple-200">
+          <p className="text-sm font-bold text-gray-800 mb-2">
             {config.resultLabel}
           </p>
-          <p className="text-lg font-semibold text-purple-700 dark:text-purple-300">
+          <p className="text-lg font-bold text-purple-900">
             {getResultText()}
           </p>
           {config.formula && (
-            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400 font-mono">
+            <p className="mt-2 text-xs text-gray-600 font-mono">
               {config.formula}
             </p>
           )}
@@ -122,8 +122,8 @@ function SliderWidget({ config, feedbackMessage }: { config: SliderConfig; feedb
       )}
 
       {showFeedback && feedbackMessage && (
-        <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <p className="text-sm text-blue-800 dark:text-blue-200">{feedbackMessage}</p>
+        <div className="mt-4 p-3 bg-blue-100 rounded-lg border border-blue-300">
+          <p className="text-sm font-medium text-blue-900">{feedbackMessage}</p>
         </div>
       )}
     </div>
@@ -151,14 +151,14 @@ function ToggleWidget({ config, feedbackMessage }: { config: ToggleConfig; feedb
   return (
     <div className="space-y-6">
       {config.toggles.map((toggle, index) => (
-        <div key={index} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <div key={index} className="flex items-center justify-between p-4 bg-gray-100 rounded-lg">
+          <label className="text-sm font-bold text-gray-900">
             {toggle.label}
           </label>
           <button
             onClick={() => handleToggleChange(index)}
             className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-              toggleStates[index] ? 'bg-purple-600' : 'bg-gray-300 dark:bg-gray-600'
+              toggleStates[index] ? 'bg-purple-600' : 'bg-gray-300'
             }`}
           >
             <span
@@ -167,22 +167,22 @@ function ToggleWidget({ config, feedbackMessage }: { config: ToggleConfig; feedb
               }`}
             />
           </button>
-          <span className="text-sm text-gray-600 dark:text-gray-400 ml-3 min-w-[60px]">
+          <span className="text-sm font-medium text-gray-800 ml-3 min-w-[60px]">
             {toggleStates[index] ? toggle.onLabel : toggle.offLabel}
           </span>
         </div>
       ))}
 
-      <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">결과</p>
-        <p className="text-lg font-semibold text-purple-700 dark:text-purple-300">
+      <div className="mt-6 p-4 bg-purple-100 rounded-lg border border-purple-200">
+        <p className="text-sm font-bold text-gray-800 mb-2">결과</p>
+        <p className="text-lg font-bold text-purple-900">
           {getMatchingScenario()}
         </p>
       </div>
 
       {showFeedback && feedbackMessage && (
-        <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <p className="text-sm text-blue-800 dark:text-blue-200">{feedbackMessage}</p>
+        <div className="mt-4 p-3 bg-blue-100 rounded-lg border border-blue-300">
+          <p className="text-sm font-medium text-blue-900">{feedbackMessage}</p>
         </div>
       )}
     </div>
@@ -220,7 +220,7 @@ function DragSortWidget({ config, feedbackMessage }: { config: DragSortConfig; f
   return (
     <div className="space-y-6">
       {config.question && (
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{config.question}</p>
+        <p className="text-sm font-bold text-gray-900">{config.question}</p>
       )}
 
       <div className="space-y-2">
@@ -232,11 +232,11 @@ function DragSortWidget({ config, feedbackMessage }: { config: DragSortConfig; f
               onClick={() => handleItemClick(index)}
               className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
                 selectedIndex === index
-                  ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20'
-                  : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-purple-300'
+                  ? 'border-purple-500 bg-purple-100'
+                  : 'border-gray-300 bg-white hover:border-purple-400'
               }`}
             >
-              <span className="font-medium text-gray-800 dark:text-gray-200">
+              <span className="font-bold text-gray-900">
                 {index + 1}. {itemData?.emoji} {itemData?.label}
               </span>
             </button>
@@ -254,14 +254,14 @@ function DragSortWidget({ config, feedbackMessage }: { config: DragSortConfig; f
       {checked && (
         <div className={`p-4 rounded-lg ${
           isCorrect
-            ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
-            : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+            ? 'bg-green-100 border border-green-300'
+            : 'bg-red-100 border border-red-300'
         }`}>
           <p className="font-semibold mb-2">
             {isCorrect ? '✅ 정답입니다!' : '❌ 다시 시도해보세요!'}
           </p>
           {!isCorrect && (
-            <div className="text-sm text-gray-700 dark:text-gray-300">
+            <div className="text-sm font-medium text-gray-800">
               <p className="font-medium mb-1">정답 순서:</p>
               <ol className="list-decimal list-inside space-y-1">
                 {config.correctOrder.map((itemId, i) => {
@@ -277,8 +277,8 @@ function DragSortWidget({ config, feedbackMessage }: { config: DragSortConfig; f
       )}
 
       {showFeedback && feedbackMessage && (
-        <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <p className="text-sm text-blue-800 dark:text-blue-200">{feedbackMessage}</p>
+        <div className="mt-4 p-3 bg-blue-100 rounded-lg border border-blue-300">
+          <p className="text-sm font-medium text-blue-900">{feedbackMessage}</p>
         </div>
       )}
     </div>
@@ -289,30 +289,30 @@ function ComparisonWidget({ config, feedbackMessage }: { config: ComparisonConfi
   return (
     <div>
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg">
-          <h4 className="text-lg font-bold text-blue-700 dark:text-blue-300 mb-4 flex items-center gap-2">
+        <div className="p-6 bg-blue-50 border border-blue-200 rounded-lg">
+          <h4 className="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
             <span>{config.leftEmoji}</span>
             <span>{config.leftTitle}</span>
           </h4>
           <ul className="space-y-2">
             {config.leftItems.map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                <span className="text-blue-500 dark:text-blue-400 mt-0.5">•</span>
+              <li key={i} className="flex items-start gap-2 text-sm font-medium text-gray-800">
+                <span className="text-blue-700 mt-0.5">•</span>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg">
-          <h4 className="text-lg font-bold text-purple-700 dark:text-purple-300 mb-4 flex items-center gap-2">
+        <div className="p-6 bg-purple-50 border border-purple-200 rounded-lg">
+          <h4 className="text-lg font-bold text-purple-900 mb-4 flex items-center gap-2">
             <span>{config.rightEmoji}</span>
             <span>{config.rightTitle}</span>
           </h4>
           <ul className="space-y-2">
             {config.rightItems.map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                <span className="text-purple-500 dark:text-purple-400 mt-0.5">•</span>
+              <li key={i} className="flex items-start gap-2 text-sm font-medium text-gray-800">
+                <span className="text-purple-700 mt-0.5">•</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -321,8 +321,8 @@ function ComparisonWidget({ config, feedbackMessage }: { config: ComparisonConfi
       </div>
 
       {feedbackMessage && (
-        <div className="mt-6 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <p className="text-sm text-blue-800 dark:text-blue-200">{feedbackMessage}</p>
+        <div className="mt-6 p-3 bg-blue-100 rounded-lg border border-blue-300">
+          <p className="text-sm font-medium text-blue-900">{feedbackMessage}</p>
         </div>
       )}
     </div>
@@ -344,7 +344,7 @@ function PollWidget({ config, feedbackMessage, labId }: { config: PollConfig; fe
   return (
     <div className="space-y-6">
       {config.question && (
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{config.question}</p>
+        <p className="text-sm font-bold text-gray-900">{config.question}</p>
       )}
 
       <div className="space-y-2">
@@ -355,15 +355,15 @@ function PollWidget({ config, feedbackMessage, labId }: { config: PollConfig; fe
             disabled={voted !== null}
             className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
               voted === index
-                ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20'
+                ? 'border-purple-500 bg-purple-100'
                 : voted !== null
-                ? 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 opacity-60 cursor-not-allowed'
-                : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-purple-300'
+                ? 'border-gray-300 bg-gray-100 opacity-60 cursor-not-allowed'
+                : 'border-gray-300 bg-white hover:border-purple-400'
             }`}
           >
             <span className="flex items-center gap-3">
               <span className="text-2xl">{option.emoji}</span>
-              <span className="font-medium text-gray-800 dark:text-gray-200">{option.label}</span>
+              <span className="font-bold text-gray-900">{option.label}</span>
             </span>
           </button>
         ))}
@@ -371,15 +371,15 @@ function PollWidget({ config, feedbackMessage, labId }: { config: PollConfig; fe
 
       {voted !== null && (
         <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-          <p className="font-semibold text-green-700 dark:text-green-300">
-            ✅ 투표 완료! <span className="text-gray-700 dark:text-gray-300">선택: {config.options[voted].label}</span>
+          <p className="font-bold text-green-900">
+            ✅ 투표 완료! <span className="text-gray-900">선택: {config.options[voted].label}</span>
           </p>
         </div>
       )}
 
       {voted !== null && feedbackMessage && (
-        <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <p className="text-sm text-blue-800 dark:text-blue-200">{feedbackMessage}</p>
+        <div className="mt-4 p-3 bg-blue-100 rounded-lg border border-blue-300">
+          <p className="text-sm font-medium text-blue-900">{feedbackMessage}</p>
         </div>
       )}
     </div>
