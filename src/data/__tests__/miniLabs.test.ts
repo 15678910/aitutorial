@@ -4,106 +4,122 @@ import type { MiniLabEntry, MiniLabType } from '../miniLabs'
 
 describe('miniLabs', () => {
   describe('findMiniLab', () => {
-    it('should find mini lab by keyword', () => {
-      const result = findMiniLab('ai-intro', 'AI 기초', '인공지능')
-      expect(result.id).toBe('lab-ai-abilities')
-      expect(result.type).toBe('slider')
-      expect(result.keywords.some(k => k.includes('인공지능'))).toBe(true)
+    it('should find mini lab by keyword in section title', () => {
+      const result = findMiniLab('ai-intro', '인공지능의 정의할까', '')
+      expect(result).not.toBeNull()
+      expect(result!.id).toBe('lab-ai-abilities')
+      expect(result!.type).toBe('slider')
     })
 
     it('should return lab with valid type', () => {
       const validTypes: MiniLabType[] = ['slider', 'toggle', 'drag-sort', 'comparison', 'poll']
-      const result = findMiniLab('ml-basics', '머신러닝', '기계학습')
-      expect(validTypes).toContain(result.type)
+      const result = findMiniLab('ml-basics', '머신러닝 배우기', '')
+      expect(result).not.toBeNull()
+      expect(validTypes).toContain(result!.type)
     })
 
-    it('should return default mini lab when no match found', () => {
+    it('should return null when no match found', () => {
       const result = findMiniLab('nonexistent-course', '무작위', '섹션')
-      expect(result).toBe(defaultMiniLab)
-      expect(result.type).toBe('poll')
-      expect(result.id).toBe('lab-default-poll')
+      expect(result).toBeNull()
     })
 
-    it('should find slider lab by "인공지능" keyword', () => {
-      const result = findMiniLab('ai-intro', 'AI', '인공지능')
-      expect(result.type).toBe('slider')
-      expect(result.config.type).toBe('slider')
-      if (result.config.type === 'slider') {
-        expect(result.config.sliders.length).toBeGreaterThan(0)
-        expect(result.config.resultLabel).toBeTruthy()
+    it('should find slider lab by "정의" keyword in section title', () => {
+      const result = findMiniLab('ai-intro', 'AI를 어떻게 정의할까', 'AI란 무엇인가')
+      expect(result).not.toBeNull()
+      expect(result!.type).toBe('slider')
+      expect(result!.config.type).toBe('slider')
+      if (result!.config.type === 'slider') {
+        expect(result!.config.sliders.length).toBeGreaterThan(0)
+        expect(result!.config.resultLabel).toBeTruthy()
       }
     })
 
     it('should find poll lab by "머신러닝" keyword', () => {
-      const result = findMiniLab('ml-basics', '머신러닝', '기계학습')
-      expect(result.type).toBe('poll')
-      expect(result.config.type).toBe('poll')
-      if (result.config.type === 'poll') {
-        expect(result.config.question).toBeTruthy()
-        expect(result.config.options.length).toBeGreaterThan(0)
+      const result = findMiniLab('ml-basics', '머신러닝 개요', '')
+      expect(result).not.toBeNull()
+      expect(result!.type).toBe('poll')
+      expect(result!.config.type).toBe('poll')
+      if (result!.config.type === 'poll') {
+        expect(result!.config.question).toBeTruthy()
+        expect(result!.config.options.length).toBeGreaterThan(0)
       }
     })
 
     it('should find toggle lab by "신경망" keyword', () => {
-      const result = findMiniLab('deep-learning', '신경망', '뉴런')
-      expect(result.type).toBe('toggle')
-      expect(result.config.type).toBe('toggle')
-      if (result.config.type === 'toggle') {
-        expect(result.config.toggles.length).toBeGreaterThan(0)
-        expect(result.config.scenarios.length).toBeGreaterThan(0)
+      const result = findMiniLab('deep-learning', '신경망 기초', '')
+      expect(result).not.toBeNull()
+      expect(result!.type).toBe('toggle')
+      expect(result!.config.type).toBe('toggle')
+      if (result!.config.type === 'toggle') {
+        expect(result!.config.toggles.length).toBeGreaterThan(0)
+        expect(result!.config.scenarios.length).toBeGreaterThan(0)
       }
     })
 
     it('should find comparison lab by "딥러닝" keyword', () => {
-      const result = findMiniLab('deep-learning', '딥러닝', 'deep learning')
-      expect(result.type).toBe('comparison')
-      expect(result.config.type).toBe('comparison')
-      if (result.config.type === 'comparison') {
-        expect(result.config.leftTitle).toBeTruthy()
-        expect(result.config.rightTitle).toBeTruthy()
-        expect(result.config.leftItems.length).toBeGreaterThan(0)
-        expect(result.config.rightItems.length).toBeGreaterThan(0)
+      const result = findMiniLab('deep-learning', '딥러닝의 세계', '')
+      expect(result).not.toBeNull()
+      expect(result!.type).toBe('comparison')
+      expect(result!.config.type).toBe('comparison')
+      if (result!.config.type === 'comparison') {
+        expect(result!.config.leftTitle).toBeTruthy()
+        expect(result!.config.rightTitle).toBeTruthy()
+        expect(result!.config.leftItems.length).toBeGreaterThan(0)
+        expect(result!.config.rightItems.length).toBeGreaterThan(0)
       }
     })
 
     it('should find drag-sort lab by "CNN" keyword', () => {
-      const result = findMiniLab('deep-learning', 'CNN', '이미지 인식')
-      expect(result.type).toBe('drag-sort')
-      expect(result.config.type).toBe('drag-sort')
-      if (result.config.type === 'drag-sort') {
-        expect(result.config.items.length).toBeGreaterThan(0)
-        expect(result.config.correctOrder.length).toBeGreaterThan(0)
-        expect(result.config.question).toBeTruthy()
+      const result = findMiniLab('deep-learning', 'CNN 이미지 인식', '')
+      expect(result).not.toBeNull()
+      expect(result!.type).toBe('drag-sort')
+      expect(result!.config.type).toBe('drag-sort')
+      if (result!.config.type === 'drag-sort') {
+        expect(result!.config.items.length).toBeGreaterThan(0)
+        expect(result!.config.correctOrder.length).toBeGreaterThan(0)
+        expect(result!.config.question).toBeTruthy()
       }
     })
 
     it('should find temperature slider lab by "LLM" keyword', () => {
-      const result = findMiniLab('generative-ai', 'LLM', 'GPT')
-      expect(result.id).toBe('lab-temperature')
-      expect(result.type).toBe('slider')
+      const result = findMiniLab('generative-ai', 'LLM 모델', '')
+      expect(result).not.toBeNull()
+      expect(result!.id).toBe('lab-temperature')
+      expect(result!.type).toBe('slider')
     })
 
     it('should find data quality drag-sort lab by "데이터" keyword', () => {
-      const result = findMiniLab('ml-basics', '데이터', '학습 데이터')
-      expect(result.id).toBe('lab-data-quality')
-      expect(result.type).toBe('drag-sort')
+      const result = findMiniLab('ml-basics', '데이터 처리', '')
+      expect(result).not.toBeNull()
+      expect(result!.id).toBe('lab-data-quality')
+      expect(result!.type).toBe('drag-sort')
     })
 
     it('should find ethics poll lab by "윤리" keyword', () => {
-      const result = findMiniLab('ai-intro', '윤리', 'AI 윤리')
-      expect(result.id).toBe('lab-ethics-poll')
-      expect(result.type).toBe('poll')
+      const result = findMiniLab('ai-intro', 'AI 윤리와 편향', '')
+      expect(result).not.toBeNull()
+      expect(result!.id).toBe('lab-ethics-poll')
+      expect(result!.type).toBe('poll')
     })
 
     it('should find reward toggle lab by "강화학습" keyword', () => {
-      const result = findMiniLab('ml-basics', '강화학습', '보상')
-      expect(result.id).toBe('lab-reward-toggle')
-      expect(result.type).toBe('toggle')
+      const result = findMiniLab('ml-basics', '강화학습 기초', '')
+      expect(result).not.toBeNull()
+      expect(result!.id).toBe('lab-reward-toggle')
+      expect(result!.type).toBe('toggle')
     })
 
     it('should match keywords case-insensitively', () => {
-      const result = findMiniLab('deep-learning', 'CNN', 'cnn')
-      expect(result.keywords.some(k => k.toUpperCase().includes('CNN'))).toBe(true)
+      const result = findMiniLab('deep-learning', 'CNN 모델', '')
+      expect(result).not.toBeNull()
+      expect(result!.keywords.some(k => k.toUpperCase().includes('CNN'))).toBe(true)
+    })
+
+    it('should NOT match on chapter title (only section title)', () => {
+      // "관련 분야들" section should NOT match lab-ai-abilities via chapter title "AI란 무엇인가"
+      const result = findMiniLab('ai-intro', '관련 분야들', 'AI란 무엇인가')
+      // Should be null since "관련 분야들" doesn't contain any lab keywords
+      expect(result).toBeNull()
     })
 
     it('should respect courseSlug when specified', () => {
@@ -119,14 +135,15 @@ describe('miniLabs', () => {
     })
 
     it('should have all required fields in each lab', () => {
-      const result = findMiniLab('ai-intro', 'AI', '인공지능')
+      const result = findMiniLab('ai-intro', '인공지능 정의', '')
+      expect(result).not.toBeNull()
       expect(result).toHaveProperty('id')
       expect(result).toHaveProperty('title')
       expect(result).toHaveProperty('description')
       expect(result).toHaveProperty('type')
       expect(result).toHaveProperty('config')
       expect(result).toHaveProperty('feedbackMessage')
-      expect(result.feedbackMessage.length).toBeGreaterThan(0)
+      expect(result!.feedbackMessage.length).toBeGreaterThan(0)
     })
 
     it('should have valid structure in all miniLabsData entries', () => {

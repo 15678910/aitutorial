@@ -29,6 +29,7 @@ interface ProgressState {
   markComplete: (userId: string, sectionId: string) => Promise<void>
   saveQuizScore: (userId: string, sectionId: string, score: number) => Promise<boolean>
   getQuizAttempts: (sectionId: string) => number
+  resetQuizAttempts: (sectionId: string) => void
   loadLocalProgress: () => void
 }
 
@@ -151,5 +152,18 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
 
   getQuizAttempts: (sectionId: string) => {
     return get().quizAttempts.get(sectionId) || 0
+  },
+
+  resetQuizAttempts: (sectionId: string) => {
+    const updatedAttempts = new Map(get().quizAttempts)
+    updatedAttempts.delete(sectionId)
+    const updatedScores = new Map(get().quizScores)
+    updatedScores.delete(sectionId)
+    set({
+      quizAttempts: updatedAttempts,
+      quizScores: updatedScores,
+    })
+    saveToStorage(QUIZ_ATTEMPTS_KEY, Object.fromEntries(updatedAttempts))
+    saveToStorage(QUIZ_STORAGE_KEY, Object.fromEntries(updatedScores))
   },
 }))

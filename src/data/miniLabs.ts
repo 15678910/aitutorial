@@ -51,7 +51,7 @@ export const miniLabsData: MiniLabEntry[] = [
   // AI 기초 - 슬라이더: AI 능력치 조절
   {
     id: 'lab-ai-abilities',
-    keywords: ['인공지능', 'AI란', 'AI의 정의'],
+    keywords: ['인공지능', '정의', '정의할까'],
     title: 'AI 능력치를 조절해 보세요!',
     description: '슬라이더를 움직여 AI의 능력치를 바꿔보세요. 어떤 AI가 만들어질까요?',
     type: 'slider',
@@ -70,7 +70,7 @@ export const miniLabsData: MiniLabEntry[] = [
   // 머신러닝 - 투표: 지도학습 vs 비지도학습
   {
     id: 'lab-ml-poll',
-    keywords: ['머신러닝', '기계학습', '지도학습', '비지도학습'],
+    keywords: ['머신러닝', '기계학습', '지도학습', '비지도학습', '배우기'],
     title: '어떤 학습 방법이 더 좋을까요?',
     description: '다음 상황에서 어떤 방법이 적합할지 투표해보세요!',
     type: 'poll',
@@ -280,13 +280,13 @@ export const defaultMiniLab: MiniLabEntry = {
 }
 
 // Helper function to find matching mini lab
-export function findMiniLab(courseSlug: string, sectionTitle: string, chapterTitle: string): MiniLabEntry {
-  const searchText = `${sectionTitle} ${chapterTitle}`.toLowerCase()
+export function findMiniLab(courseSlug: string, sectionTitle: string, _chapterTitle: string): MiniLabEntry | null {
+  const searchText = sectionTitle.toLowerCase()
 
   const matched = miniLabsData.find(entry => {
     if (entry.courseSlug && entry.courseSlug !== courseSlug) return false
     return entry.keywords.some(keyword => searchText.includes(keyword.toLowerCase()))
   })
 
-  return matched || defaultMiniLab
+  return matched || null
 }

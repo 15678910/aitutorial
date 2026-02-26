@@ -39,7 +39,7 @@ export default function QuizContainer({ quizzes, sectionId, onComplete }: QuizCo
   const [submitted, setSubmitted] = useState<Set<number>>(new Set())
   const [difficulty, setDifficulty] = useState<'all' | 'beginner' | 'intermediate' | 'advanced'>('all')
 
-  const { getQuizAttempts, quizScores } = useProgressStore()
+  const { getQuizAttempts, quizScores, resetQuizAttempts } = useProgressStore()
   const attemptCount = getQuizAttempts(sectionId)
   const currentScore = quizScores.get(sectionId) || 0
   const maxAttemptsReached = attemptCount >= 3
@@ -119,16 +119,33 @@ export default function QuizContainer({ quizzes, sectionId, onComplete }: QuizCo
     return (
       <div className="bg-surface border border-gray-200 rounded-xl p-8 text-center">
         <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 bg-gray-100">
-          <span className="text-3xl">🔒</span>
+          <span className="text-3xl">{currentScore === 0 ? '🔄' : '🔒'}</span>
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">최대 응시 횟수 도달</h3>
-        <p className="text-gray-600 mb-2">최대 응시 횟수(3회)에 도달했습니다.</p>
-        <div className="text-3xl font-bold mb-2" style={{ color: currentScore >= 60 ? '#32c2a2' : '#ef4444' }}>
-          최고 점수: {currentScore}점
-        </div>
-        <p className="text-sm text-gray-500 mt-4">
-          {currentScore >= 60 ? '합격하셨습니다!' : '다음에 더 좋은 결과를 기대합니다.'}
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">
+          {currentScore === 0 ? '퀴즈를 다시 풀어보세요!' : '최대 응시 횟수 도달'}
+        </h3>
+        <p className="text-gray-600 mb-2">
+          {currentScore === 0
+            ? '이전 오류로 인해 점수가 기록되지 않았습니다. 다시 도전해 보세요!'
+            : '최대 응시 횟수(3회)에 도달했습니다.'}
         </p>
+        {currentScore > 0 && (
+          <div className="text-3xl font-bold mb-2" style={{ color: currentScore >= 60 ? '#32c2a2' : '#ef4444' }}>
+            최고 점수: {currentScore}점
+          </div>
+        )}
+        {currentScore === 0 ? (
+          <button
+            onClick={() => resetQuizAttempts(sectionId)}
+            className="mt-4 px-6 py-3 bg-accent text-white font-bold rounded-xl hover:bg-accent/90 transition-colors"
+          >
+            다시 도전하기
+          </button>
+        ) : (
+          <p className="text-sm text-gray-500 mt-4">
+            {currentScore >= 60 ? '합격하셨습니다!' : '다음에 더 좋은 결과를 기대합니다.'}
+          </p>
+        )}
       </div>
     )
   }
