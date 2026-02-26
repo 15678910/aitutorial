@@ -13,6 +13,8 @@ const Learn = lazy(() => import('./pages/Learn'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Login = lazy(() => import('./pages/Login'))
 const Signup = lazy(() => import('./pages/Signup'))
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
+const ResetPassword = lazy(() => import('./pages/ResetPassword'))
 const Certificate = lazy(() => import('./pages/Certificate'))
 const Transcript = lazy(() => import('./pages/Transcript'))
 const Essay = lazy(() => import('./pages/Essay'))
@@ -70,6 +72,8 @@ export default function App() {
                   <Route path="/review/:courseSlug" element={<Review />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/privacy" element={<Privacy />} />

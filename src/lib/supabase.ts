@@ -51,6 +51,8 @@ export const supabase: SupabaseClient = isSupabaseConfigured
             signInWithPassword: async () => ({ data: null, error: { message: 'Supabase가 설정되지 않았습니다. .env 파일을 확인하세요.' } }),
             signUp: async () => ({ data: null, error: { message: 'Supabase가 설정되지 않았습니다. .env 파일을 확인하세요.' } }),
             signOut: async () => ({ error: null }),
+            resetPasswordForEmail: async () => ({ data: null, error: { message: 'Supabase가 설정되지 않았습니다. .env 파일을 확인하세요.' } }),
+            updateUser: async () => ({ data: null, error: { message: 'Supabase가 설정되지 않았습니다. .env 파일을 확인하세요.' } }),
           }
         }
         if (prop === 'from') {

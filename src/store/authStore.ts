@@ -11,6 +11,8 @@ interface AuthState {
   signIn: (email: string, password: string) => Promise<{ error: string | null }>
   signUp: (email: string, password: string, name: string) => Promise<{ error: string | null }>
   signOut: () => Promise<void>
+  resetPasswordRequest: (email: string) => Promise<{ error: string | null }>
+  updatePassword: (newPassword: string) => Promise<{ error: string | null }>
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -74,6 +76,22 @@ export const useAuthStore = create<AuthState>((set) => ({
       password,
       options: { data: { name } },
     })
+    set({ loading: false })
+    return { error: error?.message || null }
+  },
+
+  resetPasswordRequest: async (email) => {
+    set({ loading: true })
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    })
+    set({ loading: false })
+    return { error: error?.message || null }
+  },
+
+  updatePassword: async (newPassword) => {
+    set({ loading: true })
+    const { error } = await supabase.auth.updateUser({ password: newPassword })
     set({ loading: false })
     return { error: error?.message || null }
   },

@@ -34,7 +34,12 @@ export default function Login() {
           <Input id="password" label="비밀번호" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호를 입력하세요" required />
           <Button type="submit" className="w-full" disabled={loading}>{loading ? '로그인 중...' : '로그인'}</Button>
         </form>
-        <p className="mt-6 text-center text-sm text-gray-600">계정이 없으신가요? <Link to="/signup" className="text-accent font-medium hover:underline">회원가입</Link></p>
+        <div className="mt-4 text-center">
+          <Link to="/forgot-password" className="text-sm text-gray-500 hover:text-accent transition-colors">
+            아이디 또는 비밀번호를 잊으셨나요?
+          </Link>
+        </div>
+        <p className="mt-4 text-center text-sm text-gray-600">계정이 없으신가요? <Link to="/signup" className="text-accent font-medium hover:underline">회원가입</Link></p>
       </div>
     </div>
   )
