@@ -4,7 +4,7 @@ import { useProgressStore } from '../store/progressStore'
 
 export function useProgress() {
   const { user } = useAuthStore()
-  const { completedSections, quizScores, fetchProgress, markComplete, saveQuizScore } = useProgressStore()
+  const { completedSections, quizScores, fetchProgress, markComplete, saveQuizScore, getQuizAttempts } = useProgressStore()
 
   useEffect(() => {
     if (user) {
@@ -12,10 +12,13 @@ export function useProgress() {
     }
   }, [user, fetchProgress])
 
+  const userId = user?.id || 'local'
+
   return {
     completedSections,
     quizScores,
-    markComplete: (sectionId: string) => { if (user) markComplete(user.id, sectionId) },
-    saveQuizScore: (sectionId: string, score: number) => { if (user) saveQuizScore(user.id, sectionId, score) },
+    getQuizAttempts,
+    markComplete: (sectionId: string) => markComplete(userId, sectionId),
+    saveQuizScore: (sectionId: string, score: number) => saveQuizScore(userId, sectionId, score),
   }
 }

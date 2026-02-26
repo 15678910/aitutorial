@@ -19,7 +19,6 @@
         {
           "id": "agent-skills-ch8-s1-q1",
           "sectionId": "agent-skills-ch8-s1",
-          "questionType": "multiple_choice",
           "question": "2024-2026년 AI 에이전트 분야의 핵심 트렌드는?",
           "options": [
             "AI 모델 크기 축소",
@@ -29,22 +28,25 @@
           ],
           "correctAnswer": "에이전틱 AI의 부상과 도구 사용 능력 발전",
           "explanation": "2024-2026년의 핵심 트렌드는 에이전틱 AI(Agentic AI)의 부상입니다. 단순히 대화하는 AI에서 벗어나, 스스로 계획하고 도구를 사용하며 복잡한 작업을 자율적으로 수행하는 에이전트로 진화하고 있습니다.",
-          "difficulty": "advanced"
+          "difficulty": "advanced",
+          "type": "multiple_choice"
         },
         {
           "id": "agent-skills-ch8-s1-q2",
           "sectionId": "agent-skills-ch8-s1",
-          "questionType": "true_false",
           "question": "Agent Skills와 MCP는 모두 에이전트 생태계의 표준화를 위한 노력이다.",
-          "options": ["참", "거짓"],
+          "options": [
+            "참",
+            "거짓"
+          ],
           "correctAnswer": "참",
           "explanation": "Agent Skills와 MCP(Model Context Protocol)는 모두 에이전트 생태계의 표준화를 위한 프로토콜입니다. Agent Skills는 에이전트의 능력을 선언하고 공유하는 표준이며, MCP는 AI 모델이 외부 데이터 소스와 통신하는 표준입니다.",
-          "difficulty": "advanced"
+          "difficulty": "advanced",
+          "type": "true_false"
         },
         {
           "id": "agent-skills-ch8-s1-q3",
           "sectionId": "agent-skills-ch8-s1",
-          "questionType": "multiple_choice",
           "question": "에이전트 상호운용성이 중요한 이유는?",
           "options": [
             "비용 절감만을 위해",
@@ -54,7 +56,8 @@
           ],
           "correctAnswer": "서로 다른 에이전트 도구들이 함께 작동하여 더 복잡한 작업을 처리할 수 있기 때문",
           "explanation": "에이전트 상호운용성은 서로 다른 플랫폼(Claude, GPT, Gemini 등)의 에이전트들이 함께 협업할 수 있게 해줍니다. 이를 통해 각 에이전트의 강점을 결합하여 훨씬 더 복잡하고 고도화된 작업을 수행할 수 있습니다.",
-          "difficulty": "advanced"
+          "difficulty": "advanced",
+          "type": "multiple_choice"
         }
       ]
     },
@@ -71,7 +74,6 @@
         {
           "id": "agent-skills-ch8-s2-q1",
           "sectionId": "agent-skills-ch8-s2",
-          "questionType": "multiple_choice",
           "question": "AI 집단지성의 핵심 원리는?",
           "options": [
             "하나의 강력한 AI가 모든 것을 처리",
@@ -81,12 +83,12 @@
           ],
           "correctAnswer": "여러 에이전트와 인간이 지식을 공유하며 함께 더 똑똑해지는 것",
           "explanation": "AI 집단지성은 위키피디아나 오픈소스처럼, 여러 개발자가 만든 에이전트 스킬들이 공유되고 조합되면서 전체 생태계가 기하급수적으로 똑똑해지는 현상입니다. 개별 AI보다 협업하는 AI 생태계가 훨씬 강력합니다.",
-          "difficulty": "advanced"
+          "difficulty": "advanced",
+          "type": "multiple_choice"
         },
         {
           "id": "agent-skills-ch8-s2-q2",
           "sectionId": "agent-skills-ch8-s2",
-          "questionType": "multiple_choice",
           "question": "스킬 공유가 만드는 '네트워크 효과'란?",
           "options": [
             "네트워크 속도가 빨라지는 것",
@@ -96,17 +98,20 @@
           ],
           "correctAnswer": "더 많은 스킬이 공유될수록 전체 생태계의 가치가 기하급수적으로 증가하는 것",
           "explanation": "네트워크 효과는 참여자가 늘어날수록 전체 시스템의 가치가 기하급수적으로 증가하는 현상입니다. 스킬이 10개일 때보다 10,000개일 때 훨씬 더 복잡하고 강력한 조합이 가능해지며, 이것이 생태계 전체의 가치를 폭발적으로 증가시킵니다.",
-          "difficulty": "advanced"
+          "difficulty": "advanced",
+          "type": "multiple_choice"
         },
         {
           "id": "agent-skills-ch8-s2-q3",
           "sectionId": "agent-skills-ch8-s2",
-          "questionType": "fill_blank",
           "question": "인간-AI 협업에서 AI는 단순한 도구가 아닌 ___로서의 역할을 하게 된다.",
-          "options": ["동료"],
+          "options": [
+            "동료"
+          ],
           "correctAnswer": "동료",
           "explanation": "에이전틱 AI는 명령을 수동적으로 실행하는 '도구'가 아니라, 스스로 생각하고 제안하며 문제를 함께 해결하는 '동료'이자 '사고 파트너(Thought Partner)'입니다. 양방향 대화를 통해 협업하며, 일부 의사결정을 자율적으로 수행합니다.",
-          "difficulty": "advanced"
+          "difficulty": "advanced",
+          "type": "fill_blank"
         }
       ]
     },
@@ -123,17 +128,19 @@
         {
           "id": "agent-skills-ch8-s3-q1",
           "sectionId": "agent-skills-ch8-s3",
-          "questionType": "true_false",
           "question": "Guardrails는 에이전트의 행동 범위를 제한하여 안전성을 확보하는 기술이다.",
-          "options": ["참", "거짓"],
+          "options": [
+            "참",
+            "거짓"
+          ],
           "correctAnswer": "참",
           "explanation": "Guardrails(가드레일)는 에이전트가 허용된 범위 내에서만 행동하도록 제약을 두는 안전 메커니즘입니다. 허용 목록, 금지 목록, 승인 워크플로우, 실시간 모니터링 등을 통해 에이전트의 잘못된 행동이나 악용을 방지합니다.",
-          "difficulty": "advanced"
+          "difficulty": "advanced",
+          "type": "true_false"
         },
         {
           "id": "agent-skills-ch8-s3-q2",
           "sectionId": "agent-skills-ch8-s3",
-          "questionType": "multiple_choice",
           "question": "에이전트 스킬의 윤리적 설계에서 가장 중요한 원칙은?",
           "options": [
             "최대한 많은 데이터 수집",
@@ -143,12 +150,12 @@
           ],
           "correctAnswer": "편향 방지와 투명성 확보",
           "explanation": "윤리적 AI 에이전트 스킬 설계의 핵심은 편향을 방지하고 투명성을 확보하는 것입니다. 공정한 데이터 사용, 설명 가능한 결정, 프라이버시 보호 등을 통해 모든 사용자에게 공평하고 신뢰할 수 있는 AI를 제공해야 합니다.",
-          "difficulty": "advanced"
+          "difficulty": "advanced",
+          "type": "multiple_choice"
         },
         {
           "id": "agent-skills-ch8-s3-q3",
           "sectionId": "agent-skills-ch8-s3",
-          "questionType": "multiple_choice",
           "question": "AI 에이전트 생태계의 궁극적인 비전은?",
           "options": [
             "AI가 인간을 대체하는 것",
@@ -158,7 +165,8 @@
           ],
           "correctAnswer": "인간과 AI가 집단지성을 통해 함께 성장하는 것",
           "explanation": "AI 에이전트 생태계의 궁극적 비전은 인간과 AI의 시너지입니다. AI가 인간의 능력을 증폭시키고, 전 세계 사람들이 지식을 공유하며, 집단지성을 통해 함께 성장하는 것입니다. 이는 AI를 민주화하고 모두를 위한 번영을 만드는 길입니다.",
-          "difficulty": "advanced"
+          "difficulty": "advanced",
+          "type": "multiple_choice"
         }
       ]
     }

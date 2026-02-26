@@ -85,6 +85,13 @@ export default function QuizContainer({ quizzes, sectionId, onComplete }: QuizCo
     setShowResults(false)
   }
 
+  const handleRetry = () => {
+    setCurrentIndex(0)
+    setAnswers(new Map())
+    setSubmitted(new Set())
+    setShowResults(false)
+  }
+
   const handleKeyDown = (e: React.KeyboardEvent, d: typeof difficulty) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
@@ -111,7 +118,7 @@ export default function QuizContainer({ quizzes, sectionId, onComplete }: QuizCo
 
   if (showResults) {
     const correctCount = filteredQuizzes.reduce((count, quiz, idx) => count + (isAnswerCorrect(answers.get(idx), quiz.correctAnswer) ? 1 : 0), 0)
-    return <QuizResult correct={correctCount} total={filteredQuizzes.length} sectionId={sectionId} />
+    return <QuizResult correct={correctCount} total={filteredQuizzes.length} sectionId={sectionId} onRetry={handleRetry} />
   }
 
   // If max attempts reached, show disabled state

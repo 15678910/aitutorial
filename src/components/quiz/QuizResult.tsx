@@ -5,9 +5,10 @@ interface QuizResultProps {
   correct: number
   total: number
   sectionId: string
+  onRetry?: () => void
 }
 
-export default function QuizResult({ correct, total, sectionId }: QuizResultProps) {
+export default function QuizResult({ correct, total, sectionId, onRetry }: QuizResultProps) {
   const percentage = Math.round((correct / total) * 100)
   const isPassed = percentage >= 60
 
@@ -16,7 +17,9 @@ export default function QuizResult({ correct, total, sectionId }: QuizResultProp
   const remainingAttempts = Math.max(0, 3 - attemptCount)
 
   const handleRetry = () => {
-    window.location.reload()
+    if (onRetry) {
+      onRetry()
+    }
   }
 
   return (

@@ -19,7 +19,7 @@
             "최신 프레임워크로 전면 재작성",
             "테스트 코드 먼저 작성"
           ],
-          "correctAnswer": 1,
+          "correctAnswer": "전체 구조와 의존성 파악",
           "explanation": "레거시 코드베이스를 다룰 때 가장 먼저 해야 할 일은 전체 구조와 의존성을 파악하는 것입니다. '지도 없이 길을 떠나면 안 된다'는 원칙처럼, 현재 상태를 정확히 이해해야 올바른 리팩토링 전략을 세울 수 있습니다."
         },
         {
@@ -33,7 +33,7 @@
             "보안 부채 (오래된 패키지, 취약점)",
             "성능 부채 (N+1 쿼리, 메모리 누수)"
           ],
-          "correctAnswer": 2,
+          "correctAnswer": "보안 부채 (오래된 패키지, 취약점)",
           "explanation": "보안 부채는 실제 공격으로 이어질 수 있으므로 가장 긴급하게 처리해야 합니다. 오래된 패키지의 알려진 취약점은 즉시 악용될 수 있으며, 데이터 유출이나 서비스 장애로 이어질 수 있습니다."
         },
         {
@@ -41,7 +41,7 @@
           "type": "true_false",
           "difficulty": "advanced",
           "question": "리스크 매트릭스에서 변경 빈도가 낮고 결합도도 낮은 모듈은 리팩토링 4순위(나중에 처리)로 분류하는 것이 적절하다.",
-          "correctAnswer": true,
+          "correctAnswer": "true",
           "explanation": "변경 빈도가 낮고 결합도도 낮은 모듈은 실제 리스크가 가장 낮습니다. 이런 모듈에 시간을 투자하는 것보다 자주 변경되고 결합도가 높은 모듈(1순위)에 집중하는 것이 비용 대비 효과가 훨씬 큽니다."
         }
       ]
@@ -63,7 +63,7 @@
             "레거시 코드를 그대로 두고 새 기능만 추가",
             "전체 시스템을 한 번에 재작성"
           ],
-          "correctAnswer": 1,
+          "correctAnswer": "레거시와 새 시스템을 공존시키며 점진적으로 이전",
           "explanation": "Strangler Fig 패턴은 교살자 무화과가 기존 나무를 감싸며 자라듯, 레거시와 새 시스템을 공존시키면서 점진적으로 기능을 이전합니다. 서비스 중단 없이 안전하게 현대화할 수 있는 전략입니다."
         },
         {
@@ -77,7 +77,7 @@
             "noImplicitAny: true",
             "strictNullChecks: true"
           ],
-          "correctAnswer": 1,
+          "correctAnswer": "allowJs: true",
           "explanation": "Phase 1에서는 allowJs: true를 설정하여 기존 JavaScript 파일과 새로운 TypeScript 파일이 공존할 수 있도록 합니다. strict 관련 옵션은 Phase 4에서 점진적으로 활성화합니다."
         },
         {
@@ -85,7 +85,7 @@
           "type": "true_false",
           "difficulty": "advanced",
           "question": "jQuery에서 React로의 마이그레이션에서, 기존 jQuery 페이지 안에 React 컴포넌트를 삽입(Bottom-up 방식)하는 것이 전체 페이지를 한 번에 전환하는 것보다 안전하다.",
-          "correctAnswer": true,
+          "correctAnswer": "true",
           "explanation": "Bottom-up 방식은 하위 컴포넌트부터 점진적으로 React로 전환하므로, 각 단계에서 변경 범위가 작아 리스크가 낮습니다. createRoot를 사용하여 jQuery DOM 안에 React 컴포넌트를 마운트할 수 있으며, 한 번에 전체 페이지를 전환하면 예상치 못한 부작용이 발생할 가능성이 높습니다."
         }
       ]
@@ -107,7 +107,7 @@
             "기존 코드의 현재 동작을 그대로 캡처한다",
             "성능 벤치마크를 측정한다"
           ],
-          "correctAnswer": 2,
+          "correctAnswer": "기존 코드의 현재 동작을 그대로 캡처한다",
           "explanation": "Characterization Test는 기존 코드의 현재 동작을 그대로 캡처합니다. 버그가 있더라도 그 동작을 기록하여, 리팩토링 후에도 동일한 동작을 보장합니다. 이것이 안전한 리팩토링의 기초입니다."
         },
         {
@@ -121,7 +121,7 @@
             "50% → 100% → 롤백 → 100%",
             "10% → 100% (바로 전환)"
           ],
-          "correctAnswer": 1,
+          "correctAnswer": "1% (내부 테스터) → 10% (베타) → 50% → 100%",
           "explanation": "점진적 롤아웃은 1% 내부 테스터 → 10% 베타 사용자 → 50% → 100%로 단계적으로 확대합니다. 각 단계에서 모니터링하여 문제가 발견되면 확대를 중단하고 수정합니다."
         },
         {
@@ -129,7 +129,7 @@
           "type": "true_false",
           "difficulty": "advanced",
           "question": "A/B 테스트 기반 전환에서, 신규 시스템의 에러율이 레거시보다 낮더라도 응답 시간이 2배 이상 느리면 즉시 롤백해야 한다.",
-          "correctAnswer": false,
+          "correctAnswer": "false",
           "explanation": "롤백 결정 트리에 따르면, 응답 시간이 기존의 2배를 초과하면 '원인 분석 후 판단'입니다. 즉시 롤백이 아니라, 원인을 파악하여 최적화 가능 여부를 먼저 확인합니다. 즉시 롤백은 에러율 > 1% 또는 결제 실패율 상승 시 적용됩니다."
         }
       ]
