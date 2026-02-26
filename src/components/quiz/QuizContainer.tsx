@@ -7,6 +7,18 @@ import Button from '../ui/Button'
 import { useProgressStore } from '../../store/progressStore'
 import type { Quiz } from '../../types'
 
+// Normalize true/false answers: English "true"/"false" ↔ Korean "참"/"거짓"
+function normalizeAnswer(answer: string | undefined): string {
+  if (!answer) return ''
+  const map: Record<string, string> = { 'true': '참', 'false': '거짓' }
+  return map[answer.toLowerCase()] || answer
+}
+
+function isAnswerCorrect(userAnswer: string | undefined, correctAnswer: string): boolean {
+  if (!userAnswer) return false
+  return normalizeAnswer(userAnswer) === normalizeAnswer(correctAnswer)
+}
+
 interface QuizContainerProps {
   quizzes: Quiz[]
   sectionId: string
@@ -56,7 +68,7 @@ export default function QuizContainer({ quizzes, sectionId, onComplete }: QuizCo
 
   const handleNext = () => {
     if (isLastQuiz) {
-      const correctCount = filteredQuizzes.reduce((count, quiz, idx) => count + (answers.get(idx) === quiz.correctAnswer ? 1 : 0), 0)
+      const correctCount = filteredQuizzes.reduce((count, quiz, idx) => count + (isAnswerCorrect(answers.get(idx), quiz.correctAnswer) ? 1 : 0), 0)
       const score = Math.round((correctCount / filteredQuizzes.length) * 100)
       setShowResults(true)
       onComplete(score)
@@ -98,7 +110,7 @@ export default function QuizContainer({ quizzes, sectionId, onComplete }: QuizCo
   }
 
   if (showResults) {
-    const correctCount = filteredQuizzes.reduce((count, quiz, idx) => count + (answers.get(idx) === quiz.correctAnswer ? 1 : 0), 0)
+    const correctCount = filteredQuizzes.reduce((count, quiz, idx) => count + (isAnswerCorrect(answers.get(idx), quiz.correctAnswer) ? 1 : 0), 0)
     return <QuizResult correct={correctCount} total={filteredQuizzes.length} sectionId={sectionId} />
   }
 
@@ -123,7 +135,7 @@ export default function QuizContainer({ quizzes, sectionId, onComplete }: QuizCo
 
   const isSubmitted = submitted.has(currentIndex)
   const selectedAnswer = answers.get(currentIndex)
-  const isCorrect = selectedAnswer === currentQuiz.correctAnswer
+  const isCorrect = isAnswerCorrect(selectedAnswer, currentQuiz.correctAnswer)
   const diffLabel = currentQuiz.difficulty ? difficultyConfig[currentQuiz.difficulty] : null
 
   const renderQuiz = () => {
