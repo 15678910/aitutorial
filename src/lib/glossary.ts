@@ -542,6 +542,161 @@ export const glossary: GlossaryEntry[] = [
     aliases: ['Bootstrap'],
     definition: '데이터를 무작위로 복원 추출하여 여러 샘플을 생성하는 통계적 기법입니다.',
     category: 'data'
+  },
+
+  // 뉴런 및 딥러닝 기초
+  {
+    term: '뉴런',
+    aliases: ['Neuron', '노드'],
+    definition: '신경망의 기본 단위로, 입력값에 가중치를 곱하고 합산한 뒤 활성화 함수를 적용하여 출력을 생성합니다. 뇌의 신경세포를 모방한 것입니다.',
+    category: 'ml'
+  },
+  {
+    term: '가중치',
+    aliases: ['Weight', 'w'],
+    definition: '입력값의 중요도를 나타내는 값으로, 학습 과정에서 자동으로 조정됩니다. 가중치가 클수록 해당 입력이 결과에 더 큰 영향을 미칩니다.',
+    category: 'ml'
+  },
+  {
+    term: '임계값',
+    aliases: ['Threshold', '역치'],
+    definition: '뉴런이 활성화(발화)되기 위해 넘어야 하는 최소값입니다. 입력의 가중합이 이 값 이상이면 뉴런이 신호를 전달합니다.',
+    category: 'ml'
+  },
+  {
+    term: '발화',
+    aliases: ['Firing', '활성화'],
+    definition: '뉴런의 가중합이 임계값을 초과하여 신호를 다음 뉴런으로 전달하는 것을 말합니다. 뇌의 신경세포가 전기 신호를 보내는 것과 비슷합니다.',
+    category: 'ml'
+  },
+  {
+    term: '입력층',
+    aliases: ['Input Layer'],
+    definition: '신경망에서 외부 데이터를 받아들이는 첫 번째 층입니다. 각 뉴런은 하나의 입력 특성을 나타냅니다.',
+    category: 'ml'
+  },
+  {
+    term: '은닉층',
+    aliases: ['Hidden Layer'],
+    definition: '입력층과 출력층 사이에 있는 층으로, 데이터의 복잡한 패턴을 학습합니다. 층이 많을수록 "깊은" 신경망이 됩니다.',
+    category: 'ml'
+  },
+  {
+    term: '출력층',
+    aliases: ['Output Layer'],
+    definition: '신경망의 마지막 층으로, 최종 예측 결과를 출력합니다. 분류 문제에서는 각 클래스의 확률을 나타냅니다.',
+    category: 'ml'
+  },
+  {
+    term: '퍼셉트론',
+    aliases: ['Perceptron'],
+    definition: '가장 단순한 형태의 인공 신경망으로, 하나의 뉴런으로 이루어진 선형 분류 모델입니다.',
+    category: 'ml'
+  },
+
+  // 탐색 및 문제 해결
+  {
+    term: 'BFS',
+    aliases: ['너비 우선 탐색', 'Breadth-First Search'],
+    definition: '가까운 노드부터 차례대로 탐색하는 알고리즘입니다. 최단 경로를 찾을 수 있지만 메모리를 많이 사용합니다.',
+    category: 'ai'
+  },
+  {
+    term: 'DFS',
+    aliases: ['깊이 우선 탐색', 'Depth-First Search'],
+    definition: '한 방향으로 끝까지 탐색한 후 되돌아오는 알고리즘입니다. 메모리는 적게 쓰지만 최단 경로를 보장하지 않습니다.',
+    category: 'ai'
+  },
+  {
+    term: '휴리스틱',
+    aliases: ['Heuristic'],
+    definition: '최적의 해를 보장하진 않지만, 합리적인 시간 내에 좋은 해를 찾기 위한 경험적 방법이나 규칙입니다.',
+    category: 'ai'
+  },
+  {
+    term: 'A* 알고리즘',
+    aliases: ['A-star', 'A star'],
+    definition: '최단 경로 탐색 알고리즘으로, 현재까지의 비용과 목표까지의 예상 비용을 합산하여 최적 경로를 찾습니다.',
+    category: 'ai'
+  },
+
+  // AI 윤리 및 철학
+  {
+    term: '중국어 방',
+    aliases: ['Chinese Room'],
+    definition: '존 설(John Searle)의 사고 실험으로, 규칙에 따라 중국어를 처리하는 사람이 실제로 중국어를 이해하는 것은 아니라는 논증입니다. AI가 진정한 이해를 하는지에 대한 철학적 질문을 제기합니다.',
+    category: 'ai'
+  },
+  {
+    term: '특이점',
+    aliases: ['Singularity', '기술적 특이점'],
+    definition: 'AI가 인간의 지능을 초월하여 스스로 더 뛰어난 AI를 만들어내는 시점을 말합니다.',
+    category: 'ai'
+  },
+  {
+    term: 'AI 편향',
+    aliases: ['AI Bias', '알고리즘 편향'],
+    definition: 'AI 시스템이 학습 데이터나 설계의 편향으로 인해 특정 집단에 불공정한 결과를 내는 현상입니다.',
+    category: 'ai'
+  },
+  {
+    term: '설명 가능한 AI',
+    aliases: ['XAI', 'Explainable AI'],
+    definition: 'AI의 의사결정 과정을 인간이 이해할 수 있도록 투명하게 설명하는 기술이나 접근법입니다.',
+    category: 'ai'
+  },
+
+  // 에이전트 관련
+  {
+    term: 'AI 에이전트',
+    aliases: ['Agent', '에이전트'],
+    definition: '환경을 감지하고, 스스로 판단하여 목표를 달성하기 위해 행동하는 자율적인 AI 시스템입니다.',
+    category: 'ai'
+  },
+  {
+    term: 'MCP',
+    aliases: ['Model Context Protocol'],
+    definition: 'AI 에이전트가 외부 도구와 데이터에 접근할 수 있도록 하는 표준 프로토콜입니다.',
+    category: 'dev'
+  },
+  {
+    term: '오케스트레이션',
+    aliases: ['Orchestration'],
+    definition: '여러 에이전트나 서비스를 조율하여 복잡한 작업을 수행하는 것을 말합니다.',
+    category: 'dev'
+  },
+
+  // 데이터 및 통계
+  {
+    term: '훈련 데이터',
+    aliases: ['Training Data', '학습 데이터'],
+    definition: '모델을 학습시키기 위해 사용하는 데이터로, 입력과 정답 쌍으로 구성됩니다.',
+    category: 'data'
+  },
+  {
+    term: '테스트 데이터',
+    aliases: ['Test Data'],
+    definition: '학습이 완료된 모델의 성능을 최종 평가하기 위해 사용하는 데이터입니다.',
+    category: 'data'
+  },
+  {
+    term: '검증 데이터',
+    aliases: ['Validation Data'],
+    definition: '학습 도중 모델의 성능을 평가하고 하이퍼파라미터를 조정하기 위해 사용하는 데이터입니다.',
+    category: 'data'
+  },
+
+  // 클라우드 코드 관련
+  {
+    term: 'Claude Code',
+    aliases: ['클라우드 코드'],
+    definition: 'Anthropic의 AI 코딩 어시스턴트로, 터미널에서 코드 작성, 디버깅, 리팩토링 등을 도와줍니다.',
+    category: 'dev'
+  },
+  {
+    term: 'CLAUDE.md',
+    definition: 'Claude Code의 프로젝트 설정 파일로, AI에게 프로젝트의 규칙과 맥락을 알려주는 문서입니다.',
+    category: 'dev'
   }
 ]
 
