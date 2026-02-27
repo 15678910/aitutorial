@@ -6,6 +6,19 @@ interface GlossaryHighlighterProps {
   children: ReactNode
 }
 
+// Korean particles (조사) that commonly follow nouns
+const KOREAN_PARTICLES = /^(은|는|이|가|을|를|의|에|에서|에게|로|으로|와|과|도|만|까지|부터|처럼|같이|보다|라고|라는|이라|이란|이에요|예요|이야|였|이었|이며|이고|이나|이든|이랑|이면|에는|에도|에서의|으로의|만의|까지의|에선|으론|이요)/
+
+function isKoreanBoundaryAfter(textAfterTerm: string): boolean {
+  // End of string is always a valid boundary
+  if (!textAfterTerm) return true
+  // Standard punctuation/whitespace boundary
+  if (/[\s\n\r.,;:!?()[\]{}'"<>·\-/|:"]/.test(textAfterTerm[0])) return true
+  // Korean particle following the term
+  if (KOREAN_PARTICLES.test(textAfterTerm)) return true
+  return false
+}
+
 export default function GlossaryHighlighter({ children }: GlossaryHighlighterProps) {
   // Track which terms have been highlighted to avoid duplicates
   const highlightedTerms = new Set<string>()
@@ -54,13 +67,10 @@ export default function GlossaryHighlighter({ children }: GlossaryHighlighterPro
 
             // Check if this is a whole word match (not part of a larger word)
             const charBefore = searchIndex > 0 ? remainingText[searchIndex - 1] : ' '
-            const charAfter =
-              searchIndex + termToCheck.length < remainingText.length
-                ? remainingText[searchIndex + termToCheck.length]
-                : ' '
+            const textAfterTerm = remainingText.slice(searchIndex + termToCheck.length)
 
-            const isWordBoundaryBefore = /[\s\n\r.,;:!?()[\]{}'"<>]/.test(charBefore)
-            const isWordBoundaryAfter = /[\s\n\r.,;:!?()[\]{}'"<>]/.test(charAfter)
+            const isWordBoundaryBefore = /[\s\n\r.,;:!?()[\]{}'"<>·\-/|:"]/.test(charBefore)
+            const isWordBoundaryAfter = isKoreanBoundaryAfter(textAfterTerm)
 
             if (isWordBoundaryBefore && isWordBoundaryAfter) {
               // Add the text before the match
