@@ -1,8 +1,60 @@
+import { useState, type ReactNode } from 'react'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import InlineQuiz from '../quiz/InlineQuiz'
 import GlossaryHighlighter from '../glossary/GlossaryHighlighter'
 import type { Quiz } from '../../types'
+
+function CodeBlockWithCopy({ code, children }: { code: string; children: ReactNode }) {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code.trim())
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // fallback
+      const textarea = document.createElement('textarea')
+      textarea.value = code.trim()
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textarea)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
+  return (
+    <div className="group relative my-10">
+      <button
+        onClick={handleCopy}
+        className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 opacity-0 group-hover:opacity-100 focus:opacity-100 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white border border-gray-600"
+        aria-label="코드 복사"
+      >
+        {copied ? (
+          <>
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            복사됨!
+          </>
+        ) : (
+          <>
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            복사
+          </>
+        )}
+      </button>
+      <pre className="bg-[#1e1e2e] rounded-2xl p-7 overflow-x-auto text-[0.95rem] leading-relaxed text-[#cdd6f4] shadow-xl border border-gray-700/50 [&_code]:!text-[#cdd6f4] [&_code]:!bg-transparent [&_code]:!p-0 [&_code]:!rounded-none">
+        {children}
+      </pre>
+    </div>
+  )
+}
 
 interface SectionContentProps {
   content: string
@@ -94,11 +146,16 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
               </code>
             )
           },
-          pre: ({ children }) => (
-            <pre className="my-10 bg-[#1e1e2e] rounded-2xl p-7 overflow-x-auto text-[0.95rem] leading-relaxed text-[#cdd6f4] shadow-xl border border-gray-700/50 [&_code]:!text-[#cdd6f4] [&_code]:!bg-transparent [&_code]:!p-0 [&_code]:!rounded-none">
-              {children}
-            </pre>
-          ),
+          pre: ({ children }) => {
+            const extractText = (node: any): string => {
+              if (typeof node === 'string') return node
+              if (Array.isArray(node)) return node.map(extractText).join('')
+              if (node?.props?.children) return extractText(node.props.children)
+              return ''
+            }
+            const codeText = extractText(children)
+            return <CodeBlockWithCopy code={codeText}>{children}</CodeBlockWithCopy>
+          },
           table: ({ children }) => (
             <div className="my-10 overflow-x-auto rounded-2xl border border-gray-200 shadow-sm">
               <table className="w-full text-[1rem]">{children}</table>
