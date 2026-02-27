@@ -1,702 +1,510 @@
 export interface GlossaryEntry {
   term: string
-  aliases?: string[]  // alternative terms that should also match
+  aliases?: string[]
   definition: string
-  category: 'ai' | 'ml' | 'dev' | 'data' | 'web'
+  category: 'computer' | 'coding' | 'web' | 'tool' | 'team'
 }
 
 export const glossary: GlossaryEntry[] = [
-  // AI 기초
+  // 컴퓨터 기초 (computer)
   {
-    term: 'AI',
-    aliases: ['인공지능', 'Artificial Intelligence'],
-    definition: '인간의 학습능력, 추론능력, 지각능력을 인공적으로 구현한 컴퓨터 시스템입니다.',
-    category: 'ai'
+    term: '컴퓨터',
+    aliases: ['Computer'],
+    definition: '계산을 빠르게 하고, 게임도 하고, 인터넷도 할 수 있는 전자기기예요. 스마트폰도 작은 컴퓨터랍니다!',
+    category: 'computer'
   },
   {
-    term: '머신러닝',
-    aliases: ['Machine Learning', 'ML'],
-    definition: '데이터를 기반으로 패턴을 학습하여 예측이나 결정을 수행하는 인공지능의 한 분야입니다.',
-    category: 'ml'
+    term: '소프트웨어',
+    aliases: ['Software', 'SW'],
+    definition: '컴퓨터에서 돌아가는 프로그램이에요. 카카오톡, 유튜브, 게임 앱 모두 소프트웨어예요. 눈에 보이지 않는 부분이에요.',
+    category: 'computer'
   },
   {
-    term: '딥러닝',
-    aliases: ['Deep Learning', 'DL'],
-    definition: '다층 신경망을 사용하여 데이터의 복잡한 패턴을 학습하는 머신러닝 기법입니다.',
-    category: 'ml'
+    term: '하드웨어',
+    aliases: ['Hardware', 'HW'],
+    definition: '컴퓨터에서 손으로 만질 수 있는 부분이에요. 키보드, 마우스, 모니터, 본체 등이 하드웨어예요.',
+    category: 'computer'
   },
   {
-    term: '신경망',
-    aliases: ['Neural Network', 'NN', '뉴럴 네트워크'],
-    definition: '인간의 뇌 구조를 모방한 알고리즘으로, 입력층-은닉층-출력층으로 구성된 학습 모델입니다.',
-    category: 'ml'
+    term: '운영체제',
+    aliases: ['OS', 'Operating System'],
+    definition: '컴퓨터를 켜면 가장 먼저 실행되는 프로그램이에요. 윈도우, 맥OS, 안드로이드, iOS 같은 것들이에요.',
+    category: 'computer'
   },
   {
-    term: '자연어 처리',
-    aliases: ['NLP', 'Natural Language Processing'],
-    definition: '컴퓨터가 인간의 언어를 이해하고 처리할 수 있도록 하는 인공지능 기술입니다.',
-    category: 'ai'
+    term: '프로그램',
+    aliases: ['Program', '앱', '어플', '응용 프로그램'],
+    definition: '컴퓨터에게 특정 일을 시키는 명령어 모음이에요. 카카오톡으로 메시지를 보내는 것도 프로그램 덕분이에요.',
+    category: 'computer'
   },
   {
-    term: '컴퓨터 비전',
-    aliases: ['Computer Vision', 'CV'],
-    definition: '컴퓨터가 디지털 이미지나 비디오를 이해하고 분석할 수 있게 하는 인공지능 분야입니다.',
-    category: 'ai'
+    term: '파일',
+    aliases: ['File'],
+    definition: '컴퓨터에 저장된 정보 묶음이에요. 사진, 문서, 음악 파일처럼 이름과 확장자(.jpg, .pdf 등)가 있어요.',
+    category: 'computer'
   },
   {
-    term: '강한 AI',
-    aliases: ['Strong AI', 'AGI', '범용 인공지능'],
-    definition: '인간처럼 다양한 분야에서 사고하고 학습할 수 있는 범용 인공지능입니다.',
-    category: 'ai'
+    term: '폴더',
+    aliases: ['Folder', '디렉토리', 'Directory'],
+    definition: '파일들을 정리해서 넣어두는 상자 같은 거예요. 폴더 안에 또 폴더를 만들 수도 있어요.',
+    category: 'computer'
   },
   {
-    term: '약한 AI',
-    aliases: ['Weak AI', 'Narrow AI', '특화 인공지능'],
-    definition: '특정 작업이나 영역에서만 작동하도록 설계된 인공지능입니다.',
-    category: 'ai'
+    term: '데이터',
+    aliases: ['Data'],
+    definition: '컴퓨터가 다루는 모든 정보를 말해요. 글자, 숫자, 사진, 영상 모두 데이터예요.',
+    category: 'computer'
   },
   {
-    term: '튜링 테스트',
-    aliases: ['Turing Test'],
-    definition: '기계가 인간과 구별할 수 없는 수준의 지능적 행동을 보이는지 평가하는 테스트입니다.',
-    category: 'ai'
+    term: '데이터베이스',
+    aliases: ['Database', 'DB'],
+    definition: '데이터를 체계적으로 정리해서 저장하는 곳이에요. 학교 도서관의 도서 목록처럼 잘 정리된 거대한 서랍장이라고 생각하면 돼요.',
+    category: 'computer'
   },
   {
-    term: '생성형 AI',
-    aliases: ['Generative AI', '생성 AI'],
-    definition: '텍스트, 이미지, 음성 등 새로운 콘텐츠를 생성할 수 있는 인공지능 모델입니다.',
-    category: 'ai'
+    term: '알고리즘',
+    aliases: ['Algorithm'],
+    definition: '문제를 풀기 위한 단계별 방법이에요. 라면 끓이는 레시피처럼, 순서대로 따라하면 결과가 나와요.',
+    category: 'computer'
   },
   {
-    term: 'LLM',
-    aliases: ['Large Language Model', '대규모 언어 모델'],
-    definition: '방대한 텍스트 데이터로 학습된 대형 언어 처리 모델로, 텍스트 이해와 생성이 가능합니다.',
-    category: 'ai'
+    term: '인터페이스',
+    aliases: ['Interface', 'UI'],
+    definition: '사람과 컴퓨터가 소통하는 화면이에요. 버튼을 누르고, 글자를 입력하는 그 화면이 바로 인터페이스예요.',
+    category: 'computer'
   },
   {
-    term: 'GPT',
-    aliases: ['Generative Pre-trained Transformer'],
-    definition: 'Transformer 구조를 기반으로 사전 학습된 생성형 언어 모델입니다.',
-    category: 'ai'
-  },
-  {
-    term: 'Transformer',
-    aliases: ['트랜스포머'],
-    definition: 'Attention 메커니즘을 사용하여 시퀀스 데이터를 처리하는 딥러닝 모델 아키텍처입니다.',
-    category: 'ml'
-  },
-  {
-    term: '프롬프트',
-    aliases: ['Prompt'],
-    definition: 'AI 모델에게 원하는 작업을 수행하도록 지시하는 입력 텍스트입니다.',
-    category: 'ai'
-  },
-  {
-    term: '프롬프트 엔지니어링',
-    aliases: ['Prompt Engineering'],
-    definition: 'AI 모델로부터 원하는 결과를 얻기 위해 효과적인 프롬프트를 설계하는 기법입니다.',
-    category: 'ai'
-  },
-  {
-    term: '토큰',
-    aliases: ['Token'],
-    definition: '텍스트를 작은 단위로 나눈 것으로, AI 모델이 처리하는 기본 단위입니다.',
-    category: 'ai'
-  },
-  {
-    term: '파인튜닝',
-    aliases: ['Fine-tuning', '미세조정'],
-    definition: '사전 학습된 모델을 특정 작업에 맞게 추가로 학습시키는 과정입니다.',
-    category: 'ml'
-  },
-  {
-    term: '전이학습',
-    aliases: ['Transfer Learning'],
-    definition: '한 작업에서 학습한 지식을 다른 관련 작업에 적용하는 머신러닝 기법입니다.',
-    category: 'ml'
-  },
-  {
-    term: '디퓨전 모델',
-    aliases: ['Diffusion Model'],
-    definition: '노이즈를 점진적으로 제거하면서 이미지를 생성하는 생성형 AI 모델입니다.',
-    category: 'ai'
+    term: '클라우드',
+    aliases: ['Cloud', '클라우드 컴퓨팅'],
+    definition: '인터넷에 있는 거대한 컴퓨터에 파일을 저장하는 거예요. 구글 드라이브나 아이클라우드처럼 어디서든 내 파일을 볼 수 있어요.',
+    category: 'computer'
   },
 
-  // 머신러닝 기법
+  // 코딩/프로그래밍 (coding)
   {
-    term: '지도학습',
-    aliases: ['Supervised Learning'],
-    definition: '레이블이 있는 데이터로 학습하여 입력과 출력의 관계를 학습하는 방법입니다.',
-    category: 'ml'
+    term: '코딩',
+    aliases: ['Coding', '프로그래밍', 'Programming'],
+    definition: '컴퓨터에게 일을 시키기 위해 컴퓨터가 알아듣는 말(코드)로 명령을 쓰는 거예요.',
+    category: 'coding'
   },
   {
-    term: '비지도학습',
-    aliases: ['Unsupervised Learning'],
-    definition: '레이블이 없는 데이터에서 패턴이나 구조를 스스로 찾아내는 학습 방법입니다.',
-    category: 'ml'
+    term: '코드',
+    aliases: ['Code', '소스코드', 'Source Code'],
+    definition: '컴퓨터에게 내리는 명령어를 글로 적은 거예요. 마치 외국어처럼 컴퓨터만 알아듣는 특별한 언어예요.',
+    category: 'coding'
   },
   {
-    term: '강화학습',
-    aliases: ['Reinforcement Learning', 'RL'],
-    definition: '에이전트가 환경과 상호작용하며 보상을 최대화하는 방향으로 학습하는 방법입니다.',
-    category: 'ml'
+    term: '변수',
+    aliases: ['Variable'],
+    definition: "값을 담아두는 상자예요. '내_이름 = 지은' 처럼, 상자에 이름을 붙이고 안에 값을 넣어둘 수 있어요.",
+    category: 'coding'
   },
   {
-    term: '준지도학습',
-    aliases: ['Semi-supervised Learning'],
-    definition: '소량의 레이블 데이터와 다량의 레이블 없는 데이터를 함께 사용하는 학습 방법입니다.',
-    category: 'ml'
+    term: '함수',
+    aliases: ['Function'],
+    definition: "특정 일을 하는 명령어 묶음이에요. '인사하기()' 라는 함수를 만들면, 부를 때마다 '안녕하세요!'를 출력해줘요.",
+    category: 'coding'
   },
   {
-    term: '선형 회귀',
-    aliases: ['Linear Regression'],
-    definition: '변수 간의 선형 관계를 모델링하여 연속적인 값을 예측하는 알고리즘입니다.',
-    category: 'ml'
+    term: '버그',
+    aliases: ['Bug'],
+    definition: "프로그램에 있는 실수나 오류예요. 원래 뜻은 '벌레'인데, 옛날에 진짜 벌레가 컴퓨터에 들어가서 고장 난 적이 있어서 이렇게 불러요!",
+    category: 'coding'
   },
   {
-    term: '로지스틱 회귀',
-    aliases: ['Logistic Regression'],
-    definition: '입력 데이터를 두 개 이상의 클래스로 분류하는 알고리즘입니다.',
-    category: 'ml'
+    term: '디버깅',
+    aliases: ['Debugging'],
+    definition: '프로그램에서 버그(오류)를 찾아서 고치는 작업이에요. 탐정처럼 문제의 원인을 찾아 해결하는 거예요.',
+    category: 'coding'
   },
   {
-    term: '결정 트리',
-    aliases: ['Decision Tree'],
-    definition: '데이터를 나무 구조로 분할하여 분류나 회귀를 수행하는 알고리즘입니다.',
-    category: 'ml'
+    term: '에러',
+    aliases: ['Error', '오류'],
+    definition: "프로그램이 예상대로 작동하지 않을 때 나타나는 문제예요. 빨간 글씨로 '뭐가 잘못됐어!'라고 알려줘요.",
+    category: 'coding'
   },
   {
-    term: '랜덤 포레스트',
-    aliases: ['Random Forest'],
-    definition: '여러 개의 결정 트리를 조합하여 예측 성능을 높인 앙상블 알고리즘입니다.',
-    category: 'ml'
+    term: '빌드',
+    aliases: ['Build'],
+    definition: '작성한 코드를 컴퓨터가 실행할 수 있는 형태로 변환하는 거예요. 레고 설명서(코드)를 보고 실제 레고(프로그램)를 조립하는 것과 비슷해요.',
+    category: 'coding'
   },
   {
-    term: 'SVM',
-    aliases: ['Support Vector Machine', '서포트 벡터 머신'],
-    definition: '데이터를 최적으로 분리하는 초평면을 찾아 분류하는 알고리즘입니다.',
-    category: 'ml'
+    term: '컴파일',
+    aliases: ['Compile', '컴파일러'],
+    definition: '사람이 쓴 코드를 컴퓨터가 이해할 수 있는 언어로 번역하는 거예요. 통역사 같은 역할이에요.',
+    category: 'coding'
   },
   {
-    term: 'KNN',
-    aliases: ['K-Nearest Neighbors', 'K-최근접 이웃'],
-    definition: '가장 가까운 K개의 데이터 포인트를 기반으로 분류나 회귀를 수행하는 알고리즘입니다.',
-    category: 'ml'
+    term: '런타임',
+    aliases: ['Runtime'],
+    definition: "프로그램이 실제로 실행되고 있는 시간이에요. '런타임 에러'는 프로그램이 돌아가다가 갑자기 생긴 문제예요.",
+    category: 'coding'
   },
   {
-    term: '나이브 베이즈',
-    aliases: ['Naive Bayes'],
-    definition: '베이즈 정리를 기반으로 한 확률적 분류 알고리즘입니다.',
-    category: 'ml'
-  },
-
-  // 딥러닝 개념
-  {
-    term: '경사 하강법',
-    aliases: ['Gradient Descent'],
-    definition: '손실 함수의 최솟값을 찾기 위해 기울기의 반대 방향으로 가중치를 업데이트하는 최적화 알고리즘입니다.',
-    category: 'ml'
+    term: '테스트',
+    aliases: ['Test', '테스팅'],
+    definition: '프로그램이 제대로 작동하는지 확인하는 거예요. 시험을 보는 것처럼 프로그램도 검사를 받아요.',
+    category: 'coding'
   },
   {
-    term: '손실 함수',
-    aliases: ['Loss Function'],
-    definition: '모델의 예측값과 실제값 간의 차이를 측정하는 함수입니다.',
-    category: 'ml'
+    term: '리팩토링',
+    aliases: ['Refactoring'],
+    definition: '프로그램의 동작은 그대로 두고 코드를 더 깔끔하게 정리하는 거예요. 방 청소처럼 겉보기는 같은 방이지만 더 깨끗해지는 거예요.',
+    category: 'coding'
   },
   {
-    term: '비용 함수',
-    aliases: ['Cost Function'],
-    definition: '전체 훈련 데이터에 대한 손실의 평균으로, 모델의 전체적인 성능을 나타냅니다.',
-    category: 'ml'
+    term: '라이브러리',
+    aliases: ['Library'],
+    definition: '다른 사람이 미리 만들어둔 코드 모음이에요. 도서관에서 책을 빌려 쓰는 것처럼, 필요한 기능을 가져다 쓸 수 있어요.',
+    category: 'coding'
   },
   {
-    term: '과적합',
-    aliases: ['Overfitting'],
-    definition: '모델이 훈련 데이터에만 과도하게 맞춰져 새로운 데이터에 대한 성능이 떨어지는 현상입니다.',
-    category: 'ml'
+    term: '프레임워크',
+    aliases: ['Framework'],
+    definition: '프로그램을 만들 때 사용하는 뼈대예요. 집을 지을 때 철골 구조물처럼, 기본 틀을 제공해주어서 더 빠르게 만들 수 있어요.',
+    category: 'coding'
   },
   {
-    term: '과소적합',
-    aliases: ['Underfitting'],
-    definition: '모델이 너무 단순하여 훈련 데이터의 패턴조차 제대로 학습하지 못하는 현상입니다.',
-    category: 'ml'
+    term: '패키지',
+    aliases: ['Package'],
+    definition: '여러 코드 파일을 하나로 묶어둔 꾸러미예요. 택배 상자처럼 필요한 것들이 한꺼번에 들어있어요.',
+    category: 'coding'
   },
   {
-    term: '교차 검증',
-    aliases: ['Cross Validation', 'CV'],
-    definition: '데이터를 여러 부분으로 나누어 모델의 성능을 평가하는 기법입니다.',
-    category: 'ml'
+    term: '모듈',
+    aliases: ['Module'],
+    definition: '큰 프로그램을 작은 조각으로 나눈 것이에요. 레고 블록처럼 각 조각이 특정 역할을 하고, 합치면 전체가 완성돼요.',
+    category: 'coding'
   },
   {
-    term: '정밀도',
-    aliases: ['Precision'],
-    definition: '모델이 양성으로 예측한 것 중 실제로 양성인 비율을 나타내는 평가 지표입니다.',
-    category: 'ml'
-  },
-  {
-    term: '재현율',
-    aliases: ['Recall', 'Sensitivity'],
-    definition: '실제 양성인 것 중 모델이 양성으로 예측한 비율을 나타내는 평가 지표입니다.',
-    category: 'ml'
-  },
-  {
-    term: 'F1 Score',
-    aliases: ['F1 스코어'],
-    definition: '정밀도와 재현율의 조화평균으로, 두 지표의 균형을 나타내는 평가 지표입니다.',
-    category: 'ml'
-  },
-  {
-    term: 'ROC',
-    aliases: ['Receiver Operating Characteristic', 'ROC 곡선'],
-    definition: '분류 모델의 성능을 시각화하는 곡선으로, 참 양성률과 거짓 양성률의 관계를 나타냅니다.',
-    category: 'ml'
-  },
-  {
-    term: 'AUC',
-    aliases: ['Area Under Curve'],
-    definition: 'ROC 곡선 아래의 면적으로, 모델의 전체적인 분류 성능을 나타내는 지표입니다.',
-    category: 'ml'
-  },
-  {
-    term: 'CNN',
-    aliases: ['Convolutional Neural Network', '합성곱 신경망'],
-    definition: '이미지 처리에 특화된 신경망으로, 합성곱 연산을 통해 이미지의 특징을 추출합니다.',
-    category: 'ml'
-  },
-  {
-    term: 'RNN',
-    aliases: ['Recurrent Neural Network', '순환 신경망'],
-    definition: '시퀀스 데이터 처리에 특화된 신경망으로, 이전 정보를 기억하며 학습합니다.',
-    category: 'ml'
-  },
-  {
-    term: 'LSTM',
-    aliases: ['Long Short-Term Memory'],
-    definition: '장기 의존성 문제를 해결한 RNN의 한 종류로, 긴 시퀀스 데이터를 효과적으로 처리합니다.',
-    category: 'ml'
-  },
-  {
-    term: '역전파',
-    aliases: ['Backpropagation'],
-    definition: '신경망의 가중치를 업데이트하기 위해 오차를 역방향으로 전파하는 알고리즘입니다.',
-    category: 'ml'
-  },
-  {
-    term: '활성화 함수',
-    aliases: ['Activation Function'],
-    definition: '신경망의 뉴런이 비선형성을 가지도록 하는 함수로, ReLU, Sigmoid, Tanh 등이 있습니다.',
-    category: 'ml'
-  },
-  {
-    term: '드롭아웃',
-    aliases: ['Dropout'],
-    definition: '과적합을 방지하기 위해 학습 시 일부 뉴런을 무작위로 비활성화하는 기법입니다.',
-    category: 'ml'
-  },
-  {
-    term: '배치 정규화',
-    aliases: ['Batch Normalization'],
-    definition: '각 층의 입력을 정규화하여 학습 속도와 안정성을 향상시키는 기법입니다.',
-    category: 'ml'
-  },
-  {
-    term: '하이퍼파라미터',
-    aliases: ['Hyperparameter'],
-    definition: '모델 학습 전에 사용자가 설정하는 매개변수로, 학습률, 배치 크기 등이 있습니다.',
-    category: 'ml'
-  },
-  {
-    term: '에폭',
-    aliases: ['Epoch'],
-    definition: '전체 훈련 데이터셋을 한 번 완전히 학습한 것을 의미하는 단위입니다.',
-    category: 'ml'
-  },
-  {
-    term: '배치 사이즈',
-    aliases: ['Batch Size'],
-    definition: '한 번의 학습 과정에서 사용되는 훈련 데이터의 개수입니다.',
-    category: 'ml'
-  },
-  {
-    term: '학습률',
-    aliases: ['Learning Rate'],
-    definition: '경사 하강법에서 가중치를 업데이트할 때 적용되는 크기를 결정하는 값입니다.',
-    category: 'ml'
-  },
-
-  // 개발 용어
-  {
-    term: 'Conventional Commits',
-    aliases: ['컨벤셔널 커밋'],
-    definition: '일관성 있는 커밋 메시지 형식을 위한 규칙으로, feat, fix, docs 등의 타입을 사용합니다.',
-    category: 'dev'
-  },
-  {
-    term: 'Pull Request',
-    aliases: ['PR', '풀 리퀘스트'],
-    definition: '코드 변경 사항을 리뷰하고 병합하기 위해 요청하는 Git 워크플로우의 핵심 기능입니다.',
-    category: 'dev'
-  },
-  {
-    term: 'Git',
-    aliases: ['깃'],
-    definition: '분산 버전 관리 시스템으로, 코드의 변경 이력을 추적하고 협업을 지원합니다.',
-    category: 'dev'
-  },
-  {
-    term: 'GitHub',
-    aliases: ['깃허브'],
-    definition: 'Git 저장소를 호스팅하고 협업 기능을 제공하는 웹 기반 플랫폼입니다.',
-    category: 'dev'
-  },
-  {
-    term: 'Branch',
-    aliases: ['브랜치'],
-    definition: '독립적인 작업 흐름을 위해 코드를 분기시킨 것으로, 동시에 여러 작업을 진행할 수 있게 합니다.',
-    category: 'dev'
-  },
-  {
-    term: 'Merge',
-    aliases: ['머지', '병합'],
-    definition: '서로 다른 브랜치의 변경 사항을 하나로 합치는 작업입니다.',
-    category: 'dev'
-  },
-  {
-    term: 'Commit',
-    aliases: ['커밋'],
-    definition: '코드 변경 사항을 저장소에 기록하는 행위로, 스냅샷을 생성합니다.',
-    category: 'dev'
-  },
-  {
-    term: 'API',
-    aliases: ['Application Programming Interface'],
-    definition: '소프트웨어 간 상호작용을 위한 인터페이스로, 데이터와 기능을 제공합니다.',
-    category: 'dev'
-  },
-  {
-    term: 'REST API',
-    aliases: ['RESTful API'],
-    definition: 'HTTP 프로토콜을 사용하여 자원을 관리하는 웹 API 아키텍처 스타일입니다.',
-    category: 'web'
-  },
-  {
-    term: 'JSON',
-    aliases: ['JavaScript Object Notation'],
-    definition: '데이터 교환을 위한 경량 텍스트 형식으로, 키-값 쌍으로 구조화됩니다.',
-    category: 'web'
-  },
-  {
-    term: 'TypeScript',
-    aliases: ['TS', '타입스크립트'],
-    definition: 'JavaScript에 정적 타입을 추가한 프로그래밍 언어로, 더 안전한 코드 작성이 가능합니다.',
-    category: 'dev'
-  },
-  {
-    term: 'React',
-    aliases: ['리액트'],
-    definition: '사용자 인터페이스를 구축하기 위한 JavaScript 라이브러리로, 컴포넌트 기반 개발을 지원합니다.',
-    category: 'web'
-  },
-  {
-    term: 'Vite',
-    aliases: ['비트'],
-    definition: '빠른 개발 서버와 빌드 도구를 제공하는 차세대 프론트엔드 빌드 툴입니다.',
-    category: 'web'
-  },
-  {
-    term: 'Supabase',
-    aliases: ['수파베이스'],
-    definition: 'PostgreSQL 기반의 오픈소스 Firebase 대안으로, 백엔드 서비스를 제공합니다.',
-    category: 'web'
-  },
-  {
-    term: 'PostgreSQL',
-    aliases: ['Postgres', '포스트그레SQL'],
-    definition: '강력한 오픈소스 관계형 데이터베이스 관리 시스템입니다.',
-    category: 'data'
-  },
-  {
-    term: 'RLS',
-    aliases: ['Row Level Security', '행 수준 보안'],
-    definition: '데이터베이스에서 각 행에 대한 접근 권한을 세밀하게 제어하는 보안 기능입니다.',
-    category: 'data'
-  },
-  {
-    term: 'OAuth',
-    aliases: ['오어스'],
-    definition: '안전한 인증 및 권한 부여를 위한 개방형 표준 프로토콜입니다.',
-    category: 'web'
+    term: '스크립트',
+    aliases: ['Script'],
+    definition: '컴퓨터에게 내리는 짧은 명령어 목록이에요. 연극 대본(script)처럼 순서대로 실행돼요.',
+    category: 'coding'
   },
   {
     term: '컴포넌트',
     aliases: ['Component'],
-    definition: 'UI를 구성하는 독립적이고 재사용 가능한 코드 조각입니다.',
+    definition: '화면을 구성하는 작은 부품이에요. 레고 블록처럼 버튼, 메뉴, 카드 등을 조합해서 웹 페이지를 만들어요.',
+    category: 'coding'
+  },
+  {
+    term: '자바스크립트',
+    aliases: ['JavaScript', 'JS'],
+    definition: '웹 페이지를 움직이게 만드는 프로그래밍 언어예요. 버튼을 누르면 무언가 일어나게 하는 건 대부분 자바스크립트 덕분이에요.',
+    category: 'coding'
+  },
+  {
+    term: '타입스크립트',
+    aliases: ['TypeScript', 'TS'],
+    definition: "자바스크립트에 '규칙 검사' 기능을 추가한 언어예요. 실수를 미리 잡아주어서 더 안전하게 코딩할 수 있어요.",
+    category: 'coding'
+  },
+  {
+    term: '파이썬',
+    aliases: ['Python'],
+    definition: '배우기 쉬운 프로그래밍 언어예요. 영어 문장처럼 읽기 쉽고, AI나 데이터 분석에 많이 쓰여요.',
+    category: 'coding'
+  },
+  {
+    term: 'JSON',
+    aliases: ['제이슨'],
+    definition: "데이터를 주고받을 때 쓰는 형식이에요. { 이름: '지은', 나이: 11 } 처럼 보기 쉽게 정리한 데이터 형식이에요.",
+    category: 'coding'
+  },
+
+  // 웹/인터넷 (web)
+  {
+    term: '웹',
+    aliases: ['Web', '웹사이트', 'Website'],
+    definition: '인터넷에서 볼 수 있는 페이지들이에요. 네이버, 유튜브, 학교 홈페이지 모두 웹이에요.',
+    category: 'web'
+  },
+  {
+    term: '웹 앱',
+    aliases: ['Web App', '웹 애플리케이션'],
+    definition: '웹 브라우저에서 실행되는 프로그램이에요. 별도로 설치할 필요 없이 인터넷으로 바로 사용할 수 있어요.',
+    category: 'web'
+  },
+  {
+    term: '브라우저',
+    aliases: ['Browser', '웹 브라우저'],
+    definition: '인터넷 페이지를 보여주는 프로그램이에요. 크롬, 사파리, 엣지 같은 것들이에요.',
+    category: 'web'
+  },
+  {
+    term: '서버',
+    aliases: ['Server'],
+    definition: '다른 컴퓨터에게 정보를 보내주는 컴퓨터예요. 식당의 주방처럼, 요청을 받으면 필요한 데이터를 만들어서 보내줘요.',
+    category: 'web'
+  },
+  {
+    term: '클라이언트',
+    aliases: ['Client'],
+    definition: '서버에게 정보를 요청하는 쪽이에요. 식당의 손님처럼 주문(요청)을 하고 음식(데이터)을 받아요. 여러분의 브라우저가 클라이언트예요.',
+    category: 'web'
+  },
+  {
+    term: 'URL',
+    aliases: ['주소', '웹 주소'],
+    definition: '인터넷에서 특정 페이지를 찾아가는 주소예요. 집 주소처럼 https://www.naver.com 같은 게 URL이에요.',
+    category: 'web'
+  },
+  {
+    term: '도메인',
+    aliases: ['Domain', '도메인 이름'],
+    definition: "웹사이트의 이름이에요. 'naver.com', 'google.com' 같은 것이 도메인이에요. 숫자 주소 대신 기억하기 쉬운 이름을 쓰는 거예요.",
+    category: 'web'
+  },
+  {
+    term: '호스팅',
+    aliases: ['Hosting', '웹 호스팅'],
+    definition: '웹사이트를 인터넷에 올려서 다른 사람들이 볼 수 있게 하는 거예요. 인터넷 세상에 내 가게를 여는 것과 비슷해요.',
+    category: 'web'
+  },
+  {
+    term: '프론트엔드',
+    aliases: ['Frontend', 'Front-end'],
+    definition: '사용자가 직접 보고 만지는 화면 부분이에요. 웹사이트에서 보이는 버튼, 글자, 이미지 등이 모두 프론트엔드예요.',
+    category: 'web'
+  },
+  {
+    term: '백엔드',
+    aliases: ['Backend', 'Back-end'],
+    definition: '사용자에게 보이지 않는 뒷편 부분이에요. 데이터를 저장하고, 로그인을 확인하고, 계산하는 등의 일을 해요.',
+    category: 'web'
+  },
+  {
+    term: '풀스택',
+    aliases: ['Full Stack', 'Fullstack'],
+    definition: '프론트엔드(화면)와 백엔드(뒷편) 모두 다룰 수 있는 것을 말해요. 음식점에서 요리도 하고 서빙도 하는 것처럼요.',
+    category: 'web'
+  },
+  {
+    term: 'API',
+    aliases: ['에이피아이'],
+    definition: "프로그램끼리 대화하는 방법이에요. 식당의 메뉴판처럼, '이런 것을 요청하면 이런 것을 돌려줄게'라고 약속한 규칙이에요.",
+    category: 'web'
+  },
+  {
+    term: '리액트',
+    aliases: ['React'],
+    definition: '웹 화면을 만드는 데 사용하는 인기 있는 도구(라이브러리)예요. 레고 블록처럼 작은 부품(컴포넌트)을 조립해서 웹 페이지를 만들어요.',
+    category: 'web'
+  },
+  {
+    term: 'SPA',
+    aliases: ['Single Page Application', '싱글 페이지'],
+    definition: '페이지를 새로 불러오지 않고 화면이 바뀌는 웹 앱이에요. 앱처럼 부드럽게 화면이 전환돼요.',
     category: 'web'
   },
   {
     term: '라우팅',
     aliases: ['Routing'],
-    definition: 'URL 경로에 따라 적절한 페이지나 컴포넌트를 표시하는 메커니즘입니다.',
+    definition: "웹사이트에서 주소에 따라 다른 페이지를 보여주는 기능이에요. '/home'이면 홈 화면, '/about'이면 소개 화면을 보여줘요.",
     category: 'web'
-  },
-  {
-    term: 'SPA',
-    aliases: ['Single Page Application', '싱글 페이지 애플리케이션'],
-    definition: '페이지 전환 없이 동적으로 콘텐츠를 업데이트하는 웹 애플리케이션입니다.',
-    category: 'web'
-  },
-  {
-    term: 'SSR',
-    aliases: ['Server-Side Rendering', '서버 사이드 렌더링'],
-    definition: '서버에서 HTML을 생성하여 클라이언트에 전달하는 렌더링 방식입니다.',
-    category: 'web'
-  },
-  {
-    term: '번들링',
-    aliases: ['Bundling'],
-    definition: '여러 파일을 하나로 묶어 최적화하는 과정으로, 로딩 성능을 향상시킵니다.',
-    category: 'web'
-  },
-  {
-    term: '코드 스플리팅',
-    aliases: ['Code Splitting'],
-    definition: '번들을 작은 청크로 나누어 필요할 때만 로드하는 최적화 기법입니다.',
-    category: 'web'
-  },
-  {
-    term: 'CI/CD',
-    aliases: ['Continuous Integration/Continuous Deployment', '지속적 통합/배포'],
-    definition: '코드 변경을 자동으로 테스트하고 배포하는 개발 프랙티스입니다.',
-    category: 'dev'
   },
   {
     term: '배포',
     aliases: ['Deploy', 'Deployment'],
-    definition: '애플리케이션을 프로덕션 환경에 올려 사용자가 접근할 수 있게 하는 과정입니다.',
-    category: 'dev'
+    definition: '만든 프로그램을 인터넷에 올려서 모든 사람이 사용할 수 있게 하는 거예요. 완성된 작품을 전시회에 내놓는 것과 비슷해요.',
+    category: 'web'
+  },
+
+  // 개발 도구 (tool)
+  {
+    term: '터미널',
+    aliases: ['Terminal', '명령줄', '명령 프롬프트', 'CLI'],
+    definition: '컴퓨터에게 글자로 명령을 내리는 까만 화면이에요. 마우스로 클릭하는 대신 키보드로 직접 명령어를 입력해요.',
+    category: 'tool'
+  },
+  {
+    term: '에디터',
+    aliases: ['Editor', '코드 에디터', 'IDE'],
+    definition: '코드를 작성하는 프로그램이에요. 한글이나 워드처럼 글을 쓰는 도구인데, 코딩 전용이에요. VS Code가 대표적이에요.',
+    category: 'tool'
+  },
+  {
+    term: 'Git',
+    aliases: ['깃', '버전 관리'],
+    definition: '코드의 변경 기록을 저장하는 도구예요. 게임의 세이브 파일처럼 이전 상태로 되돌릴 수 있어요.',
+    category: 'tool'
+  },
+  {
+    term: 'GitHub',
+    aliases: ['깃허브'],
+    definition: '코드를 인터넷에 저장하고 다른 사람과 함께 작업할 수 있는 사이트예요. 코드의 구글 드라이브 같은 거예요.',
+    category: 'tool'
+  },
+  {
+    term: '커밋',
+    aliases: ['Commit'],
+    definition: "코드의 변경 내용을 저장하는 거예요. 게임에서 세이브하는 것처럼, '여기까지 했어!'라고 기록하는 거예요.",
+    category: 'tool'
+  },
+  {
+    term: '브랜치',
+    aliases: ['Branch'],
+    definition: '원래 코드를 건드리지 않고 따로 복사해서 작업하는 거예요. 나무의 가지(branch)처럼 갈라져 나온 작업 공간이에요.',
+    category: 'tool'
+  },
+  {
+    term: '머지',
+    aliases: ['Merge', '병합'],
+    definition: '따로 작업한 코드를 원래 코드에 합치는 거예요. 갈라진 나무 가지를 다시 하나로 붙이는 거예요.',
+    category: 'tool'
+  },
+  {
+    term: '풀 리퀘스트',
+    aliases: ['Pull Request', 'PR'],
+    definition: "'내가 수정한 코드를 확인해주세요'라고 요청하는 거예요. 숙제를 제출하고 선생님의 검토를 받는 것과 비슷해요.",
+    category: 'tool'
+  },
+  {
+    term: '저장소',
+    aliases: ['Repository', 'Repo', '레포지토리'],
+    definition: '코드를 보관하는 장소예요. 하나의 프로젝트에 관한 모든 코드와 기록이 들어있어요.',
+    category: 'tool'
+  },
+  {
+    term: 'npm',
+    aliases: ['Node Package Manager'],
+    definition: '자바스크립트용 도구 가게예요. 다른 개발자가 만든 편리한 기능을 쉽게 가져다 쓸 수 있게 해줘요.',
+    category: 'tool'
+  },
+  {
+    term: 'Node.js',
+    aliases: ['노드'],
+    definition: '자바스크립트를 브라우저 밖에서도 실행할 수 있게 해주는 도구예요. 덕분에 서버도 자바스크립트로 만들 수 있어요.',
+    category: 'tool'
+  },
+  {
+    term: '오픈소스',
+    aliases: ['Open Source'],
+    definition: '누구나 무료로 볼 수 있고 사용할 수 있는 코드예요. 레시피를 공개해서 누구나 따라 만들 수 있게 하는 것과 비슷해요.',
+    category: 'tool'
+  },
+  {
+    term: '플러그인',
+    aliases: ['Plugin', '확장 프로그램', 'Extension'],
+    definition: '프로그램에 새로운 기능을 추가하는 부품이에요. 스마트폰에 앱을 설치하는 것처럼 필요한 기능을 추가해요.',
+    category: 'tool'
+  },
+  {
+    term: 'SDK',
+    aliases: ['개발 키트'],
+    definition: '프로그램을 만들 때 필요한 도구 세트예요. 그림 도구 세트처럼 개발에 필요한 것들이 한 묶음으로 들어있어요.',
+    category: 'tool'
+  },
+  {
+    term: 'Claude Code',
+    aliases: ['클라우드 코드'],
+    definition: '터미널에서 AI와 함께 코딩할 수 있는 도구예요. 코드를 직접 읽고, 수정하고, 실행까지 해주는 AI 코딩 도우미예요.',
+    category: 'tool'
+  },
+  {
+    term: 'CLAUDE.md',
+    definition: "Claude Code에게 프로젝트의 규칙을 알려주는 설명서 파일이에요. '이 프로젝트는 이렇게 해줘'라고 AI에게 알려주는 안내문이에요.",
+    category: 'tool'
+  },
+  {
+    term: '프롬프트',
+    aliases: ['Prompt'],
+    definition: "AI에게 무언가를 요청할 때 쓰는 질문이나 명령어예요. '그림 그려줘', '코드 설명해줘' 같은 것이 프롬프트예요.",
+    category: 'tool'
+  },
+  {
+    term: '토큰',
+    aliases: ['Token'],
+    definition: "AI가 글을 읽을 때 나누는 작은 조각이에요. '안녕하세요'를 '안녕' + '하세요'처럼 작은 단위로 쪼개서 이해해요.",
+    category: 'tool'
+  },
+
+  // 협업/실무 (team)
+  {
+    term: '프로젝트',
+    aliases: ['Project'],
+    definition: "하나의 목표를 위해 진행하는 작업 전체를 말해요. '학교 웹사이트 만들기'처럼 시작부터 완성까지의 모든 일이에요.",
+    category: 'team'
+  },
+  {
+    term: '코드베이스',
+    aliases: ['Codebase'],
+    definition: "프로젝트의 모든 코드를 합쳐서 부르는 말이에요. 한 프로젝트에 있는 모든 파일과 코드를 통틀어 '코드베이스'라고 해요.",
+    category: 'team'
+  },
+  {
+    term: '대시보드',
+    aliases: ['Dashboard'],
+    definition: '중요한 정보를 한눈에 볼 수 있는 화면이에요. 자동차 계기판처럼 필요한 정보(방문자 수, 매출 등)를 모아서 보여줘요.',
+    category: 'team'
+  },
+  {
+    term: '코드 리뷰',
+    aliases: ['Code Review'],
+    definition: "다른 사람이 쓴 코드를 확인하고 조언해주는 거예요. 친구의 글을 읽고 '여기는 이렇게 하면 더 좋겠다'고 알려주는 것과 같아요.",
+    category: 'team'
+  },
+  {
+    term: '스타트업',
+    aliases: ['Startup'],
+    definition: '새로운 아이디어로 시작한 작은 회사예요. 새로운 앱이나 서비스를 만들어서 세상에 내놓으려는 도전적인 회사예요.',
+    category: 'team'
+  },
+  {
+    term: '개발자',
+    aliases: ['Developer', '프로그래머', 'Programmer'],
+    definition: '프로그램을 만드는 사람이에요. 코드를 작성해서 앱, 웹사이트, 게임 등을 만들어요.',
+    category: 'team'
+  },
+  {
+    term: '컨텍스트',
+    aliases: ['Context', '맥락'],
+    definition: "어떤 상황의 앞뒤 사정을 말해요. AI에게 '이 프로젝트는 쇼핑몰이야'라고 알려주면 더 정확한 도움을 줄 수 있어요.",
+    category: 'team'
+  },
+  {
+    term: '에이전트',
+    aliases: ['Agent'],
+    definition: '스스로 판단하고 행동하는 AI 프로그램이에요. 심부름꾼처럼 목표를 주면 알아서 계획을 세우고 실행해요.',
+    category: 'team'
   },
   {
     term: '프로덕션',
     aliases: ['Production', '운영 환경'],
-    definition: '실제 사용자가 사용하는 실서비스 환경입니다.',
-    category: 'dev'
+    definition: '실제 사용자가 이용하는 환경이에요. 연습(개발)이 끝나고 진짜 무대(인터넷)에 올린 상태를 말해요.',
+    category: 'team'
   },
   {
-    term: '스테이징',
-    aliases: ['Staging', '스테이징 환경'],
-    definition: '프로덕션과 동일한 환경에서 배포 전 테스트를 수행하는 환경입니다.',
-    category: 'dev'
-  },
-
-  // 데이터 관련
-  {
-    term: '데이터셋',
-    aliases: ['Dataset'],
-    definition: '머신러닝 학습에 사용되는 데이터의 집합으로, 훈련/검증/테스트 세트로 나뉩니다.',
-    category: 'data'
+    term: '로그',
+    aliases: ['Log'],
+    definition: '프로그램이 하는 일을 기록한 일지예요. 언제 무슨 일이 있었는지 적어두어서 문제가 생기면 원인을 찾을 수 있어요.',
+    category: 'team'
   },
   {
-    term: '피처',
-    aliases: ['Feature', '특성'],
-    definition: '머신러닝 모델의 입력으로 사용되는 개별 측정 가능한 속성입니다.',
-    category: 'data'
+    term: '자동완성',
+    aliases: ['Autocomplete'],
+    definition: "글자를 조금만 입력해도 나머지를 자동으로 완성해주는 기능이에요. 검색창에 '날'만 쳐도 '날씨'가 뜨는 것처럼요.",
+    category: 'team'
   },
   {
-    term: '레이블',
-    aliases: ['Label'],
-    definition: '지도학습에서 예측하고자 하는 목표 값으로, 정답 데이터를 의미합니다.',
-    category: 'data'
-  },
-  {
-    term: '정규화',
-    aliases: ['Normalization'],
-    definition: '데이터의 범위를 일정한 스케일로 변환하여 모델 학습을 안정화하는 기법입니다.',
-    category: 'data'
-  },
-  {
-    term: '스케일링',
-    aliases: ['Scaling'],
-    definition: '데이터의 크기나 범위를 조정하여 특정 범위 내로 맞추는 전처리 과정입니다.',
-    category: 'data'
-  },
-  {
-    term: '편향',
-    aliases: ['Bias'],
-    definition: '모델의 예측이 실제 값과 체계적으로 차이나는 정도로, 단순화로 인한 오차입니다.',
-    category: 'ml'
-  },
-  {
-    term: '분산',
-    aliases: ['Variance'],
-    definition: '서로 다른 훈련 데이터에 대해 모델의 예측이 변동하는 정도입니다.',
-    category: 'ml'
-  },
-  {
-    term: '앙상블',
-    aliases: ['Ensemble'],
-    definition: '여러 모델을 결합하여 더 나은 예측 성능을 얻는 머신러닝 기법입니다.',
-    category: 'ml'
-  },
-  {
-    term: '부트스트랩',
-    aliases: ['Bootstrap'],
-    definition: '데이터를 무작위로 복원 추출하여 여러 샘플을 생성하는 통계적 기법입니다.',
-    category: 'data'
-  },
-
-  // 뉴런 및 딥러닝 기초
-  {
-    term: '뉴런',
-    aliases: ['Neuron', '노드'],
-    definition: '신경망의 기본 단위로, 입력값에 가중치를 곱하고 합산한 뒤 활성화 함수를 적용하여 출력을 생성합니다. 뇌의 신경세포를 모방한 것입니다.',
-    category: 'ml'
-  },
-  {
-    term: '가중치',
-    aliases: ['Weight', 'w'],
-    definition: '입력값의 중요도를 나타내는 값으로, 학습 과정에서 자동으로 조정됩니다. 가중치가 클수록 해당 입력이 결과에 더 큰 영향을 미칩니다.',
-    category: 'ml'
-  },
-  {
-    term: '임계값',
-    aliases: ['Threshold', '역치'],
-    definition: '뉴런이 활성화(발화)되기 위해 넘어야 하는 최소값입니다. 입력의 가중합이 이 값 이상이면 뉴런이 신호를 전달합니다.',
-    category: 'ml'
-  },
-  {
-    term: '발화',
-    aliases: ['Firing', '활성화'],
-    definition: '뉴런의 가중합이 임계값을 초과하여 신호를 다음 뉴런으로 전달하는 것을 말합니다. 뇌의 신경세포가 전기 신호를 보내는 것과 비슷합니다.',
-    category: 'ml'
-  },
-  {
-    term: '입력층',
-    aliases: ['Input Layer'],
-    definition: '신경망에서 외부 데이터를 받아들이는 첫 번째 층입니다. 각 뉴런은 하나의 입력 특성을 나타냅니다.',
-    category: 'ml'
-  },
-  {
-    term: '은닉층',
-    aliases: ['Hidden Layer'],
-    definition: '입력층과 출력층 사이에 있는 층으로, 데이터의 복잡한 패턴을 학습합니다. 층이 많을수록 "깊은" 신경망이 됩니다.',
-    category: 'ml'
-  },
-  {
-    term: '출력층',
-    aliases: ['Output Layer'],
-    definition: '신경망의 마지막 층으로, 최종 예측 결과를 출력합니다. 분류 문제에서는 각 클래스의 확률을 나타냅니다.',
-    category: 'ml'
-  },
-  {
-    term: '퍼셉트론',
-    aliases: ['Perceptron'],
-    definition: '가장 단순한 형태의 인공 신경망으로, 하나의 뉴런으로 이루어진 선형 분류 모델입니다.',
-    category: 'ml'
-  },
-
-  // 탐색 및 문제 해결
-  {
-    term: 'BFS',
-    aliases: ['너비 우선 탐색', 'Breadth-First Search'],
-    definition: '가까운 노드부터 차례대로 탐색하는 알고리즘입니다. 최단 경로를 찾을 수 있지만 메모리를 많이 사용합니다.',
-    category: 'ai'
-  },
-  {
-    term: 'DFS',
-    aliases: ['깊이 우선 탐색', 'Depth-First Search'],
-    definition: '한 방향으로 끝까지 탐색한 후 되돌아오는 알고리즘입니다. 메모리는 적게 쓰지만 최단 경로를 보장하지 않습니다.',
-    category: 'ai'
-  },
-  {
-    term: '휴리스틱',
-    aliases: ['Heuristic'],
-    definition: '최적의 해를 보장하진 않지만, 합리적인 시간 내에 좋은 해를 찾기 위한 경험적 방법이나 규칙입니다.',
-    category: 'ai'
-  },
-  {
-    term: 'A* 알고리즘',
-    aliases: ['A-star', 'A star'],
-    definition: '최단 경로 탐색 알고리즘으로, 현재까지의 비용과 목표까지의 예상 비용을 합산하여 최적 경로를 찾습니다.',
-    category: 'ai'
-  },
-
-  // AI 윤리 및 철학
-  {
-    term: '중국어 방',
-    aliases: ['Chinese Room'],
-    definition: '존 설(John Searle)의 사고 실험으로, 규칙에 따라 중국어를 처리하는 사람이 실제로 중국어를 이해하는 것은 아니라는 논증입니다. AI가 진정한 이해를 하는지에 대한 철학적 질문을 제기합니다.',
-    category: 'ai'
-  },
-  {
-    term: '특이점',
-    aliases: ['Singularity', '기술적 특이점'],
-    definition: 'AI가 인간의 지능을 초월하여 스스로 더 뛰어난 AI를 만들어내는 시점을 말합니다.',
-    category: 'ai'
-  },
-  {
-    term: 'AI 편향',
-    aliases: ['AI Bias', '알고리즘 편향'],
-    definition: 'AI 시스템이 학습 데이터나 설계의 편향으로 인해 특정 집단에 불공정한 결과를 내는 현상입니다.',
-    category: 'ai'
-  },
-  {
-    term: '설명 가능한 AI',
-    aliases: ['XAI', 'Explainable AI'],
-    definition: 'AI의 의사결정 과정을 인간이 이해할 수 있도록 투명하게 설명하는 기술이나 접근법입니다.',
-    category: 'ai'
-  },
-
-  // 에이전트 관련
-  {
-    term: 'AI 에이전트',
-    aliases: ['Agent', '에이전트'],
-    definition: '환경을 감지하고, 스스로 판단하여 목표를 달성하기 위해 행동하는 자율적인 AI 시스템입니다.',
-    category: 'ai'
-  },
-  {
-    term: 'MCP',
-    aliases: ['Model Context Protocol'],
-    definition: 'AI 에이전트가 외부 도구와 데이터에 접근할 수 있도록 하는 표준 프로토콜입니다.',
-    category: 'dev'
+    term: '마크다운',
+    aliases: ['Markdown', 'MD'],
+    definition: '간단한 기호로 글을 꾸미는 방법이에요. # 은 제목, ** **은 굵게, - 는 목록처럼 쉬운 기호로 문서를 예쁘게 만들 수 있어요.',
+    category: 'team'
   },
   {
     term: '오케스트레이션',
     aliases: ['Orchestration'],
-    definition: '여러 에이전트나 서비스를 조율하여 복잡한 작업을 수행하는 것을 말합니다.',
-    category: 'dev'
-  },
-
-  // 데이터 및 통계
-  {
-    term: '훈련 데이터',
-    aliases: ['Training Data', '학습 데이터'],
-    definition: '모델을 학습시키기 위해 사용하는 데이터로, 입력과 정답 쌍으로 구성됩니다.',
-    category: 'data'
+    definition: '여러 프로그램이나 AI가 함께 일할 때 조율하는 거예요. 오케스트라 지휘자처럼 각자의 역할을 정해주고 조화롭게 일하게 해요.',
+    category: 'team'
   },
   {
-    term: '테스트 데이터',
-    aliases: ['Test Data'],
-    definition: '학습이 완료된 모델의 성능을 최종 평가하기 위해 사용하는 데이터입니다.',
-    category: 'data'
-  },
-  {
-    term: '검증 데이터',
-    aliases: ['Validation Data'],
-    definition: '학습 도중 모델의 성능을 평가하고 하이퍼파라미터를 조정하기 위해 사용하는 데이터입니다.',
-    category: 'data'
-  },
-
-  // 클라우드 코드 관련
-  {
-    term: 'Claude Code',
-    aliases: ['클라우드 코드'],
-    definition: 'Anthropic의 AI 코딩 어시스턴트로, 터미널에서 코드 작성, 디버깅, 리팩토링 등을 도와줍니다.',
-    category: 'dev'
-  },
-  {
-    term: 'CLAUDE.md',
-    definition: 'Claude Code의 프로젝트 설정 파일로, AI에게 프로젝트의 규칙과 맥락을 알려주는 문서입니다.',
-    category: 'dev'
+    term: 'MCP',
+    aliases: ['Model Context Protocol'],
+    definition: 'AI가 외부 도구나 데이터를 사용할 수 있게 해주는 연결 규칙이에요. AI에게 인터넷, 파일, 검색 등을 쓸 수 있는 열쇠를 주는 거예요.',
+    category: 'team'
   }
 ]
 
@@ -705,12 +513,9 @@ export function findGlossaryEntry(text: string): GlossaryEntry | null {
   const normalizedText = text.toLowerCase().trim()
 
   for (const entry of glossary) {
-    // Check if the text matches the main term
     if (entry.term.toLowerCase() === normalizedText) {
       return entry
     }
-
-    // Check if the text matches any of the aliases
     if (entry.aliases) {
       for (const alias of entry.aliases) {
         if (alias.toLowerCase() === normalizedText) {

@@ -9,19 +9,19 @@ interface GlossaryTooltipProps {
 }
 
 const categoryColors = {
-  ai: 'bg-blue-100 text-blue-700 border-blue-200',
-  ml: 'bg-purple-100 text-purple-700 border-purple-200',
-  dev: 'bg-green-100 text-green-700 border-green-200',
-  data: 'bg-orange-100 text-orange-700 border-orange-200',
+  computer: 'bg-blue-100 text-blue-700 border-blue-200',
+  coding: 'bg-purple-100 text-purple-700 border-purple-200',
   web: 'bg-cyan-100 text-cyan-700 border-cyan-200',
+  tool: 'bg-green-100 text-green-700 border-green-200',
+  team: 'bg-orange-100 text-orange-700 border-orange-200',
 }
 
 const categoryLabels = {
-  ai: 'AI 기초',
-  ml: '머신러닝',
-  dev: '개발',
-  data: '데이터',
-  web: '웹',
+  computer: '컴퓨터 기초',
+  coding: '코딩/프로그래밍',
+  web: '웹/인터넷',
+  tool: '개발 도구',
+  team: '협업/실무',
 }
 
 export default function GlossaryTooltip({ entry, children }: GlossaryTooltipProps) {
