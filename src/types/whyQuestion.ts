@@ -22,4 +22,5 @@ export interface WhyAnswer {
   likes: number
   likedBy: string[]
   isAccepted: boolean
+  isAI?: boolean
 }

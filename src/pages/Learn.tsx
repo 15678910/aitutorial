@@ -279,6 +279,9 @@ export default function Learn() {
               sectionId={currentSection.id}
               userId={user?.id || 'anonymous'}
               userName={user?.name || '익명 학생'}
+              sectionTitle={currentSection.title}
+              chapterTitle={currentChapter.title}
+              courseSlug={course.slug}
             />
           </div>
 

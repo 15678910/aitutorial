@@ -1,12 +1,13 @@
 import { create } from 'zustand'
 import { supabase } from '../lib/supabase'
 import type { WhyQuestion, WhyAnswer } from '../types/whyQuestion'
+import { generateAIAnswer } from '../lib/aiAnswerGenerator'
 
 interface WhyQuestionState {
   questions: Map<string, WhyQuestion[]>
   loading: boolean
   fetchQuestions: (sectionId: string) => Promise<void>
-  addQuestion: (sectionId: string, userId: string, userName: string, question: string, tags: string[]) => Promise<void>
+  addQuestion: (sectionId: string, userId: string, userName: string, question: string, tags: string[], sectionTitle?: string, chapterTitle?: string, courseSlug?: string) => Promise<void>
   toggleQuestionLike: (questionId: string, userId: string) => Promise<void>
   toggleAnswerLike: (questionId: string, answerId: string, userId: string) => Promise<void>
   addAnswer: (questionId: string, userId: string, userName: string, content: string) => Promise<void>
@@ -104,7 +105,20 @@ const getSampleQuestions = (): Map<string, WhyQuestion[]> => {
       createdAt: new Date(Date.now() - 1000 * 60 * 20).toISOString(),
       likes: 9,
       likedBy: ['user-1', 'user-2', 'user-3', 'user-4', 'user-5', 'user-6', 'user-7', 'user-8', 'user-9'],
-      answers: [],
+      answers: [
+        {
+          id: 'ai-answer-sample-1',
+          questionId: 'why-sample-3',
+          userId: 'ai-teacher',
+          userName: 'AI 선생님',
+          content: 'AI 윤리는 기술을 올바르고 공정하게 사용하기 위한 원칙이에요. AI가 편향된 데이터로 학습하면 차별적인 결과를 낼 수 있고, 개인정보 보호, 투명성, 책임 등 많은 문제가 있어요. 기술만큼 윤리도 중요하답니다! 🤔',
+          createdAt: new Date(Date.now() - 1000 * 60 * 19).toISOString(),
+          likes: 3,
+          likedBy: ['user-1', 'user-2', 'user-3'],
+          isAccepted: false,
+          isAI: true,
+        },
+      ],
       tags: ['윤리', '미래'],
       isFeatured: false,
     },
@@ -221,7 +235,7 @@ export const useWhyQuestionStore = create<WhyQuestionState>((set, get) => ({
     }
   },
 
-  addQuestion: async (sectionId, userId, userName, question, tags) => {
+  addQuestion: async (sectionId, userId, userName, question, tags, sectionTitle, chapterTitle, courseSlug) => {
     // Validate question length
     const trimmedQuestion = question.trim()
     if (trimmedQuestion.length === 0 || trimmedQuestion.length > 500) return
@@ -266,6 +280,58 @@ export const useWhyQuestionStore = create<WhyQuestionState>((set, get) => ({
     } catch (error) {
       console.error('Failed to sync why question to Supabase:', error)
       // localStorage already has the data
+    }
+
+    // Generate AI auto-answer
+    if (sectionTitle && chapterTitle && courseSlug) {
+      const aiContent = generateAIAnswer(question, sectionTitle, chapterTitle, courseSlug)
+
+      const aiAnswer: WhyAnswer = {
+        id: `why-ai-answer-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        questionId: newQuestion.id,
+        userId: 'ai-teacher',
+        userName: 'AI 선생님',
+        content: aiContent,
+        createdAt: new Date(Date.now() + 1000).toISOString(), // 1 second after the question
+        likes: 0,
+        likedBy: [],
+        isAccepted: false,
+        isAI: true,
+      }
+
+      // Add AI answer to localStorage
+      set((state) => {
+        const newQuestions = new Map(state.questions)
+        for (const [secId, questions] of newQuestions.entries()) {
+          const updatedQuestions = questions.map((q) => {
+            if (q.id === newQuestion.id) {
+              return { ...q, answers: [...q.answers, aiAnswer] }
+            }
+            return q
+          })
+          newQuestions.set(secId, updatedQuestions)
+        }
+        saveQuestionsToStorage(newQuestions)
+        return { questions: newQuestions }
+      })
+
+      // Try to sync AI answer with Supabase
+      try {
+        await supabase.from('why_answers').insert({
+          id: aiAnswer.id,
+          question_id: newQuestion.id,
+          user_id: 'ai-teacher',
+          user_name: 'AI 선생님',
+          content: aiContent,
+          likes: 0,
+          liked_by: [],
+          is_accepted: false,
+          is_ai: true,
+          created_at: aiAnswer.createdAt,
+        })
+      } catch (error) {
+        console.error('Failed to sync AI answer to Supabase:', error)
+      }
     }
   },
 

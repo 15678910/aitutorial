@@ -126,6 +126,11 @@ export default function WhyQuestionItem({
                         <span className="font-semibold text-sm text-gray-900">
                           {acceptedAnswer.userName}
                         </span>
+                        {acceptedAnswer.isAI && (
+                          <span className="text-xs bg-purple-600 text-white px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
+                            <span>🤖</span> AI
+                          </span>
+                        )}
                         <span className="text-xs bg-green-600 text-white px-2 py-0.5 rounded-full">
                           채택됨
                         </span>
@@ -134,6 +139,11 @@ export default function WhyQuestionItem({
                         </span>
                       </div>
                       <p className="text-sm text-gray-700 leading-relaxed">{acceptedAnswer.content}</p>
+                      {acceptedAnswer.isAI && (
+                        <p className="text-xs text-purple-500 mt-2 italic">
+                          💡 AI가 자동으로 생성한 답변입니다. 다른 학생들의 답변도 참고해보세요!
+                        </p>
+                      )}
                       <div className="flex items-center gap-3 mt-2">
                         <button
                           onClick={() => onToggleAnswerLike(question.id, acceptedAnswer.id)}
@@ -158,18 +168,28 @@ export default function WhyQuestionItem({
               {question.answers
                 .filter(a => !a.isAccepted)
                 .map((answer) => (
-                  <div key={answer.id} className="bg-gray-50 rounded-lg p-3">
+                  <div key={answer.id} className={`rounded-lg p-3 ${answer.isAI ? 'bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200' : 'bg-gray-50'}`}>
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <span className="font-semibold text-sm text-gray-900">
                             {answer.userName}
                           </span>
+                          {answer.isAI && (
+                            <span className="text-xs bg-purple-600 text-white px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
+                              <span>🤖</span> AI
+                            </span>
+                          )}
                           <span className="text-xs text-gray-400">
                             {getRelativeTime(answer.createdAt)}
                           </span>
                         </div>
                         <p className="text-sm text-gray-700 leading-relaxed">{answer.content}</p>
+                        {answer.isAI && (
+                          <p className="text-xs text-purple-500 mt-2 italic">
+                            💡 AI가 자동으로 생성한 답변입니다. 다른 학생들의 답변도 참고해보세요!
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div className="flex items-center gap-3">

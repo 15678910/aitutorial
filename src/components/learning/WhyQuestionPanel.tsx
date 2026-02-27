@@ -6,11 +6,14 @@ interface WhyQuestionPanelProps {
   sectionId: string
   userId: string
   userName: string
+  sectionTitle?: string
+  chapterTitle?: string
+  courseSlug?: string
 }
 
 const PREDEFINED_TAGS = ['실생활', '원리', '기초', '응용', '미래', '윤리']
 
-export default function WhyQuestionPanel({ sectionId, userId, userName }: WhyQuestionPanelProps) {
+export default function WhyQuestionPanel({ sectionId, userId, userName, sectionTitle, chapterTitle, courseSlug }: WhyQuestionPanelProps) {
   const {
     fetchQuestions,
     addQuestion,
@@ -39,7 +42,7 @@ export default function WhyQuestionPanel({ sectionId, userId, userName }: WhyQue
 
   const handleSubmitQuestion = () => {
     if (!questionText.trim()) return
-    addQuestion(sectionId, userId, userName, questionText.trim(), selectedTags)
+    addQuestion(sectionId, userId, userName, questionText.trim(), selectedTags, sectionTitle, chapterTitle, courseSlug)
     setQuestionText('')
     setSelectedTags([])
     setShowForm(false)
