@@ -9,14 +9,27 @@ function CodeBlockWithCopy({ code, children }: { code: string; children: ReactNo
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
+    // Filter out comment lines (starting with #) and empty lines, copy only commands
+    const commandsOnly = code
+      .trim()
+      .split('\n')
+      .filter(line => {
+        const trimmed = line.trimStart()
+        return trimmed.length > 0 && !trimmed.startsWith('#') && !trimmed.startsWith('//')
+      })
+      .join('\n')
+      .trim()
+
+    const textToCopy = commandsOnly || code.trim()
+
     try {
-      await navigator.clipboard.writeText(code.trim())
+      await navigator.clipboard.writeText(textToCopy)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
       // fallback
       const textarea = document.createElement('textarea')
-      textarea.value = code.trim()
+      textarea.value = textToCopy
       document.body.appendChild(textarea)
       textarea.select()
       document.execCommand('copy')
