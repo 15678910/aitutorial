@@ -1,12 +1,19 @@
 {
-  "id": "ch1-multi-agent",
+  "id": "claude-code-advanced-ch1",
+  "courseId": "claude-code-advanced",
+  "slug": "ch1-multi-agent",
   "title": "멀티 에이전트 오케스트레이션",
+  "orderNum": 1,
   "sections": [
     {
-      "id": "agent-architecture",
+      "id": "claude-code-advanced-ch1-s1",
+      "chapterId": "claude-code-advanced-ch1",
+      "slug": "agent-architecture",
       "title": "에이전트 아키텍처 이해",
-      "estimatedMinutes": 25,
       "content": "# 에이전트 아키텍처 이해\n\n## 지은의 새로운 도전\n\n시니어 개발자로 승진한 지은은 이제 6명의 주니어 개발자를 이끄는 테크 리드가 되었습니다. 대규모 마이크로서비스 리팩토링 프로젝트를 맡으면서, 그녀는 Claude Code의 단일 에이전트 방식으로는 한계가 있다는 것을 깨달았습니다.\n\n> \"혼자서 모든 걸 하려고 하면 병목이 생기죠. 사람도 그렇고, AI도 마찬가지예요.\"\n\n## 단일 에이전트 vs 멀티 에이전트\n\n### 단일 에이전트의 한계\n\n기존 Claude Code 사용 방식은 하나의 대화 컨텍스트에서 모든 작업을 순차적으로 처리합니다.\n\n```\n[단일 에이전트 모델]\n\n사용자 → Claude Code → 파일 읽기 → 분석 → 코드 수정 → 테스트 → 완료\n                      ↑_________________________________↓\n                           (모든 작업이 순차 실행)\n```\n\n이 모델의 문제점:\n\n| 문제 | 설명 |\n|------|------|\n| 컨텍스트 포화 | 대규모 코드베이스를 하나의 세션에서 모두 다루면 컨텍스트 윈도우가 금방 소진됩니다 |\n| 순차 병목 | 독립적인 작업도 하나씩 처리해야 하므로 시간이 낭비됩니다 |\n| 전문성 부족 | 하나의 프롬프트로 분석, 설계, 구현, 테스트를 모두 잘하기 어렵습니다 |\n| 실패 전파 | 한 작업의 실패가 전체 흐름을 중단시킵니다 |\n\n### 멀티 에이전트의 강점\n\n멀티 에이전트 아키텍처는 전문화된 에이전트가 각자의 역할을 수행하고, 오케스트레이터가 이를 조율합니다.\n\n```\n[멀티 에이전트 모델]\n\n                    ┌→ Architect (분석/설계)\n사용자 → Conductor ─┼→ Executor  (구현)\n                    ├→ QA Tester (검증)\n                    └→ Reviewer  (리뷰)\n                    \n        (독립 작업은 병렬 실행, 의존 작업은 순차 실행)\n```\n\n핵심 이점:\n\n- 전문성: 각 에이전트가 특정 역할에 최적화된 프롬프트와 컨텍스트를 가집니다\n- 병렬성: 독립적인 작업을 동시에 실행하여 전체 소요 시간을 단축합니다\n- 격리성: 한 에이전트의 실패가 다른 에이전트에 영향을 주지 않습니다\n- 확장성: 작업 규모에 따라 에이전트 수를 유연하게 조절할 수 있습니다\n\n## Task Tool 활용\n\nClaude Code에서 멀티 에이전트를 구현하는 핵심 메커니즘은 Task tool입니다. Task tool을 사용하면 서브에이전트를 생성하고, 특정 작업을 위임하며, 결과를 수집할 수 있습니다.\n\n```typescript\n// Task tool의 기본 구조\nTask({\n  subagent_type: \"oh-my-claudecode:executor\",  // 에이전트 유형\n  model: \"sonnet\",                               // 사용할 모델\n  prompt: \"src/auth/login.ts 파일에 입력 검증 로직을 추가하세요.\" // 작업 지시\n})\n```\n\n### 서브에이전트 호출 흐름\n\n```\n1. Conductor가 작업을 분석\n2. 적절한 서브에이전트 유형 선택\n3. 모델 티어 결정 (haiku/sonnet/opus)\n4. Task tool로 위임\n5. 서브에이전트가 독립적으로 작업 수행\n6. 결과를 Conductor에게 반환\n7. Conductor가 결과를 통합/검증\n```\n\n## 서브에이전트 타입별 역할\n\n멀티 에이전트 시스템에서는 32개의 전문 에이전트가 준비되어 있습니다. 주요 에이전트 카테고리를 살펴보겠습니다.\n\n### 분석 도메인\n\n| 에이전트 | 모델 | 역할 |\n|---------|------|------|\n| `architect-low` | Haiku | 간단한 구조 파악 |\n| `architect-medium` | Sonnet | 일반적인 아키텍처 분석 |\n| `architect` | Opus | 복잡한 시스템 설계, 깊은 디버깅 |\n\n### 실행 도메인\n\n| 에이전트 | 모델 | 역할 |\n|---------|------|------|\n| `executor-low` | Haiku | 단순 코드 변경, 한 줄 수정 |\n| `executor` | Sonnet | 기능 구현, 일반적인 개발 작업 |\n| `executor-high` | Opus | 복잡한 리팩토링, 다중 파일 변경 |\n\n### 탐색 도메인\n\n| 에이전트 | 모델 | 역할 |\n|---------|------|------|\n| `explore` | Haiku | 빠른 파일/패턴 검색 |\n| `explore-medium` | Sonnet | 코드베이스 구조 분석 |\n| `explore-high` | Opus | 복잡한 아키텍처 탐색 |\n\n### 기타 전문 에이전트\n\n| 에이전트 | 역할 |\n|---------|------|\n| `designer` / `designer-high` | UI/UX, 프론트엔드 컴포넌트 |\n| `writer` | 문서 작성 |\n| `qa-tester` / `qa-tester-high` | 테스트 실행 및 QA |\n| `security-reviewer` | 보안 감사 |\n| `build-fixer` | 빌드 에러 수정 |\n| `scientist` / `scientist-high` | 데이터 분석, ML |\n| `planner` | 전략적 계획 수립 |\n| `critic` | 계획/코드 리뷰 |\n\n## 병렬 실행 전략\n\n### 언제 병렬로 실행할 것인가?\n\n지은은 다음과 같은 기준을 세웠습니다:\n\n```\n병렬 실행 조건:\n✅ 2개 이상의 독립적인 작업이 있을 때\n✅ 각 작업이 30초 이상 걸릴 때  \n✅ 작업 간 파일 의존성이 없을 때\n\n순차 실행 조건:\n❌ 작업 B가 작업 A의 결과에 의존할 때\n❌ 같은 파일을 수정해야 할 때\n❌ 빌드 → 테스트처럼 순서가 중요할 때\n```\n\n### 실전 예시: API 서버 리팩토링\n\n```\n프로젝트: 사용자 인증 시스템 + 결제 시스템 동시 리팩토링\n\n[병렬 Phase 1 - 분석]\n├─ explore: 인증 관련 파일 탐색\n├─ explore: 결제 관련 파일 탐색  \n└─ architect: 전체 의존성 분석\n\n[순차 Phase 2 - 설계]\n└─ architect: 분석 결과 통합 → 리팩토링 계획 수립\n\n[병렬 Phase 3 - 구현]\n├─ executor: 인증 모듈 리팩토링\n└─ executor: 결제 모듈 리팩토링\n\n[순차 Phase 4 - 통합]\n├─ executor: 모듈 간 인터페이스 연결\n└─ qa-tester: 통합 테스트 실행\n```\n\n이 접근법으로 지은의 팀은 원래 3일이 걸릴 리팩토링을 하루 만에 완료할 수 있었습니다.\n\n<!-- QUIZ:agent-arch-q1 -->\n\n<!-- QUIZ:agent-arch-q2 -->\n\n<!-- QUIZ:agent-arch-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 25,
       "quizzes": [
         {
           "id": "agent-arch-q1",
@@ -20,7 +27,8 @@
             "QA Tester (검증자)"
           ],
           "correctAnswer": "Conductor (오케스트레이터)",
-          "explanation": "Conductor(오케스트레이터)는 멀티 에이전트 시스템에서 작업을 분석하고, 적절한 서브에이전트를 선택하며, 결과를 통합하는 중심 역할을 합니다."
+          "explanation": "Conductor(오케스트레이터)는 멀티 에이전트 시스템에서 작업을 분석하고, 적절한 서브에이전트를 선택하며, 결과를 통합하는 중심 역할을 합니다.",
+          "sectionId": "claude-code-advanced-ch1-s1"
         },
         {
           "id": "agent-arch-q2",
@@ -34,7 +42,8 @@
             "API 스키마 변경 후 클라이언트 코드를 업데이트할 때"
           ],
           "correctAnswer": "독립적인 두 모듈(인증, 결제)을 각각 리팩토링할 때",
-          "explanation": "독립적인 모듈은 파일 의존성이 없으므로 병렬 실행이 가능합니다. 빌드→테스트, 같은 파일 수정, API→클라이언트는 순차적 의존성이 있어 순차 실행이 필요합니다."
+          "explanation": "독립적인 모듈은 파일 의존성이 없으므로 병렬 실행이 가능합니다. 빌드→테스트, 같은 파일 수정, API→클라이언트는 순차적 의존성이 있어 순차 실행이 필요합니다.",
+          "sectionId": "claude-code-advanced-ch1-s1"
         },
         {
           "id": "agent-arch-q3",
@@ -42,15 +51,20 @@
           "difficulty": "advanced",
           "question": "멀티 에이전트 시스템에서 executor-low(Haiku 모델)를 사용하면 항상 executor(Sonnet 모델)보다 더 빠르고 효율적이다.",
           "correctAnswer": "false",
-          "explanation": "executor-low는 간단한 단일 파일 수정에는 빠르고 비용 효율적이지만, 복잡한 로직이나 여러 파일에 걸친 변경에는 정확도가 떨어져 오히려 재작업이 필요할 수 있습니다. 작업 복잡도에 맞는 모델 선택이 중요합니다."
+          "explanation": "executor-low는 간단한 단일 파일 수정에는 빠르고 비용 효율적이지만, 복잡한 로직이나 여러 파일에 걸친 변경에는 정확도가 떨어져 오히려 재작업이 필요할 수 있습니다. 작업 복잡도에 맞는 모델 선택이 중요합니다.",
+          "sectionId": "claude-code-advanced-ch1-s1"
         }
       ]
     },
     {
-      "id": "orchestration-patterns",
+      "id": "claude-code-advanced-ch1-s2",
+      "chapterId": "claude-code-advanced-ch1",
+      "slug": "orchestration-patterns",
       "title": "오케스트레이션 패턴",
-      "estimatedMinutes": 25,
       "content": "# 오케스트레이션 패턴\n\n## Conductor 패턴: 위임의 철학\n\n지은은 테크 리드로서 중요한 깨달음을 얻었습니다.\n\n> \"최고의 리더는 모든 일을 직접 하지 않습니다. 적절한 사람에게 적절한 일을 맡기는 것이 핵심이에요. AI 에이전트도 마찬가지입니다.\"\n\n### Conductor의 핵심 원칙\n\nConductor 패턴은 오케스트라의 지휘자처럼 작동합니다. 지휘자는 악기를 연주하지 않지만, 각 파트가 언제, 어떻게 연주할지를 결정합니다.\n\n```\n┌─────────────────────────────────────────┐\n│              Conductor 역할              │\n├─────────────────────────────────────────┤\n│ ✅ 직접 수행                             │\n│   - 파일 읽기 (컨텍스트 파악)            │\n│   - 작업 분석 및 분류                    │\n│   - Todo 관리                           │\n│   - 사용자 소통                          │\n│                                         │\n│ ❌ 위임 (절대 직접 하지 않음)            │\n│   - 코드 변경 → executor 에이전트        │\n│   - 디버깅 → architect 에이전트          │\n│   - UI 작업 → designer 에이전트          │\n│   - 문서 작성 → writer 에이전트          │\n│   - 코드 리뷰 → code-reviewer 에이전트   │\n└─────────────────────────────────────────┘\n```\n\n### 위임 vs 직접 수행 결정 기준\n\n| 판단 기준 | 직접 수행 | 위임 |\n|----------|----------|------|\n| 파일 내용 확인 | O | - |\n| git status 확인 | O | - |\n| 한 줄 코드 수정 | - | executor-low |\n| 기능 구현 | - | executor |\n| 복잡한 리팩토링 | - | executor-high |\n| 아키텍처 분석 | - | architect |\n| 보안 감사 | - | security-reviewer |\n\n## 스마트 모델 라우팅\n\n멀티 에이전트 시스템의 비용 효율성은 적절한 모델 선택에 달려 있습니다. 모든 작업에 Opus를 사용하면 비용이 폭증하고, 모든 작업에 Haiku를 사용하면 품질이 떨어집니다.\n\n### 3-Tier 모델 전략\n\n```\n┌──────────────────────────────────────────┐\n│  Tier 3: Opus (깊은 사고)                │\n│  ├─ 복잡한 아키텍처 설계                  │\n│  ├─ 레이스 컨디션 디버깅                  │\n│  ├─ 보안 취약점 분석                     │\n│  └─ 대규모 리팩토링 계획                  │\n├──────────────────────────────────────────┤\n│  Tier 2: Sonnet (표준 작업)              │\n│  ├─ 기능 구현                            │\n│  ├─ 에러 핸들링 추가                     │\n│  ├─ 테스트 작성                          │\n│  └─ 코드 리뷰                           │\n├──────────────────────────────────────────┤\n│  Tier 1: Haiku (빠른 처리)               │\n│  ├─ 정의 찾기, 파일 검색                  │\n│  ├─ 간단한 코드 수정                     │\n│  ├─ 문서 생성                            │\n│  └─ 빌드 에러 수정                       │\n└──────────────────────────────────────────┘\n```\n\n### 비용 최적화 실전 예시\n\n지은의 팀이 API 서버에 새로운 엔드포인트를 추가하는 작업을 보겠습니다.\n\n```\n작업: POST /api/v2/orders 엔드포인트 추가\n\n1단계: 기존 라우트 구조 파악\n   → explore (Haiku) - $0.001\n   \"src/routes/ 디렉토리의 파일 구조와 라우팅 패턴을 분석하세요\"\n\n2단계: 엔드포인트 구현\n   → executor (Sonnet) - $0.015\n   \"POST /api/v2/orders 엔드포인트를 기존 패턴에 맞춰 구현하세요\"\n\n3단계: 에지 케이스 검증\n   → architect-low (Haiku) - $0.001  \n   \"구현된 엔드포인트의 에러 처리가 완전한지 확인하세요\"\n\n총 비용: ~$0.017 (Opus로 전부 처리 시 ~$0.15)\n비용 절감: 약 88%\n```\n\n## 작업 분류와 에이전트 매핑\n\n### Delegation Categories\n\n멀티 에이전트 시스템은 작업을 5가지 카테고리로 자동 분류합니다.\n\n| 카테고리 | 티어 | Temperature | 사용 용도 |\n|---------|------|-------------|----------|\n| `quick` | LOW | 0.1 | 단순 조회, 기본 연산 |\n| `writing` | MEDIUM | 0.5 | 문서, 기술 문서 작성 |\n| `artistry` | MEDIUM | 0.9 | 창의적 문제 해결 |\n| `visual-engineering` | HIGH | 0.7 | UI/UX, 디자인 시스템 |\n| `ultrabrain` | HIGH | 0.3 | 복잡한 추론, 아키텍처 |\n\n### 자동 감지 워크플로우\n\n사용자의 요청에서 키워드를 분석하여 자동으로 카테고리를 결정합니다.\n\n```\n\"이 함수가 뭘 반환하지?\" → quick → Haiku\n\"에러 핸들링 추가해줘\" → executor (Sonnet)\n\"레이스 컨디션 디버깅\" → ultrabrain → architect (Opus)\n\"로그인 폼 디자인\" → visual-engineering → designer-high (Opus)\n\"API 문서 작성\" → writing → writer (Haiku)\n```\n\n## 백그라운드 실행\n\n장시간 걸리는 작업은 백그라운드에서 실행하여 다른 작업과 병렬로 처리할 수 있습니다.\n\n### 백그라운드 실행 대상\n\n```typescript\n// 백그라운드로 실행할 작업 (run_in_background: true)\n- npm install / pip install / cargo build\n- npm run build / make / tsc\n- npm test / pytest / cargo test\n- docker build\n- 대규모 lint 실행\n\n// 포그라운드로 실행할 작업 (즉시 결과 필요)\n- git status / git diff\n- 파일 읽기/쓰기\n- 빠른 명령어 (pwd, ls)\n```\n\n### 동시 실행 제한\n\n최대 5개의 백그라운드 작업을 동시에 실행할 수 있습니다. 이를 초과하면 큐에 대기합니다.\n\n```\n[백그라운드 슬롯]\nSlot 1: npm test (auth-module)        ██████░░░░ 60%\nSlot 2: npm test (payment-module)     ████░░░░░░ 40%  \nSlot 3: docker build                  ██████████ 100% ✓\nSlot 4: tsc --noEmit                  ████████░░ 80%\nSlot 5: eslint src/                   ██░░░░░░░░ 20%\n\n→ 새 작업: 큐 대기 중...\n```\n\n### 실전 시나리오\n\n지은이 프로젝트의 전체 테스트를 돌리면서 동시에 새 기능을 구현하는 상황:\n\n```\n지은: \"전체 테스트 돌려줘. 그리고 동시에 새 알림 기능도 구현해줘.\"\n\nConductor:\n1. [Background] npm test --coverage (3분 예상)\n2. [Foreground] explore → 알림 관련 코드 탐색\n3. [Foreground] executor → 알림 기능 구현\n4. [Background] 테스트 완료 확인\n5. [Foreground] 결과 통합 보고\n```\n\n이렇게 하면 테스트가 돌아가는 3분 동안 새 기능 구현을 동시에 진행할 수 있습니다.\n\n<!-- QUIZ:orch-pattern-q1 -->\n\n<!-- QUIZ:orch-pattern-q2 -->\n\n<!-- QUIZ:orch-pattern-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
       "quizzes": [
         {
           "id": "orch-pattern-q1",
@@ -64,7 +78,8 @@
             "모든 티어가 동일"
           ],
           "correctAnswer": "Haiku (Tier 1)",
-          "explanation": "Haiku는 가장 빠르고 비용이 낮은 모델로, 파일 검색이나 정의 찾기 같은 단순 조회 작업에 최적입니다. 이런 작업에 Opus를 사용하면 불필요한 비용이 발생합니다."
+          "explanation": "Haiku는 가장 빠르고 비용이 낮은 모델로, 파일 검색이나 정의 찾기 같은 단순 조회 작업에 최적입니다. 이런 작업에 Opus를 사용하면 불필요한 비용이 발생합니다.",
+          "sectionId": "claude-code-advanced-ch1-s2"
         },
         {
           "id": "orch-pattern-q2",
@@ -78,7 +93,8 @@
             "단일 변수명 변경"
           ],
           "correctAnswer": "npm test 실행",
-          "explanation": "npm test는 실행 시간이 길고 즉각적인 결과가 필요하지 않으므로 백그라운드 실행에 적합합니다. git status, 파일 읽기, 단순 수정은 즉시 결과가 필요한 포그라운드 작업입니다."
+          "explanation": "npm test는 실행 시간이 길고 즉각적인 결과가 필요하지 않으므로 백그라운드 실행에 적합합니다. git status, 파일 읽기, 단순 수정은 즉시 결과가 필요한 포그라운드 작업입니다.",
+          "sectionId": "claude-code-advanced-ch1-s2"
         },
         {
           "id": "orch-pattern-q3",
@@ -86,15 +102,20 @@
           "difficulty": "advanced",
           "question": "Delegation Categories에서 'ultrabrain' 카테고리는 Temperature를 0.3으로 설정하여 복잡한 추론 작업의 일관성을 높인다.",
           "correctAnswer": "true",
-          "explanation": "ultrabrain 카테고리는 복잡한 아키텍처 설계나 깊은 디버깅에 사용되며, Temperature 0.3으로 설정하여 창의성보다 정확성과 일관성을 우선시합니다. 반면 artistry 카테고리는 0.9로 설정하여 창의적 해결책을 유도합니다."
+          "explanation": "ultrabrain 카테고리는 복잡한 아키텍처 설계나 깊은 디버깅에 사용되며, Temperature 0.3으로 설정하여 창의성보다 정확성과 일관성을 우선시합니다. 반면 artistry 카테고리는 0.9로 설정하여 창의적 해결책을 유도합니다.",
+          "sectionId": "claude-code-advanced-ch1-s2"
         }
       ]
     },
     {
-      "id": "advanced-delegation",
+      "id": "claude-code-advanced-ch1-s3",
+      "chapterId": "claude-code-advanced-ch1",
+      "slug": "advanced-delegation",
       "title": "고급 위임 전략",
-      "estimatedMinutes": 25,
       "content": "# 고급 위임 전략\n\n## 실행 모드의 진화\n\n지은의 팀이 점점 더 큰 프로젝트를 맡으면서, 단순한 위임을 넘어 전략적 실행 모드가 필요해졌습니다. Claude Code의 고급 실행 모드는 각각 다른 철학과 전략을 가지고 있습니다.\n\n## Autopilot 모드\n\nAutopilot은 \"아이디어에서 작동하는 코드까지\" 완전 자율 실행을 제공합니다.\n\n### 동작 원리\n\n```\n사용자: \"autopilot: 사용자 알림 시스템을 만들어줘\"\n\n[자동 실행 흐름]\n1. 계획 수립 (planner)\n   ├─ 요구사항 분석\n   ├─ 아키텍처 설계\n   └─ 작업 분해\n\n2. 병렬 구현 (executor × N)\n   ├─ 모델 & DB 스키마\n   ├─ API 엔드포인트\n   ├─ 프론트엔드 컴포넌트\n   └─ 알림 발송 로직\n\n3. 검증 루프 (qa-tester)\n   ├─ 테스트 실행\n   ├─ 실패 시 자동 수정\n   └─ 통과할 때까지 반복\n\n4. 아키텍트 검증 (architect)\n   └─ 최종 승인\n```\n\n### 실전 활용\n\n```bash\n# 자연어로 자동 감지\n\"build me a REST API for task management\"\n\"사용자 대시보드를 만들어줘\"\n\"I want a real-time chat feature\"\n\n# 명시적 키워드\n\"autopilot: 결제 시스템 구현\"\n```\n\nAutopilot은 ralph(지속성) + ultrawork(병렬성) + plan(전략) 의 조합입니다.\n\n## Ralph: 끝까지 완료하는 지속 실행\n\nRalph 모드는 \"중간에 멈추지 않고 끝까지 완료\"하는 것을 보장합니다.\n\n### Ralph의 핵심 규칙\n\n```\n[Ralph Loop]\n\nwhile (미완료_작업_존재) {\n  1. 현재 작업 실행\n  2. 결과 검증\n  3. if (실패) {\n       원인 분석 → 다른 접근법 시도  // 같은 방법 반복 금지!\n     }\n  4. if (성공) {\n       다음 작업으로 이동\n     }\n}\n\n// 종료 조건\n- 모든 TODO 항목 completed\n- 모든 테스트 통과\n- Architect 검증 통과\n- 에러 0건\n```\n\n### Ralph의 5가지 보장\n\n| 번호 | 보장 | 설명 |\n|------|------|------|\n| 1 | TODO 완전 소진 | 모든 작업 항목이 completed 상태 |\n| 2 | 기능 동작 | 요청된 모든 기능이 실제로 작동 |\n| 3 | 테스트 통과 | 해당되는 모든 테스트 통과 |\n| 4 | 에러 없음 | 미해결 에러 0건 |\n| 5 | 검증 완료 | Architect의 최종 승인 |\n\n```bash\n# 활성화 방법\n\"ralph: 인증 시스템 전체 리팩토링\"\n\"don't stop until the migration is complete\"\n\"must complete: 모든 deprecated API 교체\"\n```\n\n## Ultrawork: 최대 병렬 실행\n\nUltrawork는 작업을 최대한 병렬화하여 실행 시간을 극적으로 단축합니다.\n\n### 병렬 실행 전략\n\n```\n[Ultrawork 워크플로우]\n\n입력: \"ulw: 전체 프로젝트 타입 에러 수정\"\n\n1. 분석 Phase (architect)\n   └─ 모든 타입 에러 수집 및 파일별 분류\n\n2. 병렬 실행 Phase\n   ┌─ executor-1: src/auth/*.ts 에러 수정\n   ├─ executor-2: src/api/*.ts 에러 수정\n   ├─ executor-3: src/utils/*.ts 에러 수정\n   └─ executor-4: src/components/*.tsx 에러 수정\n\n3. 검증 Phase\n   └─ tsc --noEmit (전체 타입 체크)\n\n총 소요시간: 순차 실행의 1/3 ~ 1/4\n```\n\n## Swarm: 다중 에이전트 협업\n\nSwarm은 N개의 에이전트가 공유 작업 풀에서 태스크를 가져가며 처리하는 패턴입니다.\n\n### Swarm의 동작 원리\n\n```\n[Swarm 모델]\n\n                   ┌─────────────┐\n                   │  Task Pool   │\n                   │ ┌─┬─┬─┬─┬─┐ │\n                   │ │A│B│C│D│E│ │\n                   │ └─┴─┴─┴─┴─┘ │\n                   └──┬──┬──┬────┘\n                      │  │  │\n              ┌───────┘  │  └────────┐\n              ▼          ▼           ▼\n         Agent-1     Agent-2     Agent-3\n         (Task A)    (Task B)    (Task C)\n            │           │           │\n            ▼           ▼           ▼\n         완료 →       완료 →      완료 →\n         Task D      Task E     (대기)\n         가져옴      가져옴\n```\n\n### Swarm 특징\n\n- 원자적 태스크 클레이밍: 한 에이전트가 가져간 작업은 다른 에이전트가 접근 불가\n- 5분 타임아웃: 작업이 5분 내에 완료되지 않으면 자동으로 풀에 반환\n- 동적 워크로드 밸런싱: 빠른 에이전트가 더 많은 작업을 처리\n\n```bash\n# 5개 에이전트로 TypeScript 에러 수정\n\"swarm 5:executor fix all TypeScript errors\"\n\n# 3개 에이전트로 테스트 작성\n\"swarm 3:qa-tester write tests for all API endpoints\"\n```\n\n## Pipeline: 순차 체이닝\n\nPipeline은 에이전트를 순차적으로 연결하여 데이터를 단계별로 전달합니다.\n\n### 내장 프리셋\n\n| 프리셋 | 단계 | 용도 |\n|--------|------|------|\n| `review` | explore → architect → critic → executor | 코드 리뷰 |\n| `implement` | planner → executor → tdd-guide | 기능 구현 |\n| `debug` | explore → architect → build-fixer | 디버깅 |\n| `refactor` | explore → architect-medium → executor-high → qa-tester | 리팩토링 |\n| `security` | explore → security-reviewer → executor → security-reviewer-low | 보안 감사 |\n\n### 커스텀 파이프라인\n\n```bash\n# 모델을 지정한 커스텀 파이프라인\n\"pipeline explore:haiku -> architect:opus -> executor:sonnet\"\n\n# 리서치 파이프라인 (병렬 시작)\n\"pipeline parallel(researcher, explore) -> architect -> writer\"\n```\n\n### 파이프라인 데이터 흐름\n\n```\n[Security Pipeline 예시]\n\nexplore (Haiku)\n  │ 출력: \"src/auth/에서 SQL 쿼리 5건 발견\"\n  ▼\nsecurity-reviewer (Opus)\n  │ 출력: \"SQL 인젝션 취약점 3건 확인\"\n  ▼  \nexecutor (Sonnet)\n  │ 출력: \"Parameterized query로 3건 수정 완료\"\n  ▼\nsecurity-reviewer-low (Haiku)\n  │ 출력: \"수정 확인 완료. 추가 취약점 없음\"\n  ▼\n최종 보고서 생성\n```\n\n## 모드 조합과 우선순위\n\n여러 모드를 조합하여 사용할 수 있습니다.\n\n```bash\n# Ralph + Ultrawork = 끝까지 + 병렬\n\"ralph ulw: 전체 프로젝트 마이그레이션\"\n\n# Autopilot은 이미 조합\n\"autopilot\" = ralph + ultrawork + plan\n```\n\n### 키워드 충돌 해결\n\n| 우선순위 | 조건 | 결과 |\n|---------|------|------|\n| 1 (최고) | 명시적 키워드 2개 동시 사용 | ecomode 우선 |\n| 2 | 단일 명시적 키워드 | 해당 모드 |\n| 3 | 일반적 \"fast\"/\"parallel\" | 설정 파일 참조 |\n| 4 (최저) | 설정 없음 | ultrawork 기본값 |\n\n## 통합 취소\n\n모든 모드는 통합 취소(cancel)로 중단할 수 있습니다.\n\n```bash\n# 방법 1: 직접 명령\n\"stop\"\n\"cancel\"\n\"abort\"\n\n# 방법 2: 강제 전체 취소\n\"cancel --force\"  # 모든 활성 모드 즉시 중단\n```\n\n<!-- QUIZ:adv-delegation-q1 -->\n\n<!-- QUIZ:adv-delegation-q2 -->\n\n<!-- QUIZ:adv-delegation-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 25,
       "quizzes": [
         {
           "id": "adv-delegation-q1",
@@ -108,7 +129,8 @@
             "Ultrawork + Pipeline + Plan"
           ],
           "correctAnswer": "Ralph + Ultrawork + Plan",
-          "explanation": "Autopilot은 Ralph(끝까지 완료하는 지속성), Ultrawork(병렬 실행), Plan(전략적 계획)의 조합으로, 아이디어에서 작동하는 코드까지 완전 자율 실행을 제공합니다."
+          "explanation": "Autopilot은 Ralph(끝까지 완료하는 지속성), Ultrawork(병렬 실행), Plan(전략적 계획)의 조합으로, 아이디어에서 작동하는 코드까지 완전 자율 실행을 제공합니다.",
+          "sectionId": "claude-code-advanced-ch1-s3"
         },
         {
           "id": "adv-delegation-q2",
@@ -122,7 +144,8 @@
             "타임아웃 에러가 발생하고 작업이 실패 처리된다"
           ],
           "correctAnswer": "작업이 자동으로 풀에 반환되어 다른 에이전트가 처리할 수 있다",
-          "explanation": "Swarm 모드에서는 5분 타임아웃이 설정되어 있어, 작업이 시간 내에 완료되지 않으면 자동으로 작업 풀에 반환됩니다. 이를 통해 다른 에이전트가 해당 작업을 가져가서 처리할 수 있습니다."
+          "explanation": "Swarm 모드에서는 5분 타임아웃이 설정되어 있어, 작업이 시간 내에 완료되지 않으면 자동으로 작업 풀에 반환됩니다. 이를 통해 다른 에이전트가 해당 작업을 가져가서 처리할 수 있습니다.",
+          "sectionId": "claude-code-advanced-ch1-s3"
         },
         {
           "id": "adv-delegation-q3",
@@ -130,7 +153,8 @@
           "difficulty": "advanced",
           "question": "Pipeline의 'security' 프리셋에서는 보안 검토(security-reviewer)가 코드 수정(executor) 전후로 두 번 실행된다.",
           "correctAnswer": "true",
-          "explanation": "security 프리셋의 순서는 explore → security-reviewer → executor → security-reviewer-low 입니다. 첫 번째 보안 리뷰(Opus)에서 취약점을 식별하고, executor가 수정한 후, 두 번째 보안 리뷰(Haiku)로 수정이 올바른지 확인합니다. 이중 검증으로 보안 품질을 보장합니다."
+          "explanation": "security 프리셋의 순서는 explore → security-reviewer → executor → security-reviewer-low 입니다. 첫 번째 보안 리뷰(Opus)에서 취약점을 식별하고, executor가 수정한 후, 두 번째 보안 리뷰(Haiku)로 수정이 올바른지 확인합니다. 이중 검증으로 보안 품질을 보장합니다.",
+          "sectionId": "claude-code-advanced-ch1-s3"
         }
       ]
     }
