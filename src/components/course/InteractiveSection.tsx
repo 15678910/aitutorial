@@ -4,7 +4,9 @@ import {
   DataLabeler,
   GradientDescent,
   CodePlayground,
+  PythonPlayground,
 } from '../interactive'
+import { pythonExercises } from '../../data/pythonExercises'
 
 interface InteractiveSectionProps {
   sectionId: string
@@ -141,6 +143,23 @@ console.log(output.toFixed(4));`}
     title: '뉴런 계산 실습',
   },
 }
+
+// python-ml-practice 전체 섹션 동적 매핑
+Object.entries(pythonExercises).forEach(([sectionId, exercise]) => {
+  SECTION_WIDGET_MAP[sectionId] = {
+    component: () => (
+      <PythonPlayground
+        title={exercise.title}
+        description={exercise.description}
+        initialCode={exercise.initialCode}
+        expectedOutput={exercise.expectedOutput}
+        hint={exercise.hint}
+        packages={exercise.packages}
+      />
+    ),
+    title: exercise.title,
+  }
+})
 
 export default function InteractiveSection({ sectionId }: InteractiveSectionProps) {
   const widgetConfig = SECTION_WIDGET_MAP[sectionId]
