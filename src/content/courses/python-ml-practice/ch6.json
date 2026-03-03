@@ -1,94 +1,142 @@
 {
   "id": "python-ml-practice-ch6",
+  "courseId": "python-ml-practice",
+  "slug": "ch6",
   "title": "비지도학습과 모델 평가",
+  "orderNum": 6,
   "sections": [
     {
       "id": "python-ml-practice-ch6-s1",
+      "chapterId": "python-ml-practice-ch6",
+      "slug": "section-1",
       "title": "클러스터링",
+      "contentType": "text",
+      "orderNum": 1,
       "content": "클러스터링(clustering)은 레이블 없이 데이터를 유사한 그룹으로 묶는 비지도학습 기법입니다. 고객 세분화, 이미지 압축, 이상 탐지 등에 활용됩니다.\n\nK-Means는 가장 널리 사용되는 클러스터링 알고리즘입니다. 데이터를 k개의 클러스터로 나누며, 각 클러스터의 중심(centroid)을 반복적으로 업데이트합니다. 무작위로 중심을 초기화하고, 각 점을 가장 가까운 중심에 할당한 뒤, 각 클러스터의 평균으로 중심을 이동하는 과정을 수렴할 때까지 반복합니다. n_clusters로 클러스터 개수를 지정하며, 엘보우 방법이나 실루엣 점수로 최적 개수를 찾습니다. 빠르고 확장성이 좋지만, 구형 클러스터만 잘 찾고, 초기값에 따라 결과가 달라지며, 클러스터 개수를 미리 정해야 하는 한계가 있습니다.\n\nDBSCAN(Density-Based Spatial Clustering)은 밀도 기반 클러스터링으로, 클러스터 개수를 지정할 필요가 없습니다. 밀도가 높은 영역을 클러스터로 간주하며, eps(이웃 반경)와 min_samples(최소 점 개수) 파라미터로 제어합니다. 한 점의 eps 거리 내에 min_samples 이상의 점이 있으면 핵심 점으로 분류하고, 이들을 연결하여 클러스터를 형성합니다. 밀도가 낮은 점은 노이즈로 처리합니다. 임의 모양의 클러스터를 찾을 수 있고 이상치에 강건하지만, 밀도가 다른 클러스터를 다루기 어렵고 고차원 데이터에서는 성능이 떨어집니다.\n\n계층적 군집화(Hierarchical Clustering)는 클러스터 간의 계층 구조를 만듭니다. 상향식(agglomerative)은 각 점을 개별 클러스터로 시작하여 가장 유사한 클러스터를 반복적으로 병합합니다. 하향식(divisive)은 모든 점을 하나의 클러스터로 시작하여 분할합니다. 덴드로그램(dendrogram)으로 계층 구조를 시각화할 수 있어 데이터의 구조를 이해하기 좋습니다. linkage 파라미터로 클러스터 간 거리 계산 방법을 지정하며, ward, complete, average 등이 있습니다. 클러스터 개수를 사후에 결정할 수 있지만 대규모 데이터에서는 느립니다.",
       "quizzes": [
         {
           "id": "python-ml-practice-ch6-s1-q1",
           "question": "클러스터 중심을 반복적으로 업데이트하여 k개 그룹으로 나누는 알고리즘은?",
           "type": "multiple_choice",
-          "options": ["K-Means", "DBSCAN", "계층적 군집화", "GMM"],
+          "options": [
+            "K-Means",
+            "DBSCAN",
+            "계층적 군집화",
+            "GMM"
+          ],
           "correctAnswer": "K-Means",
-          "explanation": "K-Means는 중심점을 기준으로 각 점을 가장 가까운 클러스터에 할당하고 중심을 업데이트하는 과정을 반복합니다."
+          "explanation": "K-Means는 중심점을 기준으로 각 점을 가장 가까운 클러스터에 할당하고 중심을 업데이트하는 과정을 반복합니다.",
+          "sectionId": "python-ml-practice-ch6-s1"
         },
         {
           "id": "python-ml-practice-ch6-s1-q2",
           "question": "DBSCAN은 클러스터 개수를 미리 지정할 필요가 없다.",
           "type": "true_false",
-          "options": ["참", "거짓"],
+          "options": [
+            "참",
+            "거짓"
+          ],
           "correctAnswer": "참",
-          "explanation": "DBSCAN은 밀도 기반으로 클러스터를 자동으로 발견하므로 클러스터 개수를 사전에 지정하지 않아도 됩니다."
+          "explanation": "DBSCAN은 밀도 기반으로 클러스터를 자동으로 발견하므로 클러스터 개수를 사전에 지정하지 않아도 됩니다.",
+          "sectionId": "python-ml-practice-ch6-s1"
         },
         {
           "id": "python-ml-practice-ch6-s1-q3",
           "question": "계층적 군집화의 계층 구조를 시각화하는 그래프를 ___이라 한다.",
           "type": "fill_blank",
           "correctAnswer": "덴드로그램",
-          "explanation": "덴드로그램은 클러스터 간 병합 순서와 거리를 트리 구조로 표현하여 계층 관계를 보여줍니다."
+          "explanation": "덴드로그램은 클러스터 간 병합 순서와 거리를 트리 구조로 표현하여 계층 관계를 보여줍니다.",
+          "sectionId": "python-ml-practice-ch6-s1"
         }
       ]
     },
     {
       "id": "python-ml-practice-ch6-s2",
+      "chapterId": "python-ml-practice-ch6",
+      "slug": "section-2",
       "title": "차원 축소",
+      "contentType": "text",
+      "orderNum": 2,
       "content": "차원 축소(dimensionality reduction)는 데이터의 특성 개수를 줄이면서 중요한 정보를 보존하는 기법입니다. 시각화, 계산 속도 향상, 과적합 방지에 유용합니다.\n\nPCA(Principal Component Analysis)는 가장 대표적인 차원 축소 기법으로, 데이터의 분산을 최대한 보존하는 새로운 축(주성분)을 찾습니다. 원본 특성들의 선형 결합으로 주성분을 만들며, 첫 번째 주성분이 가장 큰 분산을, 두 번째가 그다음으로 큰 분산을 설명합니다. n_components로 유지할 주성분 개수를 지정하거나, 설명하고 싶은 분산 비율(예: 0.95)을 지정할 수 있습니다. explained_variance_ratio_로 각 주성분이 설명하는 분산 비율을 확인합니다. 선형 방법이므로 비선형 관계는 잘 포착하지 못하지만, 빠르고 해석 가능합니다. 고차원 데이터를 2-3차원으로 줄여 시각화하거나, 특성이 너무 많을 때 전처리로 사용합니다.\n\nt-SNE(t-Distributed Stochastic Neighbor Embedding)는 고차원 데이터의 국소적 구조를 보존하면서 저차원으로 투영하는 비선형 기법입니다. 주로 2차원이나 3차원 시각화에 사용됩니다. 가까운 점은 가깝게, 먼 점은 멀게 유지하려고 하며, 클러스터 패턴을 드러내는 데 매우 효과적입니다. perplexity 파라미터로 이웃 고려 범위를 조절하며, 5-50 사이 값을 사용합니다. PCA와 달리 학습 데이터에만 적용 가능하고 새 데이터를 변환할 수 없으며, 계산이 느려 대규모 데이터에는 부적합합니다. 클러스터 간 거리는 의미가 없고 군집 내부 구조만 신뢰할 수 있습니다.\n\nUMAP(Uniform Manifold Approximation and Projection)은 t-SNE의 대안으로, 더 빠르고 전역 구조도 어느 정도 보존합니다. 국소적 거리와 전역적 거리를 모두 고려하여 균형 잡힌 저차원 표현을 만듭니다. n_neighbors로 국소 구조의 크기를, min_dist로 저차원 공간에서 점 간 최소 거리를 조절합니다. t-SNE보다 확장성이 좋고, 새 데이터를 변환할 수 있으며, 다양한 차원으로 축소 가능합니다. 최근 시각화와 전처리 모두에서 인기가 높아지고 있습니다.",
       "quizzes": [
         {
           "id": "python-ml-practice-ch6-s2-q1",
           "question": "데이터의 분산을 최대한 보존하는 주성분을 찾는 차원 축소 기법은?",
           "type": "multiple_choice",
-          "options": ["PCA", "t-SNE", "UMAP", "LDA"],
+          "options": [
+            "PCA",
+            "t-SNE",
+            "UMAP",
+            "LDA"
+          ],
           "correctAnswer": "PCA",
-          "explanation": "PCA는 데이터의 분산을 최대화하는 방향으로 주성분을 찾아 차원을 축소하는 선형 기법입니다."
+          "explanation": "PCA는 데이터의 분산을 최대화하는 방향으로 주성분을 찾아 차원을 축소하는 선형 기법입니다.",
+          "sectionId": "python-ml-practice-ch6-s2"
         },
         {
           "id": "python-ml-practice-ch6-s2-q2",
           "question": "t-SNE는 주로 2-3차원 시각화에 사용되며 새 데이터를 변환할 수 없다.",
           "type": "true_false",
-          "options": ["참", "거짓"],
+          "options": [
+            "참",
+            "거짓"
+          ],
           "correctAnswer": "참",
-          "explanation": "t-SNE는 학습 데이터에 대해서만 저차원 표현을 생성하며, 학습 후 새로운 데이터를 변환하는 기능이 없습니다."
+          "explanation": "t-SNE는 학습 데이터에 대해서만 저차원 표현을 생성하며, 학습 후 새로운 데이터를 변환하는 기능이 없습니다.",
+          "sectionId": "python-ml-practice-ch6-s2"
         },
         {
           "id": "python-ml-practice-ch6-s2-q3",
           "question": "t-SNE보다 빠르고 전역 구조도 보존하는 차원 축소 기법은 ___이다.",
           "type": "fill_blank",
           "correctAnswer": "UMAP",
-          "explanation": "UMAP은 t-SNE의 장점을 유지하면서 속도가 빠르고, 전역 구조 보존과 새 데이터 변환이 가능합니다."
+          "explanation": "UMAP은 t-SNE의 장점을 유지하면서 속도가 빠르고, 전역 구조 보존과 새 데이터 변환이 가능합니다.",
+          "sectionId": "python-ml-practice-ch6-s2"
         }
       ]
     },
     {
       "id": "python-ml-practice-ch6-s3",
+      "chapterId": "python-ml-practice-ch6",
+      "slug": "section-3",
       "title": "모델 평가와 최적화",
+      "contentType": "text",
+      "orderNum": 3,
       "content": "머신러닝 모델의 성능을 정확히 평가하고 개선하는 것은 실전 프로젝트의 핵심입니다. 단순 정확도만으로는 모델의 진짜 성능을 파악하기 어렵습니다.\n\n혼동 행렬(confusion matrix)은 분류 모델의 예측 결과를 상세히 분석하는 도구입니다. 실제 클래스와 예측 클래스의 조합을 표로 나타냅니다. 이진 분류에서는 True Positive(TP, 실제 양성을 양성으로 예측), True Negative(TN, 실제 음성을 음성으로 예측), False Positive(FP, 실제 음성을 양성으로 오분류), False Negative(FN, 실제 양성을 음성으로 오분류)의 네 가지로 구성됩니다. 정밀도(Precision)는 TP/(TP+FP)로 양성 예측 중 실제 양성 비율을, 재현율(Recall)은 TP/(TP+FN)으로 실제 양성 중 찾아낸 비율을 나타냅니다. F1 점수는 정밀도와 재현율의 조화평균입니다. 질병 진단처럼 FN이 치명적인 경우 재현율을, 스팸 필터처럼 FP가 문제인 경우 정밀도를 중시합니다.\n\nROC 곡선과 AUC는 분류 임계값에 관계없이 모델 성능을 평가합니다. ROC(Receiver Operating Characteristic) 곡선은 다양한 임계값에서 TPR(True Positive Rate, 재현율)과 FPR(False Positive Rate)을 그린 곡선입니다. AUC(Area Under the Curve)는 ROC 곡선 아래 면적으로, 1에 가까울수록 좋습니다. 0.5는 무작위 예측 수준입니다. 클래스 불균형이 심해도 안정적으로 평가할 수 있으며, 임계값 조정 없이 모델 자체의 분별력을 측정합니다. predict_proba로 확률을 얻어 roc_curve와 roc_auc_score로 계산합니다.\n\n하이퍼파라미터 튜닝은 모델 성능을 극대화하는 과정입니다. GridSearchCV는 모든 조합을 시도하지만 파라미터가 많으면 시간이 기하급수적으로 증가합니다. RandomizedSearchCV는 무작위 샘플링으로 효율적으로 탐색하며, n_iter로 시도 횟수를 조절합니다. Bayesian Optimization은 이전 결과를 바탕으로 다음 탐색 지점을 선택하여 더 효율적입니다. 조기 종료(early stopping)는 검증 성능이 개선되지 않으면 학습을 중단하여 과적합을 방지합니다. 최종적으로 테스트 세트로 한 번만 평가하여 일반화 성능을 확인합니다. 여러 평가 지표를 종합적으로 고려하고, 비즈니스 요구사항에 맞는 지표를 우선시해야 합니다.",
       "quizzes": [
         {
           "id": "python-ml-practice-ch6-s3-q1",
           "question": "실제 클래스와 예측 클래스의 조합을 표로 나타낸 것은?",
           "type": "multiple_choice",
-          "options": ["혼동 행렬", "ROC 곡선", "학습 곡선", "검증 곡선"],
+          "options": [
+            "혼동 행렬",
+            "ROC 곡선",
+            "학습 곡선",
+            "검증 곡선"
+          ],
           "correctAnswer": "혼동 행렬",
-          "explanation": "혼동 행렬은 TP, TN, FP, FN을 표로 정리하여 분류 모델의 예측 결과를 상세히 분석할 수 있게 합니다."
+          "explanation": "혼동 행렬은 TP, TN, FP, FN을 표로 정리하여 분류 모델의 예측 결과를 상세히 분석할 수 있게 합니다.",
+          "sectionId": "python-ml-practice-ch6-s3"
         },
         {
           "id": "python-ml-practice-ch6-s3-q2",
           "question": "AUC는 ROC 곡선 아래 면적으로, 1에 가까울수록 좋은 모델이다.",
           "type": "true_false",
-          "options": ["참", "거짓"],
+          "options": [
+            "참",
+            "거짓"
+          ],
           "correctAnswer": "참",
-          "explanation": "AUC가 1에 가까우면 모든 임계값에서 높은 TPR과 낮은 FPR을 유지하는 우수한 분류 성능을 의미합니다."
+          "explanation": "AUC가 1에 가까우면 모든 임계값에서 높은 TPR과 낮은 FPR을 유지하는 우수한 분류 성능을 의미합니다.",
+          "sectionId": "python-ml-practice-ch6-s3"
         },
         {
           "id": "python-ml-practice-ch6-s3-q3",
           "question": "정밀도와 재현율의 조화평균을 ___ 점수라 한다.",
           "type": "fill_blank",
           "correctAnswer": "F1",
-          "explanation": "F1 점수는 정밀도와 재현율의 조화평균으로, 두 지표를 균형 있게 고려한 종합 평가 지표입니다."
+          "explanation": "F1 점수는 정밀도와 재현율의 조화평균으로, 두 지표를 균형 있게 고려한 종합 평가 지표입니다.",
+          "sectionId": "python-ml-practice-ch6-s3"
         }
       ]
     }

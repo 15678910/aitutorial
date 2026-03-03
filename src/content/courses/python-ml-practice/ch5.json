@@ -1,94 +1,142 @@
 {
   "id": "python-ml-practice-ch5",
+  "courseId": "python-ml-practice",
+  "slug": "ch5",
   "title": "지도학습 실습",
+  "orderNum": 5,
   "sections": [
     {
       "id": "python-ml-practice-ch5-s1",
+      "chapterId": "python-ml-practice-ch5",
+      "slug": "section-1",
       "title": "회귀 모델",
+      "contentType": "text",
+      "orderNum": 1,
       "content": "회귀(regression)는 연속적인 수치를 예측하는 지도학습 문제입니다. 주택 가격, 판매량, 온도 등 정량적인 값을 예측할 때 사용됩니다.\n\n선형 회귀(Linear Regression)는 가장 기본적인 회귀 모델로, 입력 특성과 출력 간의 선형 관계를 가정합니다. 수학적으로 y = w1*x1 + w2*x2 + ... + b 형태로 표현됩니다. Scikit-learn의 LinearRegression 클래스를 사용하며, fit으로 학습하면 최적의 가중치를 찾습니다. coef_ 속성으로 가중치를, intercept_로 절편을 확인할 수 있습니다. 간단하고 해석하기 쉬우며 학습이 빠른 장점이 있지만, 비선형 관계를 표현하지 못합니다. 특성 간 선형 관계가 강할 때 좋은 성능을 냅니다.\n\n다항 회귀(Polynomial Regression)는 특성의 거듭제곱을 추가하여 비선형 관계를 모델링합니다. PolynomialFeatures로 원본 특성에서 제곱, 세제곱, 교차항 등을 생성하고, 이를 선형 회귀에 입력합니다. 예를 들어 x를 x, x^2, x^3으로 확장하면 곡선 패턴을 학습할 수 있습니다. degree 파라미터로 차수를 조절하며, 너무 높으면 과적합될 수 있습니다. 단순한 선형 모델로는 부족하지만 완전히 복잡한 모델은 필요 없을 때 유용합니다.\n\n정규화 회귀는 과적합을 방지하기 위해 모델 복잡도에 페널티를 부여합니다. Ridge 회귀는 L2 정규화를 사용하여 가중치의 제곱합을 페널티로 줍니다. 가중치를 0에 가깝게 만들지만 완전히 0으로 만들지는 않습니다. Lasso 회귀는 L1 정규화를 사용하여 가중치의 절댓값 합을 페널티로 줍니다. 일부 가중치를 정확히 0으로 만들어 특성 선택 효과가 있습니다. alpha 파라미터로 정규화 강도를 조절하며, 높을수록 단순한 모델이 됩니다. ElasticNet은 L1과 L2를 결합합니다. 특성이 많고 일부만 중요할 때 정규화 회귀가 효과적입니다.",
       "quizzes": [
         {
           "id": "python-ml-practice-ch5-s1-q1",
           "question": "Scikit-learn에서 기본 선형 회귀 클래스는?",
           "type": "multiple_choice",
-          "options": ["LinearRegression", "LogisticRegression", "SimpleRegression", "RegressionModel"],
+          "options": [
+            "LinearRegression",
+            "LogisticRegression",
+            "SimpleRegression",
+            "RegressionModel"
+          ],
           "correctAnswer": "LinearRegression",
-          "explanation": "LinearRegression은 최소제곱법을 사용하여 선형 회귀를 수행하는 기본 클래스입니다."
+          "explanation": "LinearRegression은 최소제곱법을 사용하여 선형 회귀를 수행하는 기본 클래스입니다.",
+          "sectionId": "python-ml-practice-ch5-s1"
         },
         {
           "id": "python-ml-practice-ch5-s1-q2",
           "question": "Lasso 회귀는 일부 가중치를 정확히 0으로 만들어 특성 선택 효과가 있다.",
           "type": "true_false",
-          "options": ["참", "거짓"],
+          "options": [
+            "참",
+            "거짓"
+          ],
           "correctAnswer": "참",
-          "explanation": "Lasso는 L1 정규화를 사용하여 중요하지 않은 특성의 가중치를 0으로 만들어 자동으로 특성을 선택합니다."
+          "explanation": "Lasso는 L1 정규화를 사용하여 중요하지 않은 특성의 가중치를 0으로 만들어 자동으로 특성을 선택합니다.",
+          "sectionId": "python-ml-practice-ch5-s1"
         },
         {
           "id": "python-ml-practice-ch5-s1-q3",
           "question": "특성의 거듭제곱 항을 생성하여 비선형 관계를 모델링하는 것을 ___ 회귀라 한다.",
           "type": "fill_blank",
           "correctAnswer": "다항",
-          "explanation": "다항 회귀는 원본 특성의 2차, 3차 등 거듭제곱 항을 추가하여 곡선 패턴을 학습할 수 있게 합니다."
+          "explanation": "다항 회귀는 원본 특성의 2차, 3차 등 거듭제곱 항을 추가하여 곡선 패턴을 학습할 수 있게 합니다.",
+          "sectionId": "python-ml-practice-ch5-s1"
         }
       ]
     },
     {
       "id": "python-ml-practice-ch5-s2",
+      "chapterId": "python-ml-practice-ch5",
+      "slug": "section-2",
       "title": "분류 모델",
+      "contentType": "text",
+      "orderNum": 2,
       "content": "분류(classification)는 데이터를 미리 정의된 범주 중 하나로 할당하는 지도학습 문제입니다. 스팸 메일 탐지, 질병 진단, 고객 이탈 예측 등에 사용됩니다.\n\n로지스틱 회귀(Logistic Regression)는 이름과 달리 분류 알고리즘입니다. 선형 회귀의 출력을 시그모이드 함수에 통과시켜 0과 1 사이의 확률로 변환합니다. 0.5를 기준으로 클래스를 결정하며, predict_proba로 각 클래스의 확률을 얻을 수 있습니다. 이진 분류뿐 아니라 다중 클래스 분류도 지원합니다. 간단하고 빠르며 확률 해석이 가능한 장점이 있습니다. C 파라미터로 정규화 강도를 조절하며, 작을수록 강한 정규화가 적용됩니다. 선형 결정 경계를 가지므로 선형적으로 분리 가능한 데이터에 적합합니다.\n\nSVM(Support Vector Machine)은 클래스를 가장 잘 구분하는 경계(결정 경계)를 찾는 알고리즘입니다. 경계와 가장 가까운 데이터(서포트 벡터)까지의 거리(마진)를 최대화합니다. 선형 SVM은 직선으로 분리하고, 커널 트릭을 사용하면 비선형 경계를 만들 수 있습니다. RBF 커널이 가장 흔하며, C 파라미터는 오분류 허용도를, gamma는 결정 경계의 복잡도를 조절합니다. 고차원 데이터에 강하고 과적합에 강건하지만, 데이터가 많으면 느립니다. 이진 분류에 특히 강력합니다.\n\n결정 트리(Decision Tree)는 데이터를 반복적으로 분할하여 트리 구조를 만듭니다. 각 노드에서 특성과 기준값으로 데이터를 나누고, 리프 노드에서 클래스를 결정합니다. 예를 들어 나이 > 30이면 왼쪽, 아니면 오른쪽으로 분기합니다. 시각화가 쉽고 해석 가능하며, 비선형 관계를 자연스럽게 표현합니다. 특성 스케일링이 필요 없습니다. 하지만 과적합되기 쉬워 max_depth, min_samples_split 등으로 복잡도를 제한해야 합니다. feature_importances_로 특성 중요도를 확인할 수 있어 데이터 이해에도 유용합니다.",
       "quizzes": [
         {
           "id": "python-ml-practice-ch5-s2-q1",
           "question": "선형 회귀의 출력을 확률로 변환하여 분류하는 알고리즘은?",
           "type": "multiple_choice",
-          "options": ["로지스틱 회귀", "선형 회귀", "다항 회귀", "Ridge 회귀"],
+          "options": [
+            "로지스틱 회귀",
+            "선형 회귀",
+            "다항 회귀",
+            "Ridge 회귀"
+          ],
           "correctAnswer": "로지스틱 회귀",
-          "explanation": "로지스틱 회귀는 시그모이드 함수를 사용하여 선형 출력을 0과 1 사이의 확률로 변환하는 분류 알고리즘입니다."
+          "explanation": "로지스틱 회귀는 시그모이드 함수를 사용하여 선형 출력을 0과 1 사이의 확률로 변환하는 분류 알고리즘입니다.",
+          "sectionId": "python-ml-practice-ch5-s2"
         },
         {
           "id": "python-ml-practice-ch5-s2-q2",
           "question": "결정 트리는 특성 스케일링이 필요하다.",
           "type": "true_false",
-          "options": ["참", "거짓"],
+          "options": [
+            "참",
+            "거짓"
+          ],
           "correctAnswer": "거짓",
-          "explanation": "결정 트리는 각 특성을 독립적으로 분할 기준으로 사용하므로 스케일에 영향을 받지 않아 전처리가 필요 없습니다."
+          "explanation": "결정 트리는 각 특성을 독립적으로 분할 기준으로 사용하므로 스케일에 영향을 받지 않아 전처리가 필요 없습니다.",
+          "sectionId": "python-ml-practice-ch5-s2"
         },
         {
           "id": "python-ml-practice-ch5-s2-q3",
           "question": "클래스 간 마진을 최대화하는 결정 경계를 찾는 알고리즘은 ___이다.",
           "type": "fill_blank",
           "correctAnswer": "SVM",
-          "explanation": "SVM(Support Vector Machine)은 서포트 벡터와 결정 경계 사이의 마진을 최대화하여 최적의 분류 경계를 찾습니다."
+          "explanation": "SVM(Support Vector Machine)은 서포트 벡터와 결정 경계 사이의 마진을 최대화하여 최적의 분류 경계를 찾습니다.",
+          "sectionId": "python-ml-practice-ch5-s2"
         }
       ]
     },
     {
       "id": "python-ml-practice-ch5-s3",
+      "chapterId": "python-ml-practice-ch5",
+      "slug": "section-3",
       "title": "앙상블 학습",
+      "contentType": "text",
+      "orderNum": 3,
       "content": "앙상블(ensemble)은 여러 모델을 결합하여 단일 모델보다 우수한 성능을 달성하는 기법입니다. 실제 경진대회에서 상위권을 차지하는 모델은 대부분 앙상블입니다.\n\n랜덤 포레스트(Random Forest)는 여러 결정 트리를 학습시키고 그 결과를 결합합니다. 각 트리는 부트스트랩 샘플(복원 추출)과 무작위 특성 부분집합으로 학습됩니다. 분류에서는 다수결, 회귀에서는 평균을 사용합니다. 단일 트리의 과적합 문제를 크게 개선하며, 특성 중요도를 안정적으로 계산할 수 있습니다. n_estimators로 트리 개수를, max_features로 각 분할에서 고려할 특성 수를 조절합니다. 일반적으로 100-500개 트리를 사용하며, 많을수록 성능이 향상되지만 계산 비용도 증가합니다. 해석력은 떨어지지만 대부분의 문제에서 견고한 성능을 냅니다.\n\n그래디언트 부스팅(Gradient Boosting)은 약한 학습기를 순차적으로 추가하면서 이전 모델의 오차를 보완하는 방식입니다. 각 새 모델은 이전 모델들의 잔차(실제값 - 예측값)를 예측하도록 학습됩니다. GradientBoostingClassifier와 GradientBoostingRegressor를 사용하며, learning_rate로 각 트리의 기여도를 조절합니다. 낮은 학습률과 많은 트리를 사용하면 더 좋지만 학습 시간이 길어집니다. 랜덤 포레스트보다 높은 성능을 내는 경우가 많지만, 하이퍼파라미터 튜닝이 까다롭고 과적합에 주의해야 합니다.\n\nXGBoost는 그래디언트 부스팅의 최적화된 구현으로, 속도와 성능 면에서 우수합니다. 정규화 항을 포함하여 과적합을 방지하고, 병렬 처리로 학습 속도가 빠릅니다. 결측값을 자동으로 처리하며, 조기 종료(early stopping) 기능으로 최적의 반복 횟수를 찾을 수 있습니다. Kaggle 등 경진대회에서 가장 많이 사용되는 알고리즘입니다. max_depth, min_child_weight, subsample 등 다양한 하이퍼파라미터가 있어 튜닝의 여지가 큽니다. LightGBM과 CatBoost도 유사한 고성능 부스팅 라이브러리입니다.",
       "quizzes": [
         {
           "id": "python-ml-practice-ch5-s3-q1",
           "question": "여러 결정 트리를 무작위로 학습시켜 결합하는 앙상블 기법은?",
           "type": "multiple_choice",
-          "options": ["랜덤 포레스트", "그래디언트 부스팅", "AdaBoost", "배깅"],
+          "options": [
+            "랜덤 포레스트",
+            "그래디언트 부스팅",
+            "AdaBoost",
+            "배깅"
+          ],
           "correctAnswer": "랜덤 포레스트",
-          "explanation": "랜덤 포레스트는 부트스트랩 샘플과 무작위 특성 선택으로 여러 트리를 학습시키고 그 결과를 결합하는 앙상블 기법입니다."
+          "explanation": "랜덤 포레스트는 부트스트랩 샘플과 무작위 특성 선택으로 여러 트리를 학습시키고 그 결과를 결합하는 앙상블 기법입니다.",
+          "sectionId": "python-ml-practice-ch5-s3"
         },
         {
           "id": "python-ml-practice-ch5-s3-q2",
           "question": "그래디언트 부스팅은 이전 모델의 오차를 보완하는 모델을 순차적으로 추가한다.",
           "type": "true_false",
-          "options": ["참", "거짓"],
+          "options": [
+            "참",
+            "거짓"
+          ],
           "correctAnswer": "참",
-          "explanation": "그래디언트 부스팅은 각 새 모델이 이전 모델들의 잔차를 예측하도록 학습하여 점진적으로 성능을 향상시킵니다."
+          "explanation": "그래디언트 부스팅은 각 새 모델이 이전 모델들의 잔차를 예측하도록 학습하여 점진적으로 성능을 향상시킵니다.",
+          "sectionId": "python-ml-practice-ch5-s3"
         },
         {
           "id": "python-ml-practice-ch5-s3-q3",
           "question": "그래디언트 부스팅의 최적화된 고성능 구현으로 Kaggle에서 인기 있는 라이브러리는 ___이다.",
           "type": "fill_blank",
           "correctAnswer": "XGBoost",
-          "explanation": "XGBoost는 정규화, 병렬 처리, 조기 종료 등 다양한 최적화 기법으로 뛰어난 성능과 속도를 제공하는 부스팅 라이브러리입니다."
+          "explanation": "XGBoost는 정규화, 병렬 처리, 조기 종료 등 다양한 최적화 기법으로 뛰어난 성능과 속도를 제공하는 부스팅 라이브러리입니다.",
+          "sectionId": "python-ml-practice-ch5-s3"
         }
       ]
     }
