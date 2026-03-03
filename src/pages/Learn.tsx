@@ -17,6 +17,7 @@ import WhyItMatters from '../components/learning/WhyItMatters'
 import GuideTip from '../components/learning/GuideTip'
 import MiniLab from '../components/learning/MiniLab'
 import WhyQuestionPanel from '../components/learning/WhyQuestionPanel'
+import LearningGuidePanel from '../components/learning/LearningGuidePanel'
 
 export default function Learn() {
   const { courseSlug, chapterSlug, sectionSlug } = useParams()
@@ -282,6 +283,16 @@ export default function Learn() {
               sectionTitle={currentSection.title}
               chapterTitle={currentChapter.title}
               courseSlug={course.slug}
+            />
+          </div>
+
+          <div className="mt-12">
+            <LearningGuidePanel
+              sectionId={currentSection.id}
+              sectionTitle={currentSection.title}
+              chapterTitle={currentChapter.title}
+              courseSlug={course.slug}
+              sectionContent={currentSection.content}
             />
           </div>
 
