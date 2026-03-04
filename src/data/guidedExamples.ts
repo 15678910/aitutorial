@@ -436,7 +436,7 @@ print("평균:")
 print(df.mean().round(1).to_string())
 print("\\n표준편차:")
 print(df.std().round(1).to_string())`,
-        expectedOutput: '평균:\n수학    82.0\n영어    82.8\n\n표준편차:\n수학    11.2\n영어    6.6',
+        expectedOutput: '평균:\n수학    82.0\n영어    82.8\n\n표준편차:\n수학    11.6\n영어     6.7',
       },
       {
         title: '2단계: 과목별 평균 비교',
@@ -590,7 +590,7 @@ scaled = scaler.fit_transform(data)
 
 print("스케일링 후:")
 print(np.round(scaled, 2))`,
-        expectedOutput: '스케일링 후:\n[[-0.59 -0.65]\n [ 0.36  0.33]\n [ 1.3   1.31]\n [-1.07 -0.98]]',
+        expectedOutput: '스케일링 후:\n[[-0.65 -0.73]\n [ 0.39  0.37]\n [ 1.43  1.46]\n [-1.17 -1.1 ]]',
       },
       {
         title: '3단계: 스케일링 전후 비교',
@@ -610,7 +610,7 @@ print("표준편차:", np.round(data.std(axis=0), 1))
 print("\\n=== 스케일링 후 ===")
 print("평균:", np.round(scaled.mean(axis=0), 1))
 print("표준편차:", np.round(scaled.std(axis=0), 1))`,
-        expectedOutput: '=== 스케일링 전 ===\n평균: [166.2  60. ]\n표준편차: [ 9.6 14.4]\n\n=== 스케일링 후 ===\n평균: [0. 0.]\n표준편차: [1. 1.]',
+        expectedOutput: '=== 스케일링 전 ===\n평균: [166.25  60.  ]\n표준편차: [ 9.6 13.7]\n\n=== 스케일링 후 ===\n평균: [0. 0.]\n표준편차: [1. 1.]',
       },
     ],
   },

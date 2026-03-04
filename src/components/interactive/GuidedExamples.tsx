@@ -26,6 +26,7 @@ export default function GuidedExamples({ data }: GuidedExamplesProps) {
   const [outputs, setOutputs] = useState<Record<number, string[]>>({})
   const [isLoading, setIsLoading] = useState(false)
   const [isReady, setIsReady] = useState(false)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const pyodideRef = useRef<any>(null)
 
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function GuidedExamples({ data }: GuidedExamplesProps) {
       } catch (e: any) {
         if (!cancelled) {
           setIsLoading(false)
+          setLoadError(`Python 환경을 불러올 수 없습니다. ${e.message || '네트워크를 확인해 주세요.'}`)
         }
       }
     }
@@ -125,8 +127,22 @@ sys.stderr = io.StringIO()
           </div>
         )}
 
+        {/* Error State */}
+        {loadError && (
+          <div className="flex flex-col items-center gap-3 py-8 text-center">
+            <span className="text-3xl">⚠️</span>
+            <p className="text-sm text-red-700 font-medium">{loadError}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-red-100 text-red-700 text-sm font-bold rounded-lg hover:bg-red-200 transition-colors"
+            >
+              페이지 새로고침
+            </button>
+          </div>
+        )}
+
         {/* Steps */}
-        {!isLoading && (
+        {!isLoading && !loadError && (
           <div className="space-y-1">
             {data.steps.map((step, idx) => {
               const isCompleted = completedSteps.has(idx)

@@ -266,7 +266,7 @@ export default function Learn() {
           </div>
 
           {guidedExamples[currentSection.id] && (
-            <GuidedExamples data={guidedExamples[currentSection.id]} />
+            <GuidedExamples key={currentSection.id} data={guidedExamples[currentSection.id]} />
           )}
 
           <InteractiveSection sectionId={currentSection.id} />
