@@ -6,6 +6,7 @@ import Card from '../components/ui/Card'
 import { useAuthStore } from '../store/authStore'
 import { useProgressStore } from '../store/progressStore'
 import { useCourseBySlug } from '../hooks/useCourse'
+import { CERT_MIN_COMPLETION_RATE, CERT_MIN_QUIZ_SCORE } from '../lib/constants'
 
 export default function Certificate() {
   const { courseSlug } = useParams<{ courseSlug: string }>()
@@ -46,7 +47,7 @@ export default function Certificate() {
   const avgQuizScore = allQuizScores.length > 0
     ? Math.round(allQuizScores.reduce((a, b) => a + b, 0) / allQuizScores.length)
     : 0
-  const meetsCompletionCriteria = completionRate >= 90 && avgQuizScore >= 60
+  const meetsCompletionCriteria = completionRate >= CERT_MIN_COMPLETION_RATE && avgQuizScore >= CERT_MIN_QUIZ_SCORE
 
   // Calculate grade
   function getLetterGrade(score: number): string {
@@ -59,8 +60,8 @@ export default function Certificate() {
   const grade = getLetterGrade(avgQuizScore)
 
   if (!meetsCompletionCriteria) {
-    const meetsProgressRequirement = completionRate >= 90
-    const meetsQuizRequirement = avgQuizScore >= 60
+    const meetsProgressRequirement = completionRate >= CERT_MIN_COMPLETION_RATE
+    const meetsQuizRequirement = avgQuizScore >= CERT_MIN_QUIZ_SCORE
 
     return (
       <div className="max-w-4xl mx-auto px-4 py-20">
@@ -87,7 +88,7 @@ export default function Certificate() {
               </div>
               {!meetsProgressRequirement && (
                 <div className="text-xs text-red-600 mt-2 font-semibold">
-                  {Math.ceil(totalSections * 0.9) - completedCount}개 섹션 더 완료하세요
+                  {Math.ceil(totalSections * (CERT_MIN_COMPLETION_RATE / 100)) - completedCount}개 섹션 더 완료하세요
                 </div>
               )}
             </div>
@@ -110,7 +111,7 @@ export default function Certificate() {
               )}
               {!meetsQuizRequirement && allQuizScores.length > 0 && (
                 <div className="text-xs text-red-600 mt-2 font-semibold">
-                  평균 점수를 {60 - avgQuizScore}점 올려야 합니다
+                  평균 점수를 {CERT_MIN_QUIZ_SCORE - avgQuizScore}점 올려야 합니다
                 </div>
               )}
             </div>
@@ -142,11 +143,25 @@ export default function Certificate() {
     )
   }
 
-  const completionDate = new Date().toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
+  function getCertificateIssuedDate(courseSlug: string): string {
+    const key = 'ai-learning-cert-dates'
+    const stored = localStorage.getItem(key)
+    const dates = stored ? JSON.parse(stored) : {}
+
+    if (dates[courseSlug]) {
+      return dates[courseSlug]
+    }
+
+    // First time - store today's date
+    const today = new Date().toISOString().split('T')[0] // YYYY-MM-DD
+    dates[courseSlug] = today
+    localStorage.setItem(key, JSON.stringify(dates))
+    return today
+  }
+
+  const issuedDateRaw = getCertificateIssuedDate(courseSlug || '')
+  const [year, month, day] = issuedDateRaw.split('-').map(Number)
+  const completionDate = `${year}년 ${month}월 ${day}일`
 
   return (
     <div>

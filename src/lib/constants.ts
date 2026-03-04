@@ -12,3 +12,7 @@ export const DIFFICULTY_COLORS: Record<string, string> = {
   intermediate: 'bg-yellow-100 text-yellow-800',
   advanced: 'bg-red-100 text-red-800',
 }
+
+// Certificate eligibility thresholds
+export const CERT_MIN_COMPLETION_RATE = 90
+export const CERT_MIN_QUIZ_SCORE = 60

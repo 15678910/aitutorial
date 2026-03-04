@@ -27,6 +27,31 @@ export function getBadgesForProgress(completedSections: Set<string>, quizScores:
   if (completedSections.size >= 3) earned.push('chapter-done')
   if (completedSections.size >= 8) earned.push('half-course')
   if (completedSections.size >= 15) earned.push('course-done')
+
+  // Extract courseSlug from each section ID using pattern: everything before -chN-sM
+  const courseSlugRegex = /^(.+)-ch\d+-s\d+$/
+  const sectionsByCourse = new Map<string, number>()
+  for (const sectionId of completedSections) {
+    const match = sectionId.match(courseSlugRegex)
+    if (match) {
+      const courseSlug = match[1]
+      sectionsByCourse.set(courseSlug, (sectionsByCourse.get(courseSlug) ?? 0) + 1)
+    }
+  }
+
+  // streak-3: 3+ sections from the same course
+  if ([...sectionsByCourse.values()].some(count => count >= 3)) earned.push('streak-3')
+
+  // streak-7: 7+ sections from the same course
+  if ([...sectionsByCourse.values()].some(count => count >= 7)) earned.push('streak-7')
+
+  // multi-course: sections from 2+ different courses
+  if (sectionsByCourse.size >= 2) earned.push('multi-course')
+
+  // code-master: any section from coding-practice courses
+  const codingCoursePrefixes = ['python-ml-practice', 'building-ai', 'making-ai']
+  if ([...sectionsByCourse.keys()].some(slug => codingCoursePrefixes.includes(slug))) earned.push('code-master')
+
   return earned
 }
 

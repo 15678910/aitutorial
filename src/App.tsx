@@ -35,6 +35,7 @@ const MyProfile = lazy(() => import('./pages/MyProfile'))
 const Enterprise = lazy(() => import('./pages/Enterprise'))
 const Research = lazy(() => import('./pages/Research'))
 const StudyGroups = lazy(() => import('./pages/StudyGroups'))
+const Roadmap = lazy(() => import('./pages/Roadmap'))
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 1 } },
@@ -74,6 +75,7 @@ export default function App() {
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/reset-password" element={<ResetPassword />} />
+                  <Route path="/roadmap" element={<Roadmap />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/privacy" element={<Privacy />} />

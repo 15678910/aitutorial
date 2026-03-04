@@ -6,7 +6,7 @@ import { useAuthStore } from '../store/authStore'
 import { useProgressStore } from '../store/progressStore'
 import { useCourseList } from '../hooks/useCourse'
 import { getCourseTheme } from '../lib/courseThemes'
-import { DIFFICULTY_LABELS, DIFFICULTY_COLORS } from '../lib/constants'
+import { DIFFICULTY_LABELS, DIFFICULTY_COLORS, CERT_MIN_COMPLETION_RATE, CERT_MIN_QUIZ_SCORE } from '../lib/constants'
 
 // Calculate letter grade from numeric score
 function getLetterGrade(score: number): { grade: string; color: string } {
@@ -210,7 +210,7 @@ export default function Transcript() {
                       <Link to={`/courses/${course.slug}`}>
                         <Button size="sm" variant="outline">코스 보기</Button>
                       </Link>
-                      {course.completionRate === 100 && course.avgQuizScore >= 60 && (
+                      {course.completionRate >= CERT_MIN_COMPLETION_RATE && course.avgQuizScore >= CERT_MIN_QUIZ_SCORE && (
                         <Link to={`/certificate/${course.slug}`}>
                           <Button size="sm">수료증 보기</Button>
                         </Link>

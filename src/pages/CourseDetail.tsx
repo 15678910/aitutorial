@@ -6,6 +6,7 @@ import { useProgressStore } from '../store/progressStore'
 import { getCourseTheme } from '../lib/courseThemes'
 import ChapterIllustration from '../components/illustrations/ChapterIllustrations'
 import { cn } from '../lib/utils'
+import { CERT_MIN_COMPLETION_RATE, CERT_MIN_QUIZ_SCORE } from '../lib/constants'
 
 export default function CourseDetail() {
   const { slug } = useParams<{ slug: string }>()
@@ -35,7 +36,7 @@ export default function CourseDetail() {
   const avgQuizScore = allQuizScores.length > 0
     ? Math.round(allQuizScores.reduce((a, b) => a + b, 0) / allQuizScores.length)
     : 0
-  const meetsCompletionCriteria = completionRate >= 90 && avgQuizScore >= 50
+  const meetsCompletionCriteria = completionRate >= CERT_MIN_COMPLETION_RATE && avgQuizScore >= CERT_MIN_QUIZ_SCORE
 
   const firstSection = course.chapters[0]?.sections[0]
   const startUrl = firstSection ? `/learn/${course.slug}/${course.chapters[0].slug}/${firstSection.slug}` : '#'
@@ -98,12 +99,12 @@ export default function CourseDetail() {
                   <div className={`${theme.text} font-bold text-sm mb-3`}>수료 조건</div>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2">
-                      <span>{completionRate >= 90 ? '✅' : '❌'}</span>
-                      <span className={theme.text}>섹션 진행률 90% 이상 (현재: {Math.round(completionRate)}%)</span>
+                      <span>{completionRate >= CERT_MIN_COMPLETION_RATE ? '✅' : '❌'}</span>
+                      <span className={theme.text}>섹션 진행률 {CERT_MIN_COMPLETION_RATE}% 이상 (현재: {Math.round(completionRate)}%)</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span>{avgQuizScore >= 50 ? '✅' : '❌'}</span>
-                      <span className={theme.text}>평균 퀴즈 점수 50% 이상 (현재: {avgQuizScore}%)</span>
+                      <span>{avgQuizScore >= CERT_MIN_QUIZ_SCORE ? '✅' : '❌'}</span>
+                      <span className={theme.text}>평균 퀴즈 점수 {CERT_MIN_QUIZ_SCORE}% 이상 (현재: {avgQuizScore}%)</span>
                     </div>
                   </div>
                 </div>
