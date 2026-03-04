@@ -2,6 +2,8 @@ import { useParams, useNavigate, Navigate, Link } from 'react-router-dom'
 import { useMemo, useState, useEffect, useRef } from 'react'
 import SectionContent from '../components/course/SectionContent'
 import InteractiveSection from '../components/course/InteractiveSection'
+import GuidedExamples from '../components/interactive/GuidedExamples'
+import { guidedExamples } from '../data/guidedExamples'
 import QuizContainer from '../components/quiz/QuizContainer'
 import DiscussionPanel from '../components/discussion/DiscussionPanel'
 import Button from '../components/ui/Button'
@@ -262,6 +264,10 @@ export default function Learn() {
               chapterTitle={currentChapter.title}
             />
           </div>
+
+          {guidedExamples[currentSection.id] && (
+            <GuidedExamples data={guidedExamples[currentSection.id]} />
+          )}
 
           <InteractiveSection sectionId={currentSection.id} />
 
