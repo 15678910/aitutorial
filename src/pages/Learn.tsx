@@ -1,5 +1,5 @@
 import { useParams, useNavigate, Navigate, Link } from 'react-router-dom'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect, useRef } from 'react'
 import SectionContent from '../components/course/SectionContent'
 import InteractiveSection from '../components/course/InteractiveSection'
 import QuizContainer from '../components/quiz/QuizContainer'
@@ -18,6 +18,10 @@ import GuideTip from '../components/learning/GuideTip'
 import MiniLab from '../components/learning/MiniLab'
 import WhyQuestionPanel from '../components/learning/WhyQuestionPanel'
 import LearningGuidePanel from '../components/learning/LearningGuidePanel'
+import { useXP } from '../hooks/useXP'
+import XPProgressBar from '../components/gamification/XPProgressBar'
+import LevelUpModal from '../components/gamification/LevelUpModal'
+import { LEVELS } from '../store/xpStore'
 
 export default function Learn() {
   const { courseSlug, chapterSlug, sectionSlug } = useParams()
@@ -25,9 +29,24 @@ export default function Learn() {
   const { user } = useAuthStore()
   const course = useCourseBySlug(courseSlug || '')
   const { completedSections, markComplete, saveQuizScore } = useProgress()
+  const { level, totalXP, earnSectionXP, earnQuizXP } = useXP()
   const [showNav, setShowNav] = useState(false)
   const [showCelebration, setShowCelebration] = useState(false)
   const [celebrationMsg, setCelebrationMsg] = useState('')
+  const [levelUpData, setLevelUpData] = useState<{ prev: { level: number; title: string; emoji: string }; new: { level: number; title: string; emoji: string } } | null>(null)
+  const prevLevelRef = useRef(level)
+
+  useEffect(() => {
+    if (level > prevLevelRef.current && prevLevelRef.current > 0) {
+      const prevLevel = LEVELS[prevLevelRef.current - 1]
+      const newLevel = LEVELS[level - 1]
+      setLevelUpData({
+        prev: { level: prevLevel.level, title: prevLevel.title, emoji: prevLevel.emoji },
+        new: { level: newLevel.level, title: newLevel.title, emoji: newLevel.emoji },
+      })
+    }
+    prevLevelRef.current = level
+  }, [level])
 
   const { currentSection, currentChapter, currentChapterIndex, prevSection, nextSection } = useMemo(() => {
     if (!course) return { currentSection: null, currentChapter: null, currentChapterIndex: 0, prevSection: null, nextSection: null }
@@ -74,12 +93,14 @@ export default function Learn() {
   const isCompleted = completedSections.has(currentSection.id)
   const handleComplete = () => {
     markComplete(currentSection.id)
+    earnSectionXP(currentSection.id)
     setCelebrationMsg('섹션 완료! 🎉')
     setShowCelebration(true)
   }
   const handleQuizComplete = (score: number) => {
     saveQuizScore(currentSection.id, score)
     if (score >= 60) markComplete(currentSection.id)
+    earnQuizXP(currentSection.id, score)
     if (score === 100) {
       setCelebrationMsg('만점! 완벽합니다! 💎')
       setShowCelebration(true)
@@ -98,6 +119,14 @@ export default function Learn() {
   return (
     <div className="min-h-screen flex flex-col bg-[#faf8f5]">
       <CelebrationOverlay show={showCelebration} message={celebrationMsg} onDone={() => setShowCelebration(false)} />
+      {levelUpData && (
+        <LevelUpModal
+          previousLevel={levelUpData.prev}
+          newLevel={levelUpData.new}
+          totalXP={totalXP}
+          onDismiss={() => setLevelUpData(null)}
+        />
+      )}
       {/* Top Navigation Bar - Elements of AI style */}
       <header className={`${theme.bg} sticky top-0 z-40`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,6 +149,10 @@ export default function Learn() {
               <span className="opacity-50" aria-hidden="true">{'>'}</span>
               <span className="font-bold">{currentSection.title}</span>
             </nav>
+            {/* XP Progress Bar */}
+            <div className="hidden sm:block">
+              <XPProgressBar compact />
+            </div>
             {/* Menu button */}
             <button
               onClick={() => setShowNav(!showNav)}

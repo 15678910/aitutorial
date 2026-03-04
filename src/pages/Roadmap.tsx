@@ -8,13 +8,22 @@ import Button from '../components/ui/Button'
 import Progress from '../components/ui/Progress'
 
 // ---------------------------------------------------------------------------
-// Data: Learning Paths
+// Data: Learning Paths (4 paths with bridge guides)
 // ---------------------------------------------------------------------------
+
+interface BridgeData {
+  message: string
+  encouragement: string
+  learned: string[]
+  nextTopics: string[]
+  nextPathId: string
+}
 
 interface LearningPath {
   id: string
   title: string
   emoji: string
+  subtitle: string
   target: string
   duration: string
   description: string
@@ -22,34 +31,70 @@ interface LearningPath {
   difficulty: 'beginner' | 'intermediate' | 'advanced'
   prerequisite?: string
   courseSlugs: string[]
+  courseNotes?: Record<string, string>
   gradient: string
   bgLight: string
   accentHex: string
+  bridge?: BridgeData
 }
 
 const learningPaths: LearningPath[] = [
   {
-    id: 'ai-fundamentals',
-    title: 'AI 기초 마스터',
-    emoji: '\uD83E\uDDE0',
-    target: 'AI 입문자, 비전공자',
-    duration: '~8주',
-    description: 'AI의 기본 개념부터 딥러닝, 생성형 AI까지 체계적으로 학습합니다.',
-    goal: 'AI 개념 이해 + 간단한 모델 구현 가능',
+    id: 'ai-understanding',
+    title: 'AI \uC774\uD574\uD558\uAE30',
+    subtitle: 'Understanding AI',
+    emoji: '\uD83C\uDF31',
+    target: '\uC644\uC804 \uCD08\uBCF4\uC790, \uBE44\uC804\uACF5\uC790, \uCF54\uB529 \uACBD\uD5D8 \uC5C6\uB294 \uBD84',
+    duration: '~4\uC8FC',
+    description: 'AI\uAC00 \uBB50\uC778\uC9C0 \uC774\uD574\uD558\uACE0, \uC5B4\uB514\uC5D0 \uC4F0\uC774\uB294\uC9C0 \uC54C \uC218 \uC788\uC5B4\uC694.',
+    goal: 'AI\uAC00 \uBB50\uC778\uC9C0 \uC774\uD574\uD558\uACE0, \uC5B4\uB514\uC5D0 \uC4F0\uC774\uB294\uC9C0 \uC54C \uC218 \uC788\uC5B4\uC694',
     difficulty: 'beginner',
-    courseSlugs: ['ai-intro', 'ml-basics', 'deep-learning', 'generative-ai', 'making-ai'],
-    gradient: 'from-[#FF6B6B] via-[#7C5CFC] to-[#2EC4B6]',
-    bgLight: 'bg-gradient-to-br from-red-50 via-purple-50 to-teal-50',
-    accentHex: '#7C5CFC',
+    courseSlugs: ['ai-intro', 'ml-basics', 'generative-ai'],
+    gradient: 'from-[#34D399] via-[#3B82F6] to-[#8B5CF6]',
+    bgLight: 'bg-gradient-to-br from-green-50 via-blue-50 to-purple-50',
+    accentHex: '#34D399',
+    bridge: {
+      message: '\uCD95\uD558\uD569\uB2C8\uB2E4! AI\uC758 \uAE30\uBCF8 \uAC1C\uB150\uC744 \uC774\uD574\uD588\uC5B4\uC694. \uB2E4\uC74C \uB2E8\uACC4\uC5D0\uC11C\uB294 AI\uB97C \uC9C1\uC811 \uB9CC\uB4E4\uC5B4\uBD05\uB2C8\uB2E4.',
+      encouragement: '\uCF54\uB529\uC774 \uCC98\uC74C\uC774\uC5B4\uB3C4 \uAD1C\uCC2E\uC544\uC694 \u2014 Python \uAE30\uCD08\uBD80\uD130 \uCC28\uADFC\uCC28\uADFC \uC548\uB0B4\uD569\uB2C8\uB2E4.',
+      learned: ['AI \uAC1C\uB150\uACFC \uC6D0\uB9AC', '\uBA38\uC2E0\uB7EC\uB2DD \uAE30\uCD08 \uC774\uB860', '\uC0DD\uC131\uD615 AI \uC774\uD574'],
+      nextTopics: ['Python \uCF54\uB529 \uAE30\uCD08', '\uB370\uC774\uD130 \uBD84\uC11D', 'AI \uBAA8\uB378 \uAD6C\uD604'],
+      nextPathId: 'ai-building',
+    },
   },
   {
-    id: 'claude-expert',
-    title: 'Claude Code 전문가',
-    emoji: '\uD83D\uDE80',
-    target: '개발자, AI 도구 활용 원하는 직장인',
-    duration: '~6주',
-    description: 'Claude Code를 활용한 개발 생산성 극대화와 에이전트 개발을 마스터합니다.',
-    goal: 'Claude를 활용한 생산성 극대화 + 에이전트 개발',
+    id: 'ai-building',
+    title: 'AI \uC9C1\uC811 \uB9CC\uB4E4\uAE30',
+    subtitle: 'Building AI',
+    emoji: '\uD83D\uDD28',
+    target: 'Path 1 \uC644\uB8CC\uC790, \uCF54\uB529 \uC785\uBB38\uC790',
+    duration: '~6\uC8FC',
+    description: 'Python\uC73C\uB85C AI \uBAA8\uB378\uC744 \uC9C1\uC811 \uB9CC\uB4E4\uACE0, \uB370\uC774\uD130\uB97C \uB2E4\uB8F0 \uC218 \uC788\uC5B4\uC694.',
+    goal: 'Python\uC73C\uB85C AI \uBAA8\uB378\uC744 \uC9C1\uC811 \uB9CC\uB4E4\uACE0, \uB370\uC774\uD130\uB97C \uB2E4\uB8F0 \uC218 \uC788\uC5B4\uC694',
+    difficulty: 'intermediate',
+    courseSlugs: ['python-ml-practice', 'deep-learning', 'making-ai', 'rag-vector-db'],
+    courseNotes: {
+      'python-ml-practice': '\uCF54\uB529\uC774 \uCC98\uC74C\uC774\uC5B4\uB3C4 \uAD1C\uCC2E\uC544\uC694! \uC774 \uCF54\uC2A4\uB294 Python \uAE30\uCD08\uBD80\uD130 \uC2DC\uC791\uD569\uB2C8\uB2E4. \uBE0C\uB77C\uC6B0\uC800\uC5D0\uC11C \uBC14\uB85C \uCF54\uB4DC\uB97C \uC2E4\uD589\uD560 \uC218 \uC788\uC5B4\uC694.',
+    },
+    gradient: 'from-[#F59E0B] via-[#EF4444] to-[#8B5CF6]',
+    bgLight: 'bg-gradient-to-br from-amber-50 via-red-50 to-purple-50',
+    accentHex: '#F59E0B',
+    bridge: {
+      message: '\uC774\uC81C AI\uB97C \uB9CC\uB4E4 \uC218 \uC788\uAC8C \uB418\uC5C8\uC5B4\uC694! Claude \uAC19\uC740 AI \uB3C4\uAD6C\uB97C \uD65C\uC6A9\uD558\uBA74 \uAC1C\uBC1C \uC0DD\uC0B0\uC131\uC774 10\uBC30 \uD5A5\uC0C1\uB429\uB2C8\uB2E4.',
+      encouragement: 'AI \uBAA8\uB378\uC744 \uC9C1\uC811 \uB9CC\uB4E4\uC5B4\uBCF8 \uACBD\uD5D8\uC774 \uC788\uC73C\uB2C8, AI \uB3C4\uAD6C\uB97C \uB354 \uC798 \uD65C\uC6A9\uD560 \uC218 \uC788\uC5B4\uC694!',
+      learned: ['Python \uD504\uB85C\uADF8\uB798\uBC0D', '\uB525\uB7EC\uB2DD \uBAA8\uB378 \uAD6C\uD604', 'RAG \uBC0F \uBCA1\uD130 DB'],
+      nextTopics: ['Claude Code \uD65C\uC6A9', 'AI \uC5D0\uC774\uC804\uD2B8 \uAC1C\uBC1C', '\uD504\uB85C\uC81D\uD2B8 \uAD00\uB9AC'],
+      nextPathId: 'ai-tools',
+    },
+  },
+  {
+    id: 'ai-tools',
+    title: 'AI \uB3C4\uAD6C \uB9C8\uC2A4\uD130',
+    subtitle: 'AI Tools Master',
+    emoji: '\u26A1',
+    target: '\uCF54\uB529 \uAC00\uB2A5\uD55C \uD559\uC2B5\uC790, \uAC1C\uBC1C\uC790',
+    duration: '~6\uC8FC',
+    description: 'Claude\uB97C \uD65C\uC6A9\uD574 \uCF54\uB4DC \uC791\uC131, \uD504\uB85C\uC81D\uD2B8 \uAD00\uB9AC, \uC5D0\uC774\uC804\uD2B8 \uAC1C\uBC1C\uAE4C\uC9C0',
+    goal: 'Claude\uB97C \uD65C\uC6A9\uD574 \uCF54\uB4DC \uC791\uC131, \uD504\uB85C\uC81D\uD2B8 \uAD00\uB9AC, \uC5D0\uC774\uC804\uD2B8 \uAC1C\uBC1C\uAE4C\uC9C0',
     difficulty: 'intermediate',
     courseSlugs: [
       'claude-code',
@@ -59,23 +104,30 @@ const learningPaths: LearningPath[] = [
       'claude-cowork',
       'agent-skills',
     ],
-    gradient: 'from-[#D97757] via-[#3B82F6] to-[#F59E0B]',
-    bgLight: 'bg-gradient-to-br from-orange-50 via-blue-50 to-amber-50',
+    gradient: 'from-[#3B82F6] via-[#6366F1] to-[#D946EF]',
+    bgLight: 'bg-gradient-to-br from-blue-50 via-indigo-50 to-fuchsia-50',
     accentHex: '#3B82F6',
+    bridge: {
+      message: 'AI \uAE30\uC220\uACFC \uB3C4\uAD6C\uB97C \uBAA8\uB450 \uC775\uD614\uC2B5\uB2C8\uB2E4. \uC774\uC81C \uC774\uAC83\uC744 \uCEE4\uB9AC\uC5B4\uB85C \uC5F0\uACB0\uD560 \uCC28\uB840\uC608\uC694.',
+      encouragement: '\uD3EC\uD2B8\uD3F4\uB9AC\uC624\uC640 \uC2E4\uBB34 \uC2A4\uD0AC\uB85C \uCDE8\uC5C5 \uC900\uBE44\uB97C \uB9C8\uBB34\uB9AC\uD574\uBCF4\uC138\uC694!',
+      learned: ['Claude Code \uD65C\uC6A9', 'AI \uC5D0\uC774\uC804\uD2B8 \uAC1C\uBC1C', 'AI \uD611\uC5C5 \uBC29\uBC95\uB860'],
+      nextTopics: ['AI \uBE44\uC988\uB2C8\uC2A4 \uC804\uB7B5', '\uD3EC\uD2B8\uD3F4\uB9AC\uC624 \uAD6C\uCD95', '\uCDE8\uC5C5 \uC900\uBE44'],
+      nextPathId: 'ai-career',
+    },
   },
   {
     id: 'ai-career',
-    title: 'AI 실무 & 커리어',
-    emoji: '\uD83C\uDFAF',
-    target: '취업 준비생, 커리어 전환자',
-    duration: '~10주',
-    description: '실무 프로젝트와 포트폴리오 구축으로 AI 커리어를 준비합니다.',
-    goal: '실무 스킬 + 포트폴리오 + 취업 준비 완성',
+    title: 'AI \uCEE4\uB9AC\uC5B4 \uC644\uC131',
+    subtitle: 'AI Career',
+    emoji: '\uD83C\uDFC6',
+    target: '\uCDE8\uC5C5/\uC774\uC9C1 \uC900\uBE44, \uC0AC\uC5C5\uD654 \uAD00\uC2EC',
+    duration: '~4\uC8FC',
+    description: 'AI \uD3EC\uD2B8\uD3F4\uB9AC\uC624\uB97C \uC644\uC131\uD558\uACE0, \uCDE8\uC5C5/\uC0AC\uC5C5\uD654 \uC900\uBE44\uB97C \uB9C8\uBB34\uB9AC\uD574\uC694',
+    goal: 'AI \uD3EC\uD2B8\uD3F4\uB9AC\uC624\uB97C \uC644\uC131\uD558\uACE0, \uCDE8\uC5C5/\uC0AC\uC5C5\uD654 \uC900\uBE44\uB97C \uB9C8\uBB34\uB9AC\uD574\uC694',
     difficulty: 'advanced',
-    prerequisite: 'Path 1 (AI 기초 마스터) 수료 또는 동등 수준',
-    courseSlugs: ['python-ml-practice', 'rag-vector-db', 'ai-business', 'ai-portfolio'],
-    gradient: 'from-[#06B6D4] via-[#6366F1] to-[#EC4899]',
-    bgLight: 'bg-gradient-to-br from-cyan-50 via-indigo-50 to-pink-50',
+    courseSlugs: ['ai-business', 'ai-portfolio'],
+    gradient: 'from-[#EC4899] via-[#F43F5E] to-[#F59E0B]',
+    bgLight: 'bg-gradient-to-br from-pink-50 via-rose-50 to-amber-50',
     accentHex: '#EC4899',
   },
 ]
@@ -95,24 +147,31 @@ interface Persona {
 const personas: Persona[] = [
   {
     emoji: '\uD83C\uDF31',
-    title: 'AI가 처음이에요',
-    description: 'AI에 대해 들어봤지만 체계적으로 배운 적이 없어요. 기초부터 차근차근 배우고 싶어요.',
-    recommendedPathId: 'ai-fundamentals',
-    tags: ['비전공자', '입문자', '기초부터'],
+    title: 'AI\uAC00 \uCC98\uC74C\uC774\uC5D0\uC694',
+    description: 'AI\uC5D0 \uB300\uD574 \uB4E4\uC5B4\uBD24\uC9C0\uB9CC \uCCB4\uACC4\uC801\uC73C\uB85C \uBC30\uC6B4 \uC801\uC774 \uC5C6\uC5B4\uC694. \uAE30\uCD08\uBD80\uD130 \uCC28\uADFC\uCC28\uADFC \uBC30\uC6B0\uACE0 \uC2F6\uC5B4\uC694.',
+    recommendedPathId: 'ai-understanding',
+    tags: ['\uBE44\uC804\uACF5\uC790', '\uC785\uBB38\uC790', '\uAE30\uCD08\uBD80\uD130'],
   },
   {
     emoji: '\uD83D\uDCBB',
-    title: '개발자인데 AI 도구를 쓰고 싶어요',
-    description: '코딩은 할 줄 알지만, Claude 같은 AI 도구로 생산성을 높이고 싶어요.',
-    recommendedPathId: 'claude-expert',
-    tags: ['개발자', 'AI 도구', '생산성'],
+    title: '\uCF54\uB529\uC740 \uD560 \uC904 \uC54C\uACE0, AI\uB97C \uBC30\uC6B0\uACE0 \uC2F6\uC5B4\uC694',
+    description: '\uCF54\uB529 \uAE30\uCD08\uB294 \uC788\uC9C0\uB9CC, AI \uBAA8\uB378\uC744 \uC9C1\uC811 \uB9CC\uB4E4\uC5B4\uBCF4\uACE0 \uC2F6\uC5B4\uC694. Python\uC73C\uB85C \uC2DC\uC791\uD560\uAC8C\uC694.',
+    recommendedPathId: 'ai-building',
+    tags: ['\uCF54\uB529 \uC785\uBB38', 'AI \uC2E4\uC2B5', 'Python'],
+  },
+  {
+    emoji: '\u26A1',
+    title: '\uAC1C\uBC1C\uC790\uC778\uB370 AI \uB3C4\uAD6C\uB97C \uC4F0\uACE0 \uC2F6\uC5B4\uC694',
+    description: '\uCF54\uB529\uC740 \uD560 \uC904 \uC54C\uC9C0\uB9CC, Claude \uAC19\uC740 AI \uB3C4\uAD6C\uB85C \uC0DD\uC0B0\uC131\uC744 \uB192\uC774\uACE0 \uC2F6\uC5B4\uC694.',
+    recommendedPathId: 'ai-tools',
+    tags: ['\uAC1C\uBC1C\uC790', 'AI \uB3C4\uAD6C', '\uC0DD\uC0B0\uC131'],
   },
   {
     emoji: '\uD83C\uDFC6',
-    title: 'AI로 취업/이직하고 싶어요',
-    description: 'AI 분야로 커리어를 전환하거나, 포트폴리오를 만들어 취업 준비를 하고 싶어요.',
+    title: 'AI\uB85C \uCDE8\uC5C5/\uC774\uC9C1\uD558\uACE0 \uC2F6\uC5B4\uC694',
+    description: 'AI \uBD84\uC57C\uB85C \uCEE4\uB9AC\uC5B4\uB97C \uC804\uD658\uD558\uAC70\uB098, \uD3EC\uD2B8\uD3F4\uB9AC\uC624\uB97C \uB9CC\uB4E4\uC5B4 \uCDE8\uC5C5 \uC900\uBE44\uB97C \uD558\uACE0 \uC2F6\uC5B4\uC694.',
     recommendedPathId: 'ai-career',
-    tags: ['취업', '포트폴리오', '커리어'],
+    tags: ['\uCDE8\uC5C5', '\uD3EC\uD2B8\uD3F4\uB9AC\uC624', '\uCEE4\uB9AC\uC5B4'],
   },
 ]
 
@@ -143,11 +202,13 @@ function PathCourseCard({
   index,
   isCompleted,
   isLast,
+  note,
 }: {
   slug: string
   index: number
   isCompleted: boolean
   isLast: boolean
+  note?: string
 }) {
   const course = coursesData.find((c) => c.slug === slug)
   if (!course) return null
@@ -213,17 +274,26 @@ function PathCourseCard({
                 <DifficultyBadge difficulty={course.difficulty} />
                 {isCompleted && (
                   <span className="text-xs font-semibold text-accent bg-accent/10 px-2 py-0.5 rounded-full">
-                    완료
+                    {'\uC644\uB8CC'}
                   </span>
                 )}
               </div>
               <p className="text-sm text-gray-500 line-clamp-2">{course.description}</p>
+
+              {/* Course-specific note (e.g., for python-ml-practice) */}
+              {note && (
+                <div className="mt-2 flex items-start gap-1.5 text-xs text-emerald-700 bg-emerald-50 rounded-lg px-3 py-2">
+                  <span className="flex-shrink-0">{'\uD83D\uDCA1'}</span>
+                  <span>{note}</span>
+                </div>
+              )}
+
               <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
                 <span className="flex items-center gap-1">
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  {course.estimatedHours}시간
+                  {course.estimatedHours}{'\uC2DC\uAC04'}
                 </span>
               </div>
             </div>
@@ -241,6 +311,115 @@ function PathCourseCard({
           </div>
         </div>
       </Link>
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Bridge Card between paths
+// ---------------------------------------------------------------------------
+
+function BridgeCard({
+  bridge,
+  fromPathTitle,
+  toPathTitle,
+}: {
+  bridge: BridgeData
+  fromPathTitle: string
+  toPathTitle: string
+}) {
+  const firstCourseOfNext = learningPaths.find((p) => p.id === bridge.nextPathId)
+  const firstSlug = firstCourseOfNext?.courseSlugs[0]
+
+  return (
+    <div className="relative py-2">
+      {/* Connecting line top */}
+      <div className="flex justify-center">
+        <div className="w-0.5 h-8 bg-gradient-to-b from-gray-200 to-amber-300" />
+      </div>
+
+      {/* Bridge card */}
+      <div className="relative rounded-2xl border-2 border-amber-200 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 shadow-lg overflow-hidden">
+        {/* Decorative top accent */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400" />
+
+        <div className="p-6 sm:p-8">
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-2xl">{'\uD83C\uDF09'}</span>
+            <div>
+              <h4 className="text-lg font-extrabold text-amber-900">
+                {'\uB2E4\uC74C \uB2E8\uACC4\uB85C\uC758 \uC5EC\uC815'}
+              </h4>
+              <p className="text-xs text-amber-600 font-medium">
+                {fromPathTitle} {'\u2192'} {toPathTitle}
+              </p>
+            </div>
+          </div>
+
+          {/* Encouraging message */}
+          <p className="text-amber-800 font-medium mb-5 leading-relaxed">
+            {bridge.message}
+          </p>
+
+          {/* Two columns: learned + next */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+            {/* What you already know */}
+            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-amber-100">
+              <h5 className="text-sm font-bold text-green-700 mb-2.5 flex items-center gap-1.5">
+                <span>{'\u2705'}</span> {'\uC774\uBBF8 \uBC30\uC6B4 \uAC83'}
+              </h5>
+              <ul className="space-y-1.5">
+                {bridge.learned.map((item) => (
+                  <li key={item} className="text-sm text-gray-700 flex items-start gap-2">
+                    <svg className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* What you'll learn next */}
+            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-amber-100">
+              <h5 className="text-sm font-bold text-blue-700 mb-2.5 flex items-center gap-1.5">
+                <span>{'\uD83C\uDFAF'}</span> {'\uB2E4\uC74C\uC5D0 \uBC30\uC6B8 \uAC83'}
+              </h5>
+              <ul className="space-y-1.5">
+                {bridge.nextTopics.map((item) => (
+                  <li key={item} className="text-sm text-gray-700 flex items-start gap-2">
+                    <svg className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Encouragement + CTA */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <p className="text-sm text-amber-700 font-medium flex items-center gap-2">
+              <span className="text-lg">{'\uD83D\uDCAA'}</span>
+              {bridge.encouragement}
+            </p>
+            {firstSlug && (
+              <Link to={`/courses/${firstSlug}`} className="flex-shrink-0">
+                <Button size="md" className="whitespace-nowrap">
+                  {'\uB2E4\uC74C \uACBD\uB85C \uC2DC\uC791\uD558\uAE30'} {'\u2192'}
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Connecting line bottom */}
+      <div className="flex justify-center">
+        <div className="w-0.5 h-8 bg-gradient-to-b from-amber-300 to-gray-200" />
+      </div>
     </div>
   )
 }
@@ -278,7 +457,12 @@ function LearningPathTrack({
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="text-3xl">{path.emoji}</span>
-              <h3 className="text-2xl font-extrabold text-gray-900">{path.title}</h3>
+              <div>
+                <h3 className="text-2xl font-extrabold text-gray-900">{path.title}</h3>
+                {path.subtitle && (
+                  <span className="text-sm font-medium text-gray-400">{path.subtitle}</span>
+                )}
+              </div>
             </div>
             <p className="text-gray-600 max-w-xl">{path.description}</p>
           </div>
@@ -341,6 +525,7 @@ function LearningPathTrack({
               index={idx}
               isCompleted={completedSlugs.has(slug)}
               isLast={idx === path.courseSlugs.length - 1}
+              note={path.courseNotes?.[slug]}
             />
           ))}
         </div>
@@ -429,7 +614,7 @@ export default function Roadmap() {
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6">
-            <span className="text-accent text-sm font-semibold">{'\uD83D\uDDFA\uFE0F'} 15개 코스 {'\u00B7'} 3개 학습 경로</span>
+            <span className="text-accent text-sm font-semibold">{'\uD83D\uDDFA\uFE0F'} 15\uAC1C \uCF54\uC2A4 {'\u00B7'} 4\uAC1C \uD559\uC2B5 \uACBD\uB85C {'\u00B7'} \uB2E8\uACC4\uBCC4 \uBE0C\uB9BF\uC9C0 \uAC00\uC774\uB4DC</span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-5 tracking-tight">
             학습 로드맵
@@ -446,7 +631,7 @@ export default function Roadmap() {
       {/* Persona Section                                                */}
       {/* ============================================================= */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {personas.map((persona) => (
             <button
               key={persona.recommendedPathId}
@@ -487,7 +672,7 @@ export default function Roadmap() {
         <div className="text-center">
           <h2 className="text-3xl font-extrabold text-gray-900 mb-3">학습 경로</h2>
           <p className="text-gray-500 max-w-lg mx-auto">
-            각 경로는 순서대로 학습하도록 설계되었습니다. 자신에게 맞는 경로를 선택하세요.
+            4\uAC1C \uACBD\uB85C\uAC00 \uB2E8\uACC4\uBCC4\uB85C \uC5F0\uACB0\uB429\uB2C8\uB2E4. \uACBD\uB85C \uC0AC\uC774 \uBE0C\uB9BF\uC9C0 \uAC00\uC774\uB4DC\uAC00 \uB2E4\uC74C \uB2E8\uACC4\uB97C \uC548\uB0B4\uD569\uB2C8\uB2E4.
           </p>
         </div>
 
@@ -512,15 +697,26 @@ export default function Roadmap() {
       {/* ============================================================= */}
       {/* Learning Path Tracks                                           */}
       {/* ============================================================= */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 space-y-10">
-        {learningPaths.map((path) => (
-          <LearningPathTrack
-            key={path.id}
-            path={path}
-            completedSlugs={completedCourseSlugs}
-            isHighlighted={highlightedPath === path.id}
-          />
-        ))}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 space-y-0">
+        {learningPaths.map((path, idx) => {
+          const nextPath = learningPaths[idx + 1]
+          return (
+            <div key={path.id}>
+              <LearningPathTrack
+                path={path}
+                completedSlugs={completedCourseSlugs}
+                isHighlighted={highlightedPath === path.id}
+              />
+              {path.bridge && nextPath && (
+                <BridgeCard
+                  bridge={path.bridge}
+                  fromPathTitle={path.title}
+                  toPathTitle={nextPath.title}
+                />
+              )}
+            </div>
+          )
+        })}
 
         {/* Bottom CTA */}
         <div className="text-center pt-8 pb-4">

@@ -4,6 +4,8 @@ import { useEffect, lazy, Suspense } from 'react'
 import Layout from './components/layout/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
 import { useAuthStore } from './store/authStore'
+import { XPToastManager } from './components/gamification/XPToast'
+import { useXPStore } from './store/xpStore'
 
 // Lazy load ALL pages for better initial load performance
 const Home = lazy(() => import('./pages/Home'))
@@ -49,7 +51,10 @@ function ScrollToTop() {
 
 function AuthInitializer({ children }: { children: React.ReactNode }) {
   const { initialize, initialized } = useAuthStore()
-  useEffect(() => { if (!initialized) initialize() }, [initialize, initialized])
+  useEffect(() => {
+    if (!initialized) initialize()
+    useXPStore.getState().checkDailyBonus()
+  }, [initialize, initialized])
   return <>{children}</>
 }
 
@@ -97,6 +102,7 @@ export default function App() {
               </Routes>
             </Suspense>
           </ErrorBoundary>
+          <XPToastManager />
         </BrowserRouter>
       </AuthInitializer>
     </QueryClientProvider>
