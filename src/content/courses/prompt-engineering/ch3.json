@@ -1,0 +1,139 @@
+{
+  "id": "prompt-engineering-ch3",
+  "courseId": "prompt-engineering",
+  "slug": "ch3-advanced-techniques",
+  "title": "고급 프롬프트 기법",
+  "description": "Chain of Thought, Few-shot 학습, 프롬프트 체이닝 등 고급 기법을 마스터합니다.",
+  "orderNum": 3,
+  "sections": [
+    {
+      "id": "prompt-engineering-ch3-s1",
+      "chapterId": "prompt-engineering-ch3",
+      "slug": "chain-of-thought",
+      "title": "Chain of Thought 추론",
+      "content": "## 시나리오: 민수의 복잡한 문제\n\n민수가 Claude에게 복잡한 비즈니스 문제를 물었더니, 바로 결론만 달랑 내놓았습니다. 과정을 확인할 수 없어 답을 신뢰하기 어렵습니다.\n\n선배가 조언합니다: \"AI에게 생각 과정을 보여달라고 해봐!\"\n\n---\n\n## Chain of Thought(CoT)란?\n\nChain of Thought는 AI에게 **단계별로 사고 과정을 보여달라고** 요청하는 기법입니다. 복잡한 문제에서 정확도를 크게 높여줍니다.\n\n### 기본 사용법\n\n**CoT 없이:**\n```\n회사 매출이 3분기 대비 4분기에 20% 올랐고,\n비용은 10% 늘었다면 이익률 변화는?\n```\n→ AI가 바로 답만 제시 (검증 어려움)\n\n**CoT 적용:**\n```\n단계별로 생각해서 풀어줘.\n회사 매출이 3분기 대비 4분기에 20% 올랐고,\n비용은 10% 늘었다면 이익률 변화는?\n```\n→ AI가 각 단계를 보여주며 추론 (검증 가능)\n\n<!-- QUIZ:prompt-engineering-ch3-s1-q1 -->\n\n### CoT 트리거 문구\n\n| 문구 | 효과 |\n|------|------|\n| \"단계별로 생각해줘\" | 기본 CoT 유도 |\n| \"하나씩 분석해줘\" | 순차적 분석 |\n| \"추론 과정을 보여줘\" | 사고 과정 시각화 |\n| \"왜 그렇게 생각하는지 설명해줘\" | 근거 제시 |\n\n<!-- QUIZ:prompt-engineering-ch3-s1-q2 -->\n\n### CoT가 효과적인 상황\n\n- 수학적 계산이나 논리 추론\n- 여러 조건을 고려해야 하는 의사결정\n- 코드 디버깅과 문제 분석\n- 장단점 비교 분석\n\n단순 사실 확인(\"수도는?\" 등)에는 CoT가 불필요합니다.\n\n<!-- QUIZ:prompt-engineering-ch3-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch3-s1-q1",
+          "sectionId": "prompt-engineering-ch3-s1",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "Chain of Thought 기법의 핵심 목적은?",
+          "options": ["응답 속도를 높인다", "AI가 단계별 사고 과정을 보여주게 한다", "출력 길이를 줄인다", "여러 모델을 동시에 사용한다"],
+          "correctAnswer": "AI가 단계별 사고 과정을 보여주게 한다",
+          "explanation": "Chain of Thought는 AI에게 결론에 도달하는 과정을 단계별로 보여달라고 요청하여 정확도를 높이고 검증을 가능하게 하는 기법입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch3-s1-q2",
+          "sectionId": "prompt-engineering-ch3-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "Chain of Thought 기법은 '한국의 수도는?'과 같은 단순한 사실 확인 질문에도 효과적이다.",
+          "correctAnswer": "false",
+          "explanation": "CoT는 복잡한 추론이 필요한 문제(수학, 논리, 분석)에서 효과적입니다. 단순 사실 확인에는 불필요하며 오히려 응답이 길어질 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch3-s1-q3",
+          "sectionId": "prompt-engineering-ch3-s1",
+          "type": "fill_blank",
+          "difficulty": "advanced",
+          "question": "Chain of Thought의 약자는 ___이다.",
+          "correctAnswer": "CoT",
+          "explanation": "Chain of Thought는 줄여서 CoT라고 부릅니다. AI에게 사고의 연쇄(chain)를 보여달라는 의미입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering-ch3-s2",
+      "chapterId": "prompt-engineering-ch3",
+      "slug": "few-shot-learning",
+      "title": "Few-shot 학습",
+      "content": "## 시나리오: 일관된 형식이 필요한 민수\n\n민수는 고객 리뷰를 분류하는 작업을 합니다. 하지만 AI가 매번 다른 형식으로 답을 줘서 자동화가 어렵습니다. 예시를 보여주면 어떨까요?\n\n---\n\n## Few-shot 학습이란?\n\nFew-shot 학습은 **몇 개의 예시를 프롬프트에 포함**시켜 AI가 패턴을 학습하게 하는 기법입니다.\n\n### Shot의 종류\n\n| 이름 | 예시 수 | 설명 |\n|------|---------|------|\n| Zero-shot | 0개 | 예시 없이 바로 요청 |\n| One-shot | 1개 | 예시 1개 제공 |\n| Few-shot | 2-5개 | 여러 예시 제공 |\n\n### 실전 예시: 감성 분석\n\n```\n리뷰를 분석하고 결과를 분류해줘.\n\n예시 1:\n리뷰: \"배송이 빠르고 품질이 좋아요!\"\n분류: 긍정 | 배송, 품질 | 5점\n\n예시 2:\n리뷰: \"색상이 사진과 달라서 실망했어요\"\n분류: 부정 | 품질 | 2점\n\n예시 3:\n리뷰: \"가격은 괜찮은데 배송이 느렸어요\"\n분류: 혼합 | 가격, 배송 | 3점\n\n이제 분류해줘:\n리뷰: \"포장이 꼼꼼하고 선물용으로 딱이에요\"\n```\n\n<!-- QUIZ:prompt-engineering-ch3-s2-q1 -->\n\n### 좋은 예시 선택법\n\n1. **다양성**: 여러 유형을 커버하는 예시 선택\n2. **대표성**: 실제 데이터와 유사한 예시\n3. **균형**: 긍정/부정/중립 등 고르게 포함\n4. **일관성**: 모든 예시가 같은 형식을 따름\n\n<!-- QUIZ:prompt-engineering-ch3-s2-q2 -->\n\n### Few-shot이 특히 효과적인 경우\n\n- 특정 형식/포맷으로 출력이 필요할 때\n- 도메인 특화 분류 작업\n- 자연어를 구조화된 데이터로 변환할 때\n- AI가 요청의 의도를 잘못 해석하는 경우\n\n<!-- QUIZ:prompt-engineering-ch3-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch3-s2-q1",
+          "sectionId": "prompt-engineering-ch3-s2",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "예시를 3개 포함한 프롬프트는 어떤 유형인가?",
+          "options": ["Zero-shot", "One-shot", "Few-shot", "Multi-shot"],
+          "correctAnswer": "Few-shot",
+          "explanation": "Few-shot은 2~5개의 예시를 프롬프트에 포함시키는 기법입니다. 3개의 예시는 Few-shot에 해당합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch3-s2-q2",
+          "sectionId": "prompt-engineering-ch3-s2",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "Few-shot 예시를 선택할 때 모든 예시가 동일한 유형(예: 모두 긍정)이어야 효과적이다.",
+          "correctAnswer": "false",
+          "explanation": "좋은 Few-shot 예시는 다양한 유형(긍정/부정/중립 등)을 균형 있게 포함해야 합니다. 한 유형만 포함하면 편향된 결과가 나올 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch3-s2-q3",
+          "sectionId": "prompt-engineering-ch3-s2",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "예시 없이 바로 요청하는 프롬프트 유형을 ___-shot이라고 한다.",
+          "correctAnswer": "Zero",
+          "explanation": "Zero-shot은 예시 없이 AI에게 직접 요청하는 방식입니다. One-shot은 1개, Few-shot은 2~5개의 예시를 포함합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering-ch3-s3",
+      "chapterId": "prompt-engineering-ch3",
+      "slug": "prompt-chaining",
+      "title": "프롬프트 체이닝",
+      "content": "## 시나리오: 민수의 대규모 프로젝트\n\n민수는 경쟁사 분석 보고서를 작성해야 합니다. 데이터 수집 → 분석 → 시각화 제안 → 보고서 작성까지 한 번에 요청했더니 결과가 부실합니다.\n\n> \"한 번에 다 하려 하지 말고, 단계별로 나눠보세요!\"\n\n---\n\n## 프롬프트 체이닝이란?\n\n프롬프트 체이닝은 **복잡한 작업을 여러 개의 프롬프트로 분할**하고, 이전 단계의 출력을 다음 단계의 입력으로 사용하는 기법입니다.\n\n### 체이닝의 흐름\n\n```\n프롬프트 1: 데이터 수집 → 출력 A\n     ↓\n프롬프트 2: 출력 A 분석 → 출력 B\n     ↓\n프롬프트 3: 출력 B로 보고서 작성 → 최종 결과\n```\n\n### 실전 예시: 블로그 글 작성\n\n**1단계 - 아웃라인:**\n```\n\"AI와 교육\"이라는 주제로 블로그 글의 목차를 만들어줘.\n5개 섹션으로 구성해줘.\n```\n\n**2단계 - 본문 작성:**\n```\n다음 목차를 기반으로 각 섹션을 작성해줘.\n[1단계의 출력을 여기에 붙여넣기]\n```\n\n**3단계 - 편집:**\n```\n다음 블로그 글을 검토하고 개선해줘.\n가독성을 높이고 SEO 키워드를 추가해줘.\n[2단계의 출력]\n```\n\n<!-- QUIZ:prompt-engineering-ch3-s3-q1 -->\n\n### 체이닝이 필요한 상황\n\n- 한 프롬프트로 처리하기에 작업이 너무 복잡할 때\n- 중간 단계의 결과를 확인하고 수정해야 할 때\n- 여러 관점이나 전문성이 필요한 작업\n- 품질을 단계별로 검증해야 할 때\n\n<!-- QUIZ:prompt-engineering-ch3-s3-q2 -->\n\n### 체이닝 설계 팁\n\n1. 각 단계가 하나의 명확한 목표를 가지도록 합니다\n2. 단계 간 전달되는 데이터 형식을 일관되게 유지합니다\n3. 중간 결과를 검토할 수 있는 체크포인트를 둡니다\n\n<!-- QUIZ:prompt-engineering-ch3-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch3-s3-q1",
+          "sectionId": "prompt-engineering-ch3-s3",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "프롬프트 체이닝의 핵심 원리는?",
+          "options": ["하나의 긴 프롬프트로 모든 작업을 처리한다", "이전 출력을 다음 프롬프트의 입력으로 활용한다", "여러 AI 모델을 동시에 사용한다", "프롬프트를 암호화하여 전달한다"],
+          "correctAnswer": "이전 출력을 다음 프롬프트의 입력으로 활용한다",
+          "explanation": "프롬프트 체이닝은 작업을 단계로 나누고, 각 단계의 출력이 다음 단계의 입력이 되는 연쇄 구조입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch3-s3-q2",
+          "sectionId": "prompt-engineering-ch3-s3",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "프롬프트 체이닝은 모든 작업에 항상 적용해야 효과적이다.",
+          "correctAnswer": "false",
+          "explanation": "단순한 작업은 한 번의 프롬프트로 충분합니다. 체이닝은 복잡한 작업, 중간 검증이 필요한 작업, 여러 전문성이 필요한 작업에 효과적입니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch3-s3-q3",
+          "sectionId": "prompt-engineering-ch3-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "복잡한 작업을 여러 프롬프트로 분할하고 이전 출력을 다음 입력으로 사용하는 기법을 프롬프트 ___이라고 한다.",
+          "correctAnswer": "체이닝",
+          "explanation": "프롬프트 체이닝(Prompt Chaining)은 여러 프롬프트를 연쇄적으로 연결하여 복잡한 작업을 단계별로 처리하는 기법입니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

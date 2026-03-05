@@ -1,0 +1,139 @@
+{
+  "id": "ai-evaluation-ch3",
+  "courseId": "ai-evaluation",
+  "slug": "ch3-quality-management",
+  "title": "품질 관리",
+  "description": "KPI 대시보드, 인간 평가, 지속적 개선 프로세스를 학습합니다.",
+  "orderNum": 3,
+  "sections": [
+    {
+      "id": "ai-evaluation-ch3-s1",
+      "chapterId": "ai-evaluation-ch3",
+      "slug": "kpi-dashboard",
+      "title": "KPI 대시보드",
+      "content": "## 시나리오: 태민의 모니터링 시스템\n\n태민의 AI 챗봇이 프로덕션에 배포되었습니다. 이제 실시간으로 성능을 모니터링하고 문제를 조기에 감지해야 합니다.\n\n---\n\n## 핵심 KPI 설정\n\n### AI 시스템 KPI\n\n| KPI | 설명 | 목표 |\n|-----|------|------|\n| 응답 정확도 | 올바른 답변 비율 | ≥ 90% |\n| 환각률 | 허위 정보 생성 비율 | ≤ 5% |\n| 응답 시간 | 평균 응답 속도 | ≤ 3초 |\n| 사용자 만족도 | 긍정 피드백 비율 | ≥ 80% |\n| 에스컬레이션률 | 사람에게 넘기는 비율 | ≤ 15% |\n\n### 대시보드 구성\n\n```\n┌─────────────────────────────────────┐\n│  AI 성능 대시보드                      │\n├──────────┬──────────┬──────────────┤\n│ 정확도    │ 환각률    │ 응답시간      │\n│ 92.3%   │ 3.1%    │ 2.1초       │\n│ ▲ +1.2% │ ▼ -0.5% │ ▼ -0.3초   │\n├──────────┴──────────┴──────────────┤\n│ 일별 성능 추이 그래프                   │\n│ [████████████░░░░░░░░]             │\n└─────────────────────────────────────┘\n```\n\n<!-- QUIZ:ai-evaluation-ch3-s1-q1 -->\n\n### 알림 설정\n\nKPI가 임계값을 벗어나면 즉시 알림을 보냅니다:\n\n- 정확도 85% 이하 → 긴급 알림\n- 환각률 10% 이상 → 경고 알림\n- 응답 시간 5초 이상 → 성능 알림\n\n<!-- QUIZ:ai-evaluation-ch3-s1-q2 -->\n\n### 트렌드 분석\n\n일별/주별/월별 추이를 추적하여 점진적 성능 저하를 감지합니다. 갑작스러운 변화뿐 아니라 서서히 나빠지는 패턴도 모니터링해야 합니다.\n\n<!-- QUIZ:ai-evaluation-ch3-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "ai-evaluation-ch3-s1-q1",
+          "sectionId": "ai-evaluation-ch3-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "AI 챗봇의 KPI로 적합하지 않은 것은?",
+          "options": ["응답 정확도", "사용자 만족도", "서버 전력 소비량", "환각률"],
+          "correctAnswer": "서버 전력 소비량",
+          "explanation": "AI 챗봇의 핵심 KPI는 응답 정확도, 사용자 만족도, 환각률, 응답 시간 등 서비스 품질 관련 지표입니다. 서버 전력은 인프라 지표입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "ai-evaluation-ch3-s1-q2",
+          "sectionId": "ai-evaluation-ch3-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "KPI 대시보드는 갑작스러운 변화만 감지하면 충분하다.",
+          "correctAnswer": "false",
+          "explanation": "갑작스러운 변화뿐 아니라 서서히 나빠지는 점진적 성능 저하도 모니터링해야 합니다. 트렌드 분석이 중요한 이유입니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "ai-evaluation-ch3-s1-q3",
+          "sectionId": "ai-evaluation-ch3-s1",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "KPI가 임계값을 벗어날 때 관리자에게 즉시 보내는 것을 ___이라고 한다.",
+          "correctAnswer": "알림",
+          "explanation": "KPI 임계값 기반 알림 시스템을 설정하면 성능 문제를 조기에 감지하고 신속하게 대응할 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-ch3-s2",
+      "chapterId": "ai-evaluation-ch3",
+      "slug": "human-evaluation",
+      "title": "인간 평가",
+      "content": "## 자동 평가의 한계를 넘어서\n\n자동 평가로 수치는 나오지만, \"답변이 자연스러운가?\", \"사용자에게 도움이 되는가?\"와 같은 질적 측면은 인간의 판단이 필요합니다.\n\n---\n\n## 인간 평가 방법\n\n### 1. 리커트 척도 평가\n\n평가자가 1~5점으로 AI 응답을 평가합니다.\n\n| 항목 | 1점 | 3점 | 5점 |\n|------|-----|-----|-----|\n| 정확성 | 완전히 틀림 | 부분 정확 | 완벽히 정확 |\n| 유용성 | 도움 안 됨 | 보통 | 매우 유용 |\n| 자연스러움 | 기계적 | 보통 | 사람 같음 |\n| 안전성 | 부적절 | 무해 | 적극 안전 |\n\n### 2. 비교 평가 (Side-by-Side)\n\n두 버전의 응답을 나란히 보여주고 어떤 것이 더 좋은지 선택합니다.\n\n```\n질문: \"React와 Vue의 차이점은?\"\n\n응답 A: [...]\n응답 B: [...]\n\n어떤 응답이 더 좋은가요? [A / B / 비슷함]\n이유는?\n```\n\n<!-- QUIZ:ai-evaluation-ch3-s2-q1 -->\n\n### 3. 평가자 간 일치도\n\n여러 평가자의 의견이 얼마나 일치하는지 측정합니다. Cohen's Kappa 등의 지표를 사용합니다. 일치도가 낮으면 평가 기준이 모호한 것입니다.\n\n<!-- QUIZ:ai-evaluation-ch3-s2-q2 -->\n\n### 인간 평가의 장단점\n\n**장점:** 질적 판단, 뉘앙스 이해, 맥락 고려\n**단점:** 비용이 높고, 시간이 오래 걸리고, 주관적일 수 있음\n\n자동 평가와 인간 평가를 병행하는 것이 가장 효과적입니다.\n\n<!-- QUIZ:ai-evaluation-ch3-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "ai-evaluation-ch3-s2-q1",
+          "sectionId": "ai-evaluation-ch3-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "두 버전의 AI 응답을 나란히 보여주고 비교하는 평가 방법은?",
+          "options": ["리커트 척도 평가", "Side-by-Side 비교 평가", "자동 벤치마크", "스트레스 테스트"],
+          "correctAnswer": "Side-by-Side 비교 평가",
+          "explanation": "Side-by-Side(나란히) 비교 평가는 두 버전의 응답을 함께 보여주고 평가자가 더 좋은 것을 선택하는 방식입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "ai-evaluation-ch3-s2-q2",
+          "sectionId": "ai-evaluation-ch3-s2",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "인간 평가는 항상 자동 평가보다 정확하므로 자동 평가를 완전히 대체할 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "인간 평가는 주관적일 수 있고 비용이 높습니다. 자동 평가와 인간 평가를 병행하는 것이 가장 효과적인 접근법입니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "ai-evaluation-ch3-s2-q3",
+          "sectionId": "ai-evaluation-ch3-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "평가자가 1~5점으로 AI 응답을 점수 매기는 방식을 ___척도 평가라고 한다.",
+          "correctAnswer": "리커트",
+          "explanation": "리커트(Likert) 척도는 1~5점(또는 1~7점)으로 응답을 평가하는 방법으로, 만족도, 동의 정도 등을 측정할 때 널리 사용됩니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-ch3-s3",
+      "chapterId": "ai-evaluation-ch3",
+      "slug": "continuous-improvement",
+      "title": "지속적 개선",
+      "content": "## 평가 → 개선 → 평가 사이클\n\n평가는 일회성이 아니라 지속적인 개선 프로세스의 일부입니다.\n\n---\n\n## 개선 사이클\n\n### PDCA 사이클\n\n```\nPlan(계획) → Do(실행) → Check(평가) → Act(개선)\n```\n\n| 단계 | AI 시스템 적용 |\n|------|---------------|\n| Plan | 개선 목표 설정 (환각률 3% → 1%) |\n| Do | 프롬프트 수정, 데이터 추가 |\n| Check | 벤치마크 실행, 결과 분석 |\n| Act | 효과가 있으면 적용, 없으면 다른 방법 시도 |\n\n### 개선 우선순위 결정\n\n평가 결과에서 발견된 문제를 우선순위별로 정리합니다:\n\n| 우선순위 | 기준 | 예시 |\n|---------|------|------|\n| 긴급 | 안전 관련 문제 | 부적절한 답변 생성 |\n| 높음 | 핵심 기능 실패 | 자주 틀리는 답변 유형 |\n| 중간 | 품질 저하 | 응답 자연스러움 부족 |\n| 낮음 | 개선 여지 | 응답 속도 미세 개선 |\n\n<!-- QUIZ:ai-evaluation-ch3-s3-q1 -->\n\n## 피드백 루프\n\n### 사용자 피드백 수집\n\n- 좋아요/싫어요 버튼\n- 응답 평점 (1~5점)\n- 텍스트 피드백\n- 재질문 패턴 분석 (불만족 시 재질문이 많음)\n\n### 피드백 활용\n\n```\n1. 부정 피드백 모니터링\n2. 패턴 분석 (어떤 유형에서 불만족?)\n3. 프롬프트/데이터 개선\n4. A/B 테스트로 검증\n5. 배포\n```\n\n<!-- QUIZ:ai-evaluation-ch3-s3-q2 -->\n\n### 장기적 품질 관리\n\n- 월간 품질 리포트 생성\n- 분기별 평가 데이터셋 업데이트\n- 연간 전략 리뷰 및 KPI 조정\n\n지속적인 평가와 개선을 통해 AI 시스템의 품질을 점진적으로 향상시킬 수 있습니다.\n\n<!-- QUIZ:ai-evaluation-ch3-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "ai-evaluation-ch3-s3-q1",
+          "sectionId": "ai-evaluation-ch3-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "PDCA 사이클의 4단계 중 '평가'에 해당하는 단계는?",
+          "options": ["Plan", "Do", "Check", "Act"],
+          "correctAnswer": "Check",
+          "explanation": "PDCA에서 Check는 실행 결과를 평가하고 분석하는 단계입니다. Plan(계획), Do(실행), Check(평가), Act(개선)의 순서입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "ai-evaluation-ch3-s3-q2",
+          "sectionId": "ai-evaluation-ch3-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "사용자가 같은 질문을 반복해서 하는 패턴은 AI 응답에 불만족하다는 신호일 수 있다.",
+          "correctAnswer": "true",
+          "explanation": "재질문 패턴은 이전 응답이 충분하지 않았다는 신호입니다. 이를 분석하면 개선이 필요한 영역을 파악할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "ai-evaluation-ch3-s3-q3",
+          "sectionId": "ai-evaluation-ch3-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "지속적 개선의 4단계 사이클은 Plan, Do, Check, ___이다.",
+          "correctAnswer": "Act",
+          "explanation": "PDCA 사이클의 마지막 단계인 Act는 평가 결과를 바탕으로 실제 개선을 적용하는 단계입니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

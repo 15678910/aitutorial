@@ -1,0 +1,139 @@
+{
+  "id": "mcp-mastery-ch2",
+  "courseId": "mcp-mastery",
+  "slug": "ch2-resources-tools",
+  "title": "리소스와 도구",
+  "description": "MCP의 핵심 프리미티브인 Resources, Tools, Prompts를 학습합니다.",
+  "orderNum": 2,
+  "sections": [
+    {
+      "id": "mcp-mastery-ch2-s1",
+      "chapterId": "mcp-mastery-ch2",
+      "slug": "understanding-resources",
+      "title": "Resources 이해하기",
+      "content": "## 시나리오: 하늘이의 데이터 연결\n\n하늘이는 회사 DB의 고객 정보를 Claude가 읽게 하고 싶습니다. 직접 DB에 접근시키는 건 위험한데, 안전하게 데이터를 제공하는 방법이 없을까요?\n\n> \"Resource를 사용하면 읽기 전용으로 안전하게 데이터를 노출할 수 있어요!\"\n\n---\n\n## Resource란?\n\nResource는 MCP 서버가 클라이언트에게 **읽기 전용 데이터**를 제공하는 방법입니다. 파일, DB 레코드, API 응답 등을 URI로 식별합니다.\n\n### Resource URI 형식\n\n```\nfile:///home/user/docs/report.pdf\ndb://customers/12345\napi://weather/seoul\n```\n\n### Resource 유형\n\n| 유형 | 설명 | 예시 |\n|------|------|------|\n| 정적 Resource | 고정된 데이터 | 설정 파일, 문서 |\n| 동적 Resource | 실시간 변경 데이터 | DB 레코드, API 응답 |\n| Resource 템플릿 | URI 패턴 기반 | `db://customers/{id}` |\n\n<!-- QUIZ:mcp-mastery-ch2-s1-q1 -->\n\n### Resource 구현 예시\n\n```typescript\nserver.setRequestHandler(\n  ListResourcesRequestSchema,\n  async () => ({\n    resources: [{\n      uri: \"db://customers/list\",\n      name: \"고객 목록\",\n      mimeType: \"application/json\"\n    }]\n  })\n);\n```\n\n<!-- QUIZ:mcp-mastery-ch2-s1-q2 -->\n\n### 구독(Subscription)\n\nResource가 변경될 때 클라이언트에게 알림을 보낼 수 있습니다. 실시간 데이터 동기화에 유용합니다.\n\n<!-- QUIZ:mcp-mastery-ch2-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch2-s1-q1",
+          "sectionId": "mcp-mastery-ch2-s1",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "MCP Resource의 주요 특징은?",
+          "options": ["읽기/쓰기 모두 가능하다", "읽기 전용 데이터를 제공한다", "AI 모델을 학습시킨다", "사용자 인증을 처리한다"],
+          "correctAnswer": "읽기 전용 데이터를 제공한다",
+          "explanation": "Resource는 MCP 서버가 클라이언트에게 읽기 전용 데이터를 안전하게 제공하는 메커니즘입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch2-s1-q2",
+          "sectionId": "mcp-mastery-ch2-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "MCP Resource는 URI를 사용하여 데이터를 식별한다.",
+          "correctAnswer": "true",
+          "explanation": "Resource는 file://, db://, api:// 등의 URI 형식을 사용하여 각 데이터를 고유하게 식별합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch2-s1-q3",
+          "sectionId": "mcp-mastery-ch2-s1",
+          "type": "fill_blank",
+          "difficulty": "advanced",
+          "question": "Resource가 변경될 때 클라이언트에게 알림을 보내는 기능을 ___이라고 한다.",
+          "correctAnswer": "구독",
+          "explanation": "구독(Subscription) 기능을 통해 Resource가 변경될 때 클라이언트에 실시간으로 알림을 보낼 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "mcp-mastery-ch2-s2",
+      "chapterId": "mcp-mastery-ch2",
+      "slug": "using-tools",
+      "title": "Tools 활용하기",
+      "content": "## 시나리오: 하늘이의 자동화 욕심\n\n하늘이는 Claude가 데이터를 읽는 것뿐만 아니라 실제 작업도 수행하길 원합니다. 이메일 보내기, 주문 처리 등...\n\n> \"Resource는 읽기 전용이었는데, 행동을 수행하려면 Tool이 필요해요!\"\n\n---\n\n## Tool이란?\n\nTool은 MCP 서버가 제공하는 **실행 가능한 기능**입니다. Resource가 '데이터 읽기'라면, Tool은 '행동 수행'입니다.\n\n### Resource vs Tool\n\n| 구분 | Resource | Tool |\n|------|----------|------|\n| 목적 | 데이터 제공 | 행동 수행 |\n| 방향 | 읽기 전용 | 읽기 + 쓰기 |\n| 제어 | 앱이 결정 | AI 모델이 결정 |\n| 승인 | 자동 | 사용자 승인 필요 |\n\n<!-- QUIZ:mcp-mastery-ch2-s2-q1 -->\n\n### Tool 정의\n\nTool은 이름, 설명, 입력 스키마로 정의됩니다.\n\n```typescript\n{\n  name: \"send_email\",\n  description: \"이메일을 전송합니다\",\n  inputSchema: {\n    type: \"object\",\n    properties: {\n      to: { type: \"string\", description: \"수신자 이메일\" },\n      subject: { type: \"string\", description: \"제목\" },\n      body: { type: \"string\", description: \"본문\" }\n    },\n    required: [\"to\", \"subject\", \"body\"]\n  }\n}\n```\n\n### Tool 호출 흐름\n\n```\n1. 사용자: \"김 부장님에게 회의 요약 이메일 보내줘\"\n2. Claude: send_email 도구 호출 결정\n3. 호스트: 사용자에게 승인 요청\n4. 사용자: 승인\n5. 클라이언트 → 서버: 도구 실행\n6. 서버: 이메일 전송 → 결과 반환\n7. Claude: \"이메일을 보냈습니다!\"\n```\n\n<!-- QUIZ:mcp-mastery-ch2-s2-q2 -->\n\n### 안전한 Tool 설계\n\n- 위험한 작업은 반드시 사용자 승인 필요\n- 입력값 검증 필수\n- 멱등성(같은 요청 반복해도 안전) 고려\n\n<!-- QUIZ:mcp-mastery-ch2-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch2-s2-q1",
+          "sectionId": "mcp-mastery-ch2-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "MCP에서 Tool과 Resource의 가장 큰 차이점은?",
+          "options": ["Tool은 무료이고 Resource는 유료이다", "Tool은 행동을 수행하고 Resource는 데이터를 제공한다", "Tool은 빠르고 Resource는 느리다", "차이가 없다"],
+          "correctAnswer": "Tool은 행동을 수행하고 Resource는 데이터를 제공한다",
+          "explanation": "Resource는 읽기 전용 데이터 제공이 목적이고, Tool은 이메일 전송, 데이터 수정 등 실제 행동을 수행하는 것이 목적입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch2-s2-q2",
+          "sectionId": "mcp-mastery-ch2-s2",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "MCP에서 Tool을 사용할 때 AI 모델이 사용자 승인 없이 자동으로 실행할 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "Tool 실행은 보안상 사용자의 승인이 필요합니다. 호스트 애플리케이션이 사용자에게 승인을 요청하고, 승인 후에만 실행됩니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch2-s2-q3",
+          "sectionId": "mcp-mastery-ch2-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "Tool은 이름, 설명, 입력 ___로 정의된다.",
+          "correctAnswer": "스키마",
+          "explanation": "Tool은 이름(name), 설명(description), 입력 스키마(inputSchema)의 세 가지 요소로 정의됩니다. 입력 스키마는 JSON Schema 형식입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "mcp-mastery-ch2-s3",
+      "chapterId": "mcp-mastery-ch2",
+      "slug": "prompt-templates",
+      "title": "Prompts 템플릿",
+      "content": "## 시나리오: 하늘이의 표준화 고민\n\n하늘이 팀의 여러 직원이 Claude를 사용하는데, 각자 다른 방식으로 질문합니다. 고객 분석 요청이 사람마다 달라 결과도 제각각입니다.\n\n> \"MCP Prompts를 사용하면 팀 전체에 표준 프롬프트를 배포할 수 있어요!\"\n\n---\n\n## Prompt란?\n\nMCP의 Prompt는 서버가 제공하는 **재사용 가능한 프롬프트 템플릿**입니다. 자주 사용하는 워크플로우를 표준화할 수 있습니다.\n\n### Prompt의 구조\n\n```typescript\n{\n  name: \"analyze_customer\",\n  description: \"고객 데이터를 분석합니다\",\n  arguments: [\n    {\n      name: \"customer_id\",\n      description: \"분석할 고객 ID\",\n      required: true\n    },\n    {\n      name: \"period\",\n      description: \"분석 기간 (예: 30d, 90d)\",\n      required: false\n    }\n  ]\n}\n```\n\n<!-- QUIZ:mcp-mastery-ch2-s3-q1 -->\n\n### 동적 프롬프트\n\nPrompt는 인자를 받아 동적으로 메시지를 생성할 수 있습니다.\n\n```typescript\nserver.setRequestHandler(\n  GetPromptRequestSchema,\n  async (request) => {\n    const { customer_id } = request.params.arguments;\n    return {\n      messages: [\n        {\n          role: \"user\",\n          content: {\n            type: \"text\",\n            text: `고객 ${customer_id}의 구매 패턴을 분석하고, 이탈 위험도를 평가해주세요.`\n          }\n        }\n      ]\n    };\n  }\n);\n```\n\n<!-- QUIZ:mcp-mastery-ch2-s3-q2 -->\n\n### Resource와의 결합\n\nPrompt는 Resource의 데이터를 포함할 수 있습니다. 고객 ID를 받아 해당 고객의 데이터를 Resource에서 가져오고, 분석 프롬프트와 함께 AI에게 전달합니다.\n\n### 사용 사례\n\n- 팀 표준 분석 프롬프트\n- 코드 리뷰 체크리스트\n- 보고서 작성 템플릿\n- 고객 응대 가이드\n\n<!-- QUIZ:mcp-mastery-ch2-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch2-s3-q1",
+          "sectionId": "mcp-mastery-ch2-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "MCP Prompt의 주요 목적은?",
+          "options": ["AI 모델을 학습시킨다", "재사용 가능한 프롬프트 템플릿을 제공한다", "데이터를 암호화한다", "네트워크 속도를 높인다"],
+          "correctAnswer": "재사용 가능한 프롬프트 템플릿을 제공한다",
+          "explanation": "MCP Prompt는 자주 사용하는 워크플로우를 표준화한 재사용 가능한 프롬프트 템플릿입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch2-s3-q2",
+          "sectionId": "mcp-mastery-ch2-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "MCP Prompt는 인자(arguments)를 받아 동적으로 내용을 변경할 수 있다.",
+          "correctAnswer": "true",
+          "explanation": "Prompt는 arguments를 정의하여 호출 시 인자를 받고, 그 값에 따라 동적으로 프롬프트 내용을 생성합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch2-s3-q3",
+          "sectionId": "mcp-mastery-ch2-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "MCP의 3가지 핵심 프리미티브는 Resources, Tools, ___이다.",
+          "correctAnswer": "Prompts",
+          "explanation": "MCP는 Resources(데이터 제공), Tools(행동 수행), Prompts(프롬프트 템플릿)의 세 가지 핵심 프리미티브를 제공합니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

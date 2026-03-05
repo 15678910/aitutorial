@@ -16,6 +16,12 @@ import pythonMlMeta from './python-ml-practice/meta.json'
 import aiPortfolioMeta from './ai-portfolio/meta.json'
 import ragVectorDbMeta from './rag-vector-db/meta.json'
 import aiBusinessMeta from './ai-business/meta.json'
+import promptEngineeringMeta from './prompt-engineering/meta.json'
+import mcpMasteryMeta from './mcp-mastery/meta.json'
+import claudeToolUseMeta from './claude-tool-use/meta.json'
+import extendedThinkingMeta from './extended-thinking/meta.json'
+import claudeVisionMeta from './claude-vision/meta.json'
+import aiEvaluationMeta from './ai-evaluation/meta.json'
 
 type CourseWithIcon = Course & { icon: string }
 
@@ -36,6 +42,12 @@ const courseMetas: CourseWithIcon[] = [
   aiPortfolioMeta,
   ragVectorDbMeta,
   aiBusinessMeta,
+  promptEngineeringMeta,
+  mcpMasteryMeta,
+  claudeToolUseMeta,
+  extendedThinkingMeta,
+  claudeVisionMeta,
+  aiEvaluationMeta,
 ] as CourseWithIcon[]
 
 // Chapter loader map - lazy imports
@@ -177,6 +189,56 @@ const chapterLoaders: Record<string, () => Promise<any[]>> = {
       import('./ai-business/ch5.json'),
     ])
     return [ch1.default, ch2.default, ch3.default, ch4.default, ch5.default]
+  },
+  'prompt-engineering': async () => {
+    const [ch1, ch2, ch3, ch4] = await Promise.all([
+      import('./prompt-engineering/ch1.json'),
+      import('./prompt-engineering/ch2.json'),
+      import('./prompt-engineering/ch3.json'),
+      import('./prompt-engineering/ch4.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default, ch4.default]
+  },
+  'mcp-mastery': async () => {
+    const [ch1, ch2, ch3, ch4] = await Promise.all([
+      import('./mcp-mastery/ch1.json'),
+      import('./mcp-mastery/ch2.json'),
+      import('./mcp-mastery/ch3.json'),
+      import('./mcp-mastery/ch4.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default, ch4.default]
+  },
+  'claude-tool-use': async () => {
+    const [ch1, ch2, ch3] = await Promise.all([
+      import('./claude-tool-use/ch1.json'),
+      import('./claude-tool-use/ch2.json'),
+      import('./claude-tool-use/ch3.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default]
+  },
+  'extended-thinking': async () => {
+    const [ch1, ch2, ch3] = await Promise.all([
+      import('./extended-thinking/ch1.json'),
+      import('./extended-thinking/ch2.json'),
+      import('./extended-thinking/ch3.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default]
+  },
+  'claude-vision': async () => {
+    const [ch1, ch2, ch3] = await Promise.all([
+      import('./claude-vision/ch1.json'),
+      import('./claude-vision/ch2.json'),
+      import('./claude-vision/ch3.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default]
+  },
+  'ai-evaluation': async () => {
+    const [ch1, ch2, ch3] = await Promise.all([
+      import('./ai-evaluation/ch1.json'),
+      import('./ai-evaluation/ch2.json'),
+      import('./ai-evaluation/ch3.json'),
+    ])
+    return [ch1.default, ch2.default, ch3.default]
   },
 }
 

@@ -1,0 +1,139 @@
+{
+  "id": "claude-vision-ch3",
+  "courseId": "claude-vision",
+  "slug": "ch3-multimodal",
+  "title": "멀티모달 활용",
+  "description": "텍스트+이미지 결합 전략, 비전 워크플로우, 실전 프로젝트를 학습합니다.",
+  "orderNum": 3,
+  "sections": [
+    {
+      "id": "claude-vision-ch3-s1",
+      "chapterId": "claude-vision-ch3",
+      "slug": "text-image-strategy",
+      "title": "텍스트+이미지 결합 전략",
+      "content": "## 멀티모달의 힘\n\n텍스트만 또는 이미지만 사용할 때보다, 두 가지를 결합하면 훨씬 강력한 분석이 가능합니다.\n\n---\n\n## 결합 패턴\n\n### 1. 이미지 + 컨텍스트\n\n```\n[이미지: 웹사이트 스크린샷]\n\n이것은 우리 회사의 랜딩 페이지입니다.\n타겟 고객은 30대 직장인이며, 주요 목적은 회원 가입 유도입니다.\n\nUX 관점에서 개선할 점 5가지를 제안해줘.\n```\n\n컨텍스트 정보를 함께 제공하면 Claude가 더 맥락에 맞는 분석을 수행합니다.\n\n### 2. 이미지 + 참조 데이터\n\n```\n[이미지: 제품 사진]\n\n이 제품의 현재 판매가는 29,900원이고\n경쟁사 제품은 35,000원입니다.\n\n이 제품의 강점을 분석하고 마케팅 포인트를 제안해줘.\n```\n\n<!-- QUIZ:claude-vision-ch3-s1-q1 -->\n\n### 3. 이미지 + 지시사항\n\n```\n[이미지: 설계 도면]\n\n이 건축 도면을 분석해줘.\n특히 다음 사항을 확인해줘:\n- 동선의 효율성\n- 채광 방향\n- 수납 공간 배치\n```\n\n<!-- QUIZ:claude-vision-ch3-s1-q2 -->\n\n### 최적 조합 가이드\n\n| 작업 | 이미지만 | 텍스트+이미지 |\n|------|---------|-------------|\n| 단순 분류 | ✅ 충분 | 불필요 |\n| 맥락 분석 | ❌ 부족 | ✅ 필수 |\n| 비교 평가 | ⚠️ 가능 | ✅ 더 정확 |\n| 전문 분석 | ❌ 부족 | ✅ 필수 |\n\n<!-- QUIZ:claude-vision-ch3-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "claude-vision-ch3-s1-q1",
+          "sectionId": "claude-vision-ch3-s1",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "이미지와 텍스트를 결합하면 어떤 장점이 있는가?",
+          "options": ["처리 속도가 빨라진다", "맥락에 맞는 더 정확한 분석이 가능하다", "비용이 줄어든다", "이미지 품질이 향상된다"],
+          "correctAnswer": "맥락에 맞는 더 정확한 분석이 가능하다",
+          "explanation": "텍스트로 컨텍스트, 참조 데이터, 분석 방향을 함께 제공하면 Claude가 이미지를 더 정확하게 분석할 수 있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-vision-ch3-s1-q2",
+          "sectionId": "claude-vision-ch3-s1",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "모든 이미지 분석 작업에 반드시 텍스트 컨텍스트를 함께 제공해야 한다.",
+          "correctAnswer": "false",
+          "explanation": "단순 분류(고양이/강아지 구분 등)는 이미지만으로 충분합니다. 맥락 분석이나 전문적 평가가 필요할 때 텍스트를 함께 제공합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-vision-ch3-s1-q3",
+          "sectionId": "claude-vision-ch3-s1",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "텍스트와 이미지를 함께 처리하는 AI 기능을 ___모달이라고 한다.",
+          "correctAnswer": "멀티",
+          "explanation": "멀티모달(Multimodal)은 텍스트, 이미지, 오디오 등 여러 종류의 입력을 동시에 처리하는 AI 기능을 의미합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-vision-ch3-s2",
+      "chapterId": "claude-vision-ch3",
+      "slug": "vision-workflow",
+      "title": "비전 워크플로우",
+      "content": "## 자동화된 비전 파이프라인\n\n실무에서는 단일 이미지 분석이 아닌, 대량의 이미지를 체계적으로 처리하는 워크플로우가 필요합니다.\n\n---\n\n## 파이프라인 설계\n\n### 기본 워크플로우\n\n```\n이미지 수집 → 전처리 → Claude Vision 분석 → 결과 저장 → 후처리\n```\n\n### 전처리 단계\n\n```python\nfrom PIL import Image\nimport io, base64\n\ndef preprocess_image(image_path, max_size=1024):\n    img = Image.open(image_path)\n    # 리사이징\n    img.thumbnail((max_size, max_size))\n    # JPEG 변환 및 압축\n    buffer = io.BytesIO()\n    img.save(buffer, format=\"JPEG\", quality=85)\n    return base64.standard_b64encode(buffer.getvalue()).decode()\n```\n\n<!-- QUIZ:claude-vision-ch3-s2-q1 -->\n\n### 배치 처리\n\n```python\nasync def batch_analyze(images, prompt):\n    results = []\n    for i in range(0, len(images), 5):  # 5개씩 배치\n        batch = images[i:i+5]\n        tasks = [analyze_single(img, prompt) for img in batch]\n        batch_results = await asyncio.gather(*tasks)\n        results.extend(batch_results)\n    return results\n```\n\n### 에러 처리\n\n- 이미지 로드 실패 → 건너뛰기 + 로깅\n- API 에러 → 재시도 (최대 3회)\n- 분석 결과 이상 → 수동 검토 큐로 이동\n\n<!-- QUIZ:claude-vision-ch3-s2-q2 -->\n\n### 결과 저장\n\n분석 결과를 데이터베이스나 파일로 구조화하여 저장합니다. 원본 이미지 경로와 분석 결과를 함께 기록합니다.\n\n<!-- QUIZ:claude-vision-ch3-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "claude-vision-ch3-s2-q1",
+          "sectionId": "claude-vision-ch3-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "이미지 전처리 단계에서 리사이징과 압축을 하는 이유는?",
+          "options": ["이미지를 더 예쁘게 만들기 위해", "API 비용을 줄이고 처리 속도를 높이기 위해", "이미지 포맷을 통일하기 위해서만", "보안을 강화하기 위해"],
+          "correctAnswer": "API 비용을 줄이고 처리 속도를 높이기 위해",
+          "explanation": "이미지 크기가 토큰 사용량에 영향을 미치므로, 적절한 리사이징과 압축으로 비용을 절감하고 속도를 높일 수 있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-vision-ch3-s2-q2",
+          "sectionId": "claude-vision-ch3-s2",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "배치 처리에서 모든 이미지를 한 번에 API에 보내는 것이 가장 효율적이다.",
+          "correctAnswer": "false",
+          "explanation": "API의 속도 제한과 메모리 제약 때문에 적절한 크기(예: 5개)로 배치를 나누어 처리하는 것이 안정적입니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-vision-ch3-s2-q3",
+          "sectionId": "claude-vision-ch3-s2",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "비전 워크플로우의 기본 순서는 이미지 수집 → 전처리 → 분석 → 결과 저장 → ___이다.",
+          "correctAnswer": "후처리",
+          "explanation": "비전 파이프라인은 수집 → 전처리 → 분석 → 결과 저장 → 후처리의 순서로 진행됩니다. 후처리에서 결과를 가공하고 활용합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-vision-ch3-s3",
+      "chapterId": "claude-vision-ch3",
+      "slug": "practical-projects",
+      "title": "실전 프로젝트",
+      "content": "## 비전 기능 실전 활용 프로젝트\n\n지금까지 배운 내용을 종합하여 실전 프로젝트를 설계합니다.\n\n---\n\n## 프로젝트 1: 상품 자동 등록 시스템\n\n상품 사진을 업로드하면 자동으로 카테고리, 설명, 태그가 생성되는 시스템입니다.\n\n### 워크플로우\n\n```\n1. 상품 사진 업로드\n2. 이미지 전처리 (리사이징, 품질 보정)\n3. Claude Vision으로 분석\n   - 카테고리 분류\n   - 상품 설명 생성\n   - 검색 태그 추출\n   - 색상/사이즈 판별\n4. 결과 검토 UI 제공\n5. 승인 후 DB 저장\n```\n\n<!-- QUIZ:claude-vision-ch3-s3-q1 -->\n\n## 프로젝트 2: 문서 디지털화\n\n종이 문서를 스캔하여 구조화된 디지털 데이터로 변환합니다.\n\n### 처리 단계\n\n1. 스캔 이미지 품질 확인\n2. 문서 유형 자동 분류 (영수증/계약서/보고서)\n3. 유형별 맞춤 프롬프트로 정보 추출\n4. 추출 결과를 DB에 저장\n5. 검색 가능한 문서 아카이브 구축\n\n<!-- QUIZ:claude-vision-ch3-s3-q2 -->\n\n## 프로젝트 3: 품질 검사 시스템\n\n제조 라인에서 촬영된 제품 사진을 분석하여 불량을 감지합니다.\n\n### 구현 포인트\n\n- 정상/불량 기준을 시스템 프롬프트에 명확히 정의\n- 불량 유형별 분류 (스크래치, 변색, 형태 이상)\n- 신뢰도 점수 포함\n- 불량 감지 시 알림 발송\n\n<!-- QUIZ:claude-vision-ch3-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "claude-vision-ch3-s3-q1",
+          "sectionId": "claude-vision-ch3-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "상품 자동 등록 시스템에서 Claude Vision이 수행하는 역할은?",
+          "options": ["상품 사진 촬영", "카테고리 분류, 설명 생성, 태그 추출", "결제 처리", "배송 관리"],
+          "correctAnswer": "카테고리 분류, 설명 생성, 태그 추출",
+          "explanation": "Claude Vision은 상품 이미지를 분석하여 카테고리를 분류하고, 설명을 자동 생성하고, 검색 태그를 추출하는 역할을 합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-vision-ch3-s3-q2",
+          "sectionId": "claude-vision-ch3-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "문서 디지털화 시 모든 문서에 동일한 프롬프트를 사용해야 한다.",
+          "correctAnswer": "false",
+          "explanation": "문서 유형(영수증, 계약서, 보고서)별로 추출해야 할 정보가 다르므로, 유형별 맞춤 프롬프트를 사용해야 정확한 정보를 추출할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-vision-ch3-s3-q3",
+          "sectionId": "claude-vision-ch3-s3",
+          "type": "fill_blank",
+          "difficulty": "advanced",
+          "question": "품질 검사 시스템에서 불량 감지 결과에 ___점수를 포함하면 자동/수동 검토 기준을 설정할 수 있다.",
+          "correctAnswer": "신뢰도",
+          "explanation": "신뢰도 점수를 포함하면 높은 신뢰도의 불량은 자동 처리하고, 낮은 신뢰도는 수동 검토로 보내는 등 효율적인 워크플로우를 구성할 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

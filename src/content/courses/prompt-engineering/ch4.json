@@ -1,0 +1,139 @@
+{
+  "id": "prompt-engineering-ch4",
+  "courseId": "prompt-engineering",
+  "slug": "ch4-optimization",
+  "title": "프롬프트 최적화",
+  "description": "프롬프트를 반복 개선하는 방법과 흔한 실수, 실전 템플릿을 학습합니다.",
+  "orderNum": 4,
+  "sections": [
+    {
+      "id": "prompt-engineering-ch4-s1",
+      "chapterId": "prompt-engineering-ch4",
+      "slug": "iterative-improvement",
+      "title": "반복적 개선 프로세스",
+      "content": "## 시나리오: 민수의 프롬프트 일지\n\n민수는 프롬프트를 한 번 작성하고 끝내곤 했습니다. 하지만 전문가인 선배는 하나의 프롬프트를 여러 번 다듬는다고 합니다.\n\n> \"프롬프트도 코드처럼 반복적으로 개선하는 거야!\"\n\n---\n\n## 반복 개선 사이클\n\n### 4단계 프로세스\n\n```\n1. 작성 → 초기 프롬프트 작성\n2. 테스트 → 결과 확인\n3. 분석 → 무엇이 부족한지 파악\n4. 개선 → 프롬프트 수정\n→ 2단계로 돌아감 (반복)\n```\n\n### A/B 비교 방법\n\n같은 작업에 대해 두 가지 버전의 프롬프트를 만들어 비교합니다.\n\n| 기준 | 버전 A | 버전 B |\n|------|--------|--------|\n| 정확도 | 결과가 정확한가? | 결과가 정확한가? |\n| 완성도 | 빠진 내용은? | 빠진 내용은? |\n| 형식 | 원하는 형태인가? | 원하는 형태인가? |\n| 일관성 | 매번 비슷한 결과? | 매번 비슷한 결과? |\n\n<!-- QUIZ:prompt-engineering-ch4-s1-q1 -->\n\n### 평가 기준 설정\n\n프롬프트를 평가할 때 명확한 기준이 필요합니다:\n\n- **정확도**: 사실적으로 맞는가?\n- **관련성**: 요청한 내용에 부합하는가?\n- **완전성**: 필요한 정보가 모두 포함되었는가?\n- **형식 준수**: 지정한 형식을 따르는가?\n\n점수화하여 기록하면 체계적으로 추적할 수 있습니다.\n\n<!-- QUIZ:prompt-engineering-ch4-s1-q2 -->\n\n### 버전 관리\n\n프롬프트도 코드처럼 버전을 관리하면 좋습니다. 어떤 변경이 결과를 개선했는지 추적할 수 있습니다.\n\n<!-- QUIZ:prompt-engineering-ch4-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch4-s1-q1",
+          "sectionId": "prompt-engineering-ch4-s1",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "프롬프트 A/B 비교에서 가장 중요한 원칙은?",
+          "options": ["항상 긴 프롬프트가 좋다", "한 번에 하나의 변수만 변경한다", "무조건 많은 예시를 포함한다", "AI 모델을 바꾸어 비교한다"],
+          "correctAnswer": "한 번에 하나의 변수만 변경한다",
+          "explanation": "A/B 비교에서는 한 번에 하나의 변수만 변경해야 어떤 변경이 효과가 있었는지 정확히 파악할 수 있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch4-s1-q2",
+          "sectionId": "prompt-engineering-ch4-s1",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "좋은 프롬프트는 한 번에 완벽하게 작성해야 한다.",
+          "correctAnswer": "false",
+          "explanation": "프롬프트는 반복적으로 개선하는 것이 일반적입니다. 작성 → 테스트 → 분석 → 개선의 사이클을 거치며 품질을 높여갑니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch4-s1-q3",
+          "sectionId": "prompt-engineering-ch4-s1",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "프롬프트 반복 개선의 4단계는 작성, 테스트, 분석, ___이다.",
+          "correctAnswer": "개선",
+          "explanation": "반복 개선 사이클은 작성 → 테스트 → 분석 → 개선을 반복하여 프롬프트의 품질을 체계적으로 높이는 과정입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering-ch4-s2",
+      "chapterId": "prompt-engineering-ch4",
+      "slug": "common-mistakes",
+      "title": "흔한 실수와 해결법",
+      "content": "## 시나리오: 민수의 실수 모음\n\n민수가 겪었던 실수들을 모아봤습니다. 다른 사람들도 자주 하는 실수들이니 함께 살펴봅시다.\n\n---\n\n## 흔한 실수 TOP 5\n\n### 1. 모호한 프롬프트\n\n❌ **실수:** \"이 코드 좀 봐줘\"\n✅ **해결:** \"이 Python 코드에서 메모리 누수가 발생할 수 있는 부분을 찾아줘\"\n\n**핵심:** 무엇을 확인하고 싶은지 명확히 합니다.\n\n### 2. 과도한 지시\n\n❌ **실수:** 한 프롬프트에 10가지 이상의 조건을 나열\n✅ **해결:** 핵심 3~5가지로 줄이거나 프롬프트 체이닝 사용\n\n**핵심:** 너무 많은 지시는 오히려 품질을 낮춥니다.\n\n<!-- QUIZ:prompt-engineering-ch4-s2-q1 -->\n\n### 3. 환각(Hallucination) 방지 실패\n\nAI가 사실이 아닌 정보를 자신 있게 생성하는 현상입니다.\n\n**방지 방법:**\n- \"확실하지 않으면 모른다고 말해줘\"\n- \"출처를 함께 알려줘\"\n- \"추측이면 추측이라고 표시해줘\"\n\n### 4. 맥락 부족\n\n❌ **실수:** 배경 정보 없이 전문적인 질문\n✅ **해결:** 프로젝트 환경, 기술 스택, 대상 독자 등 정보 제공\n\n<!-- QUIZ:prompt-engineering-ch4-s2-q2 -->\n\n### 5. 결과 검증 생략\n\n❌ **실수:** AI 출력을 검증 없이 바로 사용\n✅ **해결:** 특히 코드, 숫자, 사실 관계는 반드시 검증\n\n**기억하세요:** AI는 도구이지 진실의 원천이 아닙니다.\n\n<!-- QUIZ:prompt-engineering-ch4-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch4-s2-q1",
+          "sectionId": "prompt-engineering-ch4-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "AI가 사실이 아닌 정보를 자신 있게 생성하는 현상을 무엇이라 하는가?",
+          "options": ["오버피팅", "환각(Hallucination)", "편향(Bias)", "과적합(Overfitting)"],
+          "correctAnswer": "환각(Hallucination)",
+          "explanation": "환각(Hallucination)은 AI가 사실이 아닌 정보를 마치 사실인 것처럼 자신 있게 생성하는 현상입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch4-s2-q2",
+          "sectionId": "prompt-engineering-ch4-s2",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "프롬프트에 조건을 많이 넣을수록 항상 더 좋은 결과가 나온다.",
+          "correctAnswer": "false",
+          "explanation": "과도한 지시는 오히려 AI를 혼란스럽게 만들어 품질을 낮출 수 있습니다. 핵심 3~5가지로 줄이는 것이 좋습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch4-s2-q3",
+          "sectionId": "prompt-engineering-ch4-s2",
+          "type": "fill_blank",
+          "difficulty": "advanced",
+          "question": "AI 환각을 방지하기 위해 \"확실하지 않으면 ___고 말해줘\"라고 프롬프트에 추가할 수 있다.",
+          "correctAnswer": "모른다",
+          "explanation": "AI에게 확실하지 않은 정보에 대해 솔직하게 '모른다'고 말하도록 요청하면 환각을 줄일 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering-ch4-s3",
+      "chapterId": "prompt-engineering-ch4",
+      "slug": "practical-templates",
+      "title": "실전 프롬프트 템플릿",
+      "content": "## 시나리오: 민수의 프롬프트 라이브러리\n\n민수는 자주 사용하는 프롬프트들을 템플릿으로 정리하기 시작했습니다. 이제 상황에 맞는 템플릿을 꺼내 쓰면 됩니다!\n\n---\n\n## 실전 템플릿 모음\n\n### 1. 코드 리뷰 템플릿\n\n```\n다음 코드를 리뷰해줘.\n\n검토 관점:\n- 버그 가능성\n- 성능 이슈\n- 보안 취약점\n- 코드 가독성\n\n각 이슈에 대해 심각도(상/중/하)와 수정 제안을 포함해줘.\n\n[코드 붙여넣기]\n```\n\n### 2. 글쓰기 템플릿\n\n```\n주제: [주제]\n대상 독자: [누구]\n어조: [공식적/친근/교육적]\n분량: [글자 수 또는 페이지]\n포함 키워드: [키워드 목록]\n```\n\n<!-- QUIZ:prompt-engineering-ch4-s3-q1 -->\n\n### 3. 데이터 분석 템플릿\n\n```\n역할: 데이터 분석가\n\n다음 데이터를 분석해줘:\n[데이터]\n\n분석 항목:\n1. 주요 트렌드\n2. 이상값\n3. 인사이트 3가지\n4. 개선 제안\n\n결과를 표와 불릿 포인트로 정리해줘.\n```\n\n### 4. 번역 템플릿\n\n```\n다음 텍스트를 [목표 언어]로 번역해줘.\n\n조건:\n- 의역보다 직역 우선\n- 전문 용어는 원문 병기\n- 어조: [비즈니스/캐주얼]\n\n원문: [텍스트]\n```\n\n<!-- QUIZ:prompt-engineering-ch4-s3-q2 -->\n\n### 나만의 템플릿 만들기\n\n좋은 템플릿의 조건:\n1. **변수 슬롯**: `[주제]`, `[대상]` 등 교체 가능한 부분\n2. **고정 구조**: 항상 포함되는 형식과 조건\n3. **검증된 품질**: 여러 번 테스트를 거친 구조\n\n자주 하는 작업을 템플릿으로 만들어두면 시간을 크게 절약할 수 있습니다.\n\n<!-- QUIZ:prompt-engineering-ch4-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch4-s3-q1",
+          "sectionId": "prompt-engineering-ch4-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "프롬프트 템플릿에서 [주제], [대상]과 같은 부분을 무엇이라 하는가?",
+          "options": ["상수(Constant)", "변수 슬롯(Variable Slot)", "키워드(Keyword)", "태그(Tag)"],
+          "correctAnswer": "변수 슬롯(Variable Slot)",
+          "explanation": "변수 슬롯은 템플릿에서 상황에 따라 교체되는 부분입니다. 고정 구조는 유지하면서 변수 슬롯만 바꾸어 재사용합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch4-s3-q2",
+          "sectionId": "prompt-engineering-ch4-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "프롬프트 템플릿은 한 번 만들면 수정 없이 계속 사용해야 한다.",
+          "correctAnswer": "false",
+          "explanation": "템플릿도 반복 사용하면서 개선해야 합니다. 새로운 요구사항이나 더 좋은 패턴을 발견하면 업데이트합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch4-s3-q3",
+          "sectionId": "prompt-engineering-ch4-s3",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "좋은 프롬프트 템플릿은 변수 슬롯, 고정 구조, 그리고 ___된 품질을 갖추어야 한다.",
+          "correctAnswer": "검증",
+          "explanation": "좋은 템플릿은 여러 번 테스트를 거쳐 검증된 품질을 보장해야 합니다. 검증 없는 템플릿은 일관된 결과를 보장하지 못합니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

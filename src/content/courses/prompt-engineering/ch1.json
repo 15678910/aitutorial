@@ -1,0 +1,139 @@
+{
+  "id": "prompt-engineering-ch1",
+  "courseId": "prompt-engineering",
+  "slug": "ch1-prompt-basics",
+  "title": "프롬프트 기초",
+  "description": "프롬프트의 개념을 이해하고 좋은 프롬프트의 원칙과 기본 패턴을 학습합니다.",
+  "orderNum": 1,
+  "sections": [
+    {
+      "id": "prompt-engineering-ch1-s1",
+      "chapterId": "prompt-engineering-ch1",
+      "slug": "what-is-prompt",
+      "title": "프롬프트란 무엇인가",
+      "content": "## 시나리오: 민수의 첫 AI 대화\n\n민수는 회사에서 Claude를 업무에 활용하라는 지시를 받았습니다. 처음 Claude에게 말을 걸어봅니다.\n\n> \"보고서 써줘\"\n\nClaude가 답합니다: \"어떤 주제의 보고서인지 알려주시겠어요?\"\n\n민수는 깨달았습니다 — AI에게 **무엇을 어떻게 요청하느냐**가 결과를 결정한다는 것을.\n\n---\n\n## 프롬프트의 정의\n\n**프롬프트(Prompt)**란 AI 모델에게 전달하는 입력 텍스트입니다. 질문, 지시, 맥락 정보 등 AI가 응답을 생성하기 위해 필요한 모든 정보를 포함합니다.\n\n### 프롬프트의 구성 요소\n\n| 요소 | 설명 | 예시 |\n|------|------|------|\n| 지시(Instruction) | AI에게 요청하는 행동 | \"요약해줘\", \"번역해줘\" |\n| 맥락(Context) | 배경 정보 | \"이 글은 마케팅 보고서야\" |\n| 입력 데이터 | 처리할 대상 | 분석할 텍스트, 데이터 |\n| 출력 형식 | 원하는 결과 형태 | \"표로 정리해줘\" |\n\n<!-- QUIZ:prompt-engineering-ch1-s1-q1 -->\n\n### 프롬프트가 중요한 이유\n\n같은 AI 모델이라도 프롬프트에 따라 결과가 완전히 달라집니다.\n\n**나쁜 프롬프트:** \"마케팅 도와줘\"\n\n**좋은 프롬프트:** \"20대 여성 타겟의 화장품 SNS 마케팅 전략을 3가지 제안해줘. 각 전략에 예상 비용과 기대 효과를 포함해줘.\"\n\n두 번째 프롬프트가 훨씬 구체적이고 유용한 결과를 만들어냅니다.\n\n<!-- QUIZ:prompt-engineering-ch1-s1-q2 -->\n\n### 프롬프트 엔지니어링이란?\n\n프롬프트 엔지니어링은 AI에게 최적의 입력을 설계하는 기술입니다. 단순히 질문을 잘 하는 것을 넘어, 체계적인 방법론으로 AI의 성능을 극대화하는 학문 분야입니다.\n\n프로그래밍이 컴퓨터와의 소통이라면, 프롬프트 엔지니어링은 AI와의 소통 기술입니다.\n\n<!-- QUIZ:prompt-engineering-ch1-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 15,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch1-s1-q1",
+          "sectionId": "prompt-engineering-ch1-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "프롬프트의 구성 요소가 아닌 것은?",
+          "options": ["지시(Instruction)", "맥락(Context)", "모델 버전(Model Version)", "출력 형식(Output Format)"],
+          "correctAnswer": "모델 버전(Model Version)",
+          "explanation": "프롬프트의 주요 구성 요소는 지시, 맥락, 입력 데이터, 출력 형식입니다. 모델 버전은 프롬프트의 구성 요소가 아닙니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch1-s1-q2",
+          "sectionId": "prompt-engineering-ch1-s1",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "같은 AI 모델에 다른 프롬프트를 주면 항상 같은 결과가 나온다.",
+          "correctAnswer": "false",
+          "explanation": "프롬프트에 따라 결과가 크게 달라집니다. 구체적이고 명확한 프롬프트가 더 좋은 결과를 만들어냅니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch1-s1-q3",
+          "sectionId": "prompt-engineering-ch1-s1",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "프롬프트 엔지니어링은 AI에게 최적의 ___을 설계하는 기술이다.",
+          "correctAnswer": "입력",
+          "explanation": "프롬프트 엔지니어링은 AI 모델에게 전달하는 최적의 입력(프롬프트)을 설계하여 원하는 출력을 얻는 기술입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering-ch1-s2",
+      "chapterId": "prompt-engineering-ch1",
+      "slug": "good-prompt-principles",
+      "title": "좋은 프롬프트의 원칙",
+      "content": "## 시나리오: 민수의 프롬프트 개선기\n\n민수가 팀장에게 보여줄 보고서를 Claude에게 요청합니다.\n\n**첫 번째 시도:** \"AI 시장 보고서 써줘\"\n→ 결과가 너무 일반적이고 방향이 없었습니다.\n\n**개선 후:** \"2024년 한국 AI 시장 동향 보고서를 작성해줘. 주요 기업 5곳의 투자 현황과 향후 3년 전망을 포함하고, 경영진 대상으로 2페이지 분량으로 작성해줘.\"\n→ 훨씬 구체적이고 유용한 결과가 나왔습니다!\n\n---\n\n## 5가지 핵심 원칙\n\n### 1. 명확성 (Clarity)\n\nAI가 정확히 무엇을 해야 하는지 분명하게 표현합니다.\n\n- ❌ \"이거 좀 봐줘\" → 무엇을 봐야 할지 모호\n- ✅ \"이 코드의 보안 취약점을 검토해줘\" → 명확한 행동\n\n### 2. 구체성 (Specificity)\n\n원하는 결과의 범위와 조건을 구체적으로 명시합니다.\n\n- ❌ \"마케팅 아이디어 줘\" → 범위가 너무 넓음\n- ✅ \"인스타그램에서 20대를 대상으로 한 운동화 마케팅 아이디어 5가지\" → 구체적\n\n<!-- QUIZ:prompt-engineering-ch1-s2-q1 -->\n\n### 3. 맥락 제공 (Context)\n\n배경 정보를 충분히 제공하면 더 정확한 답을 얻습니다.\n\n```\n나는 3년차 프론트엔드 개발자야.\nReact + TypeScript 프로젝트에서 성능 최적화를 하고 있어.\n현재 리스트 렌더링이 느린 상황이야.\n최적화 방법을 추천해줘.\n```\n\n### 4. 예시 포함 (Examples)\n\n원하는 결과의 예시를 보여주면 AI가 패턴을 이해합니다.\n\n### 5. 제약 조건 (Constraints)\n\n분량, 형식, 어조 등의 제한을 설정합니다.\n\n<!-- QUIZ:prompt-engineering-ch1-s2-q2 -->\n\n## 원칙 적용 체크리스트\n\n프롬프트 작성 후 다음을 확인하세요:\n\n- [ ] 무엇을 해야 하는지 명확한가?\n- [ ] 구체적인 조건이 포함되어 있는가?\n- [ ] 필요한 배경 정보가 있는가?\n- [ ] 원하는 출력 형태를 지정했는가?\n\n<!-- QUIZ:prompt-engineering-ch1-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch1-s2-q1",
+          "sectionId": "prompt-engineering-ch1-s2",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "\"마케팅 도와줘\"라는 프롬프트의 가장 큰 문제점은?",
+          "options": ["너무 짧다", "구체성이 부족하다", "영어가 아니다", "문법이 틀렸다"],
+          "correctAnswer": "구체성이 부족하다",
+          "explanation": "길이가 짧은 것 자체가 문제가 아니라, 어떤 마케팅인지, 대상은 누구인지, 어떤 도움이 필요한지 구체적인 정보가 없는 것이 문제입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch1-s2-q2",
+          "sectionId": "prompt-engineering-ch1-s2",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "좋은 프롬프트에는 항상 예시가 포함되어야 한다.",
+          "correctAnswer": "false",
+          "explanation": "예시는 좋은 프롬프트의 원칙 중 하나이지만 항상 필수는 아닙니다. 간단한 작업이나 이미 명확한 지시에는 예시 없이도 좋은 결과를 얻을 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch1-s2-q3",
+          "sectionId": "prompt-engineering-ch1-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "좋은 프롬프트의 5가지 원칙은 명확성, 구체성, 맥락 제공, 예시 포함, ___이다.",
+          "correctAnswer": "제약 조건",
+          "explanation": "분량, 형식, 어조 등의 제약 조건을 설정하면 AI가 원하는 범위 내에서 더 적합한 결과를 생성합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering-ch1-s3",
+      "chapterId": "prompt-engineering-ch1",
+      "slug": "basic-patterns",
+      "title": "기본 프롬프트 패턴",
+      "content": "## 시나리오: 민수의 패턴 발견\n\n여러 번 Claude를 사용하면서 민수는 특정 형태의 프롬프트가 더 좋은 결과를 만든다는 것을 깨달았습니다. 이런 반복되는 구조를 **프롬프트 패턴**이라고 합니다.\n\n---\n\n## 4가지 기본 패턴\n\n### 1. 질문형 패턴\n\n단순히 정보를 요청하는 가장 기본적인 패턴입니다.\n\n```\nReact의 useEffect 훅은 언제 사용하나요?\n```\n\n**활용 팁:** \"왜\", \"어떻게\", \"비교해서\" 등의 키워드로 깊이를 조절합니다.\n\n### 2. 지시형 패턴\n\n구체적인 행동을 지시하는 패턴입니다.\n\n```\n다음 영어 문장을 한국어로 번역해줘.\n비즈니스 이메일 어조로 작성해줘.\n\n원문: We are pleased to announce...\n```\n\n<!-- QUIZ:prompt-engineering-ch1-s3-q1 -->\n\n### 3. 역할 부여 패턴\n\nAI에게 특정 역할을 부여하여 전문성을 이끌어냅니다.\n\n```\n너는 10년 경력의 시니어 백엔드 개발자야.\n주니어 개발자가 작성한 다음 코드를 리뷰해줘.\n보안, 성능, 가독성 관점에서 피드백해줘.\n```\n\n이 패턴은 AI가 해당 전문가의 관점에서 사고하도록 유도합니다.\n\n### 4. 단계적 패턴\n\n복잡한 작업을 단계별로 나누어 요청합니다.\n\n```\n다음 순서대로 진행해줘:\n1단계: 이 데이터에서 이상값을 찾아줘\n2단계: 이상값의 원인을 분석해줘\n3단계: 해결 방안을 3가지 제시해줘\n```\n\n<!-- QUIZ:prompt-engineering-ch1-s3-q2 -->\n\n## 패턴 선택 가이드\n\n| 상황 | 추천 패턴 |\n|------|----------|\n| 정보 탐색 | 질문형 |\n| 콘텐츠 생성 | 지시형 |\n| 전문 분석 | 역할 부여 |\n| 복잡한 작업 | 단계적 |\n\n여러 패턴을 조합하면 더 강력한 프롬프트를 만들 수 있습니다.\n\n<!-- QUIZ:prompt-engineering-ch1-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch1-s3-q1",
+          "sectionId": "prompt-engineering-ch1-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "\"너는 경험 많은 마케터야. 이 제품의 광고 문구를 작성해줘.\"는 어떤 프롬프트 패턴인가?",
+          "options": ["질문형 패턴", "지시형 패턴", "역할 부여 패턴", "단계적 패턴"],
+          "correctAnswer": "역할 부여 패턴",
+          "explanation": "AI에게 '경험 많은 마케터'라는 역할을 부여하고 그 관점에서 작업을 수행하도록 요청하고 있으므로 역할 부여 패턴입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch1-s3-q2",
+          "sectionId": "prompt-engineering-ch1-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "하나의 프롬프트에는 하나의 패턴만 사용해야 한다.",
+          "correctAnswer": "false",
+          "explanation": "여러 패턴을 조합하면 더 강력한 프롬프트를 만들 수 있습니다. 예를 들어 역할 부여 + 단계적 패턴을 함께 사용할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch1-s3-q3",
+          "sectionId": "prompt-engineering-ch1-s3",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "복잡한 작업을 여러 단계로 나누어 순서대로 요청하는 패턴을 ___패턴이라고 한다.",
+          "correctAnswer": "단계적",
+          "explanation": "단계적 패턴은 복잡한 작업을 명확한 순서로 분할하여 AI가 체계적으로 처리하도록 유도하는 방식입니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

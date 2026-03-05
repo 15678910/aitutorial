@@ -1,0 +1,139 @@
+{
+  "id": "claude-tool-use-ch1",
+  "courseId": "claude-tool-use",
+  "slug": "ch1-tool-use-basics",
+  "title": "도구 사용 기초",
+  "description": "함수 호출의 개념, JSON Schema 정의, 첫 번째 도구 구현을 학습합니다.",
+  "orderNum": 1,
+  "sections": [
+    {
+      "id": "claude-tool-use-ch1-s1",
+      "chapterId": "claude-tool-use-ch1",
+      "slug": "function-calling-concept",
+      "title": "함수 호출 개념",
+      "content": "## 시나리오: 수진이의 AI 앱 개발\n\n수진이는 Claude API로 여행 플래너 앱을 만들고 있습니다. 사용자가 \"파리 날씨 알려줘\"라고 하면 실시간 날씨를 보여주고 싶은데, Claude는 실시간 데이터에 접근할 수 없습니다.\n\n> \"Tool Use를 사용하면 Claude가 외부 함수를 호출해서 실시간 데이터를 가져올 수 있어요!\"\n\n---\n\n## Tool Use란?\n\nTool Use(도구 사용)는 Claude가 **외부 함수를 호출**할 수 있게 해주는 기능입니다. Claude가 직접 함수를 실행하는 것이 아니라, \"이 함수를 이 인자로 호출해달라\"고 요청하는 방식입니다.\n\n### 작동 흐름\n\n```\n1. 사용자: \"파리 날씨 알려줘\"\n2. Claude: get_weather(city=\"paris\") 호출 요청\n3. 앱: 실제 날씨 API 호출 → 결과 수신\n4. 앱: 결과를 Claude에게 전달\n5. Claude: \"파리는 현재 15°C, 맑음입니다\"\n```\n\n### 핵심 포인트\n\n| 개념 | 설명 |\n|------|------|\n| 도구 정의 | 개발자가 사용 가능한 함수 목록을 제공 |\n| 도구 선택 | Claude가 상황에 맞는 도구를 선택 |\n| 도구 실행 | 앱(개발자 코드)이 실제 실행 |\n| 결과 반환 | 실행 결과를 Claude에게 전달 |\n\nClaude는 도구를 **선택**하지만, **실행**은 개발자의 코드가 합니다.\n\n<!-- QUIZ:claude-tool-use-ch1-s1-q1 -->\n\n### Tool Use가 필요한 상황\n\n- 실시간 데이터 조회 (날씨, 주가, 환율)\n- 외부 시스템 연동 (이메일 전송, DB 조회)\n- 계산이나 검증 (수학 계산, 데이터 검증)\n- 파일 처리 (읽기, 쓰기, 변환)\n\n<!-- QUIZ:claude-tool-use-ch1-s1-q2 -->\n\n### API 요청 구조\n\nClaude API에 도구를 전달할 때는 `tools` 파라미터를 사용합니다. Claude가 도구를 호출하면 응답에 `tool_use` 블록이 포함됩니다.\n\n<!-- QUIZ:claude-tool-use-ch1-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "claude-tool-use-ch1-s1-q1",
+          "sectionId": "claude-tool-use-ch1-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "Tool Use에서 실제로 함수를 실행하는 주체는?",
+          "options": ["Claude AI 모델", "개발자의 애플리케이션 코드", "Anthropic 서버", "사용자의 브라우저"],
+          "correctAnswer": "개발자의 애플리케이션 코드",
+          "explanation": "Claude는 어떤 도구를 어떤 인자로 호출할지 결정하지만, 실제 실행은 개발자가 작성한 애플리케이션 코드가 담당합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-tool-use-ch1-s1-q2",
+          "sectionId": "claude-tool-use-ch1-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "Claude는 Tool Use를 통해 인터넷에 직접 접근하여 실시간 데이터를 가져온다.",
+          "correctAnswer": "false",
+          "explanation": "Claude가 직접 인터넷에 접근하는 것이 아닙니다. Claude는 도구 호출을 요청하고, 개발자의 코드가 실제 API 호출을 수행한 후 결과를 Claude에게 전달합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-tool-use-ch1-s1-q3",
+          "sectionId": "claude-tool-use-ch1-s1",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "Claude API에 도구를 전달할 때 사용하는 파라미터 이름은 ___이다.",
+          "correctAnswer": "tools",
+          "explanation": "Claude API 요청 시 tools 파라미터에 사용 가능한 도구 목록을 정의하여 전달합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-tool-use-ch1-s2",
+      "chapterId": "claude-tool-use-ch1",
+      "slug": "json-schema-tools",
+      "title": "JSON Schema로 도구 정의하기",
+      "content": "## 시나리오: 수진이의 도구 설계\n\n수진이는 날씨 조회 도구를 만들려면 먼저 Claude에게 \"이 도구는 이런 입력을 받고, 이런 기능을 해\"라고 알려줘야 합니다. 이때 사용하는 것이 JSON Schema입니다.\n\n---\n\n## 도구 정의 구조\n\n```json\n{\n  \"name\": \"get_weather\",\n  \"description\": \"지정한 도시의 현재 날씨를 조회합니다\",\n  \"input_schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"city\": {\n        \"type\": \"string\",\n        \"description\": \"날씨를 조회할 도시 이름\"\n      },\n      \"unit\": {\n        \"type\": \"string\",\n        \"enum\": [\"celsius\", \"fahrenheit\"],\n        \"description\": \"온도 단위\"\n      }\n    },\n    \"required\": [\"city\"]\n  }\n}\n```\n\n### 각 필드 설명\n\n| 필드 | 역할 |\n|------|------|\n| name | 도구의 고유 이름 (영문, 소문자) |\n| description | 도구의 기능 설명 (Claude가 선택 시 참고) |\n| input_schema | 입력 파라미터의 JSON Schema |\n| properties | 각 파라미터 정의 |\n| required | 필수 파라미터 목록 |\n\n<!-- QUIZ:claude-tool-use-ch1-s2-q1 -->\n\n### JSON Schema 타입\n\n| 타입 | 설명 | 예시 |\n|------|------|------|\n| string | 문자열 | \"서울\" |\n| number | 숫자 | 37.5 |\n| integer | 정수 | 10 |\n| boolean | 참/거짓 | true |\n| array | 배열 | [\"a\", \"b\"] |\n| object | 객체 | {\"key\": \"value\"} |\n\n<!-- QUIZ:claude-tool-use-ch1-s2-q2 -->\n\n### 좋은 도구 설명 작성법\n\ndescription은 Claude가 어떤 도구를 사용할지 결정하는 핵심 정보입니다.\n\n- ❌ \"날씨\" → 너무 짧음\n- ✅ \"지정한 도시의 현재 날씨(온도, 습도, 상태)를 실시간으로 조회합니다\" → 명확하고 구체적\n\n<!-- QUIZ:claude-tool-use-ch1-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "claude-tool-use-ch1-s2-q1",
+          "sectionId": "claude-tool-use-ch1-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "도구 정의에서 'required' 필드의 역할은?",
+          "options": ["도구를 반드시 사용하게 강제한다", "필수로 전달해야 하는 파라미터를 지정한다", "도구의 실행 순서를 지정한다", "파라미터의 기본값을 설정한다"],
+          "correctAnswer": "필수로 전달해야 하는 파라미터를 지정한다",
+          "explanation": "required 배열에 포함된 파라미터는 도구 호출 시 반드시 값이 전달되어야 합니다. 포함되지 않은 파라미터는 선택적입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-tool-use-ch1-s2-q2",
+          "sectionId": "claude-tool-use-ch1-s2",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "도구의 description은 사용자에게만 보여지는 텍스트이다.",
+          "correctAnswer": "false",
+          "explanation": "description은 Claude가 어떤 도구를 선택할지 결정할 때 참고하는 핵심 정보입니다. 명확하고 구체적으로 작성해야 Claude가 올바른 도구를 선택합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-tool-use-ch1-s2-q3",
+          "sectionId": "claude-tool-use-ch1-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "도구의 입력 파라미터를 정의할 때 사용하는 스키마 형식은 ___이다.",
+          "correctAnswer": "JSON Schema",
+          "explanation": "Claude의 도구 정의에서 input_schema 필드는 JSON Schema 형식을 따라 파라미터의 타입, 설명, 필수 여부 등을 정의합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-tool-use-ch1-s3",
+      "chapterId": "claude-tool-use-ch1",
+      "slug": "first-tool-implementation",
+      "title": "첫 번째 도구 구현",
+      "content": "## 시나리오: 수진이의 날씨 도구\n\n수진이가 드디어 첫 번째 도구를 구현합니다! 날씨 API를 호출하는 간단한 도구부터 시작합니다.\n\n---\n\n## 구현 단계\n\n### 1단계: API 요청에 도구 정의\n\n```python\nimport anthropic\n\nclient = anthropic.Anthropic()\n\ntools = [{\n    \"name\": \"get_weather\",\n    \"description\": \"도시의 현재 날씨를 조회합니다\",\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"city\": {\"type\": \"string\", \"description\": \"도시 이름\"}\n        },\n        \"required\": [\"city\"]\n    }\n}]\n```\n\n### 2단계: Claude에게 요청\n\n```python\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=1024,\n    tools=tools,\n    messages=[{\"role\": \"user\", \"content\": \"파리 날씨 어때?\"}]\n)\n```\n\n### 3단계: 도구 호출 처리\n\n```python\nfor block in response.content:\n    if block.type == \"tool_use\":\n        # Claude가 도구 호출을 요청함\n        tool_name = block.name      # \"get_weather\"\n        tool_input = block.input    # {\"city\": \"paris\"}\n        tool_id = block.id          # 고유 ID\n        \n        # 실제 API 호출\n        result = call_weather_api(tool_input[\"city\"])\n```\n\n<!-- QUIZ:claude-tool-use-ch1-s3-q1 -->\n\n### 4단계: 결과를 Claude에게 전달\n\n```python\nfinal_response = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=1024,\n    tools=tools,\n    messages=[\n        {\"role\": \"user\", \"content\": \"파리 날씨 어때?\"},\n        {\"role\": \"assistant\", \"content\": response.content},\n        {\"role\": \"user\", \"content\": [{\n            \"type\": \"tool_result\",\n            \"tool_use_id\": tool_id,\n            \"content\": \"15°C, 맑음, 습도 45%\"\n        }]}\n    ]\n)\n```\n\n<!-- QUIZ:claude-tool-use-ch1-s3-q2 -->\n\n### 완전한 루프\n\n도구 호출은 여러 번 발생할 수 있으므로 루프로 처리합니다. `stop_reason`이 `\"end_turn\"`이 될 때까지 반복합니다.\n\n<!-- QUIZ:claude-tool-use-ch1-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "claude-tool-use-ch1-s3-q1",
+          "sectionId": "claude-tool-use-ch1-s3",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "Claude가 도구를 호출할 때 응답에 포함되는 블록 타입은?",
+          "options": ["text", "tool_use", "function_call", "tool_result"],
+          "correctAnswer": "tool_use",
+          "explanation": "Claude가 도구 호출을 요청할 때 응답 content에 type이 'tool_use'인 블록이 포함됩니다. 이 블록에 도구 이름, 입력, ID가 들어있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-tool-use-ch1-s3-q2",
+          "sectionId": "claude-tool-use-ch1-s3",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "도구 실행 결과를 Claude에게 전달할 때 tool_use_id를 포함하지 않아도 된다.",
+          "correctAnswer": "false",
+          "explanation": "tool_result에는 반드시 해당 tool_use 블록의 tool_use_id를 포함해야 합니다. 이를 통해 Claude가 어떤 도구 호출의 결과인지 매칭합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-tool-use-ch1-s3-q3",
+          "sectionId": "claude-tool-use-ch1-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "Claude의 도구 호출 루프는 stop_reason이 \"___\"이 될 때까지 반복한다.",
+          "correctAnswer": "end_turn",
+          "explanation": "stop_reason이 'end_turn'이면 Claude가 더 이상 도구 호출이 필요 없다는 의미입니다. 'tool_use'이면 추가 도구 호출이 필요합니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

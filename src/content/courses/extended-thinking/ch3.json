@@ -1,0 +1,139 @@
+{
+  "id": "extended-thinking-ch3",
+  "courseId": "extended-thinking",
+  "slug": "ch3-problem-solving",
+  "title": "문제 해결 실전",
+  "description": "수학 추론, 코딩 추론, 분석과 의사결정에서 확장 사고를 활용합니다.",
+  "orderNum": 3,
+  "sections": [
+    {
+      "id": "extended-thinking-ch3-s1",
+      "chapterId": "extended-thinking-ch3",
+      "slug": "math-reasoning",
+      "title": "수학 추론",
+      "content": "## 확장 사고로 수학 문제 풀기\n\n확장 사고는 수학적 추론에서 가장 큰 효과를 발휘합니다. 단계별로 풀이 과정을 밟으며 정확도를 높입니다.\n\n---\n\n## 효과적인 수학 프롬프트\n\n### 좋은 프롬프트 구조\n\n```\n다음 수학 문제를 풀어줘.\n\n문제: [수학 문제]\n\n풀이 시 요구사항:\n- 각 단계의 근거를 명시해줘\n- 중간 계산 과정을 보여줘\n- 최종 답에 단위를 포함해줘\n- 다른 풀이법이 있다면 함께 제시해줘\n```\n\n### 확장 사고의 효과\n\n| 문제 유형 | 일반 모드 정확도 | 확장 사고 정확도 |\n|----------|-----------------|----------------|\n| 산술 계산 | 높음 | 매우 높음 |\n| 대수 풀이 | 중간 | 높음 |\n| 조합론 | 낮음 | 중간~높음 |\n| 증명 문제 | 낮음 | 중간 |\n\n<!-- QUIZ:extended-thinking-ch3-s1-q1 -->\n\n### 사고 과정 예시\n\nClaude의 thinking 블록에서 볼 수 있는 사고:\n\n```\n문제를 분석해보자...\n주어진 조건: x + y = 10, x * y = 21\n이차방정식으로 변환하면: t^2 - 10t + 21 = 0\n판별식: 100 - 84 = 16 > 0 → 두 실근\nt = (10 ± 4) / 2\nt = 7 또는 t = 3\n따라서 x = 7, y = 3 (또는 반대)\n검증: 7 + 3 = 10 ✓, 7 × 3 = 21 ✓\n```\n\n<!-- QUIZ:extended-thinking-ch3-s1-q2 -->\n\n### 검증 단계\n\nClaude에게 \"풀이 후 답을 검증해줘\"라고 요청하면 확장 사고 과정에서 자동으로 결과를 확인합니다.\n\n<!-- QUIZ:extended-thinking-ch3-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "extended-thinking-ch3-s1-q1",
+          "sectionId": "extended-thinking-ch3-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "확장 사고가 수학 문제에서 가장 큰 효과를 보이는 이유는?",
+          "options": ["계산 속도가 빨라져서", "단계별 풀이 과정을 체계적으로 밟기 때문에", "인터넷에서 답을 검색해서", "문제를 외워두기 때문에"],
+          "correctAnswer": "단계별 풀이 과정을 체계적으로 밟기 때문에",
+          "explanation": "확장 사고는 Claude가 문제를 단계별로 분석하고, 중간 계산을 수행하고, 결과를 검증하는 과정을 거치므로 정확도가 높아집니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "extended-thinking-ch3-s1-q2",
+          "sectionId": "extended-thinking-ch3-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "확장 사고를 사용하면 모든 수학 문제를 100% 정확하게 풀 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "확장 사고는 정확도를 크게 높이지만 100%는 아닙니다. 특히 매우 복잡한 증명 문제나 고급 수학에서는 여전히 오류가 발생할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "extended-thinking-ch3-s1-q3",
+          "sectionId": "extended-thinking-ch3-s1",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "수학 문제의 정확도를 높이려면 풀이 후 답을 ___하는 단계를 요청하면 좋다.",
+          "correctAnswer": "검증",
+          "explanation": "Claude에게 풀이 후 결과 검증을 요청하면 확장 사고 과정에서 자동으로 답을 다시 확인하여 오류를 줄입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "extended-thinking-ch3-s2",
+      "chapterId": "extended-thinking-ch3",
+      "slug": "coding-reasoning",
+      "title": "코딩 추론",
+      "content": "## 확장 사고로 코드 작성하기\n\n확장 사고는 복잡한 알고리즘 설계, 디버깅, 아키텍처 결정에서 강력한 효과를 발휘합니다.\n\n---\n\n## 알고리즘 설계\n\n### 효과적인 프롬프트\n\n```\n다음 요구사항을 만족하는 알고리즘을 설계해줘.\n\n요구사항:\n- 대용량 로그 파일(10GB+)에서 특정 패턴 검색\n- 메모리 사용량 1GB 이하\n- 검색 시간 30초 이내\n\n고려사항:\n1. 시간/공간 복잡도 분석\n2. 엣지 케이스 처리\n3. 병렬 처리 가능성\n```\n\n확장 사고에서 Claude가 여러 접근법을 비교하고 최적 방법을 선택하는 과정을 볼 수 있습니다.\n\n<!-- QUIZ:extended-thinking-ch3-s2-q1 -->\n\n## 디버깅 활용\n\n```\n다음 코드에서 버그를 찾아줘.\n[코드]\n\n증상: 특정 입력에서 무한 루프 발생\n\n분석 시 확인할 것:\n1. 루프 종료 조건\n2. 변수 상태 추적\n3. 경계값 테스트\n```\n\n확장 사고는 코드를 한 줄씩 따라가며 변수 상태를 추적하고 버그 원인을 정확히 찾아냅니다.\n\n<!-- QUIZ:extended-thinking-ch3-s2-q2 -->\n\n## 코드 리뷰\n\n확장 사고를 활성화하고 코드 리뷰를 요청하면, 보안 취약점, 성능 이슈, 설계 문제를 더 깊이 분석합니다.\n\n<!-- QUIZ:extended-thinking-ch3-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "extended-thinking-ch3-s2-q1",
+          "sectionId": "extended-thinking-ch3-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "확장 사고가 코딩에서 가장 효과적인 상황은?",
+          "options": ["간단한 변수명 변경", "복잡한 알고리즘 설계와 디버깅", "HTML 마크업 작성", "CSS 색상 변경"],
+          "correctAnswer": "복잡한 알고리즘 설계와 디버깅",
+          "explanation": "확장 사고는 여러 접근법을 비교하고, 코드를 단계별로 추적하며, 복잡한 로직을 분석하는 데 효과적입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "extended-thinking-ch3-s2-q2",
+          "sectionId": "extended-thinking-ch3-s2",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "확장 사고는 코드를 한 줄씩 실행하여 디버깅하는 것이 아니라, 논리적으로 추론하여 버그를 찾는다.",
+          "correctAnswer": "true",
+          "explanation": "확장 사고는 코드를 실제로 실행하지 않습니다. 대신 논리적으로 코드 흐름을 따라가며 변수 상태를 추론하고 버그를 식별합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "extended-thinking-ch3-s2-q3",
+          "sectionId": "extended-thinking-ch3-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "확장 사고로 디버깅할 때 Claude는 코드를 한 줄씩 따라가며 ___상태를 추적한다.",
+          "correctAnswer": "변수",
+          "explanation": "확장 사고에서 Claude는 코드의 각 단계에서 변수가 어떤 값을 갖는지 논리적으로 추적하여 버그의 원인을 파악합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "extended-thinking-ch3-s3",
+      "chapterId": "extended-thinking-ch3",
+      "slug": "analysis-decision",
+      "title": "분석과 의사결정",
+      "content": "## 확장 사고로 복잡한 의사결정하기\n\n비즈니스 전략, 기술 선택, 프로젝트 우선순위 등 여러 요소를 동시에 고려해야 하는 의사결정에서 확장 사고가 빛납니다.\n\n---\n\n## 다기준 의사결정\n\n### 프롬프트 예시\n\n```\n우리 회사의 기술 스택을 선정해야 합니다.\n\n선택지:\n1. React + Node.js + PostgreSQL\n2. Vue + Django + MySQL\n3. Svelte + Go + MongoDB\n\n평가 기준:\n- 팀 학습 곡선 (현재 Python 경험만 있음)\n- 성능 요구사항 (동시 접속 10,000명)\n- 유지보수성 (3년간 운영)\n- 채용 용이성\n\n각 선택지를 기준별로 점수화(1-10)하고\n종합 추천을 해줘.\n```\n\n<!-- QUIZ:extended-thinking-ch3-s3-q1 -->\n\n## SWOT 분석\n\n확장 사고를 사용하면 Claude가 더 깊이 있는 SWOT 분석을 수행합니다:\n\n- **Strengths**: 내부 강점을 다각도로 분석\n- **Weaknesses**: 숨겨진 약점까지 발굴\n- **Opportunities**: 시장 트렌드와 연결\n- **Threats**: 장기적 위험 요소 예측\n\n<!-- QUIZ:extended-thinking-ch3-s3-q2 -->\n\n## 위험 평가\n\n프로젝트의 리스크를 분석할 때 확장 사고는 다음을 체계적으로 수행합니다:\n\n1. 리스크 식별\n2. 발생 확률 평가\n3. 영향도 분석\n4. 대응 전략 수립\n5. 우선순위 결정\n\n확장 사고 없이는 1~2개의 피상적 리스크만 나올 수 있지만, 활성화하면 더 많은 리스크를 깊이 있게 분석합니다.\n\n<!-- QUIZ:extended-thinking-ch3-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "extended-thinking-ch3-s3-q1",
+          "sectionId": "extended-thinking-ch3-s3",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "다기준 의사결정에서 확장 사고의 장점은?",
+          "options": ["직감으로 빠르게 결정한다", "여러 기준을 체계적으로 분석하고 점수화한다", "항상 첫 번째 선택지를 추천한다", "비용만 고려하여 결정한다"],
+          "correctAnswer": "여러 기준을 체계적으로 분석하고 점수화한다",
+          "explanation": "확장 사고는 여러 평가 기준을 동시에 고려하고, 각 선택지를 체계적으로 분석하여 근거 있는 의사결정을 지원합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "extended-thinking-ch3-s3-q2",
+          "sectionId": "extended-thinking-ch3-s3",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "SWOT 분석에서 T(Threats)는 외부 위협 요인을 의미한다.",
+          "correctAnswer": "true",
+          "explanation": "SWOT에서 Threats는 외부 환경에서 오는 위협 요인을 의미합니다. S(강점)과 W(약점)은 내부, O(기회)와 T(위협)는 외부 요인입니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "extended-thinking-ch3-s3-q3",
+          "sectionId": "extended-thinking-ch3-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "프로젝트 위험 평가에서 리스크 식별 후 발생 ___과 영향도를 분석해야 한다.",
+          "correctAnswer": "확률",
+          "explanation": "위험 평가는 리스크를 식별한 후 발생 확률과 영향도를 분석하여 우선순위를 결정하고 대응 전략을 수립합니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "id": "mcp-mastery-ch1",
+  "courseId": "mcp-mastery",
+  "slug": "ch1-mcp-concepts",
+  "title": "MCP 핵심 개념",
+  "description": "Model Context Protocol의 정의, 아키텍처, 생태계를 이해합니다.",
+  "orderNum": 1,
+  "sections": [
+    {
+      "id": "mcp-mastery-ch1-s1",
+      "chapterId": "mcp-mastery-ch1",
+      "slug": "what-is-mcp",
+      "title": "MCP란 무엇인가",
+      "content": "## 시나리오: 하늘이의 연결 고민\n\n하늘이는 사내 챗봇을 만들고 있습니다. Claude가 회사 데이터베이스와 캘린더, 슬랙에 접근해야 하는데, 각각 별도의 연결 코드를 작성해야 합니다.\n\n> \"API마다 다 다르게 연결해야 하다니... 표준이 있으면 좋겠는데?\"\n\n바로 그 표준이 **MCP**입니다!\n\n---\n\n## MCP의 정의\n\n**MCP(Model Context Protocol)**는 AI 모델과 외부 시스템을 연결하는 개방형 표준 프로토콜입니다. Anthropic이 2024년에 공개했습니다.\n\n### 왜 MCP가 필요한가?\n\n| 문제 | MCP 이전 | MCP 이후 |\n|------|----------|----------|\n| 데이터 접근 | 각 서비스마다 별도 코드 | 표준 프로토콜로 통일 |\n| 도구 연결 | 맞춤형 통합 필요 | 플러그인처럼 연결 |\n| 유지보수 | N개 서비스 × M개 모델 | 서버 하나로 모든 모델 지원 |\n\nMCP를 USB-C에 비유할 수 있습니다. 기기마다 다른 충전기가 필요했던 것을 하나의 표준으로 통일한 것처럼, MCP는 AI와 외부 시스템 연결을 표준화합니다.\n\n<!-- QUIZ:mcp-mastery-ch1-s1-q1 -->\n\n### MCP의 핵심 가치\n\n1. **표준화**: 하나의 프로토콜로 모든 연결\n2. **보안**: 사용자 승인 기반의 안전한 접근\n3. **확장성**: 새로운 서비스를 플러그인처럼 추가\n4. **개방성**: 오픈 소스로 누구나 참여 가능\n\n<!-- QUIZ:mcp-mastery-ch1-s1-q2 -->\n\n### MCP로 할 수 있는 일\n\n- 데이터베이스 조회 및 수정\n- 파일 시스템 읽기/쓰기\n- 외부 API 호출 (날씨, 주식 등)\n- 개발 도구 연동 (GitHub, Jira 등)\n\n<!-- QUIZ:mcp-mastery-ch1-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch1-s1-q1",
+          "sectionId": "mcp-mastery-ch1-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "MCP의 풀네임은 무엇인가?",
+          "options": ["Model Communication Protocol", "Model Context Protocol", "Machine Control Protocol", "Multi Channel Protocol"],
+          "correctAnswer": "Model Context Protocol",
+          "explanation": "MCP는 Model Context Protocol의 약자로, AI 모델에게 외부 컨텍스트(데이터, 도구)를 제공하는 표준 프로토콜입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch1-s1-q2",
+          "sectionId": "mcp-mastery-ch1-s1",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "MCP는 Anthropic이 만든 비공개 유료 프로토콜이다.",
+          "correctAnswer": "false",
+          "explanation": "MCP는 오픈 소스 개방형 표준 프로토콜입니다. 누구나 자유롭게 사용하고 기여할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch1-s1-q3",
+          "sectionId": "mcp-mastery-ch1-s1",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "MCP는 AI와 외부 시스템 연결을 표준화하는데, 이를 ___에 비유할 수 있다.",
+          "correctAnswer": "USB-C",
+          "explanation": "USB-C가 다양한 기기의 충전/연결을 하나의 표준으로 통일한 것처럼, MCP는 AI와 외부 시스템 간의 연결을 표준화합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "mcp-mastery-ch1-s2",
+      "chapterId": "mcp-mastery-ch1",
+      "slug": "mcp-architecture",
+      "title": "MCP 아키텍처",
+      "content": "## 시나리오: 하늘이의 구조 이해\n\n하늘이가 MCP를 사용하려면 먼저 구조를 이해해야 합니다. 식당에 비유하면 이해하기 쉽습니다.\n\n> 손님(호스트) → 웨이터(클라이언트) → 주방(서버)\n\n---\n\n## MCP의 3가지 핵심 구성요소\n\n### 1. 호스트(Host)\n\n사용자가 직접 상호작용하는 애플리케이션입니다.\n\n- Claude Desktop 앱\n- IDE (VS Code, Cursor 등)\n- 사용자가 만든 AI 앱\n\n### 2. 클라이언트(Client)\n\n호스트 안에서 MCP 서버와 통신하는 중개자입니다.\n\n- 호스트당 여러 클라이언트 가능\n- 각 클라이언트는 하나의 서버와 1:1 연결\n- 프로토콜 협상과 메시지 라우팅 담당\n\n### 3. 서버(Server)\n\n실제 기능을 제공하는 프로그램입니다.\n\n- 데이터 접근 (Resources)\n- 도구 실행 (Tools)\n- 프롬프트 템플릿 (Prompts)\n\n<!-- QUIZ:mcp-mastery-ch1-s2-q1 -->\n\n### 통신 흐름\n\n```\n사용자 → 호스트(Claude Desktop)\n         → 클라이언트 A → 서버 A (DB)\n         → 클라이언트 B → 서버 B (GitHub)\n         → 클라이언트 C → 서버 C (Slack)\n```\n\n### 전송 방식\n\n| 방식 | 설명 | 사용 환경 |\n|------|------|----------|\n| stdio | 표준 입출력 | 로컬 프로세스 |\n| SSE | Server-Sent Events | 원격 HTTP |\n| Streamable HTTP | 스트리밍 HTTP | 최신 원격 연결 |\n\n<!-- QUIZ:mcp-mastery-ch1-s2-q2 -->\n\n### JSON-RPC 프로토콜\n\nMCP는 JSON-RPC 2.0을 기반으로 통신합니다. 요청과 응답이 JSON 형식으로 교환됩니다.\n\n<!-- QUIZ:mcp-mastery-ch1-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch1-s2-q1",
+          "sectionId": "mcp-mastery-ch1-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "MCP에서 클라이언트의 역할은?",
+          "options": ["사용자와 직접 상호작용한다", "호스트와 서버 사이의 중개자 역할을 한다", "데이터베이스를 관리한다", "AI 모델을 학습시킨다"],
+          "correctAnswer": "호스트와 서버 사이의 중개자 역할을 한다",
+          "explanation": "클라이언트는 호스트 내부에서 MCP 서버와 통신하는 중개자로, 프로토콜 협상과 메시지 라우팅을 담당합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch1-s2-q2",
+          "sectionId": "mcp-mastery-ch1-s2",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "MCP에서 하나의 호스트는 하나의 서버만 연결할 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "하나의 호스트는 여러 클라이언트를 가질 수 있고, 각 클라이언트는 하나의 서버와 연결됩니다. 따라서 호스트는 여러 서버에 동시에 연결할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch1-s2-q3",
+          "sectionId": "mcp-mastery-ch1-s2",
+          "type": "fill_blank",
+          "difficulty": "advanced",
+          "question": "MCP는 ___2.0 프로토콜을 기반으로 통신한다.",
+          "correctAnswer": "JSON-RPC",
+          "explanation": "MCP는 JSON-RPC 2.0을 기반으로 하여 요청과 응답을 JSON 형식으로 교환합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "mcp-mastery-ch1-s3",
+      "chapterId": "mcp-mastery-ch1",
+      "slug": "mcp-ecosystem",
+      "title": "MCP 생태계",
+      "content": "## 시나리오: 하늘이의 서버 탐색\n\n하늘이는 MCP 구조를 이해했지만, 모든 걸 직접 만들어야 하나 걱정됩니다.\n\n> \"이미 만들어진 MCP 서버가 있나요?\"\n\n다행히 활발한 생태계가 있습니다!\n\n---\n\n## 주요 MCP 서버\n\n### 공식 서버 (Anthropic 제공)\n\n| 서버 | 기능 |\n|------|------|\n| Filesystem | 로컬 파일 읽기/쓰기/검색 |\n| GitHub | 저장소, 이슈, PR 관리 |\n| PostgreSQL | 데이터베이스 조회 |\n| Slack | 채널 읽기, 메시지 전송 |\n| Google Drive | 문서 검색 및 읽기 |\n\n### 커뮤니티 서버\n\n수백 개의 커뮤니티 기반 MCP 서버가 있습니다:\n- 날씨 API, 주식 정보\n- 노션, 지라, 트렐로\n- 브라우저 자동화\n- 이미지 생성\n\n<!-- QUIZ:mcp-mastery-ch1-s3-q1 -->\n\n## Claude Desktop에서 MCP 사용\n\n### 설정 방법\n\nClaude Desktop의 설정 파일(`claude_desktop_config.json`)에 서버를 등록합니다.\n\n```json\n{\n  \"mcpServers\": {\n    \"filesystem\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@modelcontextprotocol/server-filesystem\", \"/Users/me/Documents\"]\n    }\n  }\n}\n```\n\n서버를 등록하면 Claude가 해당 기능을 자동으로 인식합니다.\n\n<!-- QUIZ:mcp-mastery-ch1-s3-q2 -->\n\n## MCP 레지스트리\n\n사용 가능한 MCP 서버를 검색하고 설치할 수 있는 공간입니다. npm 패키지처럼 쉽게 설치할 수 있습니다.\n\n### 서버 선택 기준\n\n- 공식/검증된 서버 우선 사용\n- GitHub 스타 수와 유지보수 상태 확인\n- 보안 리뷰가 된 서버 선택\n- 필요한 기능에 맞는 최소 권한 서버\n\n<!-- QUIZ:mcp-mastery-ch1-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch1-s3-q1",
+          "sectionId": "mcp-mastery-ch1-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "다음 중 Anthropic이 공식으로 제공하는 MCP 서버가 아닌 것은?",
+          "options": ["Filesystem", "GitHub", "Instagram", "PostgreSQL"],
+          "correctAnswer": "Instagram",
+          "explanation": "Anthropic은 Filesystem, GitHub, PostgreSQL, Slack, Google Drive 등의 공식 MCP 서버를 제공합니다. Instagram은 공식 서버가 아닙니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch1-s3-q2",
+          "sectionId": "mcp-mastery-ch1-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "MCP 서버를 Claude Desktop에서 사용하려면 설정 파일에 서버를 등록해야 한다.",
+          "correctAnswer": "true",
+          "explanation": "Claude Desktop의 claude_desktop_config.json 파일에 MCP 서버 정보를 등록하면 Claude가 해당 기능을 자동으로 인식하여 사용합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch1-s3-q3",
+          "sectionId": "mcp-mastery-ch1-s3",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "MCP 서버를 선택할 때는 공식/검증된 서버를 ___으로 사용해야 한다.",
+          "correctAnswer": "우선",
+          "explanation": "보안과 안정성을 위해 Anthropic 공식 서버나 검증된 커뮤니티 서버를 우선적으로 사용하는 것이 좋습니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

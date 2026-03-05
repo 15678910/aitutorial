@@ -1,0 +1,1 @@
+{"id":"claude-tool-use","slug":"claude-tool-use","title":"Claude 도구 활용","description":"Claude API의 도구 사용(Tool Use) 기능을 완전히 마스터합니다. 함수 호출 개념부터 멀티 도구 체이닝, 실전 검색 도구 구축까지 체계적으로 학습합니다.","icon":"🛠️","orderNum":18,"isPublished":true,"estimatedHours":12,"difficulty":"intermediate","chapters":[]}

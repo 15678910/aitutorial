@@ -1,0 +1,139 @@
+{
+  "id": "mcp-mastery-ch3",
+  "courseId": "mcp-mastery",
+  "slug": "ch3-server-building",
+  "title": "MCP 서버 구축",
+  "description": "실제 MCP 서버를 처음부터 만들어보며 환경 설정, 구현, 테스트를 배웁니다.",
+  "orderNum": 3,
+  "sections": [
+    {
+      "id": "mcp-mastery-ch3-s1",
+      "chapterId": "mcp-mastery-ch3",
+      "slug": "dev-environment-setup",
+      "title": "개발 환경 설정",
+      "content": "## 시나리오: 하늘이의 첫 서버 도전\n\n하늘이는 이제 직접 MCP 서버를 만들어보려 합니다. 회사 재고 시스템에 Claude가 접근할 수 있는 서버가 필요합니다.\n\n> \"먼저 개발 환경부터 준비하자!\"\n\n---\n\n## SDK 선택\n\nMCP 서버는 다양한 언어로 구현할 수 있습니다.\n\n| SDK | 언어 | 패키지 |\n|-----|------|--------|\n| TypeScript SDK | Node.js | `@modelcontextprotocol/sdk` |\n| Python SDK | Python | `mcp` |\n| Kotlin SDK | JVM | `io.modelcontextprotocol:sdk` |\n\n### TypeScript 프로젝트 설정\n\n```bash\nmkdir my-mcp-server\ncd my-mcp-server\nnpm init -y\nnpm install @modelcontextprotocol/sdk zod\nnpm install -D typescript @types/node\n```\n\n<!-- QUIZ:mcp-mastery-ch3-s1-q1 -->\n\n### 프로젝트 구조\n\n```\nmy-mcp-server/\n├── src/\n│   ├── index.ts        # 서버 진입점\n│   ├── resources.ts    # Resource 핸들러\n│   └── tools.ts        # Tool 핸들러\n├── package.json\n└── tsconfig.json\n```\n\n### tsconfig.json 설정\n\n```json\n{\n  \"compilerOptions\": {\n    \"target\": \"ES2022\",\n    \"module\": \"Node16\",\n    \"outDir\": \"./dist\",\n    \"strict\": true\n  },\n  \"include\": [\"src/**/*\"]\n}\n```\n\n<!-- QUIZ:mcp-mastery-ch3-s1-q2 -->\n\n### 개발 도구\n\n- **MCP Inspector**: 서버를 시각적으로 테스트하는 웹 도구\n- **Claude Desktop**: 실제 환경에서 테스트\n\n<!-- QUIZ:mcp-mastery-ch3-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch3-s1-q1",
+          "sectionId": "mcp-mastery-ch3-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "TypeScript로 MCP 서버를 만들 때 필요한 패키지는?",
+          "options": ["@anthropic-ai/claude-code", "@modelcontextprotocol/sdk", "express", "react"],
+          "correctAnswer": "@modelcontextprotocol/sdk",
+          "explanation": "TypeScript로 MCP 서버를 구현할 때는 @modelcontextprotocol/sdk 패키지를 사용합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch3-s1-q2",
+          "sectionId": "mcp-mastery-ch3-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "MCP 서버는 TypeScript로만 구현할 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "MCP 서버는 TypeScript, Python, Kotlin 등 다양한 언어의 SDK를 지원합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch3-s1-q3",
+          "sectionId": "mcp-mastery-ch3-s1",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "MCP 서버를 시각적으로 테스트할 수 있는 웹 도구를 MCP ___라고 한다.",
+          "correctAnswer": "Inspector",
+          "explanation": "MCP Inspector는 개발 중인 MCP 서버의 Resource, Tool, Prompt를 웹 브라우저에서 시각적으로 테스트할 수 있는 도구입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "mcp-mastery-ch3-s2",
+      "chapterId": "mcp-mastery-ch3",
+      "slug": "first-mcp-server",
+      "title": "첫 MCP 서버 만들기",
+      "content": "## 시나리오: 재고 조회 서버\n\n하늘이는 회사 재고 데이터를 Claude에게 제공하는 서버를 만들기로 했습니다. Resource로 재고 데이터를 읽고, Tool로 재고를 업데이트할 수 있는 서버입니다.\n\n---\n\n## 기본 서버 구현\n\n### 1단계: 서버 초기화\n\n```typescript\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\n\nconst server = new McpServer({\n  name: \"inventory-server\",\n  version: \"1.0.0\"\n});\n```\n\n### 2단계: Resource 등록\n\n```typescript\nserver.resource(\n  \"inventory-list\",\n  \"inventory://products/all\",\n  async (uri) => ({\n    contents: [{\n      uri: uri.href,\n      text: JSON.stringify(products)\n    }]\n  })\n);\n```\n\n<!-- QUIZ:mcp-mastery-ch3-s2-q1 -->\n\n### 3단계: Tool 등록\n\n```typescript\nserver.tool(\n  \"update_stock\",\n  { productId: z.string(), quantity: z.number() },\n  async ({ productId, quantity }) => {\n    // 재고 업데이트 로직\n    return {\n      content: [{ type: \"text\", text: `재고 업데이트 완료: ${productId}` }]\n    };\n  }\n);\n```\n\n### 4단계: 서버 시작\n\n```typescript\nconst transport = new StdioServerTransport();\nawait server.connect(transport);\n```\n\n<!-- QUIZ:mcp-mastery-ch3-s2-q2 -->\n\n### stdio 전송\n\nstdio(표준 입출력)는 로컬에서 MCP 서버를 실행할 때 사용하는 전송 방식입니다. 호스트가 서버 프로세스를 직접 실행하고, stdin/stdout으로 통신합니다.\n\n<!-- QUIZ:mcp-mastery-ch3-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 30,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch3-s2-q1",
+          "sectionId": "mcp-mastery-ch3-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "MCP 서버에서 Resource를 등록할 때 필요한 요소가 아닌 것은?",
+          "options": ["리소스 이름", "URI", "핸들러 함수", "사용자 비밀번호"],
+          "correctAnswer": "사용자 비밀번호",
+          "explanation": "Resource 등록에는 이름, URI, 데이터를 반환하는 핸들러 함수가 필요합니다. 사용자 비밀번호는 필요하지 않습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch3-s2-q2",
+          "sectionId": "mcp-mastery-ch3-s2",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "MCP 서버의 Tool은 Zod 스키마를 사용하여 입력 파라미터를 검증할 수 있다.",
+          "correctAnswer": "true",
+          "explanation": "TypeScript SDK에서는 Zod 라이브러리를 사용하여 Tool의 입력 파라미터를 정의하고 검증할 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch3-s2-q3",
+          "sectionId": "mcp-mastery-ch3-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "로컬에서 MCP 서버를 실행할 때 표준 입출력을 사용하는 전송 방식을 ___라고 한다.",
+          "correctAnswer": "stdio",
+          "explanation": "stdio(Standard I/O)는 프로세스의 표준 입출력(stdin/stdout)을 사용하여 MCP 통신을 하는 로컬 전송 방식입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "mcp-mastery-ch3-s3",
+      "chapterId": "mcp-mastery-ch3",
+      "slug": "testing-debugging",
+      "title": "테스트와 디버깅",
+      "content": "## 시나리오: 하늘이의 디버깅 시간\n\n하늘이가 만든 서버가 기대대로 작동하지 않습니다. Resource는 빈 데이터를 반환하고 Tool은 에러를 냅니다.\n\n> \"MCP Inspector로 하나씩 확인해봅시다!\"\n\n---\n\n## MCP Inspector 사용\n\nMCP Inspector는 서버를 대화형으로 테스트하는 웹 도구입니다.\n\n```bash\nnpx @modelcontextprotocol/inspector node dist/index.js\n```\n\n### Inspector에서 할 수 있는 것\n\n- Resource 목록 확인 및 데이터 읽기\n- Tool 목록 확인 및 실행 테스트\n- Prompt 목록 확인 및 미리보기\n- 요청/응답 JSON 확인\n\n<!-- QUIZ:mcp-mastery-ch3-s3-q1 -->\n\n## 로깅 전략\n\n### 서버 로깅\n\nMCP 서버에서 로그를 남기려면 **stderr**을 사용합니다. stdout은 MCP 통신에 사용되므로 로그를 stdout에 쓰면 안 됩니다!\n\n```typescript\nconsole.error(\"[DEBUG] Resource 요청:\", uri);\n// console.log는 사용하지 마세요!\n```\n\n### 클라이언트 로깅\n\nClaude Desktop은 로그 파일을 저장합니다:\n- macOS: `~/Library/Logs/Claude/mcp*.log`\n- Windows: `%APPDATA%\\Claude\\logs\\mcp*.log`\n\n<!-- QUIZ:mcp-mastery-ch3-s3-q2 -->\n\n## 흔한 에러와 해결법\n\n| 에러 | 원인 | 해결 |\n|------|------|------|\n| 서버 연결 실패 | 경로 오류 | 설정 파일 경로 확인 |\n| Tool 실행 에러 | 입력값 검증 실패 | 스키마 확인 |\n| 빈 Resource | 핸들러 반환값 오류 | contents 배열 확인 |\n| 타임아웃 | 비동기 작업 지연 | 타임아웃 설정 |\n\n<!-- QUIZ:mcp-mastery-ch3-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch3-s3-q1",
+          "sectionId": "mcp-mastery-ch3-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "MCP Inspector를 실행하는 명령어는?",
+          "options": ["npm start inspector", "npx @modelcontextprotocol/inspector", "mcp inspect", "claude debug"],
+          "correctAnswer": "npx @modelcontextprotocol/inspector",
+          "explanation": "MCP Inspector는 npx @modelcontextprotocol/inspector 명령어로 실행하며, 뒤에 서버 실행 명령을 붙여줍니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch3-s3-q2",
+          "sectionId": "mcp-mastery-ch3-s3",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "MCP 서버에서 디버그 로그를 남길 때 console.log(stdout)를 사용해야 한다.",
+          "correctAnswer": "false",
+          "explanation": "stdout은 MCP 프로토콜 통신에 사용되므로 로그를 stdout에 쓰면 통신이 깨집니다. 반드시 stderr(console.error)를 사용해야 합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch3-s3-q3",
+          "sectionId": "mcp-mastery-ch3-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "MCP 서버에서 로그를 남길 때 stdout 대신 ___을 사용해야 한다.",
+          "correctAnswer": "stderr",
+          "explanation": "stdout은 MCP JSON-RPC 통신에 사용되므로, 로그는 반드시 stderr(console.error)를 사용해야 프로토콜이 정상 작동합니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

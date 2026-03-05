@@ -1,0 +1,139 @@
+{
+  "id": "mcp-mastery-ch4",
+  "courseId": "mcp-mastery",
+  "slug": "ch4-real-projects",
+  "title": "실전 프로젝트",
+  "description": "데이터베이스 연동, 외부 API 통합, 배포와 운영을 실습합니다.",
+  "orderNum": 4,
+  "sections": [
+    {
+      "id": "mcp-mastery-ch4-s1",
+      "chapterId": "mcp-mastery-ch4",
+      "slug": "database-integration",
+      "title": "데이터베이스 연동 서버",
+      "content": "## 시나리오: 하늘이의 DB 연동\n\n하늘이의 회사에는 SQLite 데이터베이스에 고객 주문 데이터가 있습니다. Claude가 이 데이터를 조회하고 분석할 수 있으면 업무 효율이 크게 올라갈 것입니다.\n\n---\n\n## DB 연동 서버 구현\n\n### Resource: 테이블 스키마 노출\n\n```typescript\nserver.resource(\n  \"schema\",\n  \"db://schema\",\n  async () => ({\n    contents: [{\n      uri: \"db://schema\",\n      text: JSON.stringify({\n        tables: [\"customers\", \"orders\", \"products\"],\n        columns: { customers: [\"id\", \"name\", \"email\"] }\n      })\n    }]\n  })\n);\n```\n\n### Tool: 안전한 쿼리 실행\n\n```typescript\nserver.tool(\n  \"query_db\",\n  { sql: z.string(), params: z.array(z.string()).optional() },\n  async ({ sql, params }) => {\n    // SELECT만 허용\n    if (!sql.trim().toUpperCase().startsWith(\"SELECT\")) {\n      return { content: [{ type: \"text\", text: \"읽기 전용: SELECT만 가능\" }] };\n    }\n    const results = db.prepare(sql).all(params || []);\n    return { content: [{ type: \"text\", text: JSON.stringify(results) }] };\n  }\n);\n```\n\n<!-- QUIZ:mcp-mastery-ch4-s1-q1 -->\n\n### 보안 고려사항\n\n| 위험 | 대책 |\n|------|------|\n| SQL 인젝션 | 파라미터화된 쿼리 사용 |\n| 데이터 유출 | 접근 가능 테이블 제한 |\n| 데이터 변조 | SELECT만 허용 (읽기 전용) |\n| 과도한 조회 | 결과 행 수 제한 |\n\n<!-- QUIZ:mcp-mastery-ch4-s1-q2 -->\n\n### 실전 활용 예시\n\nClaude에게 \"이번 달 주문 현황을 분석해줘\"라고 말하면, MCP 서버를 통해 DB를 조회하고 자동으로 분석 결과를 제공합니다.\n\n<!-- QUIZ:mcp-mastery-ch4-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 30,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch4-s1-q1",
+          "sectionId": "mcp-mastery-ch4-s1",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "DB 연동 MCP 서버에서 보안을 위해 가장 중요한 조치는?",
+          "options": ["모든 SQL 문을 허용한다", "SELECT만 허용하고 파라미터화된 쿼리를 사용한다", "DB 비밀번호를 코드에 하드코딩한다", "에러 메시지에 DB 구조를 노출한다"],
+          "correctAnswer": "SELECT만 허용하고 파라미터화된 쿼리를 사용한다",
+          "explanation": "SQL 인젝션 방지를 위해 파라미터화된 쿼리를 사용하고, 데이터 변조 방지를 위해 SELECT만 허용하는 것이 중요합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch4-s1-q2",
+          "sectionId": "mcp-mastery-ch4-s1",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "MCP DB 서버에서 DELETE, UPDATE 등 쓰기 쿼리를 무제한 허용해도 안전하다.",
+          "correctAnswer": "false",
+          "explanation": "쓰기 쿼리를 허용하면 데이터 변조나 삭제 위험이 있습니다. 반드시 최소 권한 원칙을 적용하고, 필요한 경우에만 제한적으로 허용해야 합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch4-s1-q3",
+          "sectionId": "mcp-mastery-ch4-s1",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "SQL 인젝션을 방지하기 위해 ___된 쿼리를 사용해야 한다.",
+          "correctAnswer": "파라미터화",
+          "explanation": "파라미터화된 쿼리는 사용자 입력을 SQL 문과 분리하여 처리하므로 SQL 인젝션 공격을 효과적으로 방지합니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "mcp-mastery-ch4-s2",
+      "chapterId": "mcp-mastery-ch4",
+      "slug": "external-api-integration",
+      "title": "외부 API 통합",
+      "content": "## 시나리오: 날씨 + 일정 통합\n\n하늘이는 Claude가 날씨를 확인하고 그에 맞춰 야외 미팅 일정을 조정하는 기능을 만들고 싶습니다.\n\n> \"외부 API를 MCP 서버로 감싸면 Claude가 직접 API를 호출할 수 있어요!\"\n\n---\n\n## API 래핑 서버\n\n### 날씨 API Tool 구현\n\n```typescript\nserver.tool(\n  \"get_weather\",\n  { city: z.string() },\n  async ({ city }) => {\n    const response = await fetch(\n      `https://api.weather.com/v1/forecast?city=${city}`\n    );\n    const data = await response.json();\n    return {\n      content: [{ type: \"text\", text: JSON.stringify(data) }]\n    };\n  }\n);\n```\n\n### 인증 처리\n\n외부 API의 인증 정보는 환경 변수로 관리합니다.\n\n```typescript\nconst API_KEY = process.env.WEATHER_API_KEY;\n// 절대 코드에 직접 작성하지 마세요!\n```\n\n<!-- QUIZ:mcp-mastery-ch4-s2-q1 -->\n\n### 속도 제한(Rate Limiting)\n\n외부 API에는 보통 호출 횟수 제한이 있습니다.\n\n```typescript\nconst rateLimiter = {\n  calls: 0,\n  resetTime: Date.now() + 60000,\n  limit: 60,\n  check() {\n    if (Date.now() > this.resetTime) {\n      this.calls = 0;\n      this.resetTime = Date.now() + 60000;\n    }\n    return ++this.calls <= this.limit;\n  }\n};\n```\n\n<!-- QUIZ:mcp-mastery-ch4-s2-q2 -->\n\n### 캐싱 전략\n\n자주 요청되는 데이터는 캐시하여 API 호출을 줄입니다.\n\n- **TTL 캐시**: 일정 시간 후 자동 만료\n- **조건부 캐시**: 데이터 변경 시에만 갱신\n- **LRU 캐시**: 최근 사용된 데이터 우선 보관\n\n<!-- QUIZ:mcp-mastery-ch4-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch4-s2-q1",
+          "sectionId": "mcp-mastery-ch4-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "외부 API 키를 MCP 서버에서 관리하는 올바른 방법은?",
+          "options": ["코드에 직접 작성한다", "환경 변수로 관리한다", "사용자에게 매번 물어본다", "공개 저장소에 올린다"],
+          "correctAnswer": "환경 변수로 관리한다",
+          "explanation": "API 키 같은 인증 정보는 반드시 환경 변수로 관리해야 합니다. 코드에 직접 작성하면 보안 위험이 큽니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch4-s2-q2",
+          "sectionId": "mcp-mastery-ch4-s2",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "외부 API를 MCP 서버로 래핑할 때 속도 제한(Rate Limiting)은 고려하지 않아도 된다.",
+          "correctAnswer": "false",
+          "explanation": "대부분의 외부 API에는 호출 횟수 제한이 있으므로, Rate Limiting을 구현하여 제한을 초과하지 않도록 해야 합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch4-s2-q3",
+          "sectionId": "mcp-mastery-ch4-s2",
+          "type": "fill_blank",
+          "difficulty": "advanced",
+          "question": "자주 요청되는 데이터를 임시 저장하여 API 호출을 줄이는 전략을 ___이라고 한다.",
+          "correctAnswer": "캐싱",
+          "explanation": "캐싱(Caching)은 자주 요청되는 데이터를 임시 저장소에 보관하여 동일한 요청 시 API를 다시 호출하지 않도록 하는 전략입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "mcp-mastery-ch4-s3",
+      "chapterId": "mcp-mastery-ch4",
+      "slug": "deployment-operations",
+      "title": "배포와 운영",
+      "content": "## 시나리오: 하늘이의 프로덕션 도전\n\n하늘이의 MCP 서버가 로컬에서 잘 작동합니다. 이제 팀 전체가 사용할 수 있도록 배포해야 합니다.\n\n---\n\n## Docker 컨테이너화\n\n### Dockerfile 작성\n\n```dockerfile\nFROM node:20-slim\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci --production\nCOPY dist/ ./dist/\nCMD [\"node\", \"dist/index.js\"]\n```\n\n### 빌드와 실행\n\n```bash\ndocker build -t my-mcp-server .\ndocker run -e DB_PATH=/data/db.sqlite my-mcp-server\n```\n\n<!-- QUIZ:mcp-mastery-ch4-s3-q1 -->\n\n## 보안 모범 사례\n\n| 항목 | 실천 방법 |\n|------|----------|\n| 인증 | API 키/토큰 기반 인증 |\n| 권한 | 최소 권한 원칙 적용 |\n| 입력 검증 | 모든 입력값 검증 |\n| 로깅 | 민감 정보 마스킹 |\n| 네트워크 | TLS 암호화 통신 |\n\n### 최소 권한 원칙\n\n서버가 필요한 것만 접근할 수 있도록 합니다:\n- DB 서버: SELECT 권한만\n- 파일 서버: 특정 디렉토리만\n- API 서버: 필요한 엔드포인트만\n\n<!-- QUIZ:mcp-mastery-ch4-s3-q2 -->\n\n## 모니터링과 버전 관리\n\n### 헬스 체크\n\n서버 상태를 주기적으로 확인합니다:\n- 연결 상태 모니터링\n- 에러율 추적\n- 응답 시간 측정\n\n### 버전 관리\n\n- 시맨틱 버저닝(SemVer) 사용\n- 하위 호환성 유지\n- 변경 로그 관리\n\n<!-- QUIZ:mcp-mastery-ch4-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "mcp-mastery-ch4-s3-q1",
+          "sectionId": "mcp-mastery-ch4-s3",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "MCP 서버를 컨테이너화할 때 사용하는 기술은?",
+          "options": ["Python venv", "Docker", "npm link", "Git submodule"],
+          "correctAnswer": "Docker",
+          "explanation": "Docker를 사용하면 MCP 서버를 컨테이너로 패키징하여 어떤 환경에서든 일관되게 배포하고 실행할 수 있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "mcp-mastery-ch4-s3-q2",
+          "sectionId": "mcp-mastery-ch4-s3",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "MCP 서버에 최소 권한 원칙을 적용하면 모든 데이터에 접근할 수 있도록 설정해야 한다.",
+          "correctAnswer": "false",
+          "explanation": "최소 권한 원칙은 서버가 기능 수행에 필요한 최소한의 권한만 가져야 한다는 것입니다. 불필요한 접근은 제한해야 합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "mcp-mastery-ch4-s3-q3",
+          "sectionId": "mcp-mastery-ch4-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "버전을 Major.Minor.Patch 형태로 관리하는 방식을 ___버저닝이라고 한다.",
+          "correctAnswer": "시맨틱",
+          "explanation": "시맨틱 버저닝(Semantic Versioning, SemVer)은 Major.Minor.Patch 형태로 버전을 관리하여 호환성을 명확히 표시하는 방법입니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "id": "claude-tool-use-ch2",
+  "courseId": "claude-tool-use",
+  "slug": "ch2-advanced-patterns",
+  "title": "고급 도구 패턴",
+  "description": "멀티 도구 체이닝, 에러 핸들링, 도구 선택 최적화 기법을 배웁니다.",
+  "orderNum": 2,
+  "sections": [
+    {
+      "id": "claude-tool-use-ch2-s1",
+      "chapterId": "claude-tool-use-ch2",
+      "slug": "multi-tool-chaining",
+      "title": "멀티 도구 체이닝",
+      "content": "## 시나리오: 수진이의 여행 플래너 고도화\n\n수진이의 여행 플래너 앱이 진화합니다. 사용자가 \"파리 여행 준비해줘\"라고 하면 날씨 확인 → 항공편 검색 → 호텔 추천까지 여러 도구를 순차적으로 호출해야 합니다.\n\n---\n\n## 도구 체이닝이란?\n\n하나의 대화에서 Claude가 **여러 도구를 순차적으로** 호출하는 것입니다. 각 도구의 결과를 바탕으로 다음 도구를 선택합니다.\n\n### 순차 호출 예시\n\n```\n사용자: \"파리 여행 준비해줘\"\n→ Claude: get_weather(city=\"paris\") 호출\n→ 결과: 15°C, 맑음\n→ Claude: search_flights(destination=\"paris\") 호출\n→ 결과: 대한항공 120만원\n→ Claude: recommend_hotels(city=\"paris\", budget=\"moderate\") 호출\n→ 결과: 호텔 3곳 추천\n→ Claude: 종합 여행 정보 제공\n```\n\n<!-- QUIZ:claude-tool-use-ch2-s1-q1 -->\n\n### 병렬 도구 호출\n\nClaude는 독립적인 도구를 **동시에** 호출할 수도 있습니다. 날씨와 환율처럼 서로 의존하지 않는 정보를 한 번에 가져옵니다.\n\n```json\n// 하나의 응답에 여러 tool_use 블록\n[\n  {\"type\": \"tool_use\", \"name\": \"get_weather\", \"input\": {\"city\": \"paris\"}},\n  {\"type\": \"tool_use\", \"name\": \"get_exchange_rate\", \"input\": {\"from\": \"KRW\", \"to\": \"EUR\"}}\n]\n```\n\n<!-- QUIZ:claude-tool-use-ch2-s1-q2 -->\n\n### 데이터 전달 패턴\n\nClaude가 이전 도구 결과를 자동으로 참고하여 다음 도구의 입력으로 활용합니다. 개발자가 별도로 연결할 필요 없습니다.\n\n<!-- QUIZ:claude-tool-use-ch2-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "claude-tool-use-ch2-s1-q1",
+          "sectionId": "claude-tool-use-ch2-s1",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "멀티 도구 체이닝에서 Claude는 어떻게 다음 도구를 결정하나?",
+          "options": ["무작위로 선택한다", "개발자가 순서를 지정한다", "이전 도구 결과를 바탕으로 자동 결정한다", "사용자가 매번 선택한다"],
+          "correctAnswer": "이전 도구 결과를 바탕으로 자동 결정한다",
+          "explanation": "Claude는 대화 맥락과 이전 도구의 결과를 분석하여 다음에 어떤 도구를 호출할지 자동으로 결정합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-tool-use-ch2-s1-q2",
+          "sectionId": "claude-tool-use-ch2-s1",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "Claude는 하나의 응답에서 여러 도구를 동시에 호출할 수 있다.",
+          "correctAnswer": "true",
+          "explanation": "독립적인 도구들은 하나의 응답에 여러 tool_use 블록으로 동시에 호출할 수 있습니다. 이를 병렬 도구 호출이라고 합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-tool-use-ch2-s1-q3",
+          "sectionId": "claude-tool-use-ch2-s1",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "하나의 대화에서 여러 도구를 순차적으로 호출하는 패턴을 도구 ___이라고 한다.",
+          "correctAnswer": "체이닝",
+          "explanation": "도구 체이닝은 여러 도구를 순서대로 호출하며, 이전 결과를 다음 도구의 맥락으로 활용하는 패턴입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-tool-use-ch2-s2",
+      "chapterId": "claude-tool-use-ch2",
+      "slug": "error-handling",
+      "title": "에러 핸들링",
+      "content": "## 시나리오: 수진이의 에러 대응\n\n수진이의 앱이 날씨 API를 호출했는데 서버가 다운되어 에러가 발생했습니다. 사용자에게 어떻게 알려야 할까요?\n\n---\n\n## 에러 전달 방법\n\n### tool_result에 에러 표시\n\n```python\n{\n    \"type\": \"tool_result\",\n    \"tool_use_id\": tool_id,\n    \"is_error\": True,\n    \"content\": \"날씨 API 서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.\"\n}\n```\n\n`is_error: true`로 설정하면 Claude가 에러 상황을 인식하고 사용자에게 적절히 안내합니다.\n\n<!-- QUIZ:claude-tool-use-ch2-s2-q1 -->\n\n### 재시도 전략\n\n```python\nasync def call_with_retry(func, max_retries=3):\n    for attempt in range(max_retries):\n        try:\n            return await func()\n        except Exception as e:\n            if attempt == max_retries - 1:\n                return {\"error\": str(e)}\n            await asyncio.sleep(2 ** attempt)  # 지수 백오프\n```\n\n### 타임아웃 관리\n\n외부 API 호출에는 반드시 타임아웃을 설정합니다:\n\n```python\nasync with httpx.AsyncClient(timeout=10.0) as client:\n    response = await client.get(url)\n```\n\n<!-- QUIZ:claude-tool-use-ch2-s2-q2 -->\n\n### 에러 유형별 대응\n\n| 에러 유형 | 대응 방법 |\n|----------|----------|\n| 네트워크 오류 | 재시도 후 사용자에게 알림 |\n| 인증 실패 | 즉시 에러 반환 |\n| 잘못된 입력 | Claude에게 수정 요청 |\n| 속도 제한 | 대기 후 재시도 |\n\n<!-- QUIZ:claude-tool-use-ch2-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "claude-tool-use-ch2-s2-q1",
+          "sectionId": "claude-tool-use-ch2-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "tool_result에서 에러를 표시하는 올바른 방법은?",
+          "options": ["content에 'ERROR'라고 쓴다", "is_error를 true로 설정한다", "tool_use_id를 비운다", "빈 content를 보낸다"],
+          "correctAnswer": "is_error를 true로 설정한다",
+          "explanation": "tool_result에 is_error: true를 설정하면 Claude가 에러 상황을 인식하고 사용자에게 적절한 안내를 제공합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-tool-use-ch2-s2-q2",
+          "sectionId": "claude-tool-use-ch2-s2",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "외부 API 호출 시 타임아웃을 설정하지 않아도 안전하다.",
+          "correctAnswer": "false",
+          "explanation": "타임아웃을 설정하지 않으면 API 서버가 응답하지 않을 때 무한히 대기하게 되어 앱이 멈출 수 있습니다. 반드시 타임아웃을 설정해야 합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-tool-use-ch2-s2-q3",
+          "sectionId": "claude-tool-use-ch2-s2",
+          "type": "fill_blank",
+          "difficulty": "advanced",
+          "question": "재시도 간격을 점점 늘리는 전략을 지수 ___라고 한다.",
+          "correctAnswer": "백오프",
+          "explanation": "지수 백오프(Exponential Backoff)는 재시도 간격을 2^n으로 점점 늘리는 전략으로, 서버 부하를 줄이면서 복구를 기다립니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-tool-use-ch2-s3",
+      "chapterId": "claude-tool-use-ch2",
+      "slug": "tool-selection-optimization",
+      "title": "도구 선택 최적화",
+      "content": "## 시나리오: 수진이의 도구 정리\n\n수진이의 앱에 도구가 20개나 됩니다. Claude가 엉뚱한 도구를 선택하는 일이 잦아졌습니다. 도구 선택을 어떻게 최적화할까요?\n\n---\n\n## 도구 설명 최적화\n\n### 좋은 vs 나쁜 설명\n\n❌ **나쁜 설명:**\n```json\n{\"name\": \"search\", \"description\": \"검색\"}\n```\n\n✅ **좋은 설명:**\n```json\n{\n  \"name\": \"search_products\",\n  \"description\": \"이커머스 상품을 검색합니다. 상품명, 카테고리, 가격 범위로 필터링 가능합니다. 최대 20개 결과를 반환합니다.\"\n}\n```\n\n<!-- QUIZ:claude-tool-use-ch2-s3-q1 -->\n\n## tool_choice 파라미터\n\nClaude의 도구 선택 방식을 제어할 수 있습니다.\n\n| 값 | 동작 |\n|----|------|\n| `{\"type\": \"auto\"}` | Claude가 자동 판단 (기본값) |\n| `{\"type\": \"any\"}` | 반드시 도구를 하나 이상 사용 |\n| `{\"type\": \"tool\", \"name\": \"get_weather\"}` | 특정 도구를 강제 사용 |\n\n```python\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    tools=tools,\n    tool_choice={\"type\": \"tool\", \"name\": \"get_weather\"},\n    messages=[...]\n)\n```\n\n<!-- QUIZ:claude-tool-use-ch2-s3-q2 -->\n\n## 도구 수 관리\n\n도구가 너무 많으면 Claude가 혼란스러워합니다.\n\n- **권장**: 10~15개 이하\n- **문맥별 필터링**: 상황에 맞는 도구만 전달\n- **그룹핑**: 관련 도구를 묶어 필요할 때만 노출\n\n<!-- QUIZ:claude-tool-use-ch2-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "claude-tool-use-ch2-s3-q1",
+          "sectionId": "claude-tool-use-ch2-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "Claude가 올바른 도구를 선택하게 하려면?",
+          "options": ["도구 이름을 길게 한다", "도구 설명을 명확하고 구체적으로 작성한다", "도구 수를 최대한 늘린다", "모든 도구를 필수로 설정한다"],
+          "correctAnswer": "도구 설명을 명확하고 구체적으로 작성한다",
+          "explanation": "Claude는 도구의 description을 참고하여 어떤 도구를 사용할지 결정하므로, 명확하고 구체적인 설명이 올바른 도구 선택에 중요합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-tool-use-ch2-s3-q2",
+          "sectionId": "claude-tool-use-ch2-s3",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "tool_choice를 {\"type\": \"any\"}로 설정하면 Claude가 반드시 도구를 사용한다.",
+          "correctAnswer": "true",
+          "explanation": "tool_choice의 'any' 타입은 Claude가 반드시 하나 이상의 도구를 사용하도록 강제합니다. 도구 없이 응답할 수 없습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-tool-use-ch2-s3-q3",
+          "sectionId": "claude-tool-use-ch2-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "Claude에게 특정 도구를 강제로 사용하게 하려면 tool_choice의 type을 \"___\"로 설정한다.",
+          "correctAnswer": "tool",
+          "explanation": "tool_choice를 {\"type\": \"tool\", \"name\": \"도구명\"}으로 설정하면 Claude가 해당 도구를 반드시 사용합니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

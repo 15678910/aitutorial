@@ -1,0 +1,139 @@
+{
+  "id": "ai-evaluation-ch1",
+  "courseId": "ai-evaluation",
+  "slug": "ch1-evaluation-framework",
+  "title": "평가 프레임워크",
+  "description": "AI 평가의 필요성, 지표 설계, 데이터셋 구축 방법을 학습합니다.",
+  "orderNum": 1,
+  "sections": [
+    {
+      "id": "ai-evaluation-ch1-s1",
+      "chapterId": "ai-evaluation-ch1",
+      "slug": "why-evaluation",
+      "title": "평가가 필요한 이유",
+      "content": "## 시나리오: 태민의 AI 프로젝트 위기\n\n태민이 만든 AI 챗봇이 데모에서는 잘 작동했지만, 실제 서비스에서는 엉뚱한 답변을 하기 시작했습니다. 상사가 물어봅니다.\n\n> \"이 AI가 얼마나 정확한지 어떻게 알 수 있죠?\"\n\n태민은 대답하지 못했습니다. **체계적인 평가**가 없었기 때문입니다.\n\n---\n\n## AI 평가의 중요성\n\n### 왜 평가해야 하는가?\n\n| 이유 | 설명 |\n|------|------|\n| 품질 보증 | AI 출력의 정확성과 일관성 확인 |\n| 회귀 방지 | 업데이트 후 성능 저하 감지 |\n| 비교 분석 | 다른 모델/프롬프트와 성능 비교 |\n| 신뢰 구축 | 이해관계자에게 객관적 근거 제공 |\n| 지속 개선 | 약점 파악 후 목표 설정 |\n\n### 평가 없이 발생하는 문제\n\n- \"잘 되는 것 같다\"라는 주관적 판단에 의존\n- 프롬프트 변경의 영향을 정량화할 수 없음\n- 배포 후 예상치 못한 문제 발생\n- 성능 저하를 뒤늦게 발견\n\n<!-- QUIZ:ai-evaluation-ch1-s1-q1 -->\n\n### 평가의 범위\n\n- **모델 평가**: AI 모델 자체의 능력 측정\n- **시스템 평가**: 프롬프트 + 모델 + 도구의 종합 성능\n- **사용자 경험 평가**: 실제 사용자의 만족도\n\n<!-- QUIZ:ai-evaluation-ch1-s1-q2 -->\n\n### 평가 주기\n\n- 프롬프트 변경 시마다\n- 모델 업데이트 시\n- 정기적 (주간/월간)\n- 장애 발생 후\n\n<!-- QUIZ:ai-evaluation-ch1-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "ai-evaluation-ch1-s1-q1",
+          "sectionId": "ai-evaluation-ch1-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "AI 평가의 주요 목적이 아닌 것은?",
+          "options": ["품질 보증", "회귀 방지", "AI 모델 삭제", "지속 개선"],
+          "correctAnswer": "AI 모델 삭제",
+          "explanation": "AI 평가의 주요 목적은 품질 보증, 회귀 방지, 비교 분석, 신뢰 구축, 지속 개선입니다. 모델 삭제는 평가의 목적이 아닙니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "ai-evaluation-ch1-s1-q2",
+          "sectionId": "ai-evaluation-ch1-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "AI 평가는 모델 배포 전에 한 번만 하면 충분하다.",
+          "correctAnswer": "false",
+          "explanation": "평가는 프롬프트 변경 시, 모델 업데이트 시, 정기적으로, 장애 발생 후 등 지속적으로 수행해야 합니다. 한 번의 평가로는 불충분합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "ai-evaluation-ch1-s1-q3",
+          "sectionId": "ai-evaluation-ch1-s1",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "업데이트 후 성능이 이전보다 떨어지는 것을 감지하는 것을 ___방지라고 한다.",
+          "correctAnswer": "회귀",
+          "explanation": "회귀(Regression) 방지는 시스템 변경 후 기존에 잘 작동하던 기능이 나빠지지 않았는지 확인하는 과정입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-ch1-s2",
+      "chapterId": "ai-evaluation-ch1",
+      "slug": "metric-design",
+      "title": "평가 지표 설계",
+      "content": "## 무엇을 측정할 것인가?\n\n태민은 AI를 평가하기로 했지만, 무엇을 기준으로 평가해야 할지 모릅니다. 평가 지표부터 설계해봅시다.\n\n---\n\n## 핵심 평가 지표\n\n### 정확도(Accuracy) 관련\n\n| 지표 | 설명 | 계산 |\n|------|------|------|\n| 정확도 | 전체 중 맞은 비율 | 맞은 수 / 전체 수 |\n| 정밀도 | 맞다고 한 것 중 실제 맞은 비율 | TP / (TP + FP) |\n| 재현율 | 실제 맞은 것 중 찾아낸 비율 | TP / (TP + FN) |\n| F1 점수 | 정밀도와 재현율의 조화 평균 | 2 × P × R / (P + R) |\n\n### AI 특화 지표\n\n| 지표 | 설명 |\n|------|------|\n| 환각률 | 사실이 아닌 정보 생성 비율 |\n| 일관성 | 동일 질문에 대한 답변 일관성 |\n| 관련성 | 응답이 질문에 부합하는 정도 |\n| 완전성 | 필요한 정보가 모두 포함된 정도 |\n\n<!-- QUIZ:ai-evaluation-ch1-s2-q1 -->\n\n### 지표 선택 기준\n\n목적에 따라 중요한 지표가 달라집니다:\n\n- **의료 AI**: 재현율 중시 (놓치는 것이 위험)\n- **스팸 필터**: 정밀도 중시 (정상 메일 오분류 방지)\n- **챗봇**: 관련성 + 일관성 중시\n- **번역**: 정확도 + 자연스러움 중시\n\n<!-- QUIZ:ai-evaluation-ch1-s2-q2 -->\n\n### 가중치 설정\n\n모든 지표가 동일한 중요도를 갖지 않습니다. 프로젝트 목적에 맞게 가중치를 설정하세요.\n\n<!-- QUIZ:ai-evaluation-ch1-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "ai-evaluation-ch1-s2-q1",
+          "sectionId": "ai-evaluation-ch1-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "AI가 사실이 아닌 정보를 생성하는 비율을 측정하는 지표는?",
+          "options": ["정확도", "정밀도", "환각률", "재현율"],
+          "correctAnswer": "환각률",
+          "explanation": "환각률(Hallucination Rate)은 AI가 사실이 아닌 정보를 자신 있게 생성하는 비율을 측정하는 AI 특화 지표입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "ai-evaluation-ch1-s2-q2",
+          "sectionId": "ai-evaluation-ch1-s2",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "의료 AI에서는 정밀도(Precision)보다 재현율(Recall)이 더 중요하다.",
+          "correctAnswer": "true",
+          "explanation": "의료 AI에서는 질병을 놓치는 것(False Negative)이 위험하므로, 가능한 모든 양성 케이스를 찾아내는 재현율이 더 중요합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "ai-evaluation-ch1-s2-q3",
+          "sectionId": "ai-evaluation-ch1-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "정밀도와 재현율의 조화 평균을 ___점수라고 한다.",
+          "correctAnswer": "F1",
+          "explanation": "F1 점수는 정밀도(Precision)와 재현율(Recall)의 조화 평균으로, 두 지표의 균형 잡힌 성능을 나타냅니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-ch1-s3",
+      "chapterId": "ai-evaluation-ch1",
+      "slug": "dataset-building",
+      "title": "평가 데이터셋 구축",
+      "content": "## 좋은 평가는 좋은 데이터에서\n\n태민은 평가 지표를 정했지만, 테스트할 데이터가 없습니다. 체계적인 평가 데이터셋을 구축해봅시다.\n\n---\n\n## 데이터셋 설계 원칙\n\n### 1. 대표성\n\n실제 사용 사례를 반영하는 다양한 데이터를 포함합니다.\n\n```\n평가 데이터셋 구성:\n- 일반적인 질문 (60%)\n- 엣지 케이스 (20%)\n- 어려운 질문 (15%)\n- 악의적 입력 (5%)\n```\n\n### 2. 균형\n\n특정 유형에 편중되지 않도록 합니다.\n\n### 3. 정답 기준 (Ground Truth)\n\n각 테스트 케이스에 정확한 정답이나 평가 기준을 포함합니다.\n\n```json\n{\n  \"id\": \"eval-001\",\n  \"input\": \"한국의 수도는 어디인가요?\",\n  \"expected\": \"서울\",\n  \"category\": \"사실 확인\",\n  \"difficulty\": \"easy\"\n}\n```\n\n<!-- QUIZ:ai-evaluation-ch1-s3-q1 -->\n\n## 데이터셋 유형\n\n| 유형 | 설명 | 크기 |\n|------|------|------|\n| 스모크 테스트 | 핵심 기능 확인 | 10~20개 |\n| 기본 세트 | 주요 시나리오 커버 | 50~100개 |\n| 종합 세트 | 전체 기능 + 엣지 케이스 | 200~500개 |\n| 스트레스 세트 | 극한 상황 테스트 | 50~100개 |\n\n<!-- QUIZ:ai-evaluation-ch1-s3-q2 -->\n\n### 데이터셋 관리\n\n- 버전 관리 (변경 이력 추적)\n- 정기적 업데이트 (새로운 시나리오 추가)\n- 품질 검증 (정답 기준의 정확성)\n\n<!-- QUIZ:ai-evaluation-ch1-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "ai-evaluation-ch1-s3-q1",
+          "sectionId": "ai-evaluation-ch1-s3",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "평가 데이터셋에서 'Ground Truth'란?",
+          "options": ["AI의 출력 결과", "각 테스트 케이스의 정확한 정답 기준", "데이터의 저장 위치", "학습 데이터"],
+          "correctAnswer": "각 테스트 케이스의 정확한 정답 기준",
+          "explanation": "Ground Truth는 각 테스트 케이스에 대한 정확한 정답이나 평가 기준을 말합니다. AI 출력을 이 기준과 비교하여 성능을 측정합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "ai-evaluation-ch1-s3-q2",
+          "sectionId": "ai-evaluation-ch1-s3",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "평가 데이터셋은 한 번 만들면 영구적으로 사용할 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "새로운 기능이 추가되거나 사용 패턴이 변하면 데이터셋도 업데이트해야 합니다. 정기적인 관리와 버전 관리가 필요합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "ai-evaluation-ch1-s3-q3",
+          "sectionId": "ai-evaluation-ch1-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "핵심 기능만 빠르게 확인하는 10~20개 규모의 테스트를 ___테스트라고 한다.",
+          "correctAnswer": "스모크",
+          "explanation": "스모크 테스트(Smoke Test)는 시스템의 핵심 기능이 정상 작동하는지 빠르게 확인하는 최소한의 테스트입니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "id": "extended-thinking-ch2",
+  "courseId": "extended-thinking",
+  "slug": "ch2-streaming-optimization",
+  "title": "스트리밍과 최적화",
+  "description": "스트리밍 처리, 성능 최적화, 도구와의 결합 방법을 배웁니다.",
+  "orderNum": 2,
+  "sections": [
+    {
+      "id": "extended-thinking-ch2-s1",
+      "chapterId": "extended-thinking-ch2",
+      "slug": "streaming-processing",
+      "title": "스트리밍 처리",
+      "content": "## 시나리오: 준호의 실시간 앱\n\n준호의 앱에서 확장 사고를 사용하면 응답이 오래 걸립니다. 사용자가 기다리는 동안 \"생각 중...\"이라도 보여주고 싶습니다.\n\n> \"스트리밍을 사용하면 사고 과정을 실시간으로 받아볼 수 있어요!\"\n\n---\n\n## 스트리밍 기본\n\n### 스트리밍 활성화\n\n```python\nwith client.messages.stream(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=16000,\n    thinking={\"type\": \"enabled\", \"budget_tokens\": 10000},\n    messages=[{\"role\": \"user\", \"content\": \"복잡한 질문\"}]\n) as stream:\n    for event in stream:\n        # 이벤트 처리\n        pass\n```\n\n### 이벤트 유형\n\n| 이벤트 | 설명 |\n|--------|------|\n| `thinking` | 사고 과정 텍스트 (스트리밍) |\n| `text` | 최종 응답 텍스트 (스트리밍) |\n| `content_block_start` | 새 블록 시작 |\n| `content_block_stop` | 블록 종료 |\n\n<!-- QUIZ:extended-thinking-ch2-s1-q1 -->\n\n### UX 패턴\n\n사고 과정을 사용자에게 보여주는 방법:\n\n1. **접이식 UI**: \"AI가 생각하고 있습니다...\" + 펼치기 버튼\n2. **진행 바**: 사고 토큰 사용량 표시\n3. **요약 표시**: 사고 핵심만 간략히 보여주기\n\n<!-- QUIZ:extended-thinking-ch2-s1-q2 -->\n\n### 스트리밍 구현 팁\n\nthinking 블록이 먼저 오고, text 블록이 이어서 옵니다. 블록 타입에 따라 다른 UI를 보여주면 됩니다.\n\n<!-- QUIZ:extended-thinking-ch2-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "extended-thinking-ch2-s1-q1",
+          "sectionId": "extended-thinking-ch2-s1",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "확장 사고 스트리밍에서 가장 먼저 전달되는 이벤트는?",
+          "options": ["text (응답)", "thinking (사고 과정)", "summary (요약)", "metadata (메타데이터)"],
+          "correctAnswer": "thinking (사고 과정)",
+          "explanation": "스트리밍에서 thinking 블록이 먼저 전달되고, 사고가 완료된 후 text 블록(최종 응답)이 전달됩니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "extended-thinking-ch2-s1-q2",
+          "sectionId": "extended-thinking-ch2-s1",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "확장 사고는 스트리밍을 지원하지 않아 응답이 완료될 때까지 기다려야 한다.",
+          "correctAnswer": "false",
+          "explanation": "확장 사고는 스트리밍을 완전히 지원합니다. 사고 과정과 최종 응답 모두 실시간으로 스트리밍 받을 수 있습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "extended-thinking-ch2-s1-q3",
+          "sectionId": "extended-thinking-ch2-s1",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "스트리밍에서 확장 사고의 진행 상황을 보여주려면 사고 ___사용량을 표시하면 좋다.",
+          "correctAnswer": "토큰",
+          "explanation": "사고 토큰 사용량을 진행 바 등으로 표시하면 사용자가 AI의 사고 진행 상황을 직관적으로 파악할 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "extended-thinking-ch2-s2",
+      "chapterId": "extended-thinking-ch2",
+      "slug": "performance-optimization",
+      "title": "성능 최적화",
+      "content": "## 비용과 품질 사이의 균형\n\n확장 사고를 효율적으로 사용하여 비용을 최적화하면서도 높은 품질을 유지하는 방법입니다.\n\n---\n\n## 적응적 버짓 전략\n\n### 작업 복잡도에 따른 자동 조절\n\n```python\ndef get_budget(task_complexity):\n    budgets = {\n        \"low\": 2000,\n        \"medium\": 8000,\n        \"high\": 20000,\n        \"very_high\": 50000\n    }\n    return budgets.get(task_complexity, 8000)\n```\n\n### 복잡도 판단 기준\n\n| 복잡도 | 특징 | 예시 |\n|--------|------|------|\n| 낮음 | 단일 단계 추론 | 간단한 분류 |\n| 중간 | 다단계 추론 | 코드 리뷰 |\n| 높음 | 복합 제약 조건 | 시스템 설계 |\n| 매우 높음 | 창의적 + 논리적 | 연구 분석 |\n\n<!-- QUIZ:extended-thinking-ch2-s2-q1 -->\n\n## 프롬프트 최적화\n\n확장 사고의 효과를 높이는 프롬프트 기법:\n\n### 구조화된 지시\n\n```\n다음 문제를 분석해줘.\n\n분석 시 고려할 점:\n1. 시간 복잡도\n2. 공간 복잡도\n3. 엣지 케이스\n4. 대안적 접근법\n\n각 항목에 대해 근거를 포함해서 설명해줘.\n```\n\n명확한 구조를 제공하면 사고 과정이 더 체계적이 됩니다.\n\n<!-- QUIZ:extended-thinking-ch2-s2-q2 -->\n\n## 캐싱과 재사용\n\n동일한 유형의 문제에 대한 사고 패턴을 활용합니다. 시스템 프롬프트에 사고 가이드라인을 포함하면 매번 기본 단계를 반복하지 않습니다.\n\n<!-- QUIZ:extended-thinking-ch2-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "extended-thinking-ch2-s2-q1",
+          "sectionId": "extended-thinking-ch2-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "적응적 버짓 전략의 핵심은?",
+          "options": ["항상 최대 버짓을 사용한다", "작업 복잡도에 따라 버짓을 자동 조절한다", "버짓을 사용하지 않는다", "사용자가 매번 수동으로 설정한다"],
+          "correctAnswer": "작업 복잡도에 따라 버짓을 자동 조절한다",
+          "explanation": "적응적 버짓 전략은 작업의 복잡도를 판단하여 적절한 토큰 버짓을 자동으로 설정하여 비용과 품질의 균형을 맞춥니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "extended-thinking-ch2-s2-q2",
+          "sectionId": "extended-thinking-ch2-s2",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "확장 사고에서 프롬프트의 구조가 사고 과정의 체계성에 영향을 미친다.",
+          "correctAnswer": "true",
+          "explanation": "명확하게 구조화된 프롬프트를 제공하면 Claude의 확장 사고 과정도 더 체계적이고 효율적이 됩니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "extended-thinking-ch2-s2-q3",
+          "sectionId": "extended-thinking-ch2-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "작업 복잡도에 따라 토큰 버짓을 자동으로 조절하는 전략을 ___적 버짓 전략이라고 한다.",
+          "correctAnswer": "적응",
+          "explanation": "적응적(Adaptive) 버짓 전략은 작업의 난이도를 판단하여 최적의 토큰 버짓을 동적으로 설정하는 방법입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "extended-thinking-ch2-s3",
+      "chapterId": "extended-thinking-ch2",
+      "slug": "tool-combination",
+      "title": "도구와의 결합",
+      "content": "## 확장 사고 + Tool Use\n\n확장 사고와 도구 사용을 결합하면 Claude가 깊이 생각한 후 도구를 호출하여 더 정확한 결과를 얻을 수 있습니다.\n\n---\n\n## 결합 사용법\n\n```python\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=16000,\n    thinking={\"type\": \"enabled\", \"budget_tokens\": 10000},\n    tools=[{\n        \"name\": \"calculate\",\n        \"description\": \"수학 계산을 정확히 수행합니다\",\n        \"input_schema\": {\n            \"type\": \"object\",\n            \"properties\": {\"expression\": {\"type\": \"string\"}},\n            \"required\": [\"expression\"]\n        }\n    }],\n    messages=[{\"role\": \"user\", \"content\": \"복리 계산 문제...\"}]\n)\n```\n\n### 동작 흐름\n\n```\n1. Claude: 확장 사고로 문제 분석\n2. Claude: 필요한 계산 도구 호출 결정\n3. 앱: 도구 실행 → 결과 반환\n4. Claude: 도구 결과를 사고에 통합\n5. Claude: 최종 응답 생성\n```\n\n<!-- QUIZ:extended-thinking-ch2-s3-q1 -->\n\n### 응답 블록 순서\n\n확장 사고 + 도구를 함께 사용하면 응답에 여러 블록이 포함됩니다:\n\n1. `thinking` - 사고 과정\n2. `tool_use` - 도구 호출 요청\n3. (도구 결과 전달 후)\n4. `thinking` - 추가 사고\n5. `text` - 최종 응답\n\n<!-- QUIZ:extended-thinking-ch2-s3-q2 -->\n\n### 실전 활용 사례\n\n- **재무 분석**: 사고로 분석 전략 수립 → 계산기로 정확한 수치 계산\n- **코드 디버깅**: 사고로 원인 추론 → 코드 실행으로 검증\n- **데이터 분석**: 사고로 분석 방향 설정 → DB 쿼리로 데이터 조회\n\n<!-- QUIZ:extended-thinking-ch2-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "extended-thinking-ch2-s3-q1",
+          "sectionId": "extended-thinking-ch2-s3",
+          "type": "multiple_choice",
+          "difficulty": "advanced",
+          "question": "확장 사고와 도구를 함께 사용할 때의 장점은?",
+          "options": ["비용이 줄어든다", "Claude가 깊이 생각한 후 더 정확한 도구 호출을 한다", "도구 실행 속도가 빨라진다", "사고 과정이 생략된다"],
+          "correctAnswer": "Claude가 깊이 생각한 후 더 정확한 도구 호출을 한다",
+          "explanation": "확장 사고를 통해 문제를 충분히 분석한 후 도구를 호출하면 더 적절한 도구를 선택하고 정확한 인자를 전달할 수 있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "extended-thinking-ch2-s3-q2",
+          "sectionId": "extended-thinking-ch2-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "확장 사고와 도구 사용을 동시에 활성화할 수 없다.",
+          "correctAnswer": "false",
+          "explanation": "확장 사고와 도구 사용은 동시에 활성화할 수 있습니다. thinking과 tools 파라미터를 함께 사용하면 됩니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "extended-thinking-ch2-s3-q3",
+          "sectionId": "extended-thinking-ch2-s3",
+          "type": "fill_blank",
+          "difficulty": "advanced",
+          "question": "확장 사고 + 도구 응답에서 사고 과정은 ___ 블록에, 도구 호출은 tool_use 블록에 포함된다.",
+          "correctAnswer": "thinking",
+          "explanation": "확장 사고와 도구를 결합하면 thinking(사고), tool_use(도구 호출), text(최종 응답) 블록이 순서대로 포함됩니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

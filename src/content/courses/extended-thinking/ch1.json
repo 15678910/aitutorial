@@ -1,0 +1,139 @@
+{
+  "id": "extended-thinking-ch1",
+  "courseId": "extended-thinking",
+  "slug": "ch1-concepts",
+  "title": "확장 사고 개념",
+  "description": "확장 사고란 무엇인지, 토큰 버짓 설정과 API 사용법을 학습합니다.",
+  "orderNum": 1,
+  "sections": [
+    {
+      "id": "extended-thinking-ch1-s1",
+      "chapterId": "extended-thinking-ch1",
+      "slug": "what-is-extended-thinking",
+      "title": "확장 사고란",
+      "content": "## 시나리오: 준호의 어려운 문제\n\n준호는 복잡한 수학 문제를 Claude에게 물었습니다. 바로 답을 내놓는데, 가끔 틀립니다. 선배가 제안합니다.\n\n> \"확장 사고(Extended Thinking)를 켜보세요. Claude가 답하기 전에 충분히 생각하게 해주는 기능이에요.\"\n\n---\n\n## 확장 사고란?\n\n확장 사고(Extended Thinking)는 Claude가 응답하기 전에 **내부적으로 깊이 생각하는 과정**을 활성화하는 기능입니다.\n\n### 일반 응답 vs 확장 사고\n\n| 구분 | 일반 응답 | 확장 사고 |\n|------|----------|----------|\n| 과정 | 바로 답변 | 사고 → 답변 |\n| 정확도 | 보통 | 높음 |\n| 속도 | 빠름 | 느림 |\n| 비용 | 낮음 | 높음 |\n| 적합한 작업 | 간단한 질문 | 복잡한 추론 |\n\n### 사고 과정이 보인다\n\n확장 사고를 활성화하면 Claude의 사고 과정이 `thinking` 블록으로 반환됩니다. 이를 통해 Claude가 어떻게 결론에 도달했는지 확인할 수 있습니다.\n\n<!-- QUIZ:extended-thinking-ch1-s1-q1 -->\n\n### 언제 사용하나?\n\n- 복잡한 수학/논리 문제\n- 코드 아키텍처 설계\n- 다단계 추론이 필요한 분석\n- 여러 제약 조건을 동시에 고려하는 의사결정\n\n단순한 번역이나 요약에는 불필요합니다.\n\n<!-- QUIZ:extended-thinking-ch1-s1-q2 -->\n\n### 지원 모델\n\nClaude Sonnet과 Claude Opus 모델에서 사용 가능합니다.\n\n<!-- QUIZ:extended-thinking-ch1-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "extended-thinking-ch1-s1-q1",
+          "sectionId": "extended-thinking-ch1-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "확장 사고의 주요 장점은?",
+          "options": ["응답 속도가 빨라진다", "복잡한 문제에서 정확도가 높아진다", "비용이 줄어든다", "모든 작업에서 성능이 향상된다"],
+          "correctAnswer": "복잡한 문제에서 정확도가 높아진다",
+          "explanation": "확장 사고는 Claude가 답하기 전에 깊이 생각하게 하여 복잡한 추론 문제에서 정확도를 높입니다. 대신 속도는 느려지고 비용은 증가합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "extended-thinking-ch1-s1-q2",
+          "sectionId": "extended-thinking-ch1-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "확장 사고는 간단한 번역이나 요약 작업에도 항상 사용하는 것이 좋다.",
+          "correctAnswer": "false",
+          "explanation": "확장 사고는 복잡한 추론에 효과적이지만, 간단한 작업에는 불필요하며 오히려 비용과 시간만 증가시킵니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "extended-thinking-ch1-s1-q3",
+          "sectionId": "extended-thinking-ch1-s1",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "확장 사고를 활성화하면 Claude의 사고 과정이 ___ 블록으로 반환된다.",
+          "correctAnswer": "thinking",
+          "explanation": "확장 사고가 활성화되면 응답에 thinking 블록이 포함되어 Claude의 내부 사고 과정을 확인할 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "extended-thinking-ch1-s2",
+      "chapterId": "extended-thinking-ch1",
+      "slug": "token-budget",
+      "title": "토큰 버짓 설정",
+      "content": "## 시나리오: 비용과 품질의 균형\n\n준호는 확장 사고를 사용하니 결과가 좋지만, 비용이 많이 나옵니다. 사고에 사용하는 토큰 양을 조절할 수 있을까요?\n\n> \"budget_tokens로 사고에 사용할 토큰 수를 제한할 수 있어요!\"\n\n---\n\n## 토큰 버짓이란?\n\n`budget_tokens`는 Claude가 **사고 과정에 사용할 수 있는 최대 토큰 수**입니다. 이 값을 조절하여 사고의 깊이와 비용을 균형 있게 관리합니다.\n\n### 설정 예시\n\n```python\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=16000,\n    thinking={\n        \"type\": \"enabled\",\n        \"budget_tokens\": 10000\n    },\n    messages=[{\"role\": \"user\", \"content\": \"이 알고리즘을 분석해줘\"}]\n)\n```\n\n### 버짓 가이드라인\n\n| 작업 유형 | 권장 버짓 | 예시 |\n|----------|----------|------|\n| 간단한 추론 | 2,000~5,000 | 수학 문제 |\n| 중간 복잡도 | 5,000~15,000 | 코드 리뷰 |\n| 높은 복잡도 | 15,000~50,000 | 아키텍처 설계 |\n| 최고 복잡도 | 50,000+ | 다단계 연구 분석 |\n\n<!-- QUIZ:extended-thinking-ch1-s2-q1 -->\n\n### 중요한 규칙\n\n- `budget_tokens`는 `max_tokens`보다 작아야 합니다\n- 최소값은 1,024 토큰\n- 사고 토큰도 비용이 발생합니다\n- 버짓이 부족하면 사고가 중간에 잘릴 수 있습니다\n\n<!-- QUIZ:extended-thinking-ch1-s2-q2 -->\n\n### 비용 최적화\n\n사고 토큰은 출력 토큰보다 저렴하지만, 대량 사용 시 비용이 쌓입니다. 작업 복잡도에 맞는 적절한 버짓을 설정하는 것이 중요합니다.\n\n<!-- QUIZ:extended-thinking-ch1-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "extended-thinking-ch1-s2-q1",
+          "sectionId": "extended-thinking-ch1-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "budget_tokens의 역할은?",
+          "options": ["전체 응답 토큰 수를 제한한다", "사고 과정에 사용할 최대 토큰 수를 설정한다", "입력 토큰 수를 제한한다", "대화 턴 수를 제한한다"],
+          "correctAnswer": "사고 과정에 사용할 최대 토큰 수를 설정한다",
+          "explanation": "budget_tokens는 Claude의 확장 사고(thinking) 과정에서 사용할 수 있는 최대 토큰 수를 설정합니다. max_tokens와는 별개입니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "extended-thinking-ch1-s2-q2",
+          "sectionId": "extended-thinking-ch1-s2",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "budget_tokens는 max_tokens보다 큰 값으로 설정할 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "budget_tokens는 반드시 max_tokens보다 작아야 합니다. max_tokens는 사고 토큰과 응답 토큰을 모두 포함하는 전체 한도입니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "extended-thinking-ch1-s2-q3",
+          "sectionId": "extended-thinking-ch1-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "확장 사고의 budget_tokens 최소값은 ___토큰이다.",
+          "correctAnswer": "1,024",
+          "explanation": "확장 사고의 budget_tokens는 최소 1,024 토큰 이상으로 설정해야 합니다. 이보다 작으면 의미 있는 사고가 어렵습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "extended-thinking-ch1-s3",
+      "chapterId": "extended-thinking-ch1",
+      "slug": "api-usage",
+      "title": "API 사용법",
+      "content": "## 확장 사고 API 사용법\n\n준호가 실제로 확장 사고를 코드에 통합하는 방법을 배웁니다.\n\n---\n\n## 기본 사용법\n\n### Python SDK\n\n```python\nimport anthropic\n\nclient = anthropic.Anthropic()\n\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=16000,\n    thinking={\n        \"type\": \"enabled\",\n        \"budget_tokens\": 10000\n    },\n    messages=[{\n        \"role\": \"user\",\n        \"content\": \"피보나치 수열의 n번째 항을 O(log n)으로 구하는 방법을 설명해줘\"\n    }]\n)\n```\n\n### 응답 구조\n\n```python\nfor block in response.content:\n    if block.type == \"thinking\":\n        print(\"사고 과정:\", block.thinking)\n    elif block.type == \"text\":\n        print(\"응답:\", block.text)\n```\n\n응답에는 `thinking` 블록(사고 과정)과 `text` 블록(최종 응답)이 포함됩니다.\n\n<!-- QUIZ:extended-thinking-ch1-s3-q1 -->\n\n### 주의사항\n\n| 제한 | 설명 |\n|------|------|\n| 시스템 프롬프트 | 확장 사고와 함께 사용 가능 |\n| 스트리밍 | 지원됨 (thinking 이벤트 포함) |\n| 온도(temperature) | 확장 사고 시 자동으로 1로 고정 |\n| 도구 사용 | 확장 사고와 함께 사용 가능 |\n\n<!-- QUIZ:extended-thinking-ch1-s3-q2 -->\n\n### 멀티턴 대화에서의 사용\n\n멀티턴 대화에서 이전 턴의 thinking 블록을 그대로 포함해야 합니다. 수정하거나 제거하면 에러가 발생합니다.\n\n```python\n# 두 번째 턴\nresponse2 = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=16000,\n    thinking={\"type\": \"enabled\", \"budget_tokens\": 10000},\n    messages=[\n        {\"role\": \"user\", \"content\": \"첫 질문\"},\n        {\"role\": \"assistant\", \"content\": response.content},  # thinking 포함\n        {\"role\": \"user\", \"content\": \"후속 질문\"}\n    ]\n)\n```\n\n<!-- QUIZ:extended-thinking-ch1-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "extended-thinking-ch1-s3-q1",
+          "sectionId": "extended-thinking-ch1-s3",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "확장 사고 응답에 포함되는 두 가지 블록 유형은?",
+          "options": ["text와 image", "thinking과 text", "system과 user", "input과 output"],
+          "correctAnswer": "thinking과 text",
+          "explanation": "확장 사고 응답에는 thinking 블록(사고 과정)과 text 블록(최종 응답)이 포함됩니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "extended-thinking-ch1-s3-q2",
+          "sectionId": "extended-thinking-ch1-s3",
+          "type": "true_false",
+          "difficulty": "advanced",
+          "question": "확장 사고를 사용할 때 temperature를 자유롭게 설정할 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "확장 사고를 사용할 때 temperature는 자동으로 1로 고정됩니다. 사용자가 다른 값으로 변경할 수 없습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "extended-thinking-ch1-s3-q3",
+          "sectionId": "extended-thinking-ch1-s3",
+          "type": "fill_blank",
+          "difficulty": "advanced",
+          "question": "멀티턴 대화에서 이전 턴의 thinking 블록을 ___하거나 제거하면 에러가 발생한다.",
+          "correctAnswer": "수정",
+          "explanation": "멀티턴 대화에서는 이전 턴의 thinking 블록을 원본 그대로 포함해야 합니다. 수정하면 대화 일관성이 깨져 에러가 발생합니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

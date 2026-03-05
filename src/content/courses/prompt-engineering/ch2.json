@@ -1,0 +1,139 @@
+{
+  "id": "prompt-engineering-ch2",
+  "courseId": "prompt-engineering",
+  "slug": "ch2-system-prompts",
+  "title": "시스템 프롬프트",
+  "description": "시스템 메시지의 역할과 효과적인 역할 설정, 출력 형식 제어 방법을 배웁니다.",
+  "orderNum": 2,
+  "sections": [
+    {
+      "id": "prompt-engineering-ch2-s1",
+      "chapterId": "prompt-engineering-ch2",
+      "slug": "understanding-system-messages",
+      "title": "시스템 메시지 이해하기",
+      "content": "## 시나리오: 민수의 챗봇 프로젝트\n\n팀장이 민수에게 고객 지원 챗봇을 만들라고 했습니다. Claude API를 사용하는데, 매번 같은 역할 설명을 반복해야 할까요?\n\n> \"시스템 메시지를 쓰면 매번 반복할 필요 없어요!\"\n\n---\n\n## 메시지 역할 구분\n\nClaude API에서는 메시지를 역할별로 구분합니다.\n\n| 역할 | 설명 | 사용 시점 |\n|------|------|----------|\n| system | AI의 행동 지침, 전체 대화의 규칙 | 대화 시작 전 1회 |\n| user | 사용자의 질문이나 요청 | 매 턴마다 |\n| assistant | AI의 응답 | 자동 생성 |\n\n### 시스템 메시지란?\n\n시스템 메시지는 AI에게 \"너는 이런 존재야\"라고 알려주는 최상위 지침입니다. 대화 전체에 걸쳐 적용되며, 사용자에게는 보이지 않습니다.\n\n```json\n{\n  \"system\": \"당신은 친절한 한국어 고객 지원 담당자입니다. 항상 존댓말을 사용하고, 문제 해결에 집중합니다.\",\n  \"messages\": [\n    {\"role\": \"user\", \"content\": \"배송이 안 왔어요\"}\n  ]\n}\n```\n\n<!-- QUIZ:prompt-engineering-ch2-s1-q1 -->\n\n### 시스템 메시지 vs 사용자 메시지\n\n시스템 메시지에 넣어야 할 것:\n- AI의 정체성과 역할\n- 응답 스타일 규칙\n- 하지 말아야 할 행동\n- 출력 형식 기본 규칙\n\n사용자 메시지에 넣어야 할 것:\n- 구체적인 질문이나 요청\n- 처리할 데이터\n- 특정 작업의 세부 조건\n\n<!-- QUIZ:prompt-engineering-ch2-s1-q2 -->\n\n### 시스템 메시지의 효과\n\n시스템 메시지를 잘 설정하면 일관된 품질의 응답을 얻을 수 있고, 매번 같은 지시를 반복하지 않아도 됩니다.\n\n<!-- QUIZ:prompt-engineering-ch2-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 15,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch2-s1-q1",
+          "sectionId": "prompt-engineering-ch2-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "시스템 메시지의 주요 역할은?",
+          "options": ["사용자의 질문을 전달한다", "AI의 행동 지침과 규칙을 설정한다", "AI의 응답을 저장한다", "대화 기록을 삭제한다"],
+          "correctAnswer": "AI의 행동 지침과 규칙을 설정한다",
+          "explanation": "시스템 메시지는 AI에게 전체 대화에 걸쳐 적용되는 행동 지침, 역할, 규칙을 설정하는 역할을 합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch2-s1-q2",
+          "sectionId": "prompt-engineering-ch2-s1",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "시스템 메시지는 매 대화 턴마다 새로 작성해야 한다.",
+          "correctAnswer": "false",
+          "explanation": "시스템 메시지는 대화 시작 시 1회 설정하면 전체 대화에 걸쳐 적용됩니다. 매 턴마다 반복할 필요가 없습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch2-s1-q3",
+          "sectionId": "prompt-engineering-ch2-s1",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "Claude API에서 메시지의 세 가지 역할은 system, user, ___이다.",
+          "correctAnswer": "assistant",
+          "explanation": "Claude API에서 system은 AI의 지침, user는 사용자 입력, assistant는 AI의 응답을 나타냅니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering-ch2-s2",
+      "chapterId": "prompt-engineering-ch2",
+      "slug": "role-setting",
+      "title": "역할 설정과 페르소나",
+      "content": "## 시나리오: 다양한 전문가가 필요한 민수\n\n민수의 프로젝트에는 다양한 전문가 의견이 필요합니다. 법률 검토, 기술 분석, 마케팅 기획... 모든 전문가를 고용할 수는 없지만, 시스템 프롬프트로 AI를 다양한 전문가로 변신시킬 수 있습니다!\n\n---\n\n## 효과적인 역할 설정\n\n### 기본 페르소나 구조\n\n```\n당신은 [경력/전문성]을 가진 [직책/역할]입니다.\n[핵심 가치관/접근 방식]으로 일합니다.\n[대상 청중]에게 [어조/스타일]로 소통합니다.\n```\n\n### 좋은 역할 설정 예시\n\n```\n당신은 15년 경력의 시니어 데이터 사이언티스트입니다.\n복잡한 통계 개념을 비전문가도 이해할 수 있게 설명하는 것이 특기입니다.\n항상 실무 사례와 함께 설명하고, 가능하면 시각화 방법도 제안합니다.\n```\n\n<!-- QUIZ:prompt-engineering-ch2-s2-q1 -->\n\n### 어조 제어 기법\n\n| 목적 | 시스템 프롬프트 문구 |\n|------|--------------------|\n| 공식적 | \"비즈니스 문서에 적합한 격식체를 사용하세요\" |\n| 친근한 | \"친구와 대화하듯 편안한 반말체를 사용하세요\" |\n| 교육적 | \"초등학생도 이해할 수 있도록 쉽게 설명하세요\" |\n| 간결한 | \"핵심만 짧게 답변하세요. 불필요한 서론은 생략하세요\" |\n\n<!-- QUIZ:prompt-engineering-ch2-s2-q2 -->\n\n### 역할 설정 시 주의사항\n\n- 역할이 너무 모호하면 효과가 떨어집니다\n- 상충되는 지시를 피하세요 (예: \"간결하게\" + \"상세하게\")\n- 역할에 맞는 지식 범위를 함께 설정하세요\n\n<!-- QUIZ:prompt-engineering-ch2-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch2-s2-q1",
+          "sectionId": "prompt-engineering-ch2-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "효과적인 페르소나 설정에 포함되지 않아도 되는 것은?",
+          "options": ["전문성/경력", "소통 어조", "AI 모델의 학습 데이터", "대상 청중"],
+          "correctAnswer": "AI 모델의 학습 데이터",
+          "explanation": "효과적인 페르소나 설정에는 전문성, 접근 방식, 대상 청중, 어조가 포함됩니다. AI 모델의 학습 데이터는 사용자가 제어할 수 있는 요소가 아닙니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch2-s2-q2",
+          "sectionId": "prompt-engineering-ch2-s2",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "역할 부여 시 상충되는 지시(예: '간결하게' + '상세하게')를 동시에 주어도 AI가 알아서 잘 처리한다.",
+          "correctAnswer": "false",
+          "explanation": "상충되는 지시는 AI를 혼란스럽게 만들어 응답의 품질이 떨어집니다. 일관된 방향으로 지시하는 것이 중요합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch2-s2-q3",
+          "sectionId": "prompt-engineering-ch2-s2",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "AI에게 특정 전문가 역할을 부여하여 그 관점에서 응답하게 하는 기법을 ___라고 한다.",
+          "correctAnswer": "페르소나",
+          "explanation": "페르소나(Persona) 기법은 AI에게 특정 인물이나 역할의 정체성을 부여하여 해당 관점에서 사고하고 응답하게 만드는 기법입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering-ch2-s3",
+      "chapterId": "prompt-engineering-ch2",
+      "slug": "output-format-control",
+      "title": "출력 형식 제어",
+      "content": "## 시나리오: 데이터 정리가 필요한 민수\n\n민수는 Claude에게 경쟁사 분석을 요청했는데, 자유 형식의 긴 텍스트가 나왔습니다. 보고서에 넣으려면 표 형태가 필요한데... 출력 형식을 미리 지정할 수 있을까요?\n\n---\n\n## 출력 형식 지정 방법\n\n### JSON 형식\n\n구조화된 데이터가 필요할 때 사용합니다.\n\n```\n다음 제품 리뷰를 분석해서 JSON으로 반환해줘:\n{\n  \"sentiment\": \"positive/negative/neutral\",\n  \"score\": 1-10,\n  \"keywords\": [\"키워드1\", \"키워드2\"],\n  \"summary\": \"한 줄 요약\"\n}\n```\n\n### 마크다운 표\n\n비교나 정리가 필요할 때 효과적입니다.\n\n```\n3개 클라우드 서비스(AWS, Azure, GCP)를 비교해줘.\n마크다운 표 형식으로 가격, 특징, 장단점을 정리해줘.\n```\n\n<!-- QUIZ:prompt-engineering-ch2-s3-q1 -->\n\n### 구조화된 텍스트\n\n번호 매기기, 불릿 포인트, 제목 계층을 활용합니다.\n\n```\n다음 형식으로 답변해줘:\n## 요약\n핵심 내용 3줄\n\n## 상세 분석\n- 항목별 분석\n\n## 결론\n최종 추천 사항\n```\n\n<!-- QUIZ:prompt-engineering-ch2-s3-q2 -->\n\n### 출력 제어 팁\n\n| 기법 | 설명 |\n|------|------|\n| 길이 제한 | \"200자 이내로\", \"3문장으로\" |\n| 형식 지정 | \"표로\", \"JSON으로\", \"목록으로\" |\n| 예시 제공 | 원하는 출력 형태를 직접 보여주기 |\n| 금지 항목 | \"서론 없이 바로 본론으로\" |\n\nAI의 응답이 프로그래밍에서 사용될 경우(API 연동 등), JSON 형식을 지정하면 파싱이 쉬워집니다.\n\n<!-- QUIZ:prompt-engineering-ch2-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "prompt-engineering-ch2-s3-q1",
+          "sectionId": "prompt-engineering-ch2-s3",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "AI 응답을 프로그래밍에서 활용하려면 어떤 출력 형식이 가장 적합한가?",
+          "options": ["자유 형식 텍스트", "마크다운 표", "JSON 형식", "음성 출력"],
+          "correctAnswer": "JSON 형식",
+          "explanation": "JSON은 구조화된 데이터 형식으로 프로그래밍 언어에서 쉽게 파싱할 수 있어 API 연동 등에 가장 적합합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "prompt-engineering-ch2-s3-q2",
+          "sectionId": "prompt-engineering-ch2-s3",
+          "type": "true_false",
+          "difficulty": "intermediate",
+          "question": "출력 형식을 지정하지 않으면 AI가 항상 가장 적합한 형식을 자동으로 선택한다.",
+          "correctAnswer": "false",
+          "explanation": "출력 형식을 지정하지 않으면 AI는 자유 형식 텍스트로 응답하는 경향이 있습니다. 원하는 형식이 있다면 명시적으로 지정하는 것이 좋습니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "prompt-engineering-ch2-s3-q3",
+          "sectionId": "prompt-engineering-ch2-s3",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "AI 응답의 길이를 제한하려면 \"200자 이내로\" 또는 \"___문장으로\"와 같이 제약 조건을 추가한다.",
+          "correctAnswer": "3",
+          "explanation": "출력 길이를 제어하는 방법으로 글자 수 제한, 문장 수 제한, 줄 수 제한 등을 명시적으로 지정할 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}

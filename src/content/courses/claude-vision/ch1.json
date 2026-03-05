@@ -1,0 +1,139 @@
+{
+  "id": "claude-vision-ch1",
+  "courseId": "claude-vision",
+  "slug": "ch1-vision-basics",
+  "title": "비전 기초",
+  "description": "Claude의 비전 기능, 이미지 분석 방법, 입력 최적화를 학습합니다.",
+  "orderNum": 1,
+  "sections": [
+    {
+      "id": "claude-vision-ch1-s1",
+      "chapterId": "claude-vision-ch1",
+      "slug": "vision-capabilities",
+      "title": "비전 기능 소개",
+      "content": "## 시나리오: 영희의 이미지 분석 과제\n\n영희는 e커머스 회사에서 상품 이미지를 자동으로 분석하는 시스템을 만들어야 합니다. 수천 장의 상품 사진을 사람이 일일이 분류하기엔 시간이 너무 걸립니다.\n\n> \"Claude Vision을 사용하면 이미지를 이해하고 분석할 수 있어요!\"\n\n---\n\n## Claude Vision이란?\n\nClaude Vision은 Claude가 **이미지를 보고 이해하는** 기능입니다. 텍스트뿐 아니라 이미지도 입력으로 받아 분석할 수 있습니다.\n\n### 할 수 있는 것\n\n| 기능 | 설명 |\n|------|------|\n| 이미지 설명 | 이미지 내용을 자연어로 기술 |\n| 텍스트 추출 (OCR) | 이미지 속 글자 읽기 |\n| 객체 인식 | 이미지 속 물체/사람 식별 |\n| 차트 분석 | 그래프, 도표 데이터 해석 |\n| 비교 분석 | 여러 이미지 간 차이점 분석 |\n\n### 제한 사항\n\n- 사람 얼굴 식별은 불가 (프라이버시 보호)\n- 매우 작은 텍스트는 인식이 어려울 수 있음\n- 의료 영상 진단은 부적합\n\n<!-- QUIZ:claude-vision-ch1-s1-q1 -->\n\n### API 사용법\n\n```python\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=1024,\n    messages=[{\n        \"role\": \"user\",\n        \"content\": [\n            {\"type\": \"image\", \"source\": {\"type\": \"base64\", \"media_type\": \"image/jpeg\", \"data\": image_data}},\n            {\"type\": \"text\", \"text\": \"이 이미지에서 무엇이 보이나요?\"}\n        ]\n    }]\n)\n```\n\n<!-- QUIZ:claude-vision-ch1-s1-q2 -->\n\n### 지원 형식\n\n- JPEG, PNG, GIF, WebP\n- Base64 인코딩 또는 URL 참조\n\n<!-- QUIZ:claude-vision-ch1-s1-q3 -->",
+      "contentType": "text",
+      "orderNum": 1,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "claude-vision-ch1-s1-q1",
+          "sectionId": "claude-vision-ch1-s1",
+          "type": "multiple_choice",
+          "difficulty": "beginner",
+          "question": "Claude Vision으로 할 수 없는 것은?",
+          "options": ["이미지 속 텍스트 읽기", "차트 데이터 분석", "사람 얼굴 식별", "이미지 내용 설명"],
+          "correctAnswer": "사람 얼굴 식별",
+          "explanation": "Claude Vision은 프라이버시 보호를 위해 사람의 얼굴을 식별하지 않습니다. 이미지 설명, OCR, 차트 분석 등은 가능합니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-vision-ch1-s1-q2",
+          "sectionId": "claude-vision-ch1-s1",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "Claude Vision은 텍스트만 처리할 수 있으며 이미지는 처리할 수 없다.",
+          "correctAnswer": "false",
+          "explanation": "Claude Vision은 텍스트와 이미지를 모두 입력으로 받아 처리할 수 있는 멀티모달 기능입니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-vision-ch1-s1-q3",
+          "sectionId": "claude-vision-ch1-s1",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "이미지를 API에 전달하는 두 가지 방법은 Base64 인코딩과 ___참조이다.",
+          "correctAnswer": "URL",
+          "explanation": "Claude Vision API에 이미지를 전달할 때 Base64로 인코딩하여 직접 포함하거나 URL로 이미지를 참조할 수 있습니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-vision-ch1-s2",
+      "chapterId": "claude-vision-ch1",
+      "slug": "image-analysis",
+      "title": "이미지 분석 실전",
+      "content": "## 시나리오: 영희의 상품 분류\n\n영희는 상품 이미지를 카테고리별로 분류하고, 상품 설명을 자동 생성하는 시스템을 만듭니다.\n\n---\n\n## 이미지 분석 프롬프트\n\n### 기본 분석\n\n```\n이 이미지를 분석해주세요:\n1. 어떤 상품인지\n2. 색상과 소재\n3. 상태 (새 제품/중고)\n4. 추천 카테고리\n```\n\n### 상세 분석 프롬프트\n\n```\n이 상품 사진을 보고 다음 정보를 JSON으로 반환해줘:\n{\n  \"category\": \"대분류 > 중분류 > 소분류\",\n  \"color\": [\"색상1\", \"색상2\"],\n  \"material\": \"소재\",\n  \"condition\": \"새것/양호/보통\",\n  \"features\": [\"특징1\", \"특징2\"],\n  \"description\": \"상품 설명 2-3문장\"\n}\n```\n\n<!-- QUIZ:claude-vision-ch1-s2-q1 -->\n\n### 분석 팁\n\n| 팁 | 설명 |\n|----|------|\n| 구체적 질문 | \"무엇이 보이나요?\" → \"이 의류의 소재와 시즌을 판단해줘\" |\n| 출력 형식 지정 | JSON, 표, 목록 등 구조화된 형태 요청 |\n| 비교 기준 제시 | \"이 두 이미지의 차이점을 3가지 설명해줘\" |\n\n<!-- QUIZ:claude-vision-ch1-s2-q2 -->\n\n### OCR (텍스트 추출)\n\n이미지 속 텍스트를 읽을 때 유용한 프롬프트:\n\n```\n이 이미지에서 모든 텍스트를 추출해줘.\n텍스트의 위치(상단/중앙/하단)도 표시해줘.\n```\n\n영수증, 명함, 간판, 문서 스캔 등에 활용할 수 있습니다.\n\n<!-- QUIZ:claude-vision-ch1-s2-q3 -->",
+      "contentType": "text",
+      "orderNum": 2,
+      "estimatedMinutes": 25,
+      "quizzes": [
+        {
+          "id": "claude-vision-ch1-s2-q1",
+          "sectionId": "claude-vision-ch1-s2",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "이미지 분석 결과를 프로그래밍에 활용하기 좋은 출력 형식은?",
+          "options": ["자유 형식 에세이", "JSON 형식", "음성 출력", "이미지 출력"],
+          "correctAnswer": "JSON 형식",
+          "explanation": "JSON 형식으로 출력을 요청하면 프로그램에서 쉽게 파싱하여 상품 분류, 데이터베이스 저장 등에 활용할 수 있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-vision-ch1-s2-q2",
+          "sectionId": "claude-vision-ch1-s2",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "이미지 분석 시 '무엇이 보이나요?'보다 구체적인 질문이 더 좋은 결과를 준다.",
+          "correctAnswer": "true",
+          "explanation": "구체적인 질문('이 의류의 소재와 시즌을 판단해줘')이 일반적인 질문보다 더 정확하고 유용한 분석 결과를 제공합니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-vision-ch1-s2-q3",
+          "sectionId": "claude-vision-ch1-s2",
+          "type": "fill_blank",
+          "difficulty": "beginner",
+          "question": "이미지에서 글자를 읽어내는 기술을 ___라고 한다.",
+          "correctAnswer": "OCR",
+          "explanation": "OCR(Optical Character Recognition, 광학 문자 인식)은 이미지 속의 텍스트를 인식하고 추출하는 기술입니다.",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "id": "claude-vision-ch1-s3",
+      "chapterId": "claude-vision-ch1",
+      "slug": "input-optimization",
+      "title": "입력 최적화",
+      "content": "## 비전 입력 최적화\n\n이미지 품질과 크기를 최적화하면 비용을 줄이고 분석 품질을 높일 수 있습니다.\n\n---\n\n## 이미지 크기와 비용\n\n### 토큰 계산\n\nClaude는 이미지를 토큰으로 변환하여 처리합니다. 이미지가 클수록 더 많은 토큰을 소비합니다.\n\n| 이미지 크기 | 대략적 토큰 |\n|------------|------------|\n| 작은 (256x256) | ~250 토큰 |\n| 중간 (512x512) | ~750 토큰 |\n| 큰 (1024x1024) | ~1,600 토큰 |\n| 매우 큰 (2048x2048) | ~3,200 토큰 |\n\n### 최적화 방법\n\n1. **리사이징**: 분석에 필요한 최소 해상도로 조절\n2. **크롭**: 관심 영역만 잘라내기\n3. **압축**: JPEG 품질 조절 (80% 추천)\n\n<!-- QUIZ:claude-vision-ch1-s3-q1 -->\n\n## 이미지 전달 방법\n\n### Base64 인코딩\n\n```python\nimport base64\n\nwith open(\"image.jpg\", \"rb\") as f:\n    image_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")\n\ncontent = {\n    \"type\": \"image\",\n    \"source\": {\n        \"type\": \"base64\",\n        \"media_type\": \"image/jpeg\",\n        \"data\": image_data\n    }\n}\n```\n\n### URL 참조\n\n```python\ncontent = {\n    \"type\": \"image\",\n    \"source\": {\n        \"type\": \"url\",\n        \"url\": \"https://example.com/image.jpg\"\n    }\n}\n```\n\n<!-- QUIZ:claude-vision-ch1-s3-q2 -->\n\n### 품질과 비용의 균형\n\n- 텍스트 추출(OCR): 높은 해상도 필요\n- 전체 장면 이해: 중간 해상도로 충분\n- 색상/분위기 판단: 작은 이미지도 가능\n\n<!-- QUIZ:claude-vision-ch1-s3-q3 -->",
+      "contentType": "text",
+      "orderNum": 3,
+      "estimatedMinutes": 20,
+      "quizzes": [
+        {
+          "id": "claude-vision-ch1-s3-q1",
+          "sectionId": "claude-vision-ch1-s3",
+          "type": "multiple_choice",
+          "difficulty": "intermediate",
+          "question": "이미지 입력 비용을 줄이는 효과적인 방법은?",
+          "options": ["이미지를 텍스트로 변환한다", "분석에 필요한 최소 해상도로 리사이징한다", "이미지를 사용하지 않는다", "PNG를 BMP로 변환한다"],
+          "correctAnswer": "분석에 필요한 최소 해상도로 리사이징한다",
+          "explanation": "이미지 크기가 클수록 토큰 사용량이 증가하므로, 분석 목적에 필요한 최소 해상도로 조절하면 비용을 절약할 수 있습니다.",
+          "orderNum": 1
+        },
+        {
+          "id": "claude-vision-ch1-s3-q2",
+          "sectionId": "claude-vision-ch1-s3",
+          "type": "true_false",
+          "difficulty": "beginner",
+          "question": "이미지가 클수록 항상 더 좋은 분석 결과를 얻을 수 있다.",
+          "correctAnswer": "false",
+          "explanation": "전체 장면 이해나 색상 판단은 중간 크기 이미지로 충분합니다. 불필요하게 큰 이미지는 비용만 증가시킵니다.",
+          "orderNum": 2
+        },
+        {
+          "id": "claude-vision-ch1-s3-q3",
+          "sectionId": "claude-vision-ch1-s3",
+          "type": "fill_blank",
+          "difficulty": "intermediate",
+          "question": "Claude Vision API에서 이미지를 직접 포함할 때 ___인코딩을 사용한다.",
+          "correctAnswer": "Base64",
+          "explanation": "이미지 파일을 API 요청에 직접 포함하려면 Base64로 인코딩하여 문자열 형태로 전달합니다.",
+          "orderNum": 3
+        }
+      ]
+    }
+  ]
+}
