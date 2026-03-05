@@ -30,7 +30,7 @@ export default function Admin() {
   const [search, setSearch] = useState('')
   const [contentStats, setContentStats] = useState<CourseContentStats[]>([])
   const [contentLoading, setContentLoading] = useState(false)
-  const [adminAuthed, setAdminAuthed] = useState(() => sessionStorage.getItem('admin_authed') === 'true')
+  const [adminAuthed, setAdminAuthed] = useState(() => !!sessionStorage.getItem('admin_token'))
   const [adminPw, setAdminPw] = useState('')
   const [adminPwError, setAdminPwError] = useState('')
   const [inquiryFilter, setInquiryFilter] = useState('all')
@@ -85,15 +85,24 @@ export default function Admin() {
 
   // 2차 비밀번호 인증
   if (!adminAuthed) {
-    const handleAdminPw = (e: React.FormEvent) => {
+    const handleAdminPw = async (e: React.FormEvent) => {
       e.preventDefault()
-      const secret = import.meta.env.VITE_ADMIN_SECRET || ''
-      if (adminPw === secret) {
-        sessionStorage.setItem('admin_authed', 'true')
-        setAdminAuthed(true)
-        setAdminPwError('')
-      } else {
-        setAdminPwError('비밀번호가 틀렸습니다.')
+      try {
+        const res = await fetch('/api/admin-verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: adminPw }),
+        })
+        const data = await res.json()
+        if (data.success && data.token) {
+          sessionStorage.setItem('admin_token', data.token)
+          setAdminAuthed(true)
+          setAdminPwError('')
+        } else {
+          setAdminPwError('비밀번호가 틀렸습니다.')
+        }
+      } catch {
+        setAdminPwError('인증 서버에 연결할 수 없습니다.')
       }
     }
     return (

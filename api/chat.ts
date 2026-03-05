@@ -63,13 +63,71 @@ ${content}
 8. 학습과 무관한 질문에는 정중히 학습 주제로 돌아오도록 안내하세요.`
 }
 
+// CORS allowlist
+const ALLOWED_ORIGINS = [
+  'https://determined-payne.vercel.app',
+  'http://localhost:5173',
+]
+
+// Rate limiting
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
+const RATE_LIMIT = 10  // requests per window
+const RATE_WINDOW = 60 * 1000  // 1 minute
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const entry = rateLimitMap.get(ip)
+  if (!entry || now > entry.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_WINDOW })
+    return false
+  }
+  entry.count++
+  return entry.count > RATE_LIMIT
+}
+
+// Input validation helpers
+function isValidSectionContext(ctx: unknown): ctx is { sectionTitle: string; chapterTitle: string; courseSlug: string } {
+  if (!ctx || typeof ctx !== 'object') return false
+  const c = ctx as Record<string, unknown>
+  return typeof c.sectionTitle === 'string' && typeof c.chapterTitle === 'string' && typeof c.courseSlug === 'string'
+}
+
+function isValidConversationHistory(history: unknown): boolean {
+  if (!Array.isArray(history)) return false
+  if (history.length > 20) return false
+  return history.every(
+    (item) =>
+      item &&
+      typeof item === 'object' &&
+      typeof (item as Record<string, unknown>).role === 'string' &&
+      typeof (item as Record<string, unknown>).content === 'string' &&
+      ((item as Record<string, unknown>).content as string).length <= 2000
+  )
+}
+
+function isValidDiagnosticResult(dr: unknown): boolean {
+  if (!dr || typeof dr !== 'object') return false
+  const d = dr as Record<string, unknown>
+  const validLevels = ['beginner', 'intermediate', 'advanced']
+  const validStyles = ['visual', 'textual', 'example-based']
+  return validLevels.includes(d.level as string) && validStyles.includes(d.style as string)
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // CORS
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  // CORS - origin-based allowlist
+  const origin = req.headers.origin
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
 
-  if (req.method === 'OPTIONS') return res.status(200).end()
+  if (req.method === 'OPTIONS') {
+    if (origin && ALLOWED_ORIGINS.includes(origin)) {
+      return res.status(200).end()
+    }
+    return res.status(403).end()
+  }
 
   // Health check for mode detection
   if (req.method === 'GET') {
@@ -82,15 +140,38 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Chat request
   if (req.method === 'POST') {
+    // Rate limiting
+    const forwarded = req.headers['x-forwarded-for']
+    const clientIp =
+      (typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : undefined) ||
+      req.socket?.remoteAddress ||
+      'unknown'
+
+    if (isRateLimited(clientIp)) {
+      return res.status(429).json({ error: 'Too many requests' })
+    }
+
     const apiKey = process.env.ANTHROPIC_API_KEY
     if (!apiKey) {
-      return res.status(503).json({ error: 'API key not configured', mode: 'local' })
+      return res.status(503).json({ error: 'Service unavailable', mode: 'local' })
     }
 
     const { message, sectionContext, conversationHistory, diagnosticResult } = req.body
 
     if (!message || typeof message !== 'string' || message.length > 1000) {
       return res.status(400).json({ error: 'Invalid message' })
+    }
+
+    if (!isValidSectionContext(sectionContext)) {
+      return res.status(400).json({ error: 'Invalid sectionContext' })
+    }
+
+    if (conversationHistory !== undefined && !isValidConversationHistory(conversationHistory)) {
+      return res.status(400).json({ error: 'Invalid conversationHistory' })
+    }
+
+    if (diagnosticResult !== undefined && !isValidDiagnosticResult(diagnosticResult)) {
+      return res.status(400).json({ error: 'Invalid diagnosticResult' })
     }
 
     const systemPrompt = buildSystemPrompt(sectionContext, diagnosticResult)
@@ -121,7 +202,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       if (!response.ok) {
         console.error('Anthropic API error:', response.status)
-        return res.status(502).json({ error: 'AI service error' })
+        return res.status(502).json({ error: 'Service error' })
       }
 
       const data = await response.json()

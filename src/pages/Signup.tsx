@@ -17,7 +17,8 @@ export default function Signup() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
-    if (password.length < 6) { setError('비밀번호는 6자 이상이어야 합니다'); return }
+    if (password.length < 8) { setError('비밀번호는 8자 이상이어야 합니다'); return }
+    if (!/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) { setError('비밀번호는 영문과 숫자를 모두 포함해야 합니다'); return }
     const result = await signUp(email, password, name)
     if (result.error) setError(result.error)
     else setSuccess(true)
@@ -46,7 +47,7 @@ export default function Signup() {
           {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg">{error}</div>}
           <Input id="name" label="이름" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="홍길동" required />
           <Input id="email" label="이메일" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="your@email.com" required />
-          <Input id="password" label="비밀번호" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="6자 이상 입력하세요" required />
+          <Input id="password" label="비밀번호" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="8자 이상, 영문+숫자 포함" required />
           <Button type="submit" className="w-full" disabled={loading}>{loading ? '가입 중...' : '무료 회원가입'}</Button>
         </form>
         <p className="mt-6 text-center text-sm text-gray-600">이미 계정이 있으신가요? <Link to="/login" className="text-accent font-medium hover:underline">로그인</Link></p>

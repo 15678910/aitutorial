@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import rehypeSanitize from 'rehype-sanitize'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import Input from '../components/ui/Input'
@@ -183,7 +184,7 @@ export default function WikiArticle() {
           {/* Article Content */}
           <Card className="p-6 md:p-8 mb-6">
             <div className="prose prose-gray max-w-none">
-              <ReactMarkdown>{article.content}</ReactMarkdown>
+              <ReactMarkdown rehypePlugins={[rehypeSanitize]}>{article.content}</ReactMarkdown>
             </div>
           </Card>
 

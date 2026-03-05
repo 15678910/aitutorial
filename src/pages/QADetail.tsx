@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import rehypeSanitize from 'rehype-sanitize'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import SkillTag from '../components/community/SkillTag'
@@ -147,7 +148,7 @@ export default function QADetail() {
 
         {/* Content */}
         <div className="prose prose-gray max-w-none mb-6">
-          <ReactMarkdown>{question.content}</ReactMarkdown>
+          <ReactMarkdown rehypePlugins={[rehypeSanitize]}>{question.content}</ReactMarkdown>
         </div>
 
         {/* Tags */}
@@ -220,7 +221,7 @@ export default function QADetail() {
 
               {/* Answer Content */}
               <div className="prose prose-gray max-w-none mb-4">
-                <ReactMarkdown>{answer.content}</ReactMarkdown>
+                <ReactMarkdown rehypePlugins={[rehypeSanitize]}>{answer.content}</ReactMarkdown>
               </div>
 
               {/* Answer Footer */}
