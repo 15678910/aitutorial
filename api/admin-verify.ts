@@ -2,6 +2,8 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 // CORS allowlist
 const ALLOWED_ORIGINS = [
+  'https://aitutorial.kr',
+  'https://www.aitutorial.kr',
   'https://determined-payne.vercel.app',
   'http://localhost:5173',
 ]
