@@ -614,7 +614,7 @@ export default function Roadmap() {
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6">
-            <span className="text-accent text-sm font-semibold">🗺️ 15개 코스 · 4개 학습 경로 · 단계별 브릿지 가이드</span>
+            <span className="text-accent text-sm font-semibold">🗺️ 21개 코스 · 4개 학습 경로 · 단계별 브릿지 가이드</span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-5 tracking-tight">
             학습 로드맵
@@ -683,11 +683,11 @@ export default function Roadmap() {
               <div>
                 <h3 className="text-lg font-bold text-gray-900">나의 전체 진행 현황</h3>
                 <p className="text-sm text-gray-500 mt-1">
-                  전체 15개 코스 중 <span className="text-accent font-bold">{completedCourseSlugs.size}개</span> 완료
+                  전체 21개 코스 중 <span className="text-accent font-bold">{completedCourseSlugs.size}개</span> 완료
                 </p>
               </div>
               <div className="w-full sm:w-64">
-                <Progress value={completedCourseSlugs.size} max={15} size="lg" showLabel />
+                <Progress value={completedCourseSlugs.size} max={21} size="lg" showLabel />
               </div>
             </div>
           </div>
@@ -717,6 +717,179 @@ export default function Roadmap() {
             </div>
           )
         })}
+
+        {/* ============================================================= */}
+        {/* After Graduation: Next Steps                                   */}
+        {/* ============================================================= */}
+        <div className="pt-12 pb-4">
+          <div className="rounded-2xl border-2 border-indigo-100 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 overflow-hidden">
+            {/* Decorative top accent */}
+            <div className="h-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+
+            <div className="p-6 sm:p-10">
+              {/* Header */}
+              <div className="text-center mb-10">
+                <span className="text-5xl block mb-4">{'🎓'}</span>
+                <h3 className="text-3xl font-extrabold text-gray-900 mb-3">
+                  과정 완료 후, 무엇을 할 수 있나요?
+                </h3>
+                <p className="text-gray-500 max-w-2xl mx-auto">
+                  21개 코스를 완료하면 AI 이해부터 실전 개발까지 탄탄한 역량을 갖추게 됩니다.
+                  <br />
+                  이 역량으로 다양한 진로를 선택할 수 있습니다.
+                </p>
+              </div>
+
+              {/* Capabilities Grid */}
+              <div className="mb-10">
+                <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <span>{'💪'}</span> 갖추게 되는 역량
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { icon: '🧠', title: 'AI 개념 & 원리', desc: 'AI, 머신러닝, 딥러닝의 원리를 이해하고 설명할 수 있어요' },
+                    { icon: '✍️', title: '프롬프트 엔지니어링', desc: '효과적인 프롬프트를 설계하고 최적화할 수 있어요' },
+                    { icon: '🔧', title: 'Claude API 활용', desc: 'API를 이용한 AI 서비스를 직접 개발할 수 있어요' },
+                    { icon: '🤖', title: 'AI 에이전트 개발', desc: 'Tool Use, MCP로 자율적인 AI 에이전트를 구축할 수 있어요' },
+                    { icon: '📊', title: 'AI 평가 & 최적화', desc: 'AI 시스템의 성능을 체계적으로 측정하고 개선할 수 있어요' },
+                    { icon: '💼', title: 'AI 비즈니스 기획', desc: 'AI 기반 서비스를 기획하고 포트폴리오를 구성할 수 있어요' },
+                  ].map((item) => (
+                    <div key={item.title} className="bg-white/70 backdrop-blur-sm rounded-xl p-4 border border-white/80 shadow-sm">
+                      <span className="text-2xl block mb-2">{item.icon}</span>
+                      <h5 className="font-bold text-gray-800 mb-1">{item.title}</h5>
+                      <p className="text-sm text-gray-500">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Career Paths */}
+              <div className="mb-10">
+                <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <span>{'🚀'}</span> 더 깊이 학습하고 싶다면: 다음 단계
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    {
+                      emoji: '👨‍💻',
+                      title: 'AI 엔지니어',
+                      period: '3~6개월',
+                      steps: ['Python + LangChain 심화', 'RAG 파이프라인 구축', '실전 AI 서비스 배포'],
+                      resources: 'fast.ai · DeepLearning.AI · Kaggle',
+                      color: 'blue',
+                    },
+                    {
+                      emoji: '📝',
+                      title: '프롬프트 엔지니어',
+                      period: '1~3개월',
+                      steps: ['고급 프롬프트 기법 마스터', '평가 체계 구축', '기업 컨설팅/교육'],
+                      resources: 'Anthropic Docs · Prompt Engineering Guide',
+                      color: 'purple',
+                    },
+                    {
+                      emoji: '📦',
+                      title: 'AI 제품 매니저',
+                      period: '3~6개월',
+                      steps: ['AI UX/비즈니스 모델 설계', '프로젝트 관리 실무', '제품 출시 경험'],
+                      resources: 'Google PAIR · Nielsen AI UX',
+                      color: 'green',
+                    },
+                    {
+                      emoji: '🏢',
+                      title: 'AI 창업가',
+                      period: '6개월~',
+                      steps: ['AI 기반 서비스 MVP 구축', '사용자 피드백 반영', '투자 유치/사업화'],
+                      resources: 'Y Combinator · Anthropic Startup Program',
+                      color: 'pink',
+                    },
+                  ].map((career) => {
+                    const colorMap: Record<string, { bg: string; border: string; text: string; badge: string }> = {
+                      blue: { bg: 'bg-blue-50/80', border: 'border-blue-100', text: 'text-blue-700', badge: 'bg-blue-100 text-blue-700' },
+                      purple: { bg: 'bg-purple-50/80', border: 'border-purple-100', text: 'text-purple-700', badge: 'bg-purple-100 text-purple-700' },
+                      green: { bg: 'bg-emerald-50/80', border: 'border-emerald-100', text: 'text-emerald-700', badge: 'bg-emerald-100 text-emerald-700' },
+                      pink: { bg: 'bg-pink-50/80', border: 'border-pink-100', text: 'text-pink-700', badge: 'bg-pink-100 text-pink-700' },
+                    }
+                    const c = colorMap[career.color]
+                    return (
+                      <div key={career.title} className={`rounded-xl p-5 border ${c.bg} ${c.border}`}>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="text-2xl">{career.emoji}</span>
+                            <h5 className="font-bold text-gray-800">{career.title}</h5>
+                          </div>
+                          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${c.badge}`}>
+                            {career.period}
+                          </span>
+                        </div>
+                        <ol className="space-y-1.5 mb-3">
+                          {career.steps.map((step, i) => (
+                            <li key={step} className="text-sm text-gray-600 flex items-start gap-2">
+                              <span className={`text-xs font-bold ${c.text} flex-shrink-0 mt-0.5`}>{i + 1}.</span>
+                              {step}
+                            </li>
+                          ))}
+                        </ol>
+                        <p className="text-xs text-gray-400">
+                          {'📚'} {career.resources}
+                        </p>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Certifications & Community */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-white/80 shadow-sm">
+                  <h5 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <span>{'🏅'}</span> 추천 자격증
+                  </h5>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 flex-shrink-0">{'•'}</span>
+                      Google Cloud Professional ML Engineer
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-500 flex-shrink-0">{'•'}</span>
+                      AWS Machine Learning Specialty
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 flex-shrink-0">{'•'}</span>
+                      Azure AI Engineer Associate
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 flex-shrink-0">{'•'}</span>
+                      TensorFlow Developer Certificate
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-white/80 shadow-sm">
+                  <h5 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <span>{'🌐'}</span> 무료 심화 학습 리소스
+                  </h5>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500 flex-shrink-0">{'•'}</span>
+                      Stanford CS229 (머신러닝 기초)
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 flex-shrink-0">{'•'}</span>
+                      fast.ai (실전 딥러닝)
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-yellow-500 flex-shrink-0">{'•'}</span>
+                      Kaggle Competitions (실전 데이터 분석)
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 flex-shrink-0">{'•'}</span>
+                      Anthropic Cookbook (Claude 심화)
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Bottom CTA */}
         <div className="text-center pt-8 pb-4">
