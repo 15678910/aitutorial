@@ -25,7 +25,14 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 const About = lazy(() => import('./pages/About'))
 const Terms = lazy(() => import('./pages/Terms'))
 const Privacy = lazy(() => import('./pages/Privacy'))
-const Admin = lazy(() => import('./pages/Admin'))
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'))
+const DashboardOverview = lazy(() => import('./pages/admin/DashboardOverview'))
+const UserManagement = lazy(() => import('./pages/admin/UserManagement'))
+const UserDetail = lazy(() => import('./pages/admin/UserDetail'))
+const ContentManagement = lazy(() => import('./pages/admin/ContentManagement'))
+const ContentEditor = lazy(() => import('./pages/admin/ContentEditor'))
+const SystemMonitoring = lazy(() => import('./pages/admin/SystemMonitoring'))
+const PartnerManagement = lazy(() => import('./pages/admin/PartnerManagement'))
 const Community = lazy(() => import('./pages/Community'))
 const Projects = lazy(() => import('./pages/Projects'))
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
@@ -84,7 +91,7 @@ export default function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/privacy" element={<Privacy />} />
-                  <Route path="/admin" element={<Admin />} />
+
                   <Route path="/community" element={<Community />} />
                   <Route path="/community/projects" element={<Projects />} />
                   <Route path="/community/projects/:id" element={<ProjectDetail />} />
@@ -99,6 +106,15 @@ export default function App() {
                   <Route path="*" element={<NotFound />} />
                 </Route>
                 <Route path="/learn/:courseSlug/:chapterSlug/:sectionSlug" element={<Learn />} />
+                <Route path="/admin" element={<AdminDashboard />}>
+                  <Route index element={<DashboardOverview />} />
+                  <Route path="users" element={<UserManagement />} />
+                  <Route path="users/:id" element={<UserDetail />} />
+                  <Route path="content" element={<ContentManagement />} />
+                  <Route path="content/:slug/edit" element={<ContentEditor />} />
+                  <Route path="monitoring" element={<SystemMonitoring />} />
+                  <Route path="partners" element={<PartnerManagement />} />
+                </Route>
               </Routes>
             </Suspense>
           </ErrorBoundary>
