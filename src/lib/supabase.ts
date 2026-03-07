@@ -41,7 +41,11 @@ function createChainableResponse(): any {
 }
 
 export const supabase: SupabaseClient = isSupabaseConfigured
-  ? createClient(supabaseUrl, supabaseAnonKey)
+  ? createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        lock: async (_name: string, _acquireTimeout: number, fn: () => Promise<any>) => fn(),
+      },
+    })
   : new Proxy({} as SupabaseClient, {
       get: (_target, prop) => {
         if (prop === 'auth') {
