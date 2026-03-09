@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useAuthStore } from '../store/authStore'
+import { useSiteSettingsStore } from '../store/siteSettingsStore'
 
 export default function Signup() {
   const [name, setName] = useState('')
@@ -11,6 +12,7 @@ export default function Signup() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const { signUp, loading, user, initialized } = useAuthStore()
+  const { settings } = useSiteSettingsStore()
 
   if (initialized && user) return <Navigate to="/dashboard" replace />
 
@@ -30,6 +32,11 @@ export default function Signup() {
         <div className="max-w-md w-full text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-3">이메일을 확인하세요</h1>
           <p className="text-gray-600 mb-6"><strong>{email}</strong>으로 인증 링크를 보냈습니다.</p>
+          {settings.invite_only && (
+            <div className="bg-amber-50 border border-amber-200 text-amber-700 text-sm px-4 py-3 rounded-lg mb-4">
+              현재 초대제로 운영 중입니다. 관리자 승인 후 로그인할 수 있습니다.
+            </div>
+          )}
           <Link to="/login"><Button variant="outline">로그인 페이지로</Button></Link>
         </div>
       </div>
@@ -44,6 +51,11 @@ export default function Signup() {
           <p className="text-gray-600">무료로 AI 학습을 시작하세요</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {settings.invite_only && (
+            <div className="bg-amber-50 border border-amber-200 text-amber-700 text-sm px-4 py-3 rounded-lg">
+              🔒 현재 초대제로 운영 중입니다. 가입 후 관리자 승인이 필요합니다.
+            </div>
+          )}
           {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg">{error}</div>}
           <Input id="name" label="이름" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="홍길동" required />
           <Input id="email" label="이메일" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="your@email.com" required />

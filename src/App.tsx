@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect, lazy, Suspense } from 'react'
 import Layout from './components/layout/Layout'
@@ -6,6 +6,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 import { useAuthStore } from './store/authStore'
 import { XPToastManager } from './components/gamification/XPToast'
 import { useXPStore } from './store/xpStore'
+import { useSiteSettingsStore } from './store/siteSettingsStore'
 
 // Lazy load ALL pages for better initial load performance
 const Home = lazy(() => import('./pages/Home'))
@@ -45,6 +46,8 @@ const Enterprise = lazy(() => import('./pages/Enterprise'))
 const Research = lazy(() => import('./pages/Research'))
 const StudyGroups = lazy(() => import('./pages/StudyGroups'))
 const Roadmap = lazy(() => import('./pages/Roadmap'))
+const Maintenance = lazy(() => import('./pages/Maintenance'))
+const SiteSettings = lazy(() => import('./pages/admin/SiteSettings'))
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 1 } },
@@ -58,11 +61,32 @@ function ScrollToTop() {
 
 function AuthInitializer({ children }: { children: React.ReactNode }) {
   const { initialize, initialized } = useAuthStore()
+  const { fetchSettings, initialized: settingsInitialized } = useSiteSettingsStore()
   useEffect(() => {
     if (!initialized) initialize()
+    if (!settingsInitialized) fetchSettings()
     useXPStore.getState().checkDailyBonus()
-  }, [initialize, initialized])
+  }, [initialize, initialized, fetchSettings, settingsInitialized])
   return <>{children}</>
+}
+
+function MaintenanceLayout() {
+  const { settings, initialized: settingsReady } = useSiteSettingsStore()
+  const { user, initialized: authReady } = useAuthStore()
+
+  if (!settingsReady || !authReady) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+      </div>
+    )
+  }
+
+  if (settings.maintenance_mode && user?.role !== 'admin') {
+    return <Maintenance />
+  }
+
+  return <Outlet />
 }
 
 export default function App() {
@@ -74,38 +98,42 @@ export default function App() {
           <ErrorBoundary>
             <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>}>
               <Routes>
-                <Route element={<Layout />}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/courses" element={<Courses />} />
-                  <Route path="/courses/:slug" element={<CourseDetail />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/certificate/:courseSlug" element={<Certificate />} />
-                  <Route path="/transcript" element={<Transcript />} />
-                  <Route path="/essay/:courseSlug/:chapterId" element={<Essay />} />
-                  <Route path="/review/:courseSlug" element={<Review />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<Signup />} />
-                  <Route path="/forgot-password" element={<ForgotPassword />} />
-                  <Route path="/reset-password" element={<ResetPassword />} />
-                  <Route path="/roadmap" element={<Roadmap />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/terms" element={<Terms />} />
-                  <Route path="/privacy" element={<Privacy />} />
-
-                  <Route path="/community" element={<Community />} />
-                  <Route path="/community/projects" element={<Projects />} />
-                  <Route path="/community/projects/:id" element={<ProjectDetail />} />
-                  <Route path="/community/qa" element={<QAForum />} />
-                  <Route path="/community/qa/:id" element={<QADetail />} />
-                  <Route path="/community/wiki" element={<Wiki />} />
-                  <Route path="/community/wiki/:slug" element={<WikiArticlePage />} />
-                  <Route path="/community/enterprise" element={<Enterprise />} />
-                  <Route path="/community/research" element={<Research />} />
-                  <Route path="/community/study-groups" element={<StudyGroups />} />
-                  <Route path="/community/profile" element={<MyProfile />} />
-                  <Route path="*" element={<NotFound />} />
+                {/* Public routes - wrapped in MaintenanceLayout */}
+                <Route element={<MaintenanceLayout />}>
+                  <Route element={<Layout />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/courses" element={<Courses />} />
+                    <Route path="/courses/:slug" element={<CourseDetail />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/certificate/:courseSlug" element={<Certificate />} />
+                    <Route path="/transcript" element={<Transcript />} />
+                    <Route path="/essay/:courseSlug/:chapterId" element={<Essay />} />
+                    <Route path="/review/:courseSlug" element={<Review />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/roadmap" element={<Roadmap />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/privacy" element={<Privacy />} />
+                    <Route path="/community" element={<Community />} />
+                    <Route path="/community/projects" element={<Projects />} />
+                    <Route path="/community/projects/:id" element={<ProjectDetail />} />
+                    <Route path="/community/qa" element={<QAForum />} />
+                    <Route path="/community/qa/:id" element={<QADetail />} />
+                    <Route path="/community/wiki" element={<Wiki />} />
+                    <Route path="/community/wiki/:slug" element={<WikiArticlePage />} />
+                    <Route path="/community/enterprise" element={<Enterprise />} />
+                    <Route path="/community/research" element={<Research />} />
+                    <Route path="/community/study-groups" element={<StudyGroups />} />
+                    <Route path="/community/profile" element={<MyProfile />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Route>
+                  <Route path="/learn/:courseSlug/:chapterSlug/:sectionSlug" element={<Learn />} />
                 </Route>
-                <Route path="/learn/:courseSlug/:chapterSlug/:sectionSlug" element={<Learn />} />
+
+                {/* Admin routes - always accessible (bypass maintenance) */}
                 <Route path="/admin" element={<AdminDashboard />}>
                   <Route index element={<DashboardOverview />} />
                   <Route path="users" element={<UserManagement />} />
@@ -114,6 +142,7 @@ export default function App() {
                   <Route path="content/:slug/edit" element={<ContentEditor />} />
                   <Route path="monitoring" element={<SystemMonitoring />} />
                   <Route path="partners" element={<PartnerManagement />} />
+                  <Route path="settings" element={<SiteSettings />} />
                 </Route>
               </Routes>
             </Suspense>

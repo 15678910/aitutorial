@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useAdminUsers } from '../../hooks/useAdminUsers'
 import type { AdminUserRow } from '../../types/admin'
+import { supabase } from '../../lib/supabase'
 
 type SortField = 'name' | 'role' | 'createdAt' | 'completedSections' | 'avgQuizScore' | 'lastActivity'
 type SortDirection = 'asc' | 'desc'
@@ -88,9 +89,10 @@ function SortIcon({ field, currentField, direction }: { field: SortField; curren
 }
 
 export default function UserManagement() {
-  const { users, totalCount, loading, page, setPage, search, setSearch, perPage } = useAdminUsers()
+  const { users, totalCount, loading, page, setPage, search, setSearch, perPage, refetch } = useAdminUsers()
   const [sortField, setSortField] = useState<SortField | null>(null)
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
+  const [approvalFilter, setApprovalFilter] = useState<'all' | 'pending'>('all')
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -101,9 +103,22 @@ export default function UserManagement() {
     }
   }
 
+  const handleApprove = async (userId: string) => {
+    try {
+      await supabase.from('profiles').update({ approved: true }).eq('id', userId)
+      refetch()
+    } catch (error) {
+      console.error('Failed to approve user:', error)
+    }
+  }
+
   const sortedUsers = useMemo(() => {
-    if (!sortField) return users
-    return [...users].sort((a, b) => {
+    let filtered = users
+    if (approvalFilter === 'pending') {
+      filtered = users.filter(u => !u.approved)
+    }
+    if (!sortField) return filtered
+    return [...filtered].sort((a, b) => {
       let aVal: string | number | null
       let bVal: string | number | null
       switch (sortField) {
@@ -138,7 +153,7 @@ export default function UserManagement() {
       if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1
       return 0
     })
-  }, [users, sortField, sortDirection])
+  }, [users, sortField, sortDirection, approvalFilter])
 
   const totalPages = Math.max(1, Math.ceil(totalCount / perPage))
   const showingFrom = totalCount > 0 ? page * perPage + 1 : 0
@@ -181,6 +196,32 @@ export default function UserManagement() {
               placeholder="검색: 이름 또는 이메일"
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors"
             />
+          </div>
+          <div className="flex gap-1">
+            <button
+              onClick={() => setApprovalFilter('all')}
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+                approvalFilter === 'all'
+                  ? 'bg-indigo-100 text-indigo-700'
+                  : 'text-gray-500 hover:bg-gray-100'
+              }`}
+            >
+              전체
+            </button>
+            <button
+              onClick={() => setApprovalFilter('pending')}
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+                approvalFilter === 'pending'
+                  ? 'bg-amber-100 text-amber-700'
+                  : 'text-gray-500 hover:bg-gray-100'
+              }`}
+            >
+              승인 대기 {users.filter(u => !u.approved).length > 0 && (
+                <span className="ml-1 bg-amber-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">
+                  {users.filter(u => !u.approved).length}
+                </span>
+              )}
+            </button>
           </div>
           <p className="text-sm text-gray-500 whitespace-nowrap">
             {totalCount > 0 ? `${showingFrom}~${showingTo} / ${totalCount}건` : '결과 없음'}
@@ -245,17 +286,24 @@ export default function UserManagement() {
                       </div>
                     </td>
 
-                    {/* Role */}
+                    {/* Role + Approval */}
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {user.role === 'admin' ? (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                          admin
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
-                          user
-                        </span>
-                      )}
+                      <div className="flex items-center gap-1.5">
+                        {user.role === 'admin' ? (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                            admin
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                            user
+                          </span>
+                        )}
+                        {!user.approved && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 text-amber-700">
+                            대기
+                          </span>
+                        )}
+                      </div>
                     </td>
 
                     {/* Join date */}
@@ -280,14 +328,24 @@ export default function UserManagement() {
                       {formatRelativeTime(user.lastActivity)}
                     </td>
 
-                    {/* Detail button */}
+                    {/* Actions */}
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <Link
-                        to={`/admin/users/${user.id}`}
-                        className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors"
-                      >
-                        상세
-                      </Link>
+                      <div className="flex items-center gap-2">
+                        {!user.approved && (
+                          <button
+                            onClick={() => handleApprove(user.id)}
+                            className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-accent rounded-lg hover:bg-accent/90 transition-colors"
+                          >
+                            승인
+                          </button>
+                        )}
+                        <Link
+                          to={`/admin/users/${user.id}`}
+                          className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors"
+                        >
+                          상세
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))

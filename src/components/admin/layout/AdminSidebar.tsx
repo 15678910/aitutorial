@@ -8,6 +8,7 @@ const navItems = [
   { label: '콘텐츠 관리', icon: '📚', path: '/admin/content' },
   { label: '시스템 모니터링', icon: '🖥️', path: '/admin/monitoring' },
   { label: '파트너 관리', icon: '🏢', path: '/admin/partners' },
+  { label: '사이트 설정', icon: '⚙️', path: '/admin/settings' },
 ]
 
 export default function AdminSidebar() {

@@ -31,7 +31,7 @@ export const useAuthStore = create<AuthState>((set) => ({
           .eq('id', session.user.id)
           .single()
         if (profile) {
-          set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at, role: profile.role || 'user' } })
+          set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at, role: profile.role || 'user', approved: profile.approved ?? true } })
         }
       }
     } catch (error) {
@@ -50,7 +50,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             .eq('id', session.user.id)
             .single()
           if (profile) {
-            set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at, role: profile.role || 'user' } })
+            set({ user: { id: profile.id, email: profile.email, name: profile.name, avatarUrl: profile.avatar_url, createdAt: profile.created_at, role: profile.role || 'user', approved: profile.approved ?? true } })
           }
         } catch (error) {
           console.warn('Failed to fetch user profile', error)
@@ -64,9 +64,29 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   signIn: async (email, password) => {
     set({ loading: true })
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) {
+      set({ loading: false })
+      return { error: error.message }
+    }
+
+    // 승인 상태 확인
+    if (data.user) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('approved')
+        .eq('id', data.user.id)
+        .single()
+
+      if (profile && profile.approved === false) {
+        await supabase.auth.signOut()
+        set({ loading: false, user: null })
+        return { error: '계정 승인 대기 중입니다. 관리자에게 문의하세요.' }
+      }
+    }
+
     set({ loading: false })
-    return { error: error?.message || null }
+    return { error: null }
   },
 
   signUp: async (email, password, name) => {

@@ -5,6 +5,7 @@ export interface UserProfile {
   avatarUrl: string | null
   createdAt: string
   role: 'admin' | 'user'
+  approved: boolean
 }
 
 export interface Progress {

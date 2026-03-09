@@ -37,6 +37,7 @@ export interface AdminUserRow {
   completedSections: number
   avgQuizScore: number | null
   lastActivity: string | null
+  approved: boolean
 }
 
 export interface EditableCourse {
@@ -81,7 +82,7 @@ export interface EditableQuiz {
   orderNum: number
 }
 
-export type AdminPage = 'overview' | 'users' | 'content' | 'monitoring' | 'partners'
+export type AdminPage = 'overview' | 'users' | 'content' | 'monitoring' | 'partners' | 'settings'
 
 export interface AdminSidebarItem {
   key: AdminPage

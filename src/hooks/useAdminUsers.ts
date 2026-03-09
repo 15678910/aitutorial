@@ -11,6 +11,7 @@ interface AdminUsersResult {
   search: string
   setSearch: (search: string) => void
   perPage: number
+  refetch: () => Promise<void>
 }
 
 function generateDemoUsers(page: number, perPage: number, search: string): { users: AdminUserRow[]; totalCount: number } {
@@ -32,6 +33,7 @@ function generateDemoUsers(page: number, perPage: number, search: string): { use
       name,
       role: i === 0 ? 'admin' : 'user',
       createdAt,
+      approved: i < 3 ? false : true,
       completedSections: Math.floor(Math.random() * 40),
       avgQuizScore: Math.random() > 0.3 ? Math.floor(Math.random() * 40) + 55 : null,
       lastActivity,
@@ -152,6 +154,7 @@ export function useAdminUsers(perPage: number = 20): AdminUsersResult {
               ? Math.round(up.scores.reduce((a, b) => a + b, 0) / up.scores.length)
               : null,
           lastActivity: up?.lastActivity || null,
+          approved: p.approved ?? true,
         }
       })
 
@@ -171,5 +174,5 @@ export function useAdminUsers(perPage: number = 20): AdminUsersResult {
     fetchUsers()
   }, [fetchUsers])
 
-  return { users, totalCount, loading, page, setPage, search, setSearch, perPage }
+  return { users, totalCount, loading, page, setPage, search, setSearch, perPage, refetch: fetchUsers }
 }
