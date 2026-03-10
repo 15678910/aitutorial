@@ -1,7 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { createClient } from '@supabase/supabase-js'
-import { validateToken } from './admin-verify'
-
 // CORS allowlist
 const ALLOWED_ORIGINS = [
   'https://aitutorial.kr',
@@ -28,6 +26,19 @@ function isRateLimited(ip: string): boolean {
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function validateToken(token: string, secret: string): boolean {
+  try {
+    const decoded = Buffer.from(token, 'base64').toString()
+    const parts = decoded.split(':')
+    if (parts.length !== 3 || parts[0] !== 'admin') return false
+    const timestamp = parseInt(parts[1])
+    // Token valid for 24 hours
+    if (Date.now() - timestamp > 24 * 60 * 60 * 1000) return false
+    const expectedHash = Buffer.from(String(timestamp) + secret).toString('base64').slice(0, 16)
+    return parts[2] === expectedHash
+  } catch { return false }
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
