@@ -132,6 +132,14 @@ export default function App() {
           <ErrorBoundary>
             <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>}>
               <Routes>
+                {/* Auth routes - always accessible (bypass maintenance) */}
+                <Route element={<Layout />}>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
+                </Route>
+
                 {/* Public routes - wrapped in MaintenanceLayout */}
                 <Route element={<MaintenanceLayout />}>
                   <Route element={<Layout />}>
@@ -143,10 +151,6 @@ export default function App() {
                     <Route path="/transcript" element={<Transcript />} />
                     <Route path="/essay/:courseSlug/:chapterId" element={<Essay />} />
                     <Route path="/review/:courseSlug" element={<Review />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/roadmap" element={<Roadmap />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/terms" element={<Terms />} />
