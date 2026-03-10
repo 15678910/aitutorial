@@ -47,6 +47,7 @@ const Research = lazy(() => import('./pages/Research'))
 const StudyGroups = lazy(() => import('./pages/StudyGroups'))
 const Roadmap = lazy(() => import('./pages/Roadmap'))
 const Maintenance = lazy(() => import('./pages/Maintenance'))
+const AcceptInvite = lazy(() => import('./pages/AcceptInvite'))
 const SiteSettings = lazy(() => import('./pages/admin/SiteSettings'))
 
 const queryClient = new QueryClient({
@@ -132,6 +133,9 @@ export default function App() {
                   </Route>
                   <Route path="/learn/:courseSlug/:chapterSlug/:sectionSlug" element={<Learn />} />
                 </Route>
+
+                {/* Accept invite - outside maintenance (works even when site is closed) */}
+                <Route path="/accept-invite" element={<AcceptInvite />} />
 
                 {/* Admin routes - always accessible (bypass maintenance) */}
                 <Route path="/admin" element={<AdminDashboard />}>

@@ -93,6 +93,10 @@ export default function UserManagement() {
   const [sortField, setSortField] = useState<SortField | null>(null)
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
   const [approvalFilter, setApprovalFilter] = useState<'all' | 'pending'>('all')
+  const [showInviteModal, setShowInviteModal] = useState(false)
+  const [inviteEmails, setInviteEmails] = useState('')
+  const [inviting, setInviting] = useState(false)
+  const [inviteResults, setInviteResults] = useState<{ email: string; success: boolean; error?: string }[] | null>(null)
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -109,6 +113,39 @@ export default function UserManagement() {
       refetch()
     } catch (error) {
       console.error('Failed to approve user:', error)
+    }
+  }
+
+  const handleInvite = async () => {
+    const emailList = inviteEmails
+      .split(/[\n,]+/)
+      .map(e => e.trim())
+      .filter(e => e.length > 0)
+
+    if (emailList.length === 0) return
+
+    setInviting(true)
+    setInviteResults(null)
+
+    try {
+      const token = sessionStorage.getItem('admin_authed')
+      const res = await fetch('/api/invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ emails: emailList, token }),
+      })
+      const data = await res.json()
+      if (data.results) {
+        setInviteResults(data.results)
+        // Refetch users list to show newly invited users
+        refetch()
+      } else {
+        setInviteResults([{ email: '전체', success: false, error: data.error || '알 수 없는 오류' }])
+      }
+    } catch (err) {
+      setInviteResults([{ email: '전체', success: false, error: '서버 연결에 실패했습니다.' }])
+    } finally {
+      setInviting(false)
     }
   }
 
@@ -223,6 +260,13 @@ export default function UserManagement() {
               )}
             </button>
           </div>
+          <button
+            onClick={() => setShowInviteModal(true)}
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent/90 transition-colors whitespace-nowrap"
+          >
+            <span>✉️</span>
+            사용자 초대
+          </button>
           <p className="text-sm text-gray-500 whitespace-nowrap">
             {totalCount > 0 ? `${showingFrom}~${showingTo} / ${totalCount}건` : '결과 없음'}
           </p>
@@ -377,6 +421,65 @@ export default function UserManagement() {
           </div>
         )}
       </div>
+      {showInviteModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">✉️ 사용자 초대</h2>
+                <button onClick={() => { setShowInviteModal(false); setInviteResults(null); setInviteEmails('') }} className="text-gray-400 hover:text-gray-600">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+              </div>
+              <p className="text-sm text-gray-500 mb-4">초대할 이메일 주소를 입력하세요. 초대된 사용자는 자동으로 승인됩니다.</p>
+
+              {!inviteResults ? (
+                <>
+                  <textarea
+                    value={inviteEmails}
+                    onChange={(e) => setInviteEmails(e.target.value)}
+                    placeholder={"이메일 주소 (줄바꿈 또는 쉼표로 구분)\nexample1@gmail.com\nexample2@gmail.com"}
+                    rows={5}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none resize-none"
+                    disabled={inviting}
+                  />
+                  <div className="flex justify-end gap-2 mt-4">
+                    <button onClick={() => { setShowInviteModal(false); setInviteEmails('') }} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                      취소
+                    </button>
+                    <button
+                      onClick={handleInvite}
+                      disabled={inviting || !inviteEmails.trim()}
+                      className="px-4 py-2 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {inviting ? '초대 중...' : '초대 보내기'}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="space-y-2 max-h-60 overflow-y-auto">
+                    {inviteResults.map((r, i) => (
+                      <div key={i} className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm ${r.success ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                        <span className="truncate">{r.email}</span>
+                        <span className="shrink-0 ml-2">{r.success ? '✅ 초대 완료' : `❌ ${r.error || '실패'}`}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex justify-end gap-2 mt-4">
+                    <button onClick={() => { setInviteResults(null); setInviteEmails('') }} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                      추가 초대
+                    </button>
+                    <button onClick={() => { setShowInviteModal(false); setInviteResults(null); setInviteEmails('') }} className="px-4 py-2 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent/90 transition-colors">
+                      닫기
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
