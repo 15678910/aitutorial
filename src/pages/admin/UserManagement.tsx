@@ -128,7 +128,7 @@ export default function UserManagement() {
     setInviteResults(null)
 
     try {
-      const token = sessionStorage.getItem('admin_authed')
+      const token = sessionStorage.getItem('admin_token')
       const res = await fetch('/api/invite', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
