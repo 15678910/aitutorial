@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, useNavigate, Outlet } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect, lazy, Suspense } from 'react'
 import Layout from './components/layout/Layout'
@@ -60,6 +60,38 @@ function ScrollToTop() {
   return null
 }
 
+// Supabase PKCE 흐름에서 초대 토큰이 루트 URL로 리다이렉트될 때
+// /accept-invite로 자동 리다이렉트
+function InviteRedirector() {
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    // 이미 /accept-invite에 있으면 무시
+    if (pathname === '/accept-invite') return
+
+    const hash = window.location.hash
+    const search = window.location.search
+    const params = new URLSearchParams(search)
+
+    // 해시 기반: #access_token=xxx&type=invite
+    const isHashInvite = hash.includes('type=invite')
+
+    // PKCE 기반: ?code=xxx (루트 URL에 code가 있으면 초대로 간주)
+    const isPKCEInvite = pathname === '/' && params.has('code')
+
+    // 쿼리 기반: ?token_hash=xxx&type=invite
+    const isTokenHashInvite = params.get('type') === 'invite'
+
+    if (isHashInvite || isPKCEInvite || isTokenHashInvite) {
+      // 토큰/코드를 유지하면서 /accept-invite로 리다이렉트
+      navigate(`/accept-invite${search}${hash}`, { replace: true })
+    }
+  }, [pathname, navigate])
+
+  return null
+}
+
 function AuthInitializer({ children }: { children: React.ReactNode }) {
   const { initialize, initialized } = useAuthStore()
   const { fetchSettings, initialized: settingsInitialized } = useSiteSettingsStore()
@@ -96,6 +128,7 @@ export default function App() {
       <AuthInitializer>
         <BrowserRouter>
           <ScrollToTop />
+          <InviteRedirector />
           <ErrorBoundary>
             <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>}>
               <Routes>
