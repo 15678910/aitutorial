@@ -46,8 +46,8 @@ AS $$
 DECLARE
   invite_only_val BOOLEAN;
 BEGIN
-  -- 초대제 모드 확인
-  SELECT COALESCE((value)::boolean, false) INTO invite_only_val
+  -- 초대제 모드 확인 (JSONB→text→boolean 변환)
+  SELECT COALESCE((value#>>'{}')::boolean, false) INTO invite_only_val
   FROM site_settings
   WHERE key = 'invite_only';
 
