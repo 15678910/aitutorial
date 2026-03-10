@@ -3,14 +3,67 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useAuthStore } from '../store/authStore'
+import { supabase } from '../lib/supabase'
 
 export default function AcceptInvite() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const [sessionReady, setSessionReady] = useState(false)
   const { updatePassword, loading } = useAuthStore()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>
+    let unsubscribe: (() => void) | null = null
+
+    const setupSession = async () => {
+      // Check for PKCE code in URL params
+      const params = new URLSearchParams(window.location.search)
+      const code = params.get('code')
+      if (code) {
+        try {
+          await supabase.auth.exchangeCodeForSession(code)
+        } catch (err) {
+          console.warn('exchangeCodeForSession failed:', err)
+        }
+      }
+
+      // Listen for auth state change (handles both hash-based and PKCE flows)
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session) {
+          setSessionReady(true)
+          clearTimeout(timeoutId)
+        }
+      })
+      unsubscribe = () => subscription.unsubscribe()
+
+      // Also check if session already exists (e.g., hash token processed by Supabase client automatically)
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        setSessionReady(true)
+        clearTimeout(timeoutId)
+      }
+
+      // 10-second timeout if session not established
+      timeoutId = setTimeout(() => {
+        setSessionReady((ready) => {
+          if (!ready) {
+            setError('초대 링크가 유효하지 않거나 만료되었습니다.')
+          }
+          return ready
+        })
+      }, 10000)
+    }
+
+    setupSession()
+
+    return () => {
+      if (unsubscribe) unsubscribe()
+      clearTimeout(timeoutId)
+    }
+  }, [])
 
   useEffect(() => {
     if (success) {
@@ -36,11 +89,15 @@ export default function AcceptInvite() {
       return
     }
 
-    const result = await updatePassword(password)
-    if (result.error) {
-      setError(result.error)
-    } else {
-      setSuccess(true)
+    try {
+      const result = await updatePassword(password)
+      if (result.error) {
+        setError(result.error)
+      } else {
+        setSuccess(true)
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '비밀번호 변경 중 오류가 발생했습니다')
     }
   }
 
@@ -54,6 +111,23 @@ export default function AcceptInvite() {
             <p className="text-gray-500">
               비밀번호가 설정되었습니다. 잠시 후 홈으로 이동합니다.
             </p>
+          </div>
+        ) : !sessionReady ? (
+          <div className="text-center py-8">
+            {error ? (
+              <>
+                <div className="text-5xl mb-4">⚠️</div>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">초대 링크 오류</h2>
+                <p className="text-red-600 text-sm">{error}</p>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-center mb-4">
+                  <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                </div>
+                <p className="text-gray-500 text-sm">세션 확인 중...</p>
+              </>
+            )}
           </div>
         ) : (
           <>

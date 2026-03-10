@@ -111,9 +111,14 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   updatePassword: async (newPassword) => {
     set({ loading: true })
-    const { error } = await supabase.auth.updateUser({ password: newPassword })
-    set({ loading: false })
-    return { error: error?.message || null }
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword })
+      set({ loading: false })
+      return { error: error?.message || null }
+    } catch (err) {
+      set({ loading: false })
+      return { error: err instanceof Error ? err.message : '비밀번호 변경 중 오류가 발생했습니다' }
+    }
   },
 
   signOut: async () => {
