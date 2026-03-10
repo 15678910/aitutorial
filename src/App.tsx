@@ -83,7 +83,7 @@ function MaintenanceLayout() {
     )
   }
 
-  if (settings.maintenance_mode && user?.role !== 'admin') {
+  if (settings.maintenance_mode && user?.role !== 'admin' && !user?.approved) {
     return <Maintenance />
   }
 
