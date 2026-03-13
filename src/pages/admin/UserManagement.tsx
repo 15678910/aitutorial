@@ -214,7 +214,14 @@ export default function UserManagement() {
           <span role="img" aria-label="users">👥</span>
           사용자 관리
         </h1>
-        <p className="text-sm text-gray-500 mt-1">전체 {totalCount}명</p>
+        <p className="text-sm text-gray-500 mt-1">
+          {loading ? (
+            <span className="inline-flex items-center gap-1">
+              <span className="w-3 h-3 border-2 border-gray-300 border-t-indigo-500 rounded-full animate-spin" />
+              불러오는 중...
+            </span>
+          ) : `전체 ${totalCount}명`}
+        </p>
       </div>
 
       {/* Search & Filters */}
@@ -267,9 +274,11 @@ export default function UserManagement() {
             <span>✉️</span>
             사용자 초대
           </button>
-          <p className="text-sm text-gray-500 whitespace-nowrap">
-            {totalCount > 0 ? `${showingFrom}~${showingTo} / ${totalCount}건` : '결과 없음'}
-          </p>
+          {!loading && (
+            <p className="text-sm text-gray-500 whitespace-nowrap">
+              {totalCount > 0 ? `${showingFrom}~${showingTo} / ${totalCount}건` : '결과 없음'}
+            </p>
+          )}
         </div>
       </div>
 
