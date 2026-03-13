@@ -34,7 +34,7 @@ export default function AdminLogin({ onAuthenticated }: AdminLoginProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#29264c]">
+    <div className="min-h-screen flex items-center justify-center bg-[#29264c] relative z-[999]">
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm">
         <div className="text-center mb-6">
           <div className="w-14 h-14 bg-accent rounded-xl flex items-center justify-center mx-auto mb-4">
