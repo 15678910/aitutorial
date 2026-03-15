@@ -26,13 +26,23 @@ export default function Maintenance() {
           <div className="w-2 h-2 bg-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
         </div>
 
-        {/* Admin access link */}
+        {/* Login button for approved users */}
         <Link
-          to="/admin"
-          className="text-gray-500 text-xs hover:text-gray-300 transition-colors"
+          to="/login"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 transition-colors mb-6"
         >
-          관리자 접속
+          로그인
         </Link>
+
+        {/* Admin access link */}
+        <div>
+          <Link
+            to="/admin"
+            className="text-gray-500 text-xs hover:text-gray-300 transition-colors"
+          >
+            관리자 접속
+          </Link>
+        </div>
       </div>
     </div>
   )
