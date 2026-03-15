@@ -1,8 +1,11 @@
-import { useState, useEffect, type FormEvent } from 'react'
+import { useState, useEffect, useRef, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { supabase } from '../lib/supabase'
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string
 
 export default function AcceptInvite() {
   const [password, setPassword] = useState('')
@@ -13,9 +16,18 @@ export default function AcceptInvite() {
   const [submitting, setSubmitting] = useState(false)
   const navigate = useNavigate()
 
+  // 세션 확립 시 access_token을 ref에 저장 (submit 시 Supabase 클라이언트 우회)
+  const accessTokenRef = useRef<string | null>(null)
+
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>
     let unsubscribe: (() => void) | null = null
+
+    const onSessionReady = (token: string) => {
+      accessTokenRef.current = token
+      setSessionReady(true)
+      clearTimeout(timeoutId)
+    }
 
     const setupSession = async () => {
       // Check for PKCE code in URL params
@@ -23,7 +35,11 @@ export default function AcceptInvite() {
       const code = params.get('code')
       if (code) {
         try {
-          await supabase.auth.exchangeCodeForSession(code)
+          const { data } = await supabase.auth.exchangeCodeForSession(code)
+          if (data.session) {
+            onSessionReady(data.session.access_token)
+            return
+          }
         } catch (err) {
           console.warn('exchangeCodeForSession failed:', err)
         }
@@ -32,17 +48,15 @@ export default function AcceptInvite() {
       // Listen for auth state change (handles invite, recovery, hash-based and PKCE flows)
       const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
         if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'PASSWORD_RECOVERY') && session) {
-          setSessionReady(true)
-          clearTimeout(timeoutId)
+          onSessionReady(session.access_token)
         }
       })
       unsubscribe = () => subscription.unsubscribe()
 
-      // Also check if session already exists (e.g., hash token processed by Supabase client automatically)
+      // Also check if session already exists
       const { data: { session } } = await supabase.auth.getSession()
       if (session) {
-        setSessionReady(true)
-        clearTimeout(timeoutId)
+        onSessionReady(session.access_token)
       }
 
       // 10-second timeout if session not established
@@ -88,40 +102,44 @@ export default function AcceptInvite() {
       return
     }
 
-    setSubmitting(true)
-    try {
-      // 세션 확인
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session) {
-        setError('세션이 만료되었습니다. 초대 링크를 다시 클릭해 주세요.')
-        return
-      }
+    // 저장된 토큰 확인 (Supabase 클라이언트 호출 없음)
+    const token = accessTokenRef.current
+    if (!token) {
+      setError('세션이 만료되었습니다. 초대 링크를 다시 클릭해 주세요.')
+      return
+    }
 
-      // Supabase JS 클라이언트 대신 직접 REST API 호출 (hang 방지)
+    setSubmitting(true)
+
+    // 안전 타임아웃: 어떤 상황에서도 20초 후 버튼 복구
+    const safetyTimer = setTimeout(() => {
+      setSubmitting(false)
+      setError('요청 처리에 실패했습니다. 페이지를 새로고침 후 다시 시도해 주세요.')
+    }, 20000)
+
+    try {
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 15000)
+      const fetchTimer = setTimeout(() => controller.abort(), 15000)
 
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/auth/v1/user`,
+        `${SUPABASE_URL}/auth/v1/user`,
         {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${session.access_token}`,
-            'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${token}`,
+            'apikey': SUPABASE_ANON_KEY,
           },
           body: JSON.stringify({ password }),
           signal: controller.signal,
         }
       )
-      clearTimeout(timeoutId)
+      clearTimeout(fetchTimer)
 
       if (!response.ok) {
         const data = await response.json().catch(() => ({}))
         setError(data.message || data.msg || `비밀번호 변경 실패 (${response.status})`)
       } else {
-        // 세션 갱신 후 성공 처리
-        await supabase.auth.refreshSession().catch(() => {})
         setSuccess(true)
       }
     } catch (err) {
@@ -131,6 +149,7 @@ export default function AcceptInvite() {
         setError(err instanceof Error ? err.message : '비밀번호 변경 중 오류가 발생했습니다')
       }
     } finally {
+      clearTimeout(safetyTimer)
       setSubmitting(false)
     }
   }
