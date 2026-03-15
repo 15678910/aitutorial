@@ -121,16 +121,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   for (const email of emails) {
     try {
-      // generateLink: 사용자 생성 + 초대 링크 반환 (이메일 발송 없음)
-      // 관리자가 카카오톡/문자 등으로 직접 링크 공유 가능
-      const { data, error } = await supabase.auth.admin.generateLink({
+      // 1차: invite 링크 생성 시도 (신규 사용자)
+      let data, error
+      ;({ data, error } = await supabase.auth.admin.generateLink({
         type: 'invite',
         email,
         options: {
           redirectTo,
           data: { name: email },
         },
-      })
+      }))
+
+      // 2차: 이미 등록된 사용자 → 비밀번호 재설정 링크 생성
+      if (error && error.message.includes('already been registered')) {
+        ;({ data, error } = await supabase.auth.admin.generateLink({
+          type: 'recovery',
+          email,
+          options: { redirectTo },
+        }))
+      }
 
       if (error) {
         results.push({ email, success: false, error: error.message })
