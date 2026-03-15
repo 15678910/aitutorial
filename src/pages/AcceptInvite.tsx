@@ -2,7 +2,6 @@ import { useState, useEffect, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
-import { useAuthStore } from '../store/authStore'
 import { supabase } from '../lib/supabase'
 
 export default function AcceptInvite() {
@@ -11,7 +10,7 @@ export default function AcceptInvite() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [sessionReady, setSessionReady] = useState(false)
-  const { updatePassword, loading } = useAuthStore()
+  const [submitting, setSubmitting] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -89,19 +88,24 @@ export default function AcceptInvite() {
       return
     }
 
+    setSubmitting(true)
     try {
-      // 15초 타임아웃 추가
-      const timeoutPromise = new Promise<{ error: string }>((resolve) =>
-        setTimeout(() => resolve({ error: '요청 시간이 초과되었습니다. 다시 시도해 주세요.' }), 15000)
-      )
-      const result = await Promise.race([updatePassword(password), timeoutPromise])
-      if (result.error) {
-        setError(result.error)
+      // 직접 supabase.auth.updateUser 호출 (authStore 우회)
+      const { error: updateError } = await Promise.race([
+        supabase.auth.updateUser({ password }),
+        new Promise<{ error: { message: string } }>((resolve) =>
+          setTimeout(() => resolve({ error: { message: '요청 시간이 초과되었습니다. 다시 시도해 주세요.' } }), 15000)
+        ),
+      ])
+      if (updateError) {
+        setError(updateError.message)
       } else {
         setSuccess(true)
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : '비밀번호 변경 중 오류가 발생했습니다')
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -180,9 +184,9 @@ export default function AcceptInvite() {
               <Button
                 type="submit"
                 className="w-full mt-2"
-                disabled={loading}
+                disabled={submitting}
               >
-                {loading ? '처리 중...' : '시작하기'}
+                {submitting ? '처리 중...' : '시작하기'}
               </Button>
             </form>
           </>
