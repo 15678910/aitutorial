@@ -30,7 +30,24 @@ export default function AcceptInvite() {
     }
 
     const setupSession = async () => {
-      // Check for PKCE code in URL params
+      // 1. URL hash에서 Supabase 에러 파라미터 확인
+      //    (토큰 만료/이미 사용됨 등의 경우 Supabase가 에러를 hash로 전달)
+      const hash = window.location.hash.substring(1)
+      const hashParams = new URLSearchParams(hash)
+      const hashError = hashParams.get('error_description') || hashParams.get('error')
+      if (hashError && !hashParams.get('access_token')) {
+        const errorCode = hashParams.get('error_code') || ''
+        let message = '초대 링크가 유효하지 않습니다.'
+        if (errorCode === 'otp_expired' || hashError.toLowerCase().includes('expired')) {
+          message = '초대 링크가 만료되었습니다. 관리자에게 새 링크를 요청해 주세요.'
+        } else if (hashError.toLowerCase().includes('already')) {
+          message = '이미 사용된 초대 링크입니다. 관리자에게 새 링크를 요청해 주세요.'
+        }
+        setError(message)
+        return
+      }
+
+      // 2. Check for PKCE code in URL params
       const params = new URLSearchParams(window.location.search)
       const code = params.get('code')
       if (code) {
@@ -45,7 +62,7 @@ export default function AcceptInvite() {
         }
       }
 
-      // Listen for auth state change (handles invite, recovery, hash-based and PKCE flows)
+      // 3. Listen for auth state change (handles invite, recovery, hash-based and PKCE flows)
       const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
         if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'PASSWORD_RECOVERY') && session) {
           onSessionReady(session.access_token)
@@ -53,21 +70,21 @@ export default function AcceptInvite() {
       })
       unsubscribe = () => subscription.unsubscribe()
 
-      // Also check if session already exists
+      // 4. Also check if session already exists
       const { data: { session } } = await supabase.auth.getSession()
       if (session) {
         onSessionReady(session.access_token)
       }
 
-      // 10-second timeout if session not established
+      // 15-second timeout if session not established
       timeoutId = setTimeout(() => {
         setSessionReady((ready) => {
           if (!ready) {
-            setError('초대 링크가 유효하지 않거나 만료되었습니다.')
+            setError('초대 링크가 유효하지 않거나 만료되었습니다. 관리자에게 새 링크를 요청해 주세요.')
           }
           return ready
         })
-      }, 10000)
+      }, 15000)
     }
 
     setupSession()
@@ -171,7 +188,13 @@ export default function AcceptInvite() {
               <>
                 <div className="text-5xl mb-4">⚠️</div>
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">초대 링크 오류</h2>
-                <p className="text-red-600 text-sm">{error}</p>
+                <p className="text-red-600 text-sm mb-4">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="text-sm text-blue-600 hover:text-blue-800 underline"
+                >
+                  페이지 새로고침
+                </button>
               </>
             ) : (
               <>
