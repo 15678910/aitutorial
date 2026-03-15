@@ -106,6 +106,7 @@ function AuthInitializer({ children }: { children: React.ReactNode }) {
 function MaintenanceLayout() {
   const { settings, initialized: settingsReady } = useSiteSettingsStore()
   const { user, initialized: authReady } = useAuthStore()
+  const location = useLocation()
 
   if (!settingsReady || !authReady) {
     return (
@@ -115,7 +116,16 @@ function MaintenanceLayout() {
     )
   }
 
-  if (settings.maintenance_mode && user?.role !== 'admin' && !user?.approved) {
+  // 초대 링크(PKCE ?code= / hash type=invite / query type=invite)는 유지보수 모드에서도 통과
+  // → InviteRedirector가 /accept-invite로 리다이렉트 처리
+  const params = new URLSearchParams(location.search)
+  const hash = window.location.hash
+  const isInviteFlow =
+    hash.includes('type=invite') ||
+    (location.pathname === '/' && params.has('code')) ||
+    params.get('type') === 'invite'
+
+  if (settings.maintenance_mode && user?.role !== 'admin' && !user?.approved && !isInviteFlow) {
     return <Maintenance />
   }
 
