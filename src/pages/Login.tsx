@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Link, useNavigate, Navigate } from 'react-router-dom'
+import { Link, useNavigate, Navigate, useSearchParams } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useAuthStore } from '../store/authStore'
@@ -10,15 +10,17 @@ export default function Login() {
   const [error, setError] = useState('')
   const { signIn, loading, user, initialized } = useAuthStore()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const redirectTo = searchParams.get('redirect') || '/dashboard'
 
-  if (initialized && user) return <Navigate to="/dashboard" replace />
+  if (initialized && user) return <Navigate to={redirectTo} replace />
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
     const result = await signIn(email, password)
     if (result.error) setError(result.error)
-    else navigate('/dashboard')
+    else navigate(redirectTo)
   }
 
   return (
