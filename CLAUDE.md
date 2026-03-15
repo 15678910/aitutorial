@@ -46,11 +46,88 @@ CREATE POLICY "..." ON profiles
 - React Strict Mode에서 `navigator.locks` 충돌로 AbortError 발생 가능
 - `src/lib/supabase.ts`에 `auth.lock` 우회 설정 필수 (이미 적용됨)
 
+### 4. Supabase JS 클라이언트 hang 문제 (심각도: 높음)
+**절대 하지 말 것:**
+```tsx
+// ❌ supabase.auth.updateUser(), getSession() 등이 무한 대기할 수 있음
+const { error } = await supabase.auth.updateUser({ password })
+// ❌ Promise.race로 타임아웃해도 원래 Promise는 계속 대기 → 상태 미복구
+const result = await Promise.race([supabase.auth.updateUser(...), timeout])
+```
+
+**올바른 방법:**
+```tsx
+// ✅ 중요한 API 호출은 fetch()로 직접 Supabase REST API 호출
+// ✅ AbortController로 실제 요청 취소
+// ✅ finally 블록으로 반드시 상태 복구
+const controller = new AbortController()
+setTimeout(() => controller.abort(), 15000)
+const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+  method: 'PUT',
+  headers: { Authorization: `Bearer ${token}`, apikey: ANON_KEY },
+  body: JSON.stringify({ password }),
+  signal: controller.signal,
+})
+```
+
+### 5. 메신저 봇 링크 prefetch 문제 (심각도: 높음)
+**절대 하지 말 것:**
+```
+❌ Supabase의 /auth/v1/verify?token=xxx URL을 직접 공유
+→ 카카오톡/LINE 등이 미리보기 생성 시 URL을 fetch → 일회용 토큰 소비
+→ 실제 사용자 클릭 시 "만료된 링크" 에러
+```
+
+**올바른 방법:**
+```
+✅ 자체 사이트 URL에 token_hash를 쿼리 파라미터로 전달
+   /accept-invite?token_hash=xxx&type=invite
+✅ 클라이언트에서 supabase.auth.verifyOtp({ token_hash, type }) 호출
+→ 봇은 HTML만 가져가고 JS 실행 안 함 → 토큰 안전
+```
+
+### 6. 관리자 페이지 리다이렉트 (심각도: 중간)
+**절대 하지 말 것:**
+```tsx
+// ❌ /admin에서 /login으로 리다이렉트 → 로그인 후 /admin 경로 소실
+if (!user) return <Navigate to="/login" replace />
+// ❌ /admin에 이메일 로그인 폼 추가 → 기존 UI 변경으로 사용자 혼란
+```
+
+**올바른 방법:**
+```tsx
+// ✅ redirect 파라미터로 복귀 경로 유지
+if (!user) return <Navigate to="/login?redirect=/admin" replace />
+// ✅ Login 페이지에서 redirect 파라미터 처리
+const redirectTo = searchParams.get('redirect') || '/dashboard'
+```
+
+### 7. 로딩 상태 관리 (심각도: 높음)
+**절대 하지 말 것:**
+```tsx
+// ❌ 외부 store의 loading 상태에 의존 → 비동기 실패 시 영구 잠금
+const { loading } = useAuthStore()
+<Button disabled={loading}>  // store가 loading을 리셋 못하면 영구 비활성화
+```
+
+**올바른 방법:**
+```tsx
+// ✅ 컴포넌트 로컬 state + finally 블록으로 항상 복구
+const [submitting, setSubmitting] = useState(false)
+try { ... } finally { setSubmitting(false) }
+// ✅ 안전 타임아웃 추가 (이중 보호)
+const safety = setTimeout(() => setSubmitting(false), 20000)
+```
+
 ## 배포 전 체크리스트
 - [ ] `npm run build` 성공 확인
 - [ ] Supabase RLS 정책에 자기 참조 없는지 확인
 - [ ] Vercel 환경변수 (VITE_* vs non-VITE) 올바르게 설정 확인
 - [ ] 로그인/로그아웃 동작 확인
+- [ ] 비동기 버튼에 로컬 loading state + finally 사용 확인
+- [ ] 외부 URL 공유 시 봇 prefetch 영향 없는지 확인
+- [ ] 페이지 리다이렉트 시 복귀 경로(redirect) 유지 확인
+- [ ] 기존 UI 변경 시 사용자에게 미리 확인 (특히 관리자 페이지)
 
 ## 작업 템플릿
 
