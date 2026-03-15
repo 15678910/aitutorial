@@ -154,12 +154,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           .eq('id', data.user.id)
 
         if (profileError) {
-          results.push({ email, success: true, link: data?.properties?.action_link, error: `Profile update failed: ${profileError.message}` })
-          continue
+          console.warn(`Profile update failed for ${email}:`, profileError.message)
         }
       }
 
-      results.push({ email, success: true, link: data?.properties?.action_link })
+      // action_link에서 token_hash와 type을 추출하여 우리 사이트 URL로 변환
+      // 카카오톡 등 메신저 봇이 Supabase verify URL을 prefetch하여 토큰을 소비하는 문제 방지
+      const actionLink = data?.properties?.action_link
+      let inviteLink = actionLink
+      if (actionLink) {
+        try {
+          const linkUrl = new URL(actionLink)
+          const tokenHash = linkUrl.searchParams.get('token')
+          const linkType = linkUrl.searchParams.get('type')
+          if (tokenHash && linkType) {
+            inviteLink = `${redirectTo}?token_hash=${encodeURIComponent(tokenHash)}&type=${encodeURIComponent(linkType)}`
+          }
+        } catch {
+          // URL 파싱 실패 시 원본 action_link 사용
+        }
+      }
+
+      results.push({ email, success: true, link: inviteLink })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error'
       results.push({ email, success: false, error: message })

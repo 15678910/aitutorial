@@ -30,8 +30,10 @@ export default function AcceptInvite() {
     }
 
     const setupSession = async () => {
+      const params = new URLSearchParams(window.location.search)
+
       // 1. URL hash에서 Supabase 에러 파라미터 확인
-      //    (토큰 만료/이미 사용됨 등의 경우 Supabase가 에러를 hash로 전달)
+      //    (기존 action_link 방식의 토큰 만료/사용됨 에러)
       const hash = window.location.hash.substring(1)
       const hashParams = new URLSearchParams(hash)
       const hashError = hashParams.get('error_description') || hashParams.get('error')
@@ -47,8 +49,37 @@ export default function AcceptInvite() {
         return
       }
 
-      // 2. Check for PKCE code in URL params
-      const params = new URLSearchParams(window.location.search)
+      // 2. token_hash 방식 (봇 prefetch 방지 — 메신저로 공유해도 안전)
+      //    URL: /accept-invite?token_hash=xxx&type=invite
+      const tokenHash = params.get('token_hash')
+      const tokenType = params.get('type') as 'invite' | 'recovery' | 'magiclink' | 'email' | null
+      if (tokenHash && tokenType) {
+        try {
+          const { data, error: verifyError } = await supabase.auth.verifyOtp({
+            token_hash: tokenHash,
+            type: tokenType,
+          })
+          if (data.session) {
+            onSessionReady(data.session.access_token)
+            return
+          }
+          if (verifyError) {
+            const msg = verifyError.message.toLowerCase()
+            if (msg.includes('expired') || msg.includes('otp')) {
+              setError('초대 링크가 만료되었습니다. 관리자에게 새 링크를 요청해 주세요.')
+            } else {
+              setError(`인증 오류: ${verifyError.message}`)
+            }
+            return
+          }
+        } catch (err) {
+          console.warn('verifyOtp failed:', err)
+          setError('초대 링크 처리 중 오류가 발생했습니다.')
+          return
+        }
+      }
+
+      // 3. PKCE code 방식 (기존 호환)
       const code = params.get('code')
       if (code) {
         try {
@@ -62,7 +93,7 @@ export default function AcceptInvite() {
         }
       }
 
-      // 3. Listen for auth state change (handles invite, recovery, hash-based and PKCE flows)
+      // 4. Auth state change listener (hash-based 방식 등 기존 호환)
       const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
         if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'PASSWORD_RECOVERY') && session) {
           onSessionReady(session.access_token)
@@ -70,7 +101,7 @@ export default function AcceptInvite() {
       })
       unsubscribe = () => subscription.unsubscribe()
 
-      // 4. Also check if session already exists
+      // 5. 기존 세션 확인
       const { data: { session } } = await supabase.auth.getSession()
       if (session) {
         onSessionReady(session.access_token)
