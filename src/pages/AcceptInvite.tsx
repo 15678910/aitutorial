@@ -30,9 +30,9 @@ export default function AcceptInvite() {
         }
       }
 
-      // Listen for auth state change (handles both hash-based and PKCE flows)
+      // Listen for auth state change (handles invite, recovery, hash-based and PKCE flows)
       const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-        if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session) {
+        if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'PASSWORD_RECOVERY') && session) {
           setSessionReady(true)
           clearTimeout(timeoutId)
         }
@@ -90,7 +90,11 @@ export default function AcceptInvite() {
     }
 
     try {
-      const result = await updatePassword(password)
+      // 15초 타임아웃 추가
+      const timeoutPromise = new Promise<{ error: string }>((resolve) =>
+        setTimeout(() => resolve({ error: '요청 시간이 초과되었습니다. 다시 시도해 주세요.' }), 15000)
+      )
+      const result = await Promise.race([updatePassword(password), timeoutPromise])
       if (result.error) {
         setError(result.error)
       } else {
