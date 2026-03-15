@@ -90,20 +90,46 @@ export default function AcceptInvite() {
 
     setSubmitting(true)
     try {
-      // 직접 supabase.auth.updateUser 호출 (authStore 우회)
-      const { error: updateError } = await Promise.race([
-        supabase.auth.updateUser({ password }),
-        new Promise<{ error: { message: string } }>((resolve) =>
-          setTimeout(() => resolve({ error: { message: '요청 시간이 초과되었습니다. 다시 시도해 주세요.' } }), 15000)
-        ),
-      ])
-      if (updateError) {
-        setError(updateError.message)
+      // 세션 확인
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) {
+        setError('세션이 만료되었습니다. 초대 링크를 다시 클릭해 주세요.')
+        return
+      }
+
+      // Supabase JS 클라이언트 대신 직접 REST API 호출 (hang 방지)
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 15000)
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/auth/v1/user`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`,
+            'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+          },
+          body: JSON.stringify({ password }),
+          signal: controller.signal,
+        }
+      )
+      clearTimeout(timeoutId)
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        setError(data.message || data.msg || `비밀번호 변경 실패 (${response.status})`)
       } else {
+        // 세션 갱신 후 성공 처리
+        await supabase.auth.refreshSession().catch(() => {})
         setSuccess(true)
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : '비밀번호 변경 중 오류가 발생했습니다')
+      if (err instanceof Error && err.name === 'AbortError') {
+        setError('요청 시간이 초과되었습니다. 다시 시도해 주세요.')
+      } else {
+        setError(err instanceof Error ? err.message : '비밀번호 변경 중 오류가 발생했습니다')
+      }
     } finally {
       setSubmitting(false)
     }
