@@ -23,12 +23,21 @@ export default function SiteSettings() {
   const { settings, initialized, fetchSettings, updateSetting } = useSiteSettingsStore()
   const [saving, setSaving] = useState<string | null>(null)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [showConfirm, setShowConfirm] = useState(false)
 
   useEffect(() => {
     if (!initialized) fetchSettings()
   }, [initialized, fetchSettings])
 
   const handleToggle = async (key: 'maintenance_mode' | 'invite_only', value: boolean) => {
+    if (key === 'maintenance_mode' && value === true) {
+      setShowConfirm(true)
+      return
+    }
+    await doToggle(key, value)
+  }
+
+  const doToggle = async (key: 'maintenance_mode' | 'invite_only', value: boolean) => {
     setSaving(key)
     setMessage(null)
     const result = await updateSetting(key, value)
@@ -41,6 +50,15 @@ export default function SiteSettings() {
     }
   }
 
+  const handleConfirmMaintenance = async () => {
+    setShowConfirm(false)
+    await doToggle('maintenance_mode', true)
+  }
+
+  const handleCancelMaintenance = () => {
+    setShowConfirm(false)
+  }
+
   if (!initialized) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -51,11 +69,55 @@ export default function SiteSettings() {
 
   return (
     <div className="space-y-6">
+      {/* Confirmation Dialog */}
+      {showConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full mx-4">
+            <div className="flex items-start gap-3 mb-4">
+              <span className="text-2xl">⚠️</span>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">유지보수 모드 활성화</h3>
+                <p className="text-gray-600 text-sm">
+                  유지보수 모드를 활성화하면 승인되지 않은 모든 사용자가 사이트에 접근할 수 없습니다.
+                  승인된 사용자와 관리자는 계속 접근 가능합니다. 활성화하시겠습니까?
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={handleCancelMaintenance}
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              >
+                취소
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmMaintenance}
+                className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+              >
+                활성화
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">⚙️ 사이트 설정</h1>
         <p className="text-gray-500 mt-1">사이트 접근 제어 및 운영 모드를 관리합니다.</p>
       </div>
+
+      {/* Maintenance Mode Active Warning Banner */}
+      {settings.maintenance_mode && (
+        <div className="flex items-start gap-3 px-4 py-3 rounded-lg bg-red-50 border border-red-300 text-red-800">
+          <span className="text-lg mt-0.5">⚠️</span>
+          <p className="text-sm font-medium">
+            현재 유지보수 모드가 활성화되어 있습니다. 승인되지 않은 사용자는 사이트에 접근할 수 없습니다.
+          </p>
+        </div>
+      )}
 
       {/* Message */}
       {message && (
@@ -87,9 +149,9 @@ export default function SiteSettings() {
               </span>
             </div>
             <p className="text-gray-500 text-sm ml-11">
-              활성화하면 관리자를 제외한 모든 방문자에게 "준비 중" 페이지가 표시됩니다.
+              활성화하면 승인되지 않은 사용자에게 '준비 중' 페이지가 표시됩니다.
               <br />
-              관리자는 항상 사이트와 관리 대시보드에 접근할 수 있습니다.
+              관리자와 승인된(초대된) 사용자는 항상 접근 가능합니다.
             </p>
           </div>
           <div className="ml-4 pt-1">
