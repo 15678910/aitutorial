@@ -96,7 +96,8 @@ export default function UserManagement() {
   const [showInviteModal, setShowInviteModal] = useState(false)
   const [inviteEmails, setInviteEmails] = useState('')
   const [inviting, setInviting] = useState(false)
-  const [inviteResults, setInviteResults] = useState<{ email: string; success: boolean; error?: string }[] | null>(null)
+  const [inviteResults, setInviteResults] = useState<{ email: string; success: boolean; error?: string; link?: string }[] | null>(null)
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -467,19 +468,45 @@ export default function UserManagement() {
                 </>
               ) : (
                 <>
-                  <div className="space-y-2 max-h-60 overflow-y-auto">
+                  <div className="space-y-3 max-h-80 overflow-y-auto">
                     {inviteResults.map((r, i) => (
-                      <div key={i} className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm ${r.success ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
-                        <span className="truncate">{r.email}</span>
-                        <span className="shrink-0 ml-2">{r.success ? '✅ 초대 완료' : `❌ ${r.error || '실패'}`}</span>
+                      <div key={i} className={`px-3 py-2 rounded-lg text-sm ${r.success ? 'bg-green-50' : 'bg-red-50'}`}>
+                        <div className={`flex items-center justify-between ${r.success ? 'text-green-700' : 'text-red-700'}`}>
+                          <span className="truncate font-medium">{r.email}</span>
+                          <span className="shrink-0 ml-2">{r.success ? '✅ 초대 완료' : `❌ ${r.error || '실패'}`}</span>
+                        </div>
+                        {r.success && r.link && (
+                          <div className="mt-2 flex items-center gap-2">
+                            <input
+                              type="text"
+                              value={r.link}
+                              readOnly
+                              className="flex-1 text-xs bg-white border border-green-200 rounded px-2 py-1.5 text-gray-600 truncate"
+                              onClick={(e) => (e.target as HTMLInputElement).select()}
+                            />
+                            <button
+                              onClick={() => {
+                                navigator.clipboard.writeText(r.link!)
+                                setCopiedIndex(i)
+                                setTimeout(() => setCopiedIndex(null), 2000)
+                              }}
+                              className="shrink-0 px-3 py-1.5 text-xs font-medium bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                            >
+                              {copiedIndex === i ? '복사됨!' : '링크 복사'}
+                            </button>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
+                  <p className="text-xs text-gray-500 mt-3">
+                    💡 초대 링크를 복사하여 카카오톡, 문자 등으로 직접 전달하세요.
+                  </p>
                   <div className="flex justify-end gap-2 mt-4">
-                    <button onClick={() => { setInviteResults(null); setInviteEmails('') }} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                    <button onClick={() => { setInviteResults(null); setInviteEmails(''); setCopiedIndex(null) }} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
                       추가 초대
                     </button>
-                    <button onClick={() => { setShowInviteModal(false); setInviteResults(null); setInviteEmails('') }} className="px-4 py-2 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent/90 transition-colors">
+                    <button onClick={() => { setShowInviteModal(false); setInviteResults(null); setInviteEmails(''); setCopiedIndex(null) }} className="px-4 py-2 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent/90 transition-colors">
                       닫기
                     </button>
                   </div>

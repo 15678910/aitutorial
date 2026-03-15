@@ -117,13 +117,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       : 'https://aitutorial.kr/accept-invite'
 
   // Process each email
-  const results: { email: string; success: boolean; error?: string }[] = []
+  const results: { email: string; success: boolean; error?: string; link?: string }[] = []
 
   for (const email of emails) {
     try {
-      const { data, error } = await supabase.auth.admin.inviteUserByEmail(email, {
-        redirectTo,
-        data: { name: email },
+      // generateLink: 사용자 생성 + 초대 링크 반환 (이메일 발송 없음)
+      // 관리자가 카카오톡/문자 등으로 직접 링크 공유 가능
+      const { data, error } = await supabase.auth.admin.generateLink({
+        type: 'invite',
+        email,
+        options: {
+          redirectTo,
+          data: { name: email },
+        },
       })
 
       if (error) {
@@ -139,13 +145,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           .eq('id', data.user.id)
 
         if (profileError) {
-          // Invite succeeded but profile update failed — still mark as success with a note
-          results.push({ email, success: true, error: `Profile update failed: ${profileError.message}` })
+          results.push({ email, success: true, link: data?.properties?.action_link, error: `Profile update failed: ${profileError.message}` })
           continue
         }
       }
 
-      results.push({ email, success: true })
+      results.push({ email, success: true, link: data?.properties?.action_link })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error'
       results.push({ email, success: false, error: message })
