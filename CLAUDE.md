@@ -102,6 +102,19 @@ if (!user) return <Navigate to="/login?redirect=/admin" replace />
 const redirectTo = searchParams.get('redirect') || '/dashboard'
 ```
 
+### 8. 관리자 로그인 화면 배경색 (심각도: 중간)
+**절대 하지 말 것:**
+```tsx
+// ❌ 어두운 배경색/오버레이 → 화면이 "희미하게" 보임
+<div className="fixed inset-0 bg-[#29264c] z-[9999]">
+```
+
+**올바른 방법:**
+```tsx
+// ✅ 사이트 전체와 일관된 밝은 배경 사용
+<div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+```
+
 ### 7. 로딩 상태 관리 (심각도: 높음)
 **절대 하지 말 것:**
 ```tsx

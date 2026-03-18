@@ -34,8 +34,8 @@ export default function AdminLogin({ onAuthenticated }: AdminLoginProps) {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-[#29264c] z-[9999]" style={{ isolation: 'isolate', pointerEvents: 'auto' }}>
-      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm" style={{ pointerEvents: 'auto' }}>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
         <div className="text-center mb-6">
           <div className="w-14 h-14 bg-accent rounded-xl flex items-center justify-center mx-auto mb-4">
             <span className="text-white font-bold text-xl">AI</span>
