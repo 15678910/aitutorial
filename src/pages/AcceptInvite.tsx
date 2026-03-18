@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { supabase } from '../lib/supabase'
@@ -14,6 +14,10 @@ export default function AcceptInvite() {
   const [success, setSuccess] = useState(false)
   const [sessionReady, setSessionReady] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [resetEmail, setResetEmail] = useState('')
+  const [resetSending, setResetSending] = useState(false)
+  const [resetSent, setResetSent] = useState(false)
+  const [resetError, setResetError] = useState('')
   const navigate = useNavigate()
 
   // 세션 확립 시 access_token을 ref에 저장 (submit 시 Supabase 클라이언트 우회)
@@ -202,6 +206,24 @@ export default function AcceptInvite() {
     }
   }
 
+  const handleResetPassword = async (e: FormEvent) => {
+    e.preventDefault()
+    setResetError('')
+    setResetSending(true)
+    try {
+      const { error: resetErr } = await supabase.auth.resetPasswordForEmail(resetEmail)
+      if (resetErr) {
+        setResetError(resetErr.message)
+      } else {
+        setResetSent(true)
+      }
+    } catch (err) {
+      setResetError(err instanceof Error ? err.message : '오류가 발생했습니다.')
+    } finally {
+      setResetSending(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
@@ -220,12 +242,50 @@ export default function AcceptInvite() {
                 <div className="text-5xl mb-4">⚠️</div>
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">초대 링크 오류</h2>
                 <p className="text-red-600 text-sm mb-4">{error}</p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="text-sm text-blue-600 hover:text-blue-800 underline"
-                >
-                  페이지 새로고침
-                </button>
+                <div className="mt-4 text-left">
+                  <p className="text-sm text-gray-600 mb-3">
+                    이미 초대된 계정이라면 비밀번호를 재설정하여 로그인할 수 있습니다.
+                  </p>
+                  {resetSent ? (
+                    <p className="text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg px-4 py-3">
+                      📧 {resetEmail}으로 비밀번호 재설정 링크를 보냈습니다. 이메일을 확인해 주세요.
+                    </p>
+                  ) : (
+                    <form onSubmit={handleResetPassword} className="space-y-3">
+                      <Input
+                        type="email"
+                        value={resetEmail}
+                        onChange={(e) => setResetEmail(e.target.value)}
+                        placeholder="이메일 주소"
+                        required
+                      />
+                      {resetError && (
+                        <p className="text-red-600 text-sm">{resetError}</p>
+                      )}
+                      <Button
+                        type="submit"
+                        className="w-full"
+                        disabled={resetSending}
+                      >
+                        {resetSending ? '전송 중...' : '비밀번호 재설정 메일 받기'}
+                      </Button>
+                    </form>
+                  )}
+                </div>
+                <div className="mt-4 flex flex-col gap-2 items-center">
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="text-sm text-blue-600 hover:text-blue-800 underline"
+                  >
+                    페이지 새로고침
+                  </button>
+                  <Link
+                    to="/login"
+                    className="text-sm text-blue-600 hover:text-blue-800 underline"
+                  >
+                    로그인 페이지로 이동
+                  </Link>
+                </div>
               </>
             ) : (
               <>
