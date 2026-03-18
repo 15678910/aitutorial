@@ -17,12 +17,25 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light only;
 }
 
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+}
+
+/* Chrome 자동 다크 모드 강제 비활성화 */
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light only;
+  }
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
 }
 
 @keyframes fade-in {
