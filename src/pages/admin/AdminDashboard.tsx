@@ -17,16 +17,16 @@ export default function AdminDashboard() {
     )
   }
 
-  // Not logged in → /login으로 이동 (로그인 후 /admin으로 복귀)
+  // Admin password gate FIRST (관리자 비밀번호 화면이 먼저 나와야 함)
+  if (!adminAuthed) {
+    return <AdminLogin onAuthenticated={() => setAdminAuthed(true)} />
+  }
+
+  // 관리자 비밀번호 통과 후 Supabase 로그인 확인
   if (!user) return <Navigate to="/login?redirect=/admin" replace />
 
   // Not admin role
   if (user.role !== 'admin') return <Navigate to="/" replace />
-
-  // Admin password gate
-  if (!adminAuthed) {
-    return <AdminLogin onAuthenticated={() => setAdminAuthed(true)} />
-  }
 
   // Authenticated admin - render layout with nested routes
   return <AdminLayout />

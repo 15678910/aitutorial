@@ -86,21 +86,23 @@ const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
 → 봇은 HTML만 가져가고 JS 실행 안 함 → 토큰 안전
 ```
 
-### 6. 관리자 페이지 리다이렉트 (심각도: 중간)
+### 6. 관리자 페이지 접속 흐름 (심각도: 높음)
 **절대 하지 말 것:**
 ```tsx
-// ❌ /admin에서 /login으로 리다이렉트 → 로그인 후 /admin 경로 소실
+// ❌ Supabase 로그인 확인을 관리자 비밀번호보다 먼저 하면
+//    /admin → /login 리다이렉트 → 관리자 비밀번호 화면이 안 보임
 if (!user) return <Navigate to="/login" replace />
-// ❌ /admin에 이메일 로그인 폼 추가 → 기존 UI 변경으로 사용자 혼란
+// 이 줄이 adminAuthed 체크보다 위에 있으면 안 됨!
 ```
 
 **올바른 방법:**
 ```tsx
-// ✅ redirect 파라미터로 복귀 경로 유지
+// ✅ 관리자 비밀번호 확인이 반드시 FIRST
+if (!adminAuthed) return <AdminLogin ... />
+// ✅ 관리자 비밀번호 통과 후에 Supabase 로그인 확인
 if (!user) return <Navigate to="/login?redirect=/admin" replace />
-// ✅ Login 페이지에서 redirect 파라미터 처리
-const redirectTo = searchParams.get('redirect') || '/dashboard'
 ```
+**핵심:** `/admin` 접속 시 관리자 비밀번호 입력 화면이 바로 보여야 함
 
 ### 8. 관리자 로그인 화면 배경색 (심각도: 중간)
 **절대 하지 말 것:**
