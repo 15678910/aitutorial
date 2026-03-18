@@ -45,9 +45,9 @@ export default function AcceptInvite() {
         const errorCode = hashParams.get('error_code') || ''
         let message = '초대 링크가 유효하지 않습니다.'
         if (errorCode === 'otp_expired' || hashError.toLowerCase().includes('expired')) {
-          message = '초대 링크가 만료되었습니다. 관리자에게 새 링크를 요청해 주세요.'
+          message = '초대 링크가 만료되었습니다.'
         } else if (hashError.toLowerCase().includes('already')) {
-          message = '이미 사용된 초대 링크입니다. 관리자에게 새 링크를 요청해 주세요.'
+          message = '이미 사용된 초대 링크입니다.'
         }
         setError(message)
         return
@@ -70,7 +70,7 @@ export default function AcceptInvite() {
           if (verifyError) {
             const msg = verifyError.message.toLowerCase()
             if (msg.includes('expired') || msg.includes('otp')) {
-              setError('초대 링크가 만료되었습니다. 관리자에게 새 링크를 요청해 주세요.')
+              setError('초대 링크가 만료되었습니다.')
             } else {
               setError(`인증 오류: ${verifyError.message}`)
             }
@@ -115,7 +115,7 @@ export default function AcceptInvite() {
       timeoutId = setTimeout(() => {
         setSessionReady((ready) => {
           if (!ready) {
-            setError('초대 링크가 유효하지 않거나 만료되었습니다. 관리자에게 새 링크를 요청해 주세요.')
+            setError('초대 링크가 만료되었습니다.')
           }
           return ready
         })
@@ -239,16 +239,13 @@ export default function AcceptInvite() {
           <div className="text-center py-8">
             {error ? (
               <>
-                <div className="text-5xl mb-4">⚠️</div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">초대 링크 오류</h2>
-                <p className="text-red-600 text-sm mb-4">{error}</p>
-                <div className="mt-4 text-left">
-                  <p className="text-sm text-gray-600 mb-3">
-                    이미 초대된 계정이라면 비밀번호를 재설정하여 로그인할 수 있습니다.
-                  </p>
+                <div className="text-5xl mb-4">🔑</div>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">비밀번호를 설정해 주세요</h2>
+                <p className="text-gray-600 text-sm mb-6">초대 링크가 만료되었지만, 아래에서 바로 비밀번호를 설정할 수 있습니다.</p>
+                <div className="mt-2 text-left">
                   {resetSent ? (
                     <p className="text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg px-4 py-3">
-                      📧 {resetEmail}으로 비밀번호 재설정 링크를 보냈습니다. 이메일을 확인해 주세요.
+                      📧 {resetEmail}으로 비밀번호 설정 링크를 보냈습니다. 이메일을 확인해 주세요.
                     </p>
                   ) : (
                     <form onSubmit={handleResetPassword} className="space-y-3">
@@ -256,7 +253,7 @@ export default function AcceptInvite() {
                         type="email"
                         value={resetEmail}
                         onChange={(e) => setResetEmail(e.target.value)}
-                        placeholder="이메일 주소"
+                        placeholder="초대받은 이메일 주소"
                         required
                       />
                       {resetError && (
@@ -267,18 +264,15 @@ export default function AcceptInvite() {
                         className="w-full"
                         disabled={resetSending}
                       >
-                        {resetSending ? '전송 중...' : '비밀번호 재설정 메일 받기'}
+                        {resetSending ? '전송 중...' : '비밀번호 설정 메일 받기'}
                       </Button>
                     </form>
                   )}
                 </div>
-                <div className="mt-4 flex flex-col gap-2 items-center">
-                  <button
-                    onClick={() => window.location.reload()}
-                    className="text-sm text-blue-600 hover:text-blue-800 underline"
-                  >
-                    페이지 새로고침
-                  </button>
+                <p className="mt-4 text-xs text-gray-500">
+                  이미 비밀번호를 설정하셨다면 바로 로그인하실 수 있습니다.
+                </p>
+                <div className="mt-3 flex flex-col gap-2 items-center">
                   <Link
                     to="/login"
                     className="text-sm text-blue-600 hover:text-blue-800 underline"

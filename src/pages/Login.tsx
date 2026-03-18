@@ -42,6 +42,7 @@ export default function Login() {
           </Link>
         </div>
         <p className="mt-4 text-center text-sm text-gray-600">계정이 없으신가요? <Link to="/signup" className="text-accent font-medium hover:underline">회원가입</Link></p>
+        <p className="mt-3 text-center text-xs text-gray-400">초대를 받으셨나요? 비밀번호를 아직 설정하지 않으셨다면 <Link to="/forgot-password" className="text-gray-500 hover:text-accent underline">비밀번호 찾기</Link>를 이용해 주세요.</p>
       </div>
     </div>
   )
