@@ -311,6 +311,66 @@ export const glossary: GlossaryEntry[] = [
     definition: '만든 프로그램을 인터넷에 올려서 모든 사람이 사용할 수 있게 하는 거예요. 완성된 작품을 전시회에 내놓는 것과 비슷해요.',
     category: 'web'
   },
+  {
+    term: 'HTML',
+    aliases: ['에이치티엠엘', 'HyperText Markup Language'],
+    definition: '웹 페이지의 뼈대를 만드는 언어예요. 제목, 문단, 이미지, 버튼 같은 요소를 <태그>로 감싸서 화면에 배치해요. 집을 지을 때 벽돌로 구조를 쌓는 것과 같아요.',
+    category: 'web'
+  },
+  {
+    term: 'CSS',
+    aliases: ['씨에스에스', 'Cascading Style Sheets'],
+    definition: '웹 페이지를 예쁘게 꾸미는 언어예요. 글자 색깔, 크기, 배경색, 위치 등을 정해줘요. HTML이 뼈대라면 CSS는 옷을 입히는 거예요.',
+    category: 'web'
+  },
+  {
+    term: 'TSX',
+    aliases: ['tsx'],
+    definition: 'TypeScript + JSX를 합친 파일 형식이에요. HTML처럼 화면을 만들면서 TypeScript로 안전하게 코딩할 수 있어요. React 프로젝트에서 많이 사용해요.',
+    category: 'web'
+  },
+  {
+    term: 'JSX',
+    aliases: ['jsx'],
+    definition: 'JavaScript 안에서 HTML처럼 화면을 만들 수 있는 문법이에요. 코드 안에 <div>안녕</div> 처럼 적으면 그대로 화면에 나타나요. React에서 사용하는 특별한 문법이에요.',
+    category: 'web'
+  },
+  {
+    term: 'REST',
+    aliases: ['REST API', 'RESTful'],
+    definition: '웹에서 데이터를 주고받는 규칙이에요. 주소(URL)로 요청하면 데이터를 보내주는 방식인데, GET은 가져오기, POST는 보내기, DELETE는 삭제하기 같은 약속이 있어요.',
+    category: 'web'
+  },
+  {
+    term: '엔드포인트',
+    aliases: ['Endpoint', 'endpoint'],
+    definition: 'API에서 특정 기능을 사용할 수 있는 주소예요. 식당의 각 메뉴판처럼, /users는 사용자 정보, /courses는 강좌 정보를 가져오는 주소예요.',
+    category: 'web'
+  },
+  {
+    term: 'Vercel',
+    aliases: ['버셀'],
+    definition: '웹사이트를 인터넷에 쉽게 올려주는 서비스예요. 코드를 GitHub에 올리면 자동으로 웹사이트가 만들어지고 전 세계 어디서든 볼 수 있게 해줘요.',
+    category: 'web'
+  },
+  {
+    term: 'Vite',
+    aliases: ['비트'],
+    definition: '웹 프로젝트를 빠르게 만들고 실행해주는 도구예요. 코드를 수정하면 바로바로 화면에 반영되어서 개발이 편해요.',
+    category: 'web'
+  },
+  {
+    term: 'Tailwind CSS',
+    aliases: ['테일윈드'],
+    definition: 'CSS를 클래스 이름으로 쉽게 쓸 수 있게 해주는 도구예요. "text-red-500"이라고 적으면 글자가 빨간색이 되는 것처럼, 미리 만들어진 스타일을 조합해서 사용해요.',
+    category: 'web'
+  },
+  {
+    term: 'Supabase',
+    aliases: ['수파베이스'],
+    definition: '데이터베이스, 로그인, 파일 저장 등 서버 기능을 쉽게 쓸 수 있게 해주는 서비스예요. 직접 서버를 만들지 않아도 앱의 뒷편 기능을 바로 사용할 수 있어요.',
+    category: 'web'
+  },
 
   // 개발 도구 (tool)
   {
