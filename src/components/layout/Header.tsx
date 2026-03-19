@@ -26,6 +26,7 @@ export default function Header() {
               <Link to="/courses" className="text-gray-600 hover:text-primary font-medium transition-colors">코스</Link>
               <Link to="/roadmap" className="text-gray-600 hover:text-primary font-medium transition-colors">로드맵</Link>
               <Link to="/community" className="text-gray-600 hover:text-primary font-medium transition-colors">커뮤니티</Link>
+              <Link to="/glossary" className="text-gray-600 hover:text-primary font-medium transition-colors">용어사전</Link>
             </nav>
           </div>
           <div className="flex items-center gap-3">

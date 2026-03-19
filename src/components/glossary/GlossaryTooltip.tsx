@@ -15,6 +15,7 @@ const categoryColors = {
   web: 'bg-cyan-100 text-cyan-700 border-cyan-200',
   tool: 'bg-green-100 text-green-700 border-green-200',
   team: 'bg-orange-100 text-orange-700 border-orange-200',
+  ai: 'bg-pink-100 text-pink-700 border-pink-200',
 }
 
 const categoryLabels = {
@@ -23,6 +24,7 @@ const categoryLabels = {
   web: '웹/인터넷',
   tool: '개발 도구',
   team: '협업/실무',
+  ai: 'AI/머신러닝',
 }
 
 export default function GlossaryTooltip({ entry, children }: GlossaryTooltipProps) {

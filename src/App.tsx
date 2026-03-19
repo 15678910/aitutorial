@@ -48,6 +48,7 @@ const StudyGroups = lazy(() => import('./pages/StudyGroups'))
 const Roadmap = lazy(() => import('./pages/Roadmap'))
 const Maintenance = lazy(() => import('./pages/Maintenance'))
 const AcceptInvite = lazy(() => import('./pages/AcceptInvite'))
+const Glossary = lazy(() => import('./pages/Glossary'))
 const SiteSettings = lazy(() => import('./pages/admin/SiteSettings'))
 
 const queryClient = new QueryClient({
@@ -162,6 +163,7 @@ export default function App() {
                     <Route path="/essay/:courseSlug/:chapterId" element={<Essay />} />
                     <Route path="/review/:courseSlug" element={<Review />} />
                     <Route path="/roadmap" element={<Roadmap />} />
+                    <Route path="/glossary" element={<Glossary />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />

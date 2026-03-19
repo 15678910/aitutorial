@@ -2,7 +2,7 @@ export interface GlossaryEntry {
   term: string
   aliases?: string[]
   definition: string
-  category: 'computer' | 'coding' | 'web' | 'tool' | 'team'
+  category: 'computer' | 'coding' | 'web' | 'tool' | 'team' | 'ai'
 }
 
 export const glossary: GlossaryEntry[] = [
@@ -505,6 +505,230 @@ export const glossary: GlossaryEntry[] = [
     aliases: ['Model Context Protocol'],
     definition: 'AI가 외부 도구나 데이터를 사용할 수 있게 해주는 연결 규칙이에요. AI에게 인터넷, 파일, 검색 등을 쓸 수 있는 열쇠를 주는 거예요.',
     category: 'team'
+  },
+
+  // AI/머신러닝 (ai)
+  {
+    term: '인공지능',
+    aliases: ['AI', 'Artificial Intelligence'],
+    definition: '사람처럼 생각하고 배우는 컴퓨터 프로그램이에요. 시리나 알렉사처럼 말을 알아듣거나, 사진에서 고양이를 찾아내는 것도 인공지능이 하는 일이에요.',
+    category: 'ai'
+  },
+  {
+    term: '머신러닝',
+    aliases: ['Machine Learning', 'ML'],
+    definition: '컴퓨터가 직접 경험하면서 배우는 방법이에요. 시험 문제를 많이 풀어보면 실력이 느는 것처럼, 데이터를 많이 보면서 스스로 규칙을 찾아내요.',
+    category: 'ai'
+  },
+  {
+    term: '딥러닝',
+    aliases: ['Deep Learning'],
+    definition: "머신러닝의 한 종류로, 사람 뇌를 흉내 낸 방법이에요. '딥(깊은)'이란 뜻처럼 여러 층을 쌓아서 더 복잡한 것도 배울 수 있어요.",
+    category: 'ai'
+  },
+  {
+    term: '신경망',
+    aliases: ['Neural Network'],
+    definition: '사람 뇌의 신경세포를 따라 만든 AI 구조예요. 뇌세포들이 서로 연결되어 정보를 전달하는 것처럼, 컴퓨터도 비슷하게 연결해서 학습해요.',
+    category: 'ai'
+  },
+  {
+    term: '모델',
+    aliases: ['Model'],
+    definition: 'AI가 학습한 결과물이에요. 열심히 공부한 뒤 머릿속에 남은 지식 같은 거예요. 새로운 문제가 나오면 이 지식으로 답을 맞혀요.',
+    category: 'ai'
+  },
+  {
+    term: '학습',
+    aliases: ['Training'],
+    definition: 'AI에게 데이터를 보여주면서 가르치는 과정이에요. 수학 문제를 반복해서 풀면서 실력이 느는 것처럼, AI도 데이터를 반복해서 보면서 실력이 좋아져요.',
+    category: 'ai'
+  },
+  {
+    term: '훈련 데이터',
+    aliases: ['Training Data'],
+    definition: 'AI를 가르칠 때 사용하는 예시 자료예요. 수학 문제집처럼, AI가 공부하는 데 쓰는 문제와 답 모음이에요.',
+    category: 'ai'
+  },
+  {
+    term: '테스트 데이터',
+    aliases: ['Test Data'],
+    definition: 'AI가 얼마나 잘 배웠는지 확인하는 시험 문제예요. 연습 문제가 아닌 진짜 시험처럼, AI의 실력을 검증하는 데 쓰여요.',
+    category: 'ai'
+  },
+  {
+    term: '예측',
+    aliases: ['Prediction'],
+    definition: 'AI가 배운 것을 바탕으로 답을 추측하는 거예요. 내일 날씨를 예상하는 것처럼, AI도 데이터를 보고 결과를 미리 예상해요.',
+    category: 'ai'
+  },
+  {
+    term: '결정 트리',
+    aliases: ['Decision Tree'],
+    definition: "질문을 하나씩 물어보면서 답을 찾는 방법이에요. '스무고개' 놀이처럼 '이건 동물이야?' '다리가 4개야?' 하고 질문해서 답을 좁혀가요.",
+    category: 'ai'
+  },
+  {
+    term: '가지치기',
+    aliases: ['Pruning'],
+    definition: '결정 트리가 너무 복잡해지지 않게 불필요한 가지를 잘라내는 거예요. 나무를 예쁘게 다듬는 것처럼, AI도 쓸데없는 부분을 정리하면 더 잘 작동해요.',
+    category: 'ai'
+  },
+  {
+    term: '분류',
+    aliases: ['Classification'],
+    definition: '데이터를 종류별로 나누는 거예요. 과일 바구니에서 사과, 배, 귤을 골라 나누는 것처럼, AI도 데이터를 보고 어떤 종류인지 구분해요.',
+    category: 'ai'
+  },
+  {
+    term: '회귀',
+    aliases: ['Regression'],
+    definition: '숫자 값을 예측하는 거예요. 키와 나이로 몸무게를 예상하는 것처럼, 데이터의 패턴을 보고 숫자 결과를 맞혀요.',
+    category: 'ai'
+  },
+  {
+    term: '노드',
+    aliases: ['Node'],
+    definition: '결정 트리에서 질문이나 답이 들어있는 동그라미(점)예요. 스무고개의 각 질문 단계라고 생각하면 돼요.',
+    category: 'ai'
+  },
+  {
+    term: '리프 노드',
+    aliases: ['Leaf Node'],
+    definition: '결정 트리의 맨 끝에 있는 최종 답이에요. 나무의 나뭇잎처럼 더 이상 가지가 뻗지 않는 마지막 지점이에요.',
+    category: 'ai'
+  },
+  {
+    term: '과적합',
+    aliases: ['Overfitting'],
+    definition: 'AI가 연습 문제만 너무 외워서 새로운 문제를 못 푸는 상태예요. 수학 답을 외워서 똑같은 문제만 맞히고 응용 문제는 틀리는 것과 같아요.',
+    category: 'ai'
+  },
+  {
+    term: '과소적합',
+    aliases: ['Underfitting'],
+    definition: 'AI가 공부를 너무 적게 해서 연습 문제도 못 푸는 상태예요. 수업 시간에 졸아서 기본 문제도 틀리는 것과 같아요.',
+    category: 'ai'
+  },
+  {
+    term: '정확도',
+    aliases: ['Accuracy'],
+    definition: 'AI가 전체 문제 중에서 맞힌 비율이에요. 시험에서 100문제 중 90개를 맞히면 정확도 90%인 거예요.',
+    category: 'ai'
+  },
+  {
+    term: '교차 검증',
+    aliases: ['Cross-Validation'],
+    definition: 'AI의 실력을 여러 번 다른 시험으로 확인하는 방법이에요. 한 번 시험으로는 운이 좋았을 수도 있으니, 여러 번 시험 봐서 진짜 실력을 확인해요.',
+    category: 'ai'
+  },
+  {
+    term: '지도 학습',
+    aliases: ['Supervised Learning'],
+    definition: "선생님이 답을 알려주면서 가르치는 방식이에요. '이건 고양이, 이건 강아지' 하고 정답을 알려주면 AI가 그걸 보고 배워요.",
+    category: 'ai'
+  },
+  {
+    term: '비지도 학습',
+    aliases: ['Unsupervised Learning'],
+    definition: '정답 없이 AI가 스스로 규칙을 찾는 방식이에요. 선생님 없이 혼자 퍼즐을 맞추는 것처럼, 비슷한 것끼리 모으면서 패턴을 발견해요.',
+    category: 'ai'
+  },
+  {
+    term: '강화 학습',
+    aliases: ['Reinforcement Learning'],
+    definition: '시행착오로 배우는 방식이에요. 게임에서 이기면 보상을 받고 지면 벌을 받으면서, 점점 더 잘하는 방법을 찾아가요.',
+    category: 'ai'
+  },
+  {
+    term: '경사하강법',
+    aliases: ['Gradient Descent'],
+    definition: 'AI가 정답에 가까워지도록 조금씩 조정하는 방법이에요. 눈을 감고 산에서 내려가는 것처럼, 가장 낮은 곳(정답)을 향해 한 걸음씩 내려가요.',
+    category: 'ai'
+  },
+  {
+    term: '뉴런',
+    aliases: ['Neuron'],
+    definition: '신경망에서 정보를 받아서 처리하는 작은 단위예요. 뇌의 신경세포처럼, 정보를 받으면 계산한 뒤 다음 뉴런에게 전달해요.',
+    category: 'ai'
+  },
+  {
+    term: '가중치',
+    aliases: ['Weight'],
+    definition: 'AI가 각 정보에 부여하는 중요도예요. 시험에서 어떤 과목은 2배로 점수를 매기는 것처럼, 중요한 정보에는 더 높은 가중치를 줘요.',
+    category: 'ai'
+  },
+  {
+    term: '활성화 함수',
+    aliases: ['Activation Function'],
+    definition: "뉴런이 받은 정보를 다음으로 보낼지 결정하는 문지기예요. '이 정보는 중요하니까 통과!' 또는 '이건 별로니까 차단!' 하는 역할이에요.",
+    category: 'ai'
+  },
+  {
+    term: '레이어',
+    aliases: ['Layer', '층'],
+    definition: '신경망에서 뉴런들이 한 줄로 모인 것이에요. 케이크를 층층이 쌓는 것처럼, 레이어가 많을수록 더 복잡한 것을 학습할 수 있어요.',
+    category: 'ai'
+  },
+  {
+    term: '비선형',
+    aliases: ['Non-linear'],
+    definition: '직선이 아닌 구불구불한 관계를 말해요. 키가 크면 몸무게도 정확히 비례하지는 않는 것처럼, 현실의 대부분은 비선형이에요. AI는 이런 복잡한 관계도 배울 수 있어요.',
+    category: 'ai'
+  },
+  {
+    term: '하이퍼파라미터',
+    aliases: ['Hyperparameter'],
+    definition: 'AI를 학습시키기 전에 사람이 미리 정해주는 설정값이에요. 요리할 때 불 세기와 시간을 정하는 것처럼, 학습 속도나 반복 횟수 같은 것을 정해줘요.',
+    category: 'ai'
+  },
+  {
+    term: '에포크',
+    aliases: ['Epoch'],
+    definition: 'AI가 전체 훈련 데이터를 한 바퀴 다 보는 것을 1에포크라고 해요. 문제집을 처음부터 끝까지 한 번 푸는 것과 같아요. 보통 여러 에포크를 반복해요.',
+    category: 'ai'
+  },
+  {
+    term: '배치',
+    aliases: ['Batch'],
+    definition: '데이터를 한꺼번에 다 보지 않고 조금씩 나눠서 학습하는 묶음이에요. 급식에서 한 번에 다 안 주고 한 반씩 나눠서 주는 것과 비슷해요.',
+    category: 'ai'
+  },
+  {
+    term: '특성',
+    aliases: ['Feature'],
+    definition: 'AI가 판단할 때 보는 정보 항목이에요. 과일을 구분할 때 색깔, 크기, 모양을 보는 것처럼, AI도 여러 특성을 보고 판단해요.',
+    category: 'ai'
+  },
+  {
+    term: '레이블',
+    aliases: ['Label'],
+    definition: "데이터에 붙어있는 정답 딱지예요. 사진에 '고양이'라고 적어놓으면, AI는 그 사진이 고양이라는 걸 알고 학습해요.",
+    category: 'ai'
+  },
+  {
+    term: '데이터셋',
+    aliases: ['Dataset'],
+    definition: '학습에 사용하는 데이터 모음이에요. 문제집 한 권처럼, 여러 개의 데이터가 모여서 하나의 데이터셋을 이뤄요.',
+    category: 'ai'
+  },
+  {
+    term: '손실 함수',
+    aliases: ['Loss Function'],
+    definition: 'AI의 예측이 정답과 얼마나 다른지 측정하는 계산법이에요. 시험 채점처럼, 틀린 정도를 숫자로 알려줘서 AI가 더 잘하도록 도와줘요.',
+    category: 'ai'
+  },
+  {
+    term: '랜덤 포레스트',
+    aliases: ['Random Forest'],
+    definition: '결정 트리 여러 개를 합쳐서 더 정확하게 만든 방법이에요. 한 명보다 여러 명이 함께 투표하면 더 좋은 답이 나오는 것처럼, 여러 트리가 함께 결정해요.',
+    category: 'ai'
+  },
+  {
+    term: '탐욕적 알고리즘',
+    aliases: ['Greedy Algorithm'],
+    definition: '매 순간 가장 좋아 보이는 선택을 하는 방법이에요. 뷔페에서 눈앞에 맛있어 보이는 음식부터 담는 것처럼, 지금 당장 최선인 걸 골라요.',
+    category: 'ai'
   }
 ]
 
