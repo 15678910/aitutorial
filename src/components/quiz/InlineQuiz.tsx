@@ -112,7 +112,15 @@ export default function InlineQuiz({ quiz, onAnswer }: InlineQuizProps) {
 
       {submitted && (
         <div className={`mt-4 p-4 rounded-xl text-sm ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`} aria-live="polite">
-          <div className="font-bold mb-1">{isCorrect ? '✅ 정답입니다!' : '❌ 오답입니다'}</div>
+          <div className="flex items-center justify-between">
+            <div className="font-bold mb-1">{isCorrect ? '✅ 정답입니다!' : '❌ 오답입니다'}</div>
+            <button
+              onClick={() => { setSelected(null); setSubmitted(false) }}
+              className="text-xs text-gray-400 hover:text-gray-600 underline transition-colors"
+            >
+              다시 풀기
+            </button>
+          </div>
           <p className="text-gray-700">{quiz.explanation}</p>
         </div>
       )}
