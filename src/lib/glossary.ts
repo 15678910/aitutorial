@@ -729,6 +729,78 @@ export const glossary: GlossaryEntry[] = [
     aliases: ['Greedy Algorithm'],
     definition: '매 순간 가장 좋아 보이는 선택을 하는 방법이에요. 뷔페에서 눈앞에 맛있어 보이는 음식부터 담는 것처럼, 지금 당장 최선인 걸 골라요.',
     category: 'ai'
+  },
+  {
+    term: '퍼셉트론',
+    aliases: ['Perceptron'],
+    definition: '가장 간단한 형태의 인공 신경망이에요. 여러 정보를 받아서 하나의 결과를 내놓는 작은 판단기인데, 사람 뇌의 신경세포 하나를 흉내 낸 거예요.',
+    category: 'ai'
+  },
+  {
+    term: '다층 퍼셉트론',
+    aliases: ['MLP', 'Multi-Layer Perceptron'],
+    definition: '퍼셉트론을 여러 층으로 쌓아 올린 신경망이에요. 한 층만으로는 풀 수 없는 복잡한 문제도, 여러 층이 협력하면 풀 수 있어요.',
+    category: 'ai'
+  },
+  {
+    term: 'XOR 게이트',
+    aliases: ['XOR Gate', 'XOR'],
+    definition: '두 입력이 서로 다를 때만 1을 출력하는 논리 회로예요. "둘 중 하나만 참일 때 참"이라는 규칙인데, 단일 퍼셉트론으로는 풀 수 없는 유명한 문제예요.',
+    category: 'ai'
+  },
+  {
+    term: 'AND 게이트',
+    aliases: ['AND Gate'],
+    definition: '두 입력이 모두 1일 때만 1을 출력하는 논리 회로예요. "둘 다 참이어야 참"이라는 규칙이에요. 두 스위치를 모두 켜야 불이 켜지는 것과 같아요.',
+    category: 'ai'
+  },
+  {
+    term: 'OR 게이트',
+    aliases: ['OR Gate'],
+    definition: '두 입력 중 하나라도 1이면 1을 출력하는 논리 회로예요. "둘 중 하나만 참이어도 참"이라는 규칙이에요.',
+    category: 'ai'
+  },
+  {
+    term: '선형',
+    aliases: ['Linear'],
+    definition: '직선으로 나타낼 수 있는 관계를 말해요. 아이스크림을 1개 사면 1000원, 2개면 2000원처럼 일정한 비율로 변하는 거예요.',
+    category: 'ai'
+  },
+  {
+    term: '입력층',
+    aliases: ['Input Layer'],
+    definition: '신경망에서 맨 처음 데이터를 받아들이는 층이에요. 우리 눈이나 귀처럼, 바깥 정보를 처음 받아들이는 역할을 해요.',
+    category: 'ai'
+  },
+  {
+    term: '은닉층',
+    aliases: ['Hidden Layer', 'Hidden Layers'],
+    definition: '입력층과 출력층 사이에 숨어있는 층이에요. 눈에 보이지 않지만 열심히 계산하면서 패턴을 찾아내는 핵심 부분이에요.',
+    category: 'ai'
+  },
+  {
+    term: '출력층',
+    aliases: ['Output Layer'],
+    definition: '신경망에서 최종 결과를 내놓는 마지막 층이에요. 모든 계산이 끝난 뒤 "정답은 이거야!"라고 알려주는 역할이에요.',
+    category: 'ai'
+  },
+  {
+    term: 'AI 겨울',
+    aliases: ['AI Winter', 'AI 침체기'],
+    definition: 'AI 연구가 잘 안 풀려서 관심과 투자가 줄어든 시기를 말해요. 봄이 오기 전 추운 겨울처럼, AI도 발전이 멈춘 것처럼 보였던 시기가 있었어요.',
+    category: 'ai'
+  },
+  {
+    term: '역전파',
+    aliases: ['Backpropagation', '백프로파게이션'],
+    definition: 'AI가 틀린 답을 고치기 위해 거꾸로 돌아가면서 가중치를 조정하는 방법이에요. 시험에서 틀린 문제를 복습하면서 어디서 실수했는지 찾아가는 것과 같아요.',
+    category: 'ai'
+  },
+  {
+    term: '편향',
+    aliases: ['Bias'],
+    definition: '뉴런에 추가로 더해주는 기본값이에요. 시험에서 기본 점수(가산점)를 주는 것처럼, 결과를 조금씩 조정해서 더 정확하게 만들어줘요.',
+    category: 'ai'
   }
 ]
 
