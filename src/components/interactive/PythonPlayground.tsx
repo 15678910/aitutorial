@@ -110,10 +110,12 @@ sys.stderr = io.StringIO()
 
       setOutput(lines)
 
-      // 정답 판정
+      // 정답 판정 (fuzzy matching: 공백/포맷 차이 허용)
       if (expectedOutput) {
-        const actual = lines.filter(l => !l.startsWith('경고:')).join('\n').trim()
-        setIsCorrect(actual === expectedOutput.trim())
+        const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').replace(/\[\s+/g, '[').replace(/\s+\]/g, ']')
+        const actual = normalize(lines.filter(l => !l.startsWith('경고:')).join('\n'))
+        const expected = normalize(expectedOutput)
+        setIsCorrect(actual === expected)
       }
     } catch (e: any) {
       const errMsg = e.message || String(e)

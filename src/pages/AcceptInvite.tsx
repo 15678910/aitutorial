@@ -77,7 +77,7 @@ export default function AcceptInvite() {
             return
           }
         } catch (err) {
-          console.warn('verifyOtp failed:', err)
+          // verifyOtp failed silently
           setError('초대 링크 처리 중 오류가 발생했습니다.')
           return
         }
@@ -93,7 +93,7 @@ export default function AcceptInvite() {
             return
           }
         } catch (err) {
-          console.warn('exchangeCodeForSession failed:', err)
+          // exchangeCodeForSession failed silently
         }
       }
 

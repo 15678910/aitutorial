@@ -9,6 +9,8 @@ const ALLOWED_ORIGINS = [
 ]
 
 // Rate limiting: max 10 attempts per IP per 5 minutes (higher limit for bulk invites)
+// NOTE: In-memory Map resets on Vercel cold starts. Acceptable for basic protection.
+// For production-grade rate limiting, consider Upstash Redis or Vercel KV.
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
 const RATE_LIMIT = 10
 const RATE_WINDOW = 5 * 60 * 1000  // 5 minutes
