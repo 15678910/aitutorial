@@ -1342,7 +1342,7 @@ class MCP서버:
 
 # 서버 만들기
 서버 = MCP서버()
-서버.도구등록("계산기", lambda x: eval(x))
+서버.도구등록("계산기", lambda x: {"1+1": "2", "2*3": "6", "10 + 20": "30"}.get(x, "계산 불가"))
 서버.도구등록("대문자", lambda x: x.upper())
 서버.도구등록("글자수", lambda x: len(x))
 
@@ -1514,7 +1514,8 @@ def 날씨확인(도시):
     return 날씨DB.get(도시, "정보없음")
 
 def 계산하기(식):
-    return eval(식)
+    계산표 = {"1+1": "2", "10-3": "7", "5*4": "20", "15 * 4": "60"}
+    return 계산표.get(식, "계산 불가")
 
 def 번역하기(단어):
     사전 = {"사과": "apple", "바나나": "banana", "딸기": "strawberry"}
@@ -2477,7 +2478,7 @@ ai.실행()`,
     initialCode: `# SKILL.md 포맷 이해하기 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== SKILL.md 포 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -2793,7 +2794,7 @@ print(AI규칙검사("나쁜말 알려줘"))`,
     initialCode: `# AI 기술 이해하기 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== AI 기술 이해하기 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3046,7 +3047,7 @@ for p in 프로젝트들:
     initialCode: `# AI의 미래와 기회 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== AI의 미래와 기회 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3160,7 +3161,7 @@ print(명령실행("날씨"))`,
     initialCode: `# KPI 대시보드 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== KPI 대시보드 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3203,7 +3204,7 @@ else:
     initialCode: `# 지속적 개선 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 지속적 개선 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3223,7 +3224,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# AI의 철학 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== AI의 철학 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3291,7 +3292,7 @@ print(f"평균: {평균:.1f}점")`,
     initialCode: `# AI와 일자리 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== AI와 일자리 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3674,7 +3675,7 @@ print(명령실행("날씨"))`,
     initialCode: `# 첫 번째 대화 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 첫 번째 대화 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3740,7 +3741,7 @@ print(명령실행("날씨"))`,
     initialCode: `# 새 기능 개발하기 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 새 기능 개발하기 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3808,7 +3809,7 @@ print(명령실행("날씨"))`,
     initialCode: `# 에러 진단하기 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 에러 진단하기 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3900,7 +3901,7 @@ print(명령실행("날씨"))`,
     initialCode: `# 고급 기법과 CLAUDE.md 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 고급 기법과 CLA ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -3940,7 +3941,7 @@ for p in 프로젝트들:
     initialCode: `# 오케스트레이션 패턴 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 오케스트레이션 패턴 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4170,7 +4171,7 @@ def 단계별풀기(문제):
     initialCode: `# AI 시대의 개발 철학 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== AI 시대의 개발  ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4210,7 +4211,7 @@ for p in 프로젝트들:
     initialCode: `# 마스터리 캡스톤: 오픈소스 기여 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 마스터리 캡스톤:  ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4274,7 +4275,7 @@ for p in 프로젝트들:
     initialCode: `# 프론트엔드 개발 패턴 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 프론트엔드 개발 패 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4294,7 +4295,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# 백엔드 API 설계 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 백엔드 API 설계 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4544,7 +4545,7 @@ print(AI규칙검사("나쁜말 알려줘"))`,
     initialCode: `# Constitutional AI vs 다른 접근법 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== Constituti ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4586,7 +4587,7 @@ print(f"평균: {평균:.1f}점")`,
     initialCode: `# 캐릭터 트레이닝 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 캐릭터 트레이닝 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4652,7 +4653,7 @@ def 단계별풀기(문제):
     initialCode: `# AI 의식과 도덕적 지위 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== AI 의식과 도덕적 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4776,7 +4777,7 @@ print(명령실행("날씨"))`,
     initialCode: `# 인터페이스 살펴보기 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 인터페이스 살펴보기 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4841,7 +4842,7 @@ else:
     initialCode: `# MCP란 무엇인가 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== MCP란 무엇인가 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -4861,7 +4862,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# 주요 MCP 커넥터 활용 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 주요 MCP 커넥터 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5024,7 +5025,7 @@ print(명령실행("날씨"))`,
     initialCode: `# AI와 함께하는 미래 업무 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== AI와 함께하는 미 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5094,7 +5095,7 @@ print("과학자:", AI응답("과학자", "설명"))`,
     initialCode: `# 에러 핸들링 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 에러 핸들링 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5193,7 +5194,7 @@ else:
     initialCode: `# 설계 모범 사례 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 설계 모범 사례 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5406,7 +5407,7 @@ def 단계별풀기(문제):
     initialCode: `# API 사용법 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== API 사용법 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5551,7 +5552,7 @@ print(f"평균: {평균:.1f}점")`,
     initialCode: `# AI가 왜 중요한가 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== AI가 왜 중요한가 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5571,7 +5572,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# 언덕 오르기 알고리즘 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 언덕 오르기 알고리 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5661,7 +5662,7 @@ print(f"평균: {평균:.1f}점")`,
     initialCode: `# 최근접 이웃 방법 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 최근접 이웃 방법 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5681,7 +5682,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# 텍스트 다루기 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 텍스트 다루기 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5767,7 +5768,7 @@ print(f"평균: {평균:.1f}점")`,
     initialCode: `# 딥러닝의 기초 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 딥러닝의 기초 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5787,7 +5788,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# 코스 요약 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 코스 요약 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5836,7 +5837,7 @@ for p in 포트폴리오:
     initialCode: `# MCP 아키텍처 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== MCP 아키텍처 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5856,7 +5857,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# MCP 생태계 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== MCP 생태계 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5876,7 +5877,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# Resources 이해하기 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== Resources  ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5896,7 +5897,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# Tools 활용하기 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== Tools 활용하기 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5916,7 +5917,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# Prompts 템플릿 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== Prompts 템플 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -5936,7 +5937,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# 개발 환경 설정 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 개발 환경 설정 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -6003,7 +6004,7 @@ else:
     initialCode: `# 외부 API 통합 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 외부 API 통합 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -6209,7 +6210,7 @@ print("과학자:", AI응답("과학자", "설명"))`,
     initialCode: `# 반복적 개선 프로세스 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 반복적 개선 프로세 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -6229,7 +6230,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# 흔한 실수와 해결법 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== 흔한 실수와 해결법 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -6393,7 +6394,7 @@ for r in 검색("인공지능과 머신러닝"):
     initialCode: `# RAG 구성 요소 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== RAG 구성 요소 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
@@ -6413,7 +6414,7 @@ for 항목, 값 in 점수.items():
     initialCode: `# RAG vs 파인튜닝 실습
 항목들 = ["기초 이해", "개념 적용", "실전 활용"]
 
-print(f"=== {title.slice(0,10)} ===")
+print(f"=== RAG vs 파인튜 ===")
 for i, 항목 in enumerate(항목들, 1):
     print(f"  {i}단계: {항목}")
 
