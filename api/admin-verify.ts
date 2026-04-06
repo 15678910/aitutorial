@@ -8,20 +8,29 @@ const ALLOWED_ORIGINS = [
   'http://localhost:5173',
 ]
 
-// Rate limiting: max 5 attempts per IP per 5 minutes
+// Rate limiting: max 5 FAILED attempts per IP per 15 minutes
+// NOTE: In-memory Map resets on Vercel cold starts. Acceptable for basic brute-force protection.
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
 const RATE_LIMIT = 5
-const RATE_WINDOW = 5 * 60 * 1000  // 5 minutes
+const RATE_WINDOW = 15 * 60 * 1000  // 15 minutes (stricter than invite API)
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now()
   const entry = rateLimitMap.get(ip)
   if (!entry || now > entry.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_WINDOW })
     return false
   }
-  entry.count++
-  return entry.count > RATE_LIMIT
+  return entry.count >= RATE_LIMIT
+}
+
+function recordFailedAttempt(ip: string): void {
+  const now = Date.now()
+  const entry = rateLimitMap.get(ip)
+  if (!entry || now > entry.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_WINDOW })
+  } else {
+    entry.count++
+  }
 }
 
 function generateToken(secret: string): string {
@@ -70,22 +79,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Rate limiting
   const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown'
   if (isRateLimited(ip)) {
-    return res.status(429).json({ success: false, error: 'Too many attempts. Please try again later.' })
+    return res.status(429).json({ success: false, error: '너무 많은 시도입니다. 15분 후 다시 시도해 주세요.' })
   }
 
   const { password } = req.body || {}
 
   if (typeof password !== 'string' || !password) {
-    return res.status(400).json({ success: false, error: 'Password required' })
+    return res.status(400).json({ success: false, error: '비밀번호를 입력해 주세요.' })
   }
 
   const adminSecret = process.env.ADMIN_SECRET
   if (!adminSecret) {
-    return res.status(500).json({ success: false, error: 'Server configuration error' })
+    return res.status(500).json({ success: false, error: '서버 설정 오류' })
   }
 
   if (password !== adminSecret) {
-    return res.status(401).json({ success: false, error: 'Invalid password' })
+    recordFailedAttempt(ip)
+    return res.status(401).json({ success: false, error: '비밀번호가 틀렸습니다.' })
   }
 
   const token = generateToken(adminSecret)
