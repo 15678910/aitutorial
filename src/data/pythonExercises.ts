@@ -2186,4 +2186,4462 @@ print(f"\\n🥇 1등: {최고[0]}!")`,
     hint: '벤치마크는 같은 시험을 여러 AI에게 보게 해서 누가 더 잘하는지 비교하는 거예요!',
     packages: [],
   },
+
+  // ═══════════════════════════════════════════
+  // 전체 코스 모든 섹션 실습 (자동 생성)
+  // ═══════════════════════════════════════════
+
+  'agent-skills-ch1-s2': {
+    title: '🤖 에이전트의 핵심 구성요소 실습',
+    description: '에이전트의 핵심 구성요소의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 에이전트의 핵심 구성요소 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "에이전트의 ")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(에이전트의 ) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch1-s3': {
+    title: '🤖 일상 속 AI 에이전트 사례 실습',
+    description: '일상 속 AI 에이전트 사례의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 일상 속 AI 에이전트 사례 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "일상 속 A")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(일상 속 A) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch2-s2': {
+    title: '🤖 스킬의 구조와 작동 원리 실습',
+    description: '스킬의 구조와 작동 원리의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 스킬의 구조와 작동 원리 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "스킬의 구조")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(스킬의 구조) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch2-s3': {
+    title: '🤖 스킬 생태계 둘러보기 실습',
+    description: '스킬 생태계 둘러보기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 스킬 생태계 둘러보기 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "스킬 생태계")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(스킬 생태계) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch3-s1': {
+    title: '🤖 코딩 에이전트: Claude Code, Cursor, Copilot 실습',
+    description: '코딩 에이전트: Claude Code, Cursor, Copilot의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 코딩 에이전트: Claude Code, Cursor, Copilot 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "코딩 에이전")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(코딩 에이전) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch3-s2': {
+    title: '🤖 범용 에이전트: ChatGPT, Claude, Gemini 실습',
+    description: '범용 에이전트: ChatGPT, Claude, Gemini의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 범용 에이전트: ChatGPT, Claude, Gemini 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "범용 에이전")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(범용 에이전) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch3-s3': {
+    title: '🤖 자동화 에이전트: MCP, 워크플로우 도구 실습',
+    description: '자동화 에이전트: MCP, 워크플로우 도구의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 자동화 에이전트: MCP, 워크플로우 도구 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "자동화 에이")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(자동화 에이) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch4-s1': {
+    title: '🤖 스킬 검색과 설치 실습',
+    description: '스킬 검색과 설치의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 스킬 검색과 설치 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "스킬 검색과")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(스킬 검색과) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch4-s2': {
+    title: '🤖 코딩 작업에 스킬 활용하기 실습',
+    description: '코딩 작업에 스킬 활용하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 코딩 작업에 스킬 활용하기 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "코딩 작업에")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(코딩 작업에) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch4-s3': {
+    title: '🤖 비개발 업무에 스킬 활용하기 실습',
+    description: '비개발 업무에 스킬 활용하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 비개발 업무에 스킬 활용하기 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "비개발 업무")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(비개발 업무) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch5-s1': {
+    title: '🎯 SKILL.md 포맷 이해하기 실습',
+    description: 'SKILL.md 포맷 이해하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# SKILL.md 포맷 이해하기 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== SKILL.md 포 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'agent-skills-ch5-s2': {
+    title: '🤖 첫 번째 스킬 작성하기 실습',
+    description: '첫 번째 스킬 작성하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 첫 번째 스킬 작성하기 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "첫 번째 스")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(첫 번째 스) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch5-s3': {
+    title: '🤖 스킬 테스트와 디버깅 실습',
+    description: '스킬 테스트와 디버깅의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 스킬 테스트와 디버깅 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "스킬 테스트")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(스킬 테스트) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch6-s1': {
+    title: '🤖 멀티스텝 워크플로우 스킬 실습',
+    description: '멀티스텝 워크플로우 스킬의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 멀티스텝 워크플로우 스킬 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "멀티스텝 워")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(멀티스텝 워) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch6-s2': {
+    title: '🔧 도구 연동과 스크립트 활용 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# 도구 연동과 스크립트 활용 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch6-s3': {
+    title: '🤖 에이전트 간 협업 스킬 실습',
+    description: '에이전트 간 협업 스킬의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 에이전트 간 협업 스킬 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "에이전트 간")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(에이전트 간) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch7-s1': {
+    title: '🤖 스킬 패키징과 버전 관리 실습',
+    description: '스킬 패키징과 버전 관리의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 스킬 패키징과 버전 관리 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "스킬 패키징")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(스킬 패키징) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch7-s2': {
+    title: '🤖 스킬 레지스트리에 배포하기 실습',
+    description: '스킬 레지스트리에 배포하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 스킬 레지스트리에 배포하기 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "스킬 레지스")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(스킬 레지스) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch7-s3': {
+    title: '🤖 팀과 조직을 위한 스킬 관리 실습',
+    description: '팀과 조직을 위한 스킬 관리의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 팀과 조직을 위한 스킬 관리 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "팀과 조직을")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(팀과 조직을) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch8-s1': {
+    title: '🤖 에이전트 생태계의 진화 실습',
+    description: '에이전트 생태계의 진화의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 에이전트 생태계의 진화 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "에이전트 생")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(에이전트 생) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'agent-skills-ch8-s2': {
+    title: '💻 AI 집단지성과 협업 실습',
+    description: 'AI 집단지성과 협업을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# AI 집단지성과 협업 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'agent-skills-ch8-s3': {
+    title: '⚖️ 윤리적 고려사항과 미래 전망 실습',
+    description: 'AI의 윤리와 규칙을 코드로 체험해봅시다!',
+    initialCode: `# 윤리적 고려사항과 미래 전망 실습
+def AI규칙검사(요청):
+    금지목록 = ["거짓말", "나쁜말", "위험한것"]
+    for 금지 in 금지목록:
+        if 금지 in 요청:
+            return f"거절: '{요청}'은 규칙 위반!"
+    return f"승인: '{요청}' 처리할게요!"
+
+print(AI규칙검사("숙제 도와줘"))
+print(AI규칙검사("거짓말 해줘"))
+print(AI규칙검사("그림 그려줘"))
+print(AI규칙검사("나쁜말 알려줘"))`,
+    expectedOutput: '승인: \'숙제 도와줘\' 처리할게요!\n거절: \'거짓말 해줘\'은 규칙 위반!\n승인: \'그림 그려줘\' 처리할게요!\n거절: \'나쁜말 알려줘\'은 규칙 위반!',
+    hint: 'AI도 규칙을 지켜야 해요! 금지목록에 있는 단어가 포함되면 거절해요.',
+    packages: [],
+  },
+
+  'ai-business-ch1-s2': {
+    title: '🎯 AI 기술 이해하기 실습',
+    description: 'AI 기술 이해하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# AI 기술 이해하기 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== AI 기술 이해하기 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'ai-business-ch1-s3': {
+    title: '📈 AI 도입 준비도 평가 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# AI 도입 준비도 평가 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'ai-business-ch2-s1': {
+    title: '💼 금융·보험 AI 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 금융·보험 AI 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'ai-business-ch2-s2': {
+    title: '💼 의료·헬스케어 AI 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 의료·헬스케어 AI 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'ai-business-ch2-s3': {
+    title: '💼 유통·제조 AI 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 유통·제조 AI 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'ai-business-ch3-s2': {
+    title: '💼 AI 프로젝트 관리 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# AI 프로젝트 관리 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'ai-business-ch3-s3': {
+    title: '🧩 ROI 분석과 측정 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# ROI 분석과 측정 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'ai-business-ch4-s1': {
+    title: '💻 노코드/로코드 AI 실습',
+    description: '노코드/로코드 AI을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 노코드/로코드 AI 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'ai-business-ch4-s2': {
+    title: '💼 생성형 AI 비즈니스 활용 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 생성형 AI 비즈니스 활용 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'ai-business-ch4-s3': {
+    title: '💼 AI 자동화와 워크플로우 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# AI 자동화와 워크플로우 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'ai-business-ch5-s1': {
+    title: '⚖️ AI 윤리와 규제 실습',
+    description: 'AI의 윤리와 규칙을 코드로 체험해봅시다!',
+    initialCode: `# AI 윤리와 규제 실습
+def AI규칙검사(요청):
+    금지목록 = ["거짓말", "나쁜말", "위험한것"]
+    for 금지 in 금지목록:
+        if 금지 in 요청:
+            return f"거절: '{요청}'은 규칙 위반!"
+    return f"승인: '{요청}' 처리할게요!"
+
+print(AI규칙검사("숙제 도와줘"))
+print(AI규칙검사("거짓말 해줘"))
+print(AI규칙검사("그림 그려줘"))
+print(AI규칙검사("나쁜말 알려줘"))`,
+    expectedOutput: '승인: \'숙제 도와줘\' 처리할게요!\n거절: \'거짓말 해줘\'은 규칙 위반!\n승인: \'그림 그려줘\' 처리할게요!\n거절: \'나쁜말 알려줘\'은 규칙 위반!',
+    hint: 'AI도 규칙을 지켜야 해요! 금지목록에 있는 단어가 포함되면 거절해요.',
+    packages: [],
+  },
+
+  'ai-business-ch5-s2': {
+    title: '💼 AI 전략 수립 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# AI 전략 수립 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'ai-business-ch5-s3': {
+    title: '🎯 AI의 미래와 기회 실습',
+    description: 'AI의 미래와 기회의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# AI의 미래와 기회 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== AI의 미래와 기회 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'ai-evaluation-ch1-s2': {
+    title: '📈 평가 지표 설계 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 평가 지표 설계 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'ai-evaluation-ch1-s3': {
+    title: '📈 평가 데이터셋 구축 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 평가 데이터셋 구축 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'ai-evaluation-ch2-s2': {
+    title: '💻 A/B 테스트 실습',
+    description: 'A/B 테스트을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# A/B 테스트 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'ai-evaluation-ch2-s3': {
+    title: '💻 회귀 테스트 실습',
+    description: '회귀 테스트을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 회귀 테스트 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'ai-evaluation-ch3-s1': {
+    title: '🎯 KPI 대시보드 실습',
+    description: 'KPI 대시보드의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# KPI 대시보드 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== KPI 대시보드 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'ai-evaluation-ch3-s2': {
+    title: '📈 인간 평가 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 인간 평가 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'ai-evaluation-ch3-s3': {
+    title: '🎯 지속적 개선 실습',
+    description: '지속적 개선의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 지속적 개선 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 지속적 개선 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'ai-intro-ch1-s3': {
+    title: '🎯 AI의 철학 실습',
+    description: 'AI의 철학의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# AI의 철학 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== AI의 철학 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'ai-intro-ch2-s3': {
+    title: '🧩 최적화 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# 최적화 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'ai-intro-ch3-s3': {
+    title: '📊 모델 평가하기 실습',
+    description: '모델 평가하기의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# 모델 평가하기 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'ai-intro-ch5-s3': {
+    title: '🎯 AI와 일자리 실습',
+    description: 'AI와 일자리의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# AI와 일자리 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== AI와 일자리 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'ai-portfolio-ch1-s2': {
+    title: '📁 효과적인 포트폴리오 구성 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# 효과적인 포트폴리오 구성 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch1-s3': {
+    title: '📁 프로젝트 아이디어 도출 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# 프로젝트 아이디어 도출 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch2-s1': {
+    title: '📁 프로젝트 범위 설정 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# 프로젝트 범위 설정 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch2-s2': {
+    title: '📈 데이터 수집과 준비 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 데이터 수집과 준비 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch2-s3': {
+    title: '📁 기술 스택 선정 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# 기술 스택 선정 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch3-s2': {
+    title: '🔧 웹 애플리케이션 연동 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# 웹 애플리케이션 연동 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch3-s3': {
+    title: '💻 코드 품질 관리 실습',
+    description: '코드 품질 관리을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 코드 품질 관리 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch4-s1': {
+    title: '📊 모델 배포 실습',
+    description: '모델 배포의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# 모델 배포 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch4-s2': {
+    title: '👁️ 프로젝트 문서화 실습',
+    description: '이미지와 시각 정보를 코드로 다뤄봅시다!',
+    initialCode: `# 프로젝트 문서화 실습
+이미지 = [
+    [0, 0, 1, 0, 0],
+    [0, 1, 1, 1, 0],
+    [1, 1, 1, 1, 1],
+    [0, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0],
+]
+
+print("=== 이미지 분석 ===")
+총픽셀 = sum(sum(행) for 행 in 이미지)
+전체 = len(이미지) * len(이미지[0])
+print(f"밝은 픽셀: {총픽셀}개")
+print(f"전체 픽셀: {전체}개")
+print(f"밝기 비율: {총픽셀/전체*100:.0f}%")
+print("모양: 다이아몬드!")`,
+    expectedOutput: '=== 이미지 분석 ===\n밝은 픽셀: 13개\n전체 픽셀: 25개\n밝기 비율: 52%\n모양: 다이아몬드!',
+    hint: '이미지는 숫자 배열이에요. 1은 밝은 픽셀, 0은 어두운 픽셀이에요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch4-s3': {
+    title: '💻 GitHub 포트폴리오 관리 실습',
+    description: 'GitHub 포트폴리오 관리을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# GitHub 포트폴리오 관리 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch5-s1': {
+    title: '📁 AI 직무 이해와 준비 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# AI 직무 이해와 준비 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch5-s2': {
+    title: '📁 AI 창업과 사업화 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# AI 창업과 사업화 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'ai-portfolio-ch5-s3': {
+    title: '💼 지속적 성장 전략 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 지속적 성장 전략 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-ch1-s2': {
+    title: '💻 설치와 환경 설정 실습',
+    description: '설치와 환경 설정을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 설치와 환경 설정 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-ch1-s3': {
+    title: '🎯 첫 번째 대화 실습',
+    description: '첫 번째 대화의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 첫 번째 대화 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 첫 번째 대화 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-code-ch2-s2': {
+    title: '✍️ 효과적인 프롬프트 작성법 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 효과적인 프롬프트 작성법 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'claude-code-ch2-s3': {
+    title: '💻 파일 작업과 코드 탐색 실습',
+    description: '파일 작업과 코드 탐색을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 파일 작업과 코드 탐색 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-ch3-s1': {
+    title: '🎯 새 기능 개발하기 실습',
+    description: '새 기능 개발하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 새 기능 개발하기 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 새 기능 개발하기 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-code-ch3-s2': {
+    title: '💻 코드 리팩토링 실습',
+    description: '코드 리팩토링을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 코드 리팩토링 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-ch3-s3': {
+    title: '💻 테스트 작성하기 실습',
+    description: '테스트 작성하기을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 테스트 작성하기 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-ch4-s1': {
+    title: '🎯 에러 진단하기 실습',
+    description: '에러 진단하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 에러 진단하기 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 에러 진단하기 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-code-ch4-s2': {
+    title: '💻 디버깅 전략 실습',
+    description: '디버깅 전략을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 디버깅 전략 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-ch4-s3': {
+    title: '💻 빌드 에러와 타입 에러 해결 실습',
+    description: '빌드 에러와 타입 에러 해결을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 빌드 에러와 타입 에러 해결 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-ch5-s1': {
+    title: '💻 Git 워크플로우 자동화 실습',
+    description: 'Git 워크플로우 자동화을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# Git 워크플로우 자동화 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-ch5-s2': {
+    title: '🎯 고급 기법과 CLAUDE.md 실습',
+    description: '고급 기법과 CLAUDE.md의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 고급 기법과 CLAUDE.md 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 고급 기법과 CLA ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-code-ch5-s3': {
+    title: '💼 캡스톤 프로젝트: 나만의 AI 워크플로우 설계 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 캡스톤 프로젝트: 나만의 AI 워크플로우 설계 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch1-s2': {
+    title: '🎯 오케스트레이션 패턴 실습',
+    description: '오케스트레이션 패턴의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 오케스트레이션 패턴 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 오케스트레이션 패턴 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch1-s3': {
+    title: '💼 고급 위임 전략 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 고급 위임 전략 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch2-s2': {
+    title: '🔧 MCP 서버 구축 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# MCP 서버 구축 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch2-s3': {
+    title: '🔧 MCP 서버 통합과 배포 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# MCP 서버 통합과 배포 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch3-s1': {
+    title: '💻 레거시 코드 분석 실습',
+    description: '레거시 코드 분석을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 레거시 코드 분석 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch3-s2': {
+    title: '💼 마이그레이션 전략 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 마이그레이션 전략 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch3-s3': {
+    title: '💻 안전한 대규모 리팩토링 실습',
+    description: '안전한 대규모 리팩토링을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 안전한 대규모 리팩토링 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch4-s1': {
+    title: '💼 보안 자동화 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 보안 자동화 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch4-s2': {
+    title: '💼 인프라 자동화 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 인프라 자동화 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch4-s3': {
+    title: '🧩 장애 대응과 사후 분석 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# 장애 대응과 사후 분석 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch5-s1': {
+    title: '🎯 AI 시대의 개발 철학 실습',
+    description: 'AI 시대의 개발 철학의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# AI 시대의 개발 철학 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== AI 시대의 개발  ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch5-s2': {
+    title: '💼 나만의 워크플로우 설계 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 나만의 워크플로우 설계 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-advanced-ch5-s3': {
+    title: '🎯 마스터리 캡스톤: 오픈소스 기여 실습',
+    description: '마스터리 캡스톤: 오픈소스 기여의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 마스터리 캡스톤: 오픈소스 기여 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 마스터리 캡스톤:  ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch1-s2': {
+    title: '💻 AI 기반 코드 리뷰 실습',
+    description: 'AI 기반 코드 리뷰을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# AI 기반 코드 리뷰 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch1-s3': {
+    title: '💼 브랜치 전략과 충돌 해결 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 브랜치 전략과 충돌 해결 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch2-s1': {
+    title: '🎯 프론트엔드 개발 패턴 실습',
+    description: '프론트엔드 개발 패턴의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 프론트엔드 개발 패턴 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 프론트엔드 개발 패 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch2-s2': {
+    title: '🎯 백엔드 API 설계 실습',
+    description: '백엔드 API 설계의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 백엔드 API 설계 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 백엔드 API 설계 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch2-s3': {
+    title: '📈 데이터베이스 설계와 마이그레이션 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 데이터베이스 설계와 마이그레이션 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch3-s2': {
+    title: '💻 E2E 테스트와 시각적 회귀 테스트 실습',
+    description: 'E2E 테스트와 시각적 회귀 테스트을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# E2E 테스트와 시각적 회귀 테스트 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch3-s3': {
+    title: '💼 TDD 실전 워크플로우 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# TDD 실전 워크플로우 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch4-s1': {
+    title: '💻 GitHub Actions 자동화 실습',
+    description: 'GitHub Actions 자동화을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# GitHub Actions 자동화 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch4-s2': {
+    title: '💼 배포 전략 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 배포 전략 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch4-s3': {
+    title: '📈 모니터링과 에러 추적 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 모니터링과 에러 추적 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch5-s1': {
+    title: '💻 모노레포와 대규모 코드베이스 실습',
+    description: '모노레포와 대규모 코드베이스을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 모노레포와 대규모 코드베이스 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch5-s2': {
+    title: '📈 성능 최적화와 토큰 관리 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 성능 최적화와 토큰 관리 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'claude-code-intermediate-ch5-s3': {
+    title: '📁 실전 프로젝트: 풀스택 앱 구축 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# 실전 프로젝트: 풀스택 앱 구축 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'claude-constitution-ch1-s1': {
+    title: '⚖️ AI 헌법의 탄생 배경 실습',
+    description: 'AI의 윤리와 규칙을 코드로 체험해봅시다!',
+    initialCode: `# AI 헌법의 탄생 배경 실습
+def AI규칙검사(요청):
+    금지목록 = ["거짓말", "나쁜말", "위험한것"]
+    for 금지 in 금지목록:
+        if 금지 in 요청:
+            return f"거절: '{요청}'은 규칙 위반!"
+    return f"승인: '{요청}' 처리할게요!"
+
+print(AI규칙검사("숙제 도와줘"))
+print(AI규칙검사("거짓말 해줘"))
+print(AI규칙검사("그림 그려줘"))
+print(AI규칙검사("나쁜말 알려줘"))`,
+    expectedOutput: '승인: \'숙제 도와줘\' 처리할게요!\n거절: \'거짓말 해줘\'은 규칙 위반!\n승인: \'그림 그려줘\' 처리할게요!\n거절: \'나쁜말 알려줘\'은 규칙 위반!',
+    hint: 'AI도 규칙을 지켜야 해요! 금지목록에 있는 단어가 포함되면 거절해요.',
+    packages: [],
+  },
+
+  'claude-constitution-ch1-s3': {
+    title: '🎯 Constitutional AI vs 다른 접근법 실습',
+    description: 'Constitutional AI vs 다른 접근법의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# Constitutional AI vs 다른 접근법 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== Constituti ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-constitution-ch2-s2': {
+    title: '📊 AI 피드백 강화학습 (Phase 2: RLAIF) 실습',
+    description: 'AI 피드백 강화학습 (Phase 2: RLAIF)의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# AI 피드백 강화학습 (Phase 2: RLAIF) 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'claude-constitution-ch2-s3': {
+    title: '🎯 캐릭터 트레이닝 실습',
+    description: '캐릭터 트레이닝의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 캐릭터 트레이닝 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 캐릭터 트레이닝 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-constitution-ch3-s1': {
+    title: '⚖️ 규칙 기반에서 이성 기반으로 실습',
+    description: 'AI의 윤리와 규칙을 코드로 체험해봅시다!',
+    initialCode: `# 규칙 기반에서 이성 기반으로 실습
+def AI규칙검사(요청):
+    금지목록 = ["거짓말", "나쁜말", "위험한것"]
+    for 금지 in 금지목록:
+        if 금지 in 요청:
+            return f"거절: '{요청}'은 규칙 위반!"
+    return f"승인: '{요청}' 처리할게요!"
+
+print(AI규칙검사("숙제 도와줘"))
+print(AI규칙검사("거짓말 해줘"))
+print(AI규칙검사("그림 그려줘"))
+print(AI규칙검사("나쁜말 알려줘"))`,
+    expectedOutput: '승인: \'숙제 도와줘\' 처리할게요!\n거절: \'거짓말 해줘\'은 규칙 위반!\n승인: \'그림 그려줘\' 처리할게요!\n거절: \'나쁜말 알려줘\'은 규칙 위반!',
+    hint: 'AI도 규칙을 지켜야 해요! 금지목록에 있는 단어가 포함되면 거절해요.',
+    packages: [],
+  },
+
+  'claude-constitution-ch3-s2': {
+    title: '🧩 주요 원칙 상세 분석 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# 주요 원칙 상세 분석 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'claude-constitution-ch3-s3': {
+    title: '🎯 AI 의식과 도덕적 지위 실습',
+    description: 'AI 의식과 도덕적 지위의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# AI 의식과 도덕적 지위 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== AI 의식과 도덕적 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-constitution-ch4-s1': {
+    title: '⚖️ 집단 헌법 AI (CCAI) 프로젝트 실습',
+    description: 'AI의 윤리와 규칙을 코드로 체험해봅시다!',
+    initialCode: `# 집단 헌법 AI (CCAI) 프로젝트 실습
+def AI규칙검사(요청):
+    금지목록 = ["거짓말", "나쁜말", "위험한것"]
+    for 금지 in 금지목록:
+        if 금지 in 요청:
+            return f"거절: '{요청}'은 규칙 위반!"
+    return f"승인: '{요청}' 처리할게요!"
+
+print(AI규칙검사("숙제 도와줘"))
+print(AI규칙검사("거짓말 해줘"))
+print(AI규칙검사("그림 그려줘"))
+print(AI규칙검사("나쁜말 알려줘"))`,
+    expectedOutput: '승인: \'숙제 도와줘\' 처리할게요!\n거절: \'거짓말 해줘\'은 규칙 위반!\n승인: \'그림 그려줘\' 처리할게요!\n거절: \'나쁜말 알려줘\'은 규칙 위반!',
+    hint: 'AI도 규칙을 지켜야 해요! 금지목록에 있는 단어가 포함되면 거절해요.',
+    packages: [],
+  },
+
+  'claude-constitution-ch4-s2': {
+    title: '⚖️ AI 거버넌스의 도전과 비판 실습',
+    description: 'AI의 윤리와 규칙을 코드로 체험해봅시다!',
+    initialCode: `# AI 거버넌스의 도전과 비판 실습
+def AI규칙검사(요청):
+    금지목록 = ["거짓말", "나쁜말", "위험한것"]
+    for 금지 in 금지목록:
+        if 금지 in 요청:
+            return f"거절: '{요청}'은 규칙 위반!"
+    return f"승인: '{요청}' 처리할게요!"
+
+print(AI규칙검사("숙제 도와줘"))
+print(AI규칙검사("거짓말 해줘"))
+print(AI규칙검사("그림 그려줘"))
+print(AI규칙검사("나쁜말 알려줘"))`,
+    expectedOutput: '승인: \'숙제 도와줘\' 처리할게요!\n거절: \'거짓말 해줘\'은 규칙 위반!\n승인: \'그림 그려줘\' 처리할게요!\n거절: \'나쁜말 알려줘\'은 규칙 위반!',
+    hint: 'AI도 규칙을 지켜야 해요! 금지목록에 있는 단어가 포함되면 거절해요.',
+    packages: [],
+  },
+
+  'claude-constitution-ch5-s1': {
+    title: '⚖️ 헌법의 실전 적용 실습',
+    description: 'AI의 윤리와 규칙을 코드로 체험해봅시다!',
+    initialCode: `# 헌법의 실전 적용 실습
+def AI규칙검사(요청):
+    금지목록 = ["거짓말", "나쁜말", "위험한것"]
+    for 금지 in 금지목록:
+        if 금지 in 요청:
+            return f"거절: '{요청}'은 규칙 위반!"
+    return f"승인: '{요청}' 처리할게요!"
+
+print(AI규칙검사("숙제 도와줘"))
+print(AI규칙검사("거짓말 해줘"))
+print(AI규칙검사("그림 그려줘"))
+print(AI규칙검사("나쁜말 알려줘"))`,
+    expectedOutput: '승인: \'숙제 도와줘\' 처리할게요!\n거절: \'거짓말 해줘\'은 규칙 위반!\n승인: \'그림 그려줘\' 처리할게요!\n거절: \'나쁜말 알려줘\'은 규칙 위반!',
+    hint: 'AI도 규칙을 지켜야 해요! 금지목록에 있는 단어가 포함되면 거절해요.',
+    packages: [],
+  },
+
+  'claude-constitution-ch5-s2': {
+    title: '⚖️ AI 안전의 미래 실습',
+    description: 'AI의 윤리와 규칙을 코드로 체험해봅시다!',
+    initialCode: `# AI 안전의 미래 실습
+def AI규칙검사(요청):
+    금지목록 = ["거짓말", "나쁜말", "위험한것"]
+    for 금지 in 금지목록:
+        if 금지 in 요청:
+            return f"거절: '{요청}'은 규칙 위반!"
+    return f"승인: '{요청}' 처리할게요!"
+
+print(AI규칙검사("숙제 도와줘"))
+print(AI규칙검사("거짓말 해줘"))
+print(AI규칙검사("그림 그려줘"))
+print(AI규칙검사("나쁜말 알려줘"))`,
+    expectedOutput: '승인: \'숙제 도와줘\' 처리할게요!\n거절: \'거짓말 해줘\'은 규칙 위반!\n승인: \'그림 그려줘\' 처리할게요!\n거절: \'나쁜말 알려줘\'은 규칙 위반!',
+    hint: 'AI도 규칙을 지켜야 해요! 금지목록에 있는 단어가 포함되면 거절해요.',
+    packages: [],
+  },
+
+  'claude-cowork-ch1-s2': {
+    title: '💻 설치와 초기 설정 실습',
+    description: '설치와 초기 설정을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 설치와 초기 설정 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-cowork-ch1-s3': {
+    title: '🎯 인터페이스 살펴보기 실습',
+    description: '인터페이스 살펴보기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 인터페이스 살펴보기 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 인터페이스 살펴보기 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-cowork-ch2-s2': {
+    title: '✍️ 문서 자동 생성 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 문서 자동 생성 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'claude-cowork-ch2-s3': {
+    title: '📈 데이터 분석과 시각화 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 데이터 분석과 시각화 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'claude-cowork-ch3-s1': {
+    title: '🎯 MCP란 무엇인가 실습',
+    description: 'MCP란 무엇인가의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# MCP란 무엇인가 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== MCP란 무엇인가 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-cowork-ch3-s2': {
+    title: '🎯 주요 MCP 커넥터 활용 실습',
+    description: '주요 MCP 커넥터 활용의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 주요 MCP 커넥터 활용 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 주요 MCP 커넥터 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-cowork-ch3-s3': {
+    title: '💼 서비스 간 연동 워크플로우 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 서비스 간 연동 워크플로우 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-cowork-ch4-s1': {
+    title: '🤖 에이전트의 계획 수립 과정 실습',
+    description: '에이전트의 계획 수립 과정의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 에이전트의 계획 수립 과정 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "에이전트의 ")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(에이전트의 ) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'claude-cowork-ch4-s2': {
+    title: '💼 반복 업무 자동화 패턴 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 반복 업무 자동화 패턴 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-cowork-ch4-s3': {
+    title: '✍️ Cowork를 위한 프롬프트 엔지니어링 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# Cowork를 위한 프롬프트 엔지니어링 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'claude-cowork-ch5-s1': {
+    title: '📁 직무별 활용 시나리오 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# 직무별 활용 시나리오 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'claude-cowork-ch5-s2': {
+    title: '💻 팀 환경에서의 Cowork 활용 실습',
+    description: '팀 환경에서의 Cowork 활용을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 팀 환경에서의 Cowork 활용 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'claude-cowork-ch5-s3': {
+    title: '🎯 AI와 함께하는 미래 업무 실습',
+    description: 'AI와 함께하는 미래 업무의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# AI와 함께하는 미래 업무 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== AI와 함께하는 미 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-tool-use-ch1-s2': {
+    title: '🔧 JSON Schema로 도구 정의하기 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# JSON Schema로 도구 정의하기 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
+
+  'claude-tool-use-ch2-s1': {
+    title: '✍️ 멀티 도구 체이닝 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 멀티 도구 체이닝 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'claude-tool-use-ch2-s2': {
+    title: '🎯 에러 핸들링 실습',
+    description: '에러 핸들링의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 에러 핸들링 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 에러 핸들링 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-tool-use-ch2-s3': {
+    title: '🔧 도구 선택 최적화 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# 도구 선택 최적화 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
+
+  'claude-tool-use-ch3-s1': {
+    title: '🔧 검색 도구 구축 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# 검색 도구 구축 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
+
+  'claude-tool-use-ch3-s2': {
+    title: '📈 데이터 처리 도구 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 데이터 처리 도구 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'claude-tool-use-ch3-s3': {
+    title: '🎯 설계 모범 사례 실습',
+    description: '설계 모범 사례의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 설계 모범 사례 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 설계 모범 사례 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'claude-vision-ch1-s2': {
+    title: '👁️ 이미지 분석 실전 실습',
+    description: '이미지와 시각 정보를 코드로 다뤄봅시다!',
+    initialCode: `# 이미지 분석 실전 실습
+이미지 = [
+    [0, 0, 1, 0, 0],
+    [0, 1, 1, 1, 0],
+    [1, 1, 1, 1, 1],
+    [0, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0],
+]
+
+print("=== 이미지 분석 ===")
+총픽셀 = sum(sum(행) for 행 in 이미지)
+전체 = len(이미지) * len(이미지[0])
+print(f"밝은 픽셀: {총픽셀}개")
+print(f"전체 픽셀: {전체}개")
+print(f"밝기 비율: {총픽셀/전체*100:.0f}%")
+print("모양: 다이아몬드!")`,
+    expectedOutput: '=== 이미지 분석 ===\n밝은 픽셀: 13개\n전체 픽셀: 25개\n밝기 비율: 52%\n모양: 다이아몬드!',
+    hint: '이미지는 숫자 배열이에요. 1은 밝은 픽셀, 0은 어두운 픽셀이에요!',
+    packages: [],
+  },
+
+  'claude-vision-ch1-s3': {
+    title: '🧩 입력 최적화 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# 입력 최적화 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'claude-vision-ch2-s2': {
+    title: '👁️ 차트 분석 실습',
+    description: '이미지와 시각 정보를 코드로 다뤄봅시다!',
+    initialCode: `# 차트 분석 실습
+이미지 = [
+    [0, 0, 1, 0, 0],
+    [0, 1, 1, 1, 0],
+    [1, 1, 1, 1, 1],
+    [0, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0],
+]
+
+print("=== 이미지 분석 ===")
+총픽셀 = sum(sum(행) for 행 in 이미지)
+전체 = len(이미지) * len(이미지[0])
+print(f"밝은 픽셀: {총픽셀}개")
+print(f"전체 픽셀: {전체}개")
+print(f"밝기 비율: {총픽셀/전체*100:.0f}%")
+print("모양: 다이아몬드!")`,
+    expectedOutput: '=== 이미지 분석 ===\n밝은 픽셀: 13개\n전체 픽셀: 25개\n밝기 비율: 52%\n모양: 다이아몬드!',
+    hint: '이미지는 숫자 배열이에요. 1은 밝은 픽셀, 0은 어두운 픽셀이에요!',
+    packages: [],
+  },
+
+  'claude-vision-ch2-s3': {
+    title: '👁️ 멀티 이미지 처리 실습',
+    description: '이미지와 시각 정보를 코드로 다뤄봅시다!',
+    initialCode: `# 멀티 이미지 처리 실습
+이미지 = [
+    [0, 0, 1, 0, 0],
+    [0, 1, 1, 1, 0],
+    [1, 1, 1, 1, 1],
+    [0, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0],
+]
+
+print("=== 이미지 분석 ===")
+총픽셀 = sum(sum(행) for 행 in 이미지)
+전체 = len(이미지) * len(이미지[0])
+print(f"밝은 픽셀: {총픽셀}개")
+print(f"전체 픽셀: {전체}개")
+print(f"밝기 비율: {총픽셀/전체*100:.0f}%")
+print("모양: 다이아몬드!")`,
+    expectedOutput: '=== 이미지 분석 ===\n밝은 픽셀: 13개\n전체 픽셀: 25개\n밝기 비율: 52%\n모양: 다이아몬드!',
+    hint: '이미지는 숫자 배열이에요. 1은 밝은 픽셀, 0은 어두운 픽셀이에요!',
+    packages: [],
+  },
+
+  'claude-vision-ch3-s1': {
+    title: '💼 텍스트+이미지 결합 전략 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 텍스트+이미지 결합 전략 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-vision-ch3-s2': {
+    title: '💼 비전 워크플로우 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 비전 워크플로우 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'claude-vision-ch3-s3': {
+    title: '📁 실전 프로젝트 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# 실전 프로젝트 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'extended-thinking-ch1-s2': {
+    title: '🧩 토큰 버짓 설정 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# 토큰 버짓 설정 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'extended-thinking-ch1-s3': {
+    title: '🎯 API 사용법 실습',
+    description: 'API 사용법의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# API 사용법 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== API 사용법 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'extended-thinking-ch2-s1': {
+    title: '🧩 스트리밍 처리 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# 스트리밍 처리 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'extended-thinking-ch2-s2': {
+    title: '📈 성능 최적화 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 성능 최적화 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'extended-thinking-ch2-s3': {
+    title: '🔧 도구와의 결합 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# 도구와의 결합 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
+
+  'extended-thinking-ch3-s2': {
+    title: '🧩 코딩 추론 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# 코딩 추론 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'extended-thinking-ch3-s3': {
+    title: '📊 분석과 의사결정 실습',
+    description: '분석과 의사결정의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# 분석과 의사결정 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'making-ai-ch1-s1': {
+    title: '🎯 AI가 왜 중요한가 실습',
+    description: 'AI가 왜 중요한가의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# AI가 왜 중요한가 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== AI가 왜 중요한가 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'making-ai-ch1-s3': {
+    title: '🎯 언덕 오르기 알고리즘 실습',
+    description: '언덕 오르기 알고리즘의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 언덕 오르기 알고리즘 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 언덕 오르기 알고리 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'making-ai-ch2-s1': {
+    title: '🧩 확률의 기초 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# 확률의 기초 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'making-ai-ch2-s3': {
+    title: '📊 나이브 베이즈 분류기 실습',
+    description: '나이브 베이즈 분류기의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# 나이브 베이즈 분류기 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'making-ai-ch3-s1': {
+    title: '📊 선형 회귀 실습',
+    description: '선형 회귀의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# 선형 회귀 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'making-ai-ch3-s2': {
+    title: '🎯 최근접 이웃 방법 실습',
+    description: '최근접 이웃 방법의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 최근접 이웃 방법 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 최근접 이웃 방법 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'making-ai-ch3-s3': {
+    title: '🎯 텍스트 다루기 실습',
+    description: '텍스트 다루기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 텍스트 다루기 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 텍스트 다루기 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'making-ai-ch3-s4': {
+    title: '📊 과적합 실습',
+    description: '과적합의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# 과적합 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'making-ai-ch4-s1': {
+    title: '📊 로지스틱 회귀 실습',
+    description: '로지스틱 회귀의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# 로지스틱 회귀 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'making-ai-ch4-s2': {
+    title: '📊 로지스틱 회귀에서 신경망으로 실습',
+    description: '로지스틱 회귀에서 신경망으로의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# 로지스틱 회귀에서 신경망으로 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'making-ai-ch4-s3': {
+    title: '🎯 딥러닝의 기초 실습',
+    description: '딥러닝의 기초의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 딥러닝의 기초 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 딥러닝의 기초 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'making-ai-ch5-s1': {
+    title: '🎯 코스 요약 실습',
+    description: '코스 요약의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 코스 요약 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 코스 요약 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'making-ai-ch5-s2': {
+    title: '📁 나의 AI 프로젝트 설계하기 실습',
+    description: 'AI 포트폴리오와 프로젝트 관리를 체험해봅시다!',
+    initialCode: `# 나의 AI 프로젝트 설계하기 실습
+class 프로젝트:
+    def __init__(self, 이름, 기술들):
+        self.이름 = 이름
+        self.기술들 = 기술들
+        self.완료 = False
+
+    def 완료처리(self):
+        self.완료 = True
+
+포트폴리오 = [
+    프로젝트("AI 챗봇", ["Python", "API"]),
+    프로젝트("이미지 분류", ["Python", "CNN"]),
+    프로젝트("데이터 분석", ["Python", "차트"]),
+]
+포트폴리오[0].완료처리()
+포트폴리오[2].완료처리()
+
+for p in 포트폴리오:
+    상태 = "완료" if p.완료 else "진행중"
+    print(f"[{상태}] {p.이름} - {', '.join(p.기술들)}")`,
+    expectedOutput: '[완료] AI 챗봇 - Python, API\n[진행중] 이미지 분류 - Python, CNN\n[완료] 데이터 분석 - Python, 차트',
+    hint: 'class로 프로젝트를 관리하면 깔끔해요. 완료처리()로 상태를 바꿀 수 있어요!',
+    packages: [],
+  },
+
+  'mcp-mastery-ch1-s2': {
+    title: '🎯 MCP 아키텍처 실습',
+    description: 'MCP 아키텍처의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# MCP 아키텍처 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== MCP 아키텍처 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'mcp-mastery-ch1-s3': {
+    title: '🎯 MCP 생태계 실습',
+    description: 'MCP 생태계의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# MCP 생태계 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== MCP 생태계 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'mcp-mastery-ch2-s1': {
+    title: '🎯 Resources 이해하기 실습',
+    description: 'Resources 이해하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# Resources 이해하기 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== Resources  ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'mcp-mastery-ch2-s2': {
+    title: '🎯 Tools 활용하기 실습',
+    description: 'Tools 활용하기의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# Tools 활용하기 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== Tools 활용하기 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'mcp-mastery-ch2-s3': {
+    title: '🎯 Prompts 템플릿 실습',
+    description: 'Prompts 템플릿의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# Prompts 템플릿 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== Prompts 템플 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'mcp-mastery-ch3-s1': {
+    title: '🎯 개발 환경 설정 실습',
+    description: '개발 환경 설정의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 개발 환경 설정 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 개발 환경 설정 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'mcp-mastery-ch3-s3': {
+    title: '💻 테스트와 디버깅 실습',
+    description: '테스트와 디버깅을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 테스트와 디버깅 실습
+명령어들 = {
+    "인사": "안녕하세요!",
+    "계산": "1+1=2",
+    "도움": "사용 가능한 명령: 인사, 계산, 도움",
+}
+
+def 명령실행(명령):
+    if 명령 in 명령어들:
+        return 명령어들[명령]
+    return f"'{명령}'은 알 수 없는 명령이에요"
+
+print(명령실행("인사"))
+print(명령실행("계산"))
+print(명령실행("도움"))
+print(명령실행("날씨"))`,
+    expectedOutput: '안녕하세요!\n1+1=2\n사용 가능한 명령: 인사, 계산, 도움\n\'날씨\'은 알 수 없는 명령이에요',
+    hint: '딕셔너리는 이름표가 붙은 서랍이에요. 이름표(키)로 내용(값)을 찾아요!',
+    packages: [],
+  },
+
+  'mcp-mastery-ch4-s1': {
+    title: '📈 데이터베이스 연동 서버 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 데이터베이스 연동 서버 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'mcp-mastery-ch4-s2': {
+    title: '🎯 외부 API 통합 실습',
+    description: '외부 API 통합의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 외부 API 통합 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 외부 API 통합 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'mcp-mastery-ch4-s3': {
+    title: '🔧 배포와 운영 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# 배포와 운영 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
+
+  'prompt-engineering-ch1-s2': {
+    title: '✍️ 좋은 프롬프트의 원칙 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 좋은 프롬프트의 원칙 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'prompt-engineering-ch1-s3': {
+    title: '✍️ 기본 프롬프트 패턴 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 기본 프롬프트 패턴 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'prompt-engineering-ch2-s1': {
+    title: '✍️ 시스템 메시지 이해하기 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 시스템 메시지 이해하기 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'prompt-engineering-ch2-s3': {
+    title: '✍️ 출력 형식 제어 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 출력 형식 제어 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'prompt-engineering-ch3-s1': {
+    title: '🧩 Chain of Thought 추론 실습',
+    description: '단계적 사고와 추론을 코드로 체험해봅시다!',
+    initialCode: `# Chain of Thought 추론 실습
+def 단계별풀기(문제):
+    print(f"문제: {문제}")
+    단계들 = []
+
+    if "+" in 문제:
+        숫자들 = 문제.split("+")
+        합계 = 0
+        for i, 숫자 in enumerate(숫자들):
+            값 = int(숫자.strip())
+            합계 += 값
+            단계들.append(f"  단계{i+1}: {합계}")
+
+    for 단계 in 단계들:
+        print(단계)
+    print(f"최종 답: {합계}")
+
+단계별풀기("10 + 20 + 30 + 40")`,
+    expectedOutput: '문제: 10 + 20 + 30 + 40\n  단계1: 10\n  단계2: 30\n  단계3: 60\n  단계4: 100\n최종 답: 100',
+    hint: 'AI도 복잡한 문제를 단계별로 나눠서 풀어요. 이것을 "사고의 연쇄"라고 해요!',
+    packages: [],
+  },
+
+  'prompt-engineering-ch3-s2': {
+    title: '📊 Few-shot 학습 실습',
+    description: 'Few-shot 학습의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# Few-shot 학습 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'prompt-engineering-ch3-s3': {
+    title: '✍️ 프롬프트 체이닝 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 프롬프트 체이닝 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'prompt-engineering-ch4-s1': {
+    title: '🎯 반복적 개선 프로세스 실습',
+    description: '반복적 개선 프로세스의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 반복적 개선 프로세스 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 반복적 개선 프로세 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'prompt-engineering-ch4-s2': {
+    title: '🎯 흔한 실수와 해결법 실습',
+    description: '흔한 실수와 해결법의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 흔한 실수와 해결법 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== 흔한 실수와 해결법 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'prompt-engineering-ch4-s3': {
+    title: '✍️ 실전 프롬프트 템플릿 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 실전 프롬프트 템플릿 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch1-s2': {
+    title: '📊 임베딩 모델 비교 실습',
+    description: '임베딩 모델 비교의 원리를 간단한 코드로 체험해봅시다!',
+    initialCode: `# 임베딩 모델 비교 실습
+import random
+random.seed(42)
+
+학생들 = ["민수", "지은", "하나", "준호", "서연"]
+점수들 = [random.randint(60, 100) for _ in 학생들]
+
+print("=== 성적 분석 ===")
+for 이름, 점수 in zip(학생들, 점수들):
+    등급 = "우수" if 점수 >= 80 else "보통"
+    print(f"{이름}: {점수}점 ({등급})")
+
+평균 = sum(점수들) / len(점수들)
+print(f"평균: {평균:.1f}점")`,
+    expectedOutput: '=== 성적 분석 ===\n민수: 81점 (우수)\n지은: 74점 (보통)\n하나: 64점 (보통)\n준호: 63점 (보통)\n서연: 68점 (보통)\n평균: 70.0점',
+    hint: 'random.seed(42)는 항상 같은 랜덤 숫자를 만들어요. zip()은 두 리스트를 짝지어요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch1-s3': {
+    title: '🔍 벡터 유사도 측정 실습',
+    description: '검색과 정보 찾기를 코드로 체험해봅시다!',
+    initialCode: `# 벡터 유사도 측정 실습
+지식창고 = {
+    "파이썬": "프로그래밍 언어예요. 쉽고 강력해요!",
+    "인공지능": "컴퓨터가 사람처럼 생각하는 기술이에요.",
+    "머신러닝": "데이터에서 패턴을 찾아 학습하는 방법이에요.",
+    "딥러닝": "신경망을 깊게 쌓아 더 잘 학습하는 방법이에요.",
+}
+
+def 검색(질문):
+    결과 = []
+    for 단어, 설명 in 지식창고.items():
+        if 단어 in 질문:
+            결과.append(f"{단어}: {설명}")
+    return 결과 if 결과 else ["관련 정보를 찾지 못했어요"]
+
+for r in 검색("인공지능과 머신러닝"):
+    print(r)`,
+    expectedOutput: '인공지능: 컴퓨터가 사람처럼 생각하는 기술이에요.\n머신러닝: 데이터에서 패턴을 찾아 학습하는 방법이에요.',
+    hint: '질문에 포함된 키워드를 지식창고에서 찾아요. 이것이 검색의 기본 원리예요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch2-s1': {
+    title: '🔍 벡터 DB 개요 실습',
+    description: '검색과 정보 찾기를 코드로 체험해봅시다!',
+    initialCode: `# 벡터 DB 개요 실습
+지식창고 = {
+    "파이썬": "프로그래밍 언어예요. 쉽고 강력해요!",
+    "인공지능": "컴퓨터가 사람처럼 생각하는 기술이에요.",
+    "머신러닝": "데이터에서 패턴을 찾아 학습하는 방법이에요.",
+    "딥러닝": "신경망을 깊게 쌓아 더 잘 학습하는 방법이에요.",
+}
+
+def 검색(질문):
+    결과 = []
+    for 단어, 설명 in 지식창고.items():
+        if 단어 in 질문:
+            결과.append(f"{단어}: {설명}")
+    return 결과 if 결과 else ["관련 정보를 찾지 못했어요"]
+
+for r in 검색("인공지능과 머신러닝"):
+    print(r)`,
+    expectedOutput: '인공지능: 컴퓨터가 사람처럼 생각하는 기술이에요.\n머신러닝: 데이터에서 패턴을 찾아 학습하는 방법이에요.',
+    hint: '질문에 포함된 키워드를 지식창고에서 찾아요. 이것이 검색의 기본 원리예요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch2-s2': {
+    title: '🔍 주요 벡터 DB 비교 실습',
+    description: '검색과 정보 찾기를 코드로 체험해봅시다!',
+    initialCode: `# 주요 벡터 DB 비교 실습
+지식창고 = {
+    "파이썬": "프로그래밍 언어예요. 쉽고 강력해요!",
+    "인공지능": "컴퓨터가 사람처럼 생각하는 기술이에요.",
+    "머신러닝": "데이터에서 패턴을 찾아 학습하는 방법이에요.",
+    "딥러닝": "신경망을 깊게 쌓아 더 잘 학습하는 방법이에요.",
+}
+
+def 검색(질문):
+    결과 = []
+    for 단어, 설명 in 지식창고.items():
+        if 단어 in 질문:
+            결과.append(f"{단어}: {설명}")
+    return 결과 if 결과 else ["관련 정보를 찾지 못했어요"]
+
+for r in 검색("인공지능과 머신러닝"):
+    print(r)`,
+    expectedOutput: '인공지능: 컴퓨터가 사람처럼 생각하는 기술이에요.\n머신러닝: 데이터에서 패턴을 찾아 학습하는 방법이에요.',
+    hint: '질문에 포함된 키워드를 지식창고에서 찾아요. 이것이 검색의 기본 원리예요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch2-s3': {
+    title: '🔍 벡터 DB 실전 활용 실습',
+    description: '검색과 정보 찾기를 코드로 체험해봅시다!',
+    initialCode: `# 벡터 DB 실전 활용 실습
+지식창고 = {
+    "파이썬": "프로그래밍 언어예요. 쉽고 강력해요!",
+    "인공지능": "컴퓨터가 사람처럼 생각하는 기술이에요.",
+    "머신러닝": "데이터에서 패턴을 찾아 학습하는 방법이에요.",
+    "딥러닝": "신경망을 깊게 쌓아 더 잘 학습하는 방법이에요.",
+}
+
+def 검색(질문):
+    결과 = []
+    for 단어, 설명 in 지식창고.items():
+        if 단어 in 질문:
+            결과.append(f"{단어}: {설명}")
+    return 결과 if 결과 else ["관련 정보를 찾지 못했어요"]
+
+for r in 검색("인공지능과 머신러닝"):
+    print(r)`,
+    expectedOutput: '인공지능: 컴퓨터가 사람처럼 생각하는 기술이에요.\n머신러닝: 데이터에서 패턴을 찾아 학습하는 방법이에요.',
+    hint: '질문에 포함된 키워드를 지식창고에서 찾아요. 이것이 검색의 기본 원리예요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch3-s2': {
+    title: '🎯 RAG 구성 요소 실습',
+    description: 'RAG 구성 요소의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# RAG 구성 요소 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== RAG 구성 요소 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'rag-vector-db-ch3-s3': {
+    title: '🎯 RAG vs 파인튜닝 실습',
+    description: 'RAG vs 파인튜닝의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# RAG vs 파인튜닝 실습
+항목들 = ["기초 이해", "개념 적용", "실전 활용"]
+
+print(f"=== {title.slice(0,10)} ===")
+for i, 항목 in enumerate(항목들, 1):
+    print(f"  {i}단계: {항목}")
+
+점수 = {"이해도": 85, "활용도": 90, "창의성": 75}
+print("\n성취도:")
+for 항목, 값 in 점수.items():
+    막대 = "█" * (값 // 10)
+    print(f"  {항목}: {막대} {값}점")`,
+    expectedOutput: '=== RAG vs 파인튜 ===\n  1단계: 기초 이해\n  2단계: 개념 적용\n  3단계: 실전 활용\n\n성취도:\n  이해도: ████████ 85점\n  활용도: █████████ 90점\n  창의성: ███████ 75점',
+    hint: '단계별로 학습하면 어려운 것도 쉬워져요! 막대그래프로 성취도를 시각화했어요.',
+    packages: [],
+  },
+
+  'rag-vector-db-ch4-s1': {
+    title: '👁️ 문서 처리 파이프라인 실습',
+    description: '이미지와 시각 정보를 코드로 다뤄봅시다!',
+    initialCode: `# 문서 처리 파이프라인 실습
+이미지 = [
+    [0, 0, 1, 0, 0],
+    [0, 1, 1, 1, 0],
+    [1, 1, 1, 1, 1],
+    [0, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0],
+]
+
+print("=== 이미지 분석 ===")
+총픽셀 = sum(sum(행) for 행 in 이미지)
+전체 = len(이미지) * len(이미지[0])
+print(f"밝은 픽셀: {총픽셀}개")
+print(f"전체 픽셀: {전체}개")
+print(f"밝기 비율: {총픽셀/전체*100:.0f}%")
+print("모양: 다이아몬드!")`,
+    expectedOutput: '=== 이미지 분석 ===\n밝은 픽셀: 13개\n전체 픽셀: 25개\n밝기 비율: 52%\n모양: 다이아몬드!',
+    hint: '이미지는 숫자 배열이에요. 1은 밝은 픽셀, 0은 어두운 픽셀이에요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch4-s2': {
+    title: '💼 청킹 전략 실습',
+    description: 'AI 비즈니스 개념을 코드로 시뮬레이션해봅시다!',
+    initialCode: `# 청킹 전략 실습
+프로젝트들 = [
+    {"이름": "챗봇 개발", "비용": 500, "효과": 800},
+    {"이름": "데이터 분석", "비용": 300, "효과": 900},
+    {"이름": "이미지 인식", "비용": 700, "효과": 600},
+]
+
+print("=== AI 프로젝트 평가 ===")
+for p in 프로젝트들:
+    수익률 = (p["효과"] - p["비용"]) / p["비용"] * 100
+    추천 = "추천!" if 수익률 > 50 else "보류"
+    print(f'{p["이름"]}: 수익률 {수익률:.0f}% → {추천}')`,
+    expectedOutput: '=== AI 프로젝트 평가 ===\n챗봇 개발: 수익률 60% → 추천!\n데이터 분석: 수익률 200% → 추천!\n이미지 인식: 수익률 -14% → 보류',
+    hint: '수익률 = (효과 - 비용) / 비용 × 100 이에요. 높을수록 좋은 프로젝트!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch4-s3': {
+    title: '✍️ 검색과 생성 통합 실습',
+    description: '프롬프트의 힘을 코드로 체험해봅시다!',
+    initialCode: `# 검색과 생성 통합 실습
+def AI응답(역할, 질문):
+    응답들 = {
+        "선생님": {"인사": "안녕하세요, 학생 여러분!", "설명": "쉽게 설명해드릴게요."},
+        "요리사": {"인사": "맛있는 요리를 만들어볼까요?", "설명": "재료부터 준비해봅시다!"},
+        "과학자": {"인사": "실험을 시작해볼까요?", "설명": "가설을 세워봅시다!"},
+    }
+    if 역할 in 응답들 and 질문 in 응답들[역할]:
+        return 응답들[역할][질문]
+    return "잘 모르겠어요"
+
+print("선생님:", AI응답("선생님", "인사"))
+print("요리사:", AI응답("요리사", "인사"))
+print("과학자:", AI응답("과학자", "설명"))`,
+    expectedOutput: '선생님: 안녕하세요, 학생 여러분!\n요리사: 맛있는 요리를 만들어볼까요?\n과학자: 가설을 세워봅시다!',
+    hint: '같은 질문이라도 역할에 따라 다른 대답을 해요. 이것이 프롬프트의 힘이에요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch5-s1': {
+    title: '🔍 하이브리드 검색 실습',
+    description: '검색과 정보 찾기를 코드로 체험해봅시다!',
+    initialCode: `# 하이브리드 검색 실습
+지식창고 = {
+    "파이썬": "프로그래밍 언어예요. 쉽고 강력해요!",
+    "인공지능": "컴퓨터가 사람처럼 생각하는 기술이에요.",
+    "머신러닝": "데이터에서 패턴을 찾아 학습하는 방법이에요.",
+    "딥러닝": "신경망을 깊게 쌓아 더 잘 학습하는 방법이에요.",
+}
+
+def 검색(질문):
+    결과 = []
+    for 단어, 설명 in 지식창고.items():
+        if 단어 in 질문:
+            결과.append(f"{단어}: {설명}")
+    return 결과 if 결과 else ["관련 정보를 찾지 못했어요"]
+
+for r in 검색("인공지능과 머신러닝"):
+    print(r)`,
+    expectedOutput: '인공지능: 컴퓨터가 사람처럼 생각하는 기술이에요.\n머신러닝: 데이터에서 패턴을 찾아 학습하는 방법이에요.',
+    hint: '질문에 포함된 키워드를 지식창고에서 찾아요. 이것이 검색의 기본 원리예요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch5-s2': {
+    title: '🔍 다중 쿼리와 자기 질의 실습',
+    description: '검색과 정보 찾기를 코드로 체험해봅시다!',
+    initialCode: `# 다중 쿼리와 자기 질의 실습
+지식창고 = {
+    "파이썬": "프로그래밍 언어예요. 쉽고 강력해요!",
+    "인공지능": "컴퓨터가 사람처럼 생각하는 기술이에요.",
+    "머신러닝": "데이터에서 패턴을 찾아 학습하는 방법이에요.",
+    "딥러닝": "신경망을 깊게 쌓아 더 잘 학습하는 방법이에요.",
+}
+
+def 검색(질문):
+    결과 = []
+    for 단어, 설명 in 지식창고.items():
+        if 단어 in 질문:
+            결과.append(f"{단어}: {설명}")
+    return 결과 if 결과 else ["관련 정보를 찾지 못했어요"]
+
+for r in 검색("인공지능과 머신러닝"):
+    print(r)`,
+    expectedOutput: '인공지능: 컴퓨터가 사람처럼 생각하는 기술이에요.\n머신러닝: 데이터에서 패턴을 찾아 학습하는 방법이에요.',
+    hint: '질문에 포함된 키워드를 지식창고에서 찾아요. 이것이 검색의 기본 원리예요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch5-s3': {
+    title: '🤖 에이전트 기반 RAG 실습',
+    description: '에이전트 기반 RAG의 개념을 코드로 직접 체험해봅시다!',
+    initialCode: `# 에이전트 기반 RAG 실습
+class 에이전트:
+    def __init__(self, 이름, 역할):
+        self.이름 = 이름
+        self.역할 = 역할
+        self.작업목록 = []
+
+    def 작업추가(self, 작업):
+        self.작업목록.append(작업)
+
+    def 실행(self):
+        print(f"{self.이름}({self.역할}) 시작!")
+        for 작업 in self.작업목록:
+            print(f"  처리: {작업}")
+        print(f"총 {len(self.작업목록)}개 완료!")
+
+ai = 에이전트("도우미", "에이전트 기")
+ai.작업추가("데이터 분석")
+ai.작업추가("결과 정리")
+ai.실행()`,
+    expectedOutput: '도우미(에이전트 기) 시작!\n  처리: 데이터 분석\n  처리: 결과 정리\n총 2개 완료!',
+    hint: 'class는 설계도, self는 "나 자신"이에요. 작업추가()로 할 일을 넣고 실행()으로 시작해요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch6-s1': {
+    title: '📈 성능 최적화 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 성능 최적화 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch6-s2': {
+    title: '📈 평가와 모니터링 실습',
+    description: '데이터를 분석하고 평가하는 방법을 배워봅시다!',
+    initialCode: `# 평가와 모니터링 실습
+정답 = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+AI예측 = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+맞은수 = sum(a == b for a, b in zip(정답, AI예측))
+정확도 = 맞은수 / len(정답) * 100
+
+print(f"전체: {len(정답)}개")
+print(f"맞은 수: {맞은수}개")
+print(f"정확도: {정확도:.0f}%")
+
+if 정확도 >= 80:
+    print("훌륭한 AI!")
+else:
+    print("더 학습이 필요해요!")`,
+    expectedOutput: '전체: 10개\n맞은 수: 7개\n정확도: 70%\n더 학습이 필요해요!',
+    hint: 'zip()으로 정답과 예측을 하나씩 비교해요. 맞으면 1, 틀리면 0이에요!',
+    packages: [],
+  },
+
+  'rag-vector-db-ch6-s3': {
+    title: '🔧 프로덕션 배포 실습',
+    description: '도구와 시스템 연결을 코드로 체험해봅시다!',
+    initialCode: `# 프로덕션 배포 실습
+class 도구상자:
+    def __init__(self):
+        self.도구들 = {}
+
+    def 등록(self, 이름, 기능):
+        self.도구들[이름] = 기능
+        print(f"도구 등록: {이름}")
+
+    def 사용(self, 이름, 입력값):
+        if 이름 in self.도구들:
+            return self.도구들[이름](입력값)
+        return "도구를 찾을 수 없어요"
+
+상자 = 도구상자()
+상자.등록("대문자", lambda x: x.upper())
+상자.등록("글자수", lambda x: str(len(x)))
+
+print(상자.사용("대문자", "hello"))
+print(상자.사용("글자수", "안녕하세요"))`,
+    expectedOutput: '도구 등록: 대문자\n도구 등록: 글자수\nHELLO\n5',
+    hint: '도구상자에 도구를 등록하고, 이름으로 불러서 사용해요. AI도 이렇게 도구를 사용해요!',
+    packages: [],
+  },
 }
