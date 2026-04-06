@@ -144,6 +144,12 @@ const safety = setTimeout(() => setSubmitting(false), 20000)
 - [ ] 페이지 리다이렉트 시 복귀 경로(redirect) 유지 확인
 - [ ] 기존 UI 변경 시 사용자에게 미리 확인 (특히 관리자 페이지)
 
+## 향후 개선사항
+- [ ] pythonExercises.ts 자동 생성 실습 137개의 코드 중복 해소 (기능 영향 없음, 콘텐츠 다양성 개선)
+- [ ] Supabase SDK 우회 fetch 호출 → SDK 업그레이드 후 재평가 (AcceptInvite.tsx)
+- [ ] 서버리스 rate limiting → Upstash Redis 또는 Vercel KV 도입
+- [ ] admin-verify.ts 토큰 생성 → crypto.createHmac('sha256') 전환
+
 ## 작업 템플릿
 
 ### RLS 정책 추가 시
