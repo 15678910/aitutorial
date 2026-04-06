@@ -517,4 +517,116 @@ print(f"\\n혼동 행렬:\\n{cm}")`,
     hint: 'sklearn.metrics에서 accuracy_score, precision_score, recall_score, f1_score, confusion_matrix를 임포트하여 사용합니다.',
     packages: ['numpy', 'scikit-learn'],
   },
+
+  // ═══════════════════════════════════════════
+  // AI 입문 코스 - 초등학생용 Python 실습
+  // ═══════════════════════════════════════════
+
+  'ai-intro-ch1-s1': {
+    title: '🎉 첫 번째 코드 실행하기!',
+    description: 'print()는 화면에 글자를 보여주는 마법 주문이에요. 큰따옴표 안에 원하는 말을 넣어보세요!',
+    initialCode: `# 화면에 인사말을 출력해보세요!
+# print() 안에 원하는 말을 넣으면 화면에 나타나요
+
+print("안녕, 나는 AI야!")
+
+# 아래에 여러분의 인사말도 추가해보세요!
+`,
+    expectedOutput: '안녕, 나는 AI야!',
+    hint: 'print("여기에 하고 싶은 말을 넣으세요") 이렇게 쓰면 돼요! 큰따옴표("")를 꼭 넣어야 해요.',
+    packages: [],
+  },
+
+  'ai-intro-ch1-s2': {
+    title: '🔢 컴퓨터로 계산하기',
+    description: 'Python은 아주 똑똑한 계산기예요! 더하기(+), 빼기(-), 곱하기(*), 나누기(/)를 해볼까요?',
+    initialCode: `# 컴퓨터로 계산해보세요!
+print(3 + 5)
+print(10 - 4)
+print(6 * 7)
+
+# 아래에 여러분만의 계산을 추가해보세요!
+`,
+    expectedOutput: '8\n6\n42',
+    hint: '더하기는 +, 빼기는 -, 곱하기는 *, 나누기는 / 기호를 사용해요.',
+    packages: [],
+  },
+
+  'ai-intro-ch2-s1': {
+    title: '📦 변수에 저장하기',
+    description: '변수는 값을 담아두는 상자예요. 이름을 붙여서 나중에 다시 꺼내 쓸 수 있어요!',
+    initialCode: `# 변수에 값을 저장해보세요!
+이름 = "민수"
+나이 = 11
+학교 = "행복초등학교"
+
+print(이름 + "는 " + str(나이) + "살이에요")
+print(학교 + " 학생이에요")
+
+# 여러분의 정보로 바꿔보세요!
+`,
+    expectedOutput: '민수는 11살이에요\n행복초등학교 학생이에요',
+    hint: '이름 = "내이름" 이렇게 큰따옴표 안에 글자를 넣으면 돼요. 숫자는 따옴표 없이 써요!',
+    packages: [],
+  },
+
+  'ai-intro-ch2-s2': {
+    title: '📋 리스트 만들기',
+    description: '리스트는 여러 개의 물건을 한 줄로 정리하는 서랍이에요. 대괄호 []로 만들어요!',
+    initialCode: `# 좋아하는 과일 리스트를 만들어보세요!
+과일 = ["사과", "바나나", "딸기"]
+
+print("내가 좋아하는 과일:")
+for 하나 in 과일:
+    print("- " + 하나)
+
+print("총 " + str(len(과일)) + "가지!")
+
+# 과일을 더 추가해보세요! (쉼표로 구분)
+`,
+    expectedOutput: '내가 좋아하는 과일:\n- 사과\n- 바나나\n- 딸기\n총 3가지!',
+    hint: '리스트에 추가하려면 과일 = ["사과", "바나나", "딸기", "포도"] 이렇게 쉼표 뒤에 넣으면 돼요!',
+    packages: [],
+  },
+
+  'ai-intro-ch3-s1': {
+    title: '🔄 반복문으로 인사하기',
+    description: 'for 반복문은 같은 일을 여러 번 해주는 마법이에요. "5번 인사해!" 같은 명령을 내릴 수 있어요.',
+    initialCode: `# 5번 반복해서 인사해보세요!
+for i in range(5):
+    print(str(i + 1) + "번째: 안녕하세요!")
+
+print("인사 끝!")
+
+# range(5)의 숫자를 바꿔서 횟수를 조절해보세요!
+`,
+    expectedOutput: '1번째: 안녕하세요!\n2번째: 안녕하세요!\n3번째: 안녕하세요!\n4번째: 안녕하세요!\n5번째: 안녕하세요!\n인사 끝!',
+    hint: 'range(5)는 0부터 4까지 5번 반복해요. range(10)으로 바꾸면 10번 반복해요!',
+    packages: [],
+  },
+
+  'ai-intro-ch3-s2': {
+    title: '🤖 AI처럼 판단하기',
+    description: 'AI는 조건을 보고 판단해요. if/else를 사용하면 컴퓨터도 판단할 수 있어요!',
+    initialCode: `# AI처럼 동물을 분류해보세요!
+def 동물_분류(다리수, 날개있음):
+    if 날개있음:
+        return "새"
+    elif 다리수 == 4:
+        return "포유류"
+    elif 다리수 == 0:
+        return "뱀 또는 물고기"
+    else:
+        return "기타 동물"
+
+# 동물들을 분류해봅시다!
+print("참새:", 동물_분류(2, True))
+print("강아지:", 동물_분류(4, False))
+print("뱀:", 동물_분류(0, False))
+print("고양이:", 동물_분류(4, False))
+`,
+    expectedOutput: '참새: 새\n강아지: 포유류\n뱀: 뱀 또는 물고기\n고양이: 포유류',
+    hint: 'if는 "만약 ~라면"이에요. elif는 "그게 아니고 ~라면", else는 "그 외에는"이에요. AI도 이런 규칙으로 판단해요!',
+    packages: [],
+  },
 }
