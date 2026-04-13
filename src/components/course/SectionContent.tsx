@@ -119,7 +119,7 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
             <h4 className="text-[1.2rem] font-bold text-gray-800 mt-10 mb-4">{children}</h4>
           ),
           p: ({ children }) => (
-            <p className="text-[1.15rem] text-gray-700 leading-[2.1] mb-7 tracking-wide">
+            <p className="text-[1.1rem] text-gray-600 leading-[2] mb-8 tracking-normal">
               <GlossaryHighlighter>{children}</GlossaryHighlighter>
             </p>
           ),
@@ -130,7 +130,7 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
             <ol className="my-8 space-y-4 pl-2 list-none [counter-reset:item]">{children}</ol>
           ),
           li: ({ children }) => (
-            <li className="text-[1.1rem] text-gray-700 leading-[2] flex items-start gap-3 tracking-wide">
+            <li className="text-[1.05rem] text-gray-600 leading-[1.9] flex items-start gap-3 tracking-normal">
               <span className="mt-[0.7rem] flex-shrink-0 w-2 h-2 rounded-full bg-accent" />
               <span className="flex-1">
                 <GlossaryHighlighter>{children}</GlossaryHighlighter>
@@ -138,10 +138,10 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
             </li>
           ),
           strong: ({ children }) => (
-            <strong className="font-extrabold text-primary bg-accent/5 px-1 rounded">{children}</strong>
+            <strong className="font-bold text-gray-900 bg-amber-50 px-1.5 py-0.5 rounded-md">{children}</strong>
           ),
           blockquote: ({ children }) => (
-            <blockquote className="my-10 pl-7 border-l-4 border-accent bg-gradient-to-r from-accent/8 to-transparent py-6 pr-7 rounded-r-2xl">
+            <blockquote className="my-10 pl-7 border-l-4 border-accent/60 bg-accent/5 py-6 pr-7 rounded-r-2xl shadow-sm">
               <div className="text-gray-600 text-[1.1rem] italic leading-relaxed">{children}</div>
             </blockquote>
           ),
@@ -154,7 +154,7 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
               return <code className={`${className || ''} block text-[#cdd6f4]`}>{children}</code>
             }
             return (
-              <code className="bg-accent/10 text-primary px-2.5 py-1 rounded-lg text-[1rem] font-mono font-bold">
+              <code className="bg-gray-100 text-rose-600 px-2 py-0.5 rounded-md text-[0.95rem] font-mono font-semibold border border-gray-200">
                 {children}
               </code>
             )
@@ -175,10 +175,10 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
             </div>
           ),
           thead: ({ children }) => (
-            <thead className="bg-[#1e1e2e] text-white">{children}</thead>
+            <thead className="bg-gray-50 text-gray-900 border-b-2 border-gray-200">{children}</thead>
           ),
           th: ({ children }) => (
-            <th className="px-6 py-4 text-left font-bold text-sm tracking-wide text-white">{children}</th>
+            <th className="px-6 py-4 text-left font-semibold text-sm tracking-wide text-gray-700">{children}</th>
           ),
           td: ({ children }) => (
             <td className="px-6 py-4 border-t border-gray-200 text-gray-800 bg-white">
@@ -193,7 +193,7 @@ export default function SectionContent({ content, quizzes = [] }: SectionContent
               {children}
             </a>
           ),
-          hr: () => <hr className="my-14 border-t-2 border-gray-100" />,
+          hr: () => <hr className="my-16 border-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />,
         }}
       >
         {text}
