@@ -102,7 +102,7 @@ export default function WhyQuestionPanel({ sectionId, userId, userName, sectionT
               <textarea
                 value={questionText}
                 onChange={(e) => setQuestionText(e.target.value)}
-                placeholder="왜...?"
+                placeholder="예: AI는 어떻게 학습하나요? / 이 코드가 이해가 안 돼요"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent resize-none"
                 rows={3}
               />
@@ -179,6 +179,9 @@ export default function WhyQuestionPanel({ sectionId, userId, userName, sectionT
             <span className="text-6xl mb-4 block">🙋</span>
             <p className="text-gray-500 text-sm">
               아직 질문이 없어요. 첫 번째 질문을 해보세요!
+            </p>
+            <p className="text-gray-400 text-xs mt-2">
+              궁금한 것이 있으면 무엇이든 물어보세요! 쉬운 질문도 좋아요 😊
             </p>
           </div>
         )}

@@ -36,6 +36,7 @@ interface LearningPath {
   bgLight: string
   accentHex: string
   bridge?: BridgeData
+  tips?: string[]
 }
 
 const learningPaths: LearningPath[] = [
@@ -53,6 +54,7 @@ const learningPaths: LearningPath[] = [
     gradient: 'from-[#34D399] via-[#3B82F6] to-[#8B5CF6]',
     bgLight: 'bg-gradient-to-br from-green-50 via-blue-50 to-purple-50',
     accentHex: '#34D399',
+    tips: ['매일 15분씩 꾸준히 학습하세요', '용어가 어려우면 용어사전을 활용하세요', '퀴즈를 꼭 풀어보세요'],
     bridge: {
       message: '축하합니다! AI의 기본 개념을 이해했어요. 다음 단계에서는 AI를 직접 만들어봅니다.',
       encouragement: '코딩이 처음이어도 괜찮아요 — Python 기초부터 차근차근 안내합니다.',
@@ -78,6 +80,7 @@ const learningPaths: LearningPath[] = [
     gradient: 'from-[#F59E0B] via-[#EF4444] to-[#8B5CF6]',
     bgLight: 'bg-gradient-to-br from-amber-50 via-red-50 to-purple-50',
     accentHex: '#F59E0B',
+    tips: ['실습 코드를 직접 수정해보세요', 'Python 기초는 AI 입문 실습으로 복습하세요', '수학이 어려우면 건너뛰고 실습부터 해도 괜찮아요'],
     bridge: {
       message: '이제 AI를 만들 수 있게 되었어요! Claude 같은 AI 도구를 활용하면 개발 생산성이 10배 향상됩니다.',
       encouragement: 'AI 모델을 직접 만들어본 경험이 있으니, AI 도구를 더 잘 활용할 수 있어요!',
@@ -107,6 +110,7 @@ const learningPaths: LearningPath[] = [
     gradient: 'from-[#3B82F6] via-[#6366F1] to-[#D946EF]',
     bgLight: 'bg-gradient-to-br from-blue-50 via-indigo-50 to-fuchsia-50',
     accentHex: '#3B82F6',
+    tips: ['실습 코드를 직접 수정해보세요', 'CLAUDE.md 파일을 직접 만들어보세요'],
     bridge: {
       message: 'AI 기술과 도구를 모두 익혔습니다. 이제 이것을 커리어로 연결할 차례예요.',
       encouragement: '포트폴리오와 실무 스킬로 취업 준비를 마무리해보세요!',
@@ -126,6 +130,7 @@ const learningPaths: LearningPath[] = [
     goal: 'AI 포트폴리오를 완성하고, 취업/사업화 준비를 마무리해요',
     difficulty: 'advanced',
     courseSlugs: ['ai-business', 'ai-portfolio'],
+    tips: ['포트폴리오에 프로젝트를 추가해보세요', 'Kaggle 대회에 참가해보세요'],
     gradient: 'from-[#EC4899] via-[#F43F5E] to-[#F59E0B]',
     bgLight: 'bg-gradient-to-br from-pink-50 via-rose-50 to-amber-50',
     accentHex: '#EC4899',
@@ -538,6 +543,18 @@ function LearningPathTrack({
             <p className="text-sm text-gray-600">{path.goal}</p>
           </div>
         </div>
+
+        {/* Tips section */}
+        {path.tips && (
+          <div className="mt-4 bg-amber-50 rounded-lg p-3">
+            <p className="text-sm font-semibold text-amber-800 mb-2">{'💡'} 학습 팁</p>
+            <ul className="text-sm text-amber-700 space-y-1">
+              {path.tips.map((tip, i) => (
+                <li key={i}>{'•'} {tip}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* CTA */}
         <div className="mt-6">
